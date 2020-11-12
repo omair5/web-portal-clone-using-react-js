@@ -1,0 +1,21 @@
+.mainBox {
+    margin: 5rem auto;
+}
+
+.city_links {
+    line-height: 2rem;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.city_links p:hover {
+    color: rgb(252, 184, 22);
+}
+
+.marginTop {
+    margin-top: 1rem;
+}
+
+.marginBottom {
+    margin-bottom: 1rem;
+}

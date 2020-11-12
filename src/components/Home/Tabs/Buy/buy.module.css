@@ -1,0 +1,42 @@
+.secondGrid {
+    margin-top: 2.5rem
+}
+
+.tab_slider {
+    width: '100%';
+    padding: 0px 10px
+}
+
+.sliderLabel {
+    font-size: 15px;
+    font-weight: bold;
+    color: black;
+}
+
+.locationSelect {
+    padding: 0px 10px
+}
+
+.gridtwoPadding {
+    padding-top: 1.3rem;
+}
+
+.searchButtonBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(252, 184, 22);
+    border-radius: 5px;
+    padding: 1.5rem;
+    margin-top: 0.5rem;
+    cursor: pointer;
+}
+
+.search {
+    font-size: 16px;
+    font-weight: bolder;
+}
+
+.serach, .searchButtonBox:hover {
+    color: white;
+}

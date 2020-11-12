@@ -1,0 +1,50 @@
+.footer {
+    background-color: rgb(54, 54, 54);
+    color: white;
+    border-top: 7px solid rgb(252, 184, 22);
+    overflow: hidden;
+}
+
+.footer-links {
+    line-height: 20px;
+    margin-top: 20px;
+}
+
+.footer-links p {
+    cursor: pointer;
+}
+
+.yellow-color {
+    color: rgb(252, 184, 22);
+}
+
+.footer-container {
+    margin: 15px auto;
+}
+
+.footer-subscribe {
+    background-color: rgb(252, 184, 22);
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.footer-hr {
+    margin: 3rem 0px;
+}
+
+.footer-log-container {
+    display: flex;
+}
+
+.footer-log {
+    flex-basis: 50%;
+}
+
+.footer-copyRights {
+    flex-basis: 50%;
+    margin-left: auto;
+}
+
+.footer-copyRights p {
+    text-align: right;
+}
