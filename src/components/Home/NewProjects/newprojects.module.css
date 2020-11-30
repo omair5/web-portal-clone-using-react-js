@@ -1,20 +1,7 @@
 .cardMainBox {
-    background-color: violet;
     margin: 5rem auto;
 }
 
 .marginBottom {
-    margin-bottom: 1rem;
-}
-
-.c1 {
-    background-color: blueviolet;
-}
-
-.c2 {
-    background-color: chartreuse;
-}
-
-.c3 {
-    background-color: coral;
+    margin-bottom: 2rem;
 }
