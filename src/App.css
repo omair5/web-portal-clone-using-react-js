@@ -9,7 +9,7 @@ html {
 }
 
 h1 {
-  font-size: 30px;
+  font-size: 3rem;
 }
 
 h2 {
@@ -41,5 +41,5 @@ p {
 }
 
 .yellow {
-  color: rgb(252, 184, 22);
+  color: #fcb812;
 }

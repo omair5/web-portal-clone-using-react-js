@@ -33,7 +33,7 @@ const Footer = () => {
                         </div>
                     </Grid>
 
-                    <Grid item xs={12} md={3} >
+                    <Grid item xs={12} md={3}  >
                         <h4 className='yellow-color'>Follow Us</h4>
                         <div className='footer-links'>
                             <p> <FontAwesomeIcon icon={faFacebook} style={{ paddingRight: '2px' }} /> Facebook</p>

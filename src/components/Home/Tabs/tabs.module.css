@@ -35,3 +35,27 @@
     background: rgb(252, 184, 22);
     transition: 0.5s ease;
 }
+
+@media screen and (max-width: 960px) {
+    .bg_img {
+        height: calc(150vh - 72px);
+    }
+}
+
+@media screen and (max-width: 790px) {
+    .abaadeeText h1 {
+        font-size: 1.7rem;
+    }
+    .abaadeeText h2 {
+        font-size: 1.4rem;
+    }
+}
+
+@media screen and (max-width: 670px) {
+    .abaadeeText h1 {
+        font-size: 1.2rem;
+    }
+    .abaadeeText h2 {
+        font-size: 1rem;
+    }
+}

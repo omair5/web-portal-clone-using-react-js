@@ -40,3 +40,12 @@
 .serach, .searchButtonBox:hover {
     color: white;
 }
+
+@media screen and (max-width: 960px) {
+    .locationSelect {
+        padding: 0px
+    }
+    .tab_slider {
+        padding: 0px 
+    }
+  }

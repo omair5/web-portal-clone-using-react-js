@@ -2,7 +2,6 @@ import React from 'react';
 import Buy from './Buy';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
@@ -45,7 +44,9 @@ function a11yProps(index) {
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        minWidth: '75%',
+        [theme.breakpoints.down('md')]: {
+            width: '95%'
+        },
     },
     tabButtons: {
         margin: '0px 2rem',
@@ -54,6 +55,12 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '0.5rem',
         fontSize: '1.5rem',
         fontWeight: 'bold',
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '1rem',
+            minWidth: "10%",
+            margin: '0px 1rem',
+            marginTop: '2rem',
+        }
 
     },
     tabPanels: {
@@ -63,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '2.4rem',
         borderRadius: '5px'
 
-    }
+    },
 }));
 
 
@@ -80,20 +87,19 @@ const SimpleTabs = () => {
             {/* INTRODUCTORY TEXT */}
             <div className={styles.bg_img}>
                 <div className={styles.overlay}>
-                    <div>
+                    <div className={styles.abaadeeText}>
                         <h1>Abaadee.com is a Real Estate Pakistan Property Portal</h1>
                         <h2 className='yellow text-center'>Explore Properties In Pakistan</h2>
                     </div>
                     {/* TAB BUTTONS */}
                     <div className={classes.root}>
-                        <AppBar position="static" color={'transparent'}>
-                            <Tabs TabIndicatorProps={{ style: { height: '5px', backgroundColor: 'rgb(252, 184, 22)', borderRadious: '5px' } }} value={value} onChange={handleChange} aria-label="simple tabs example" style={{ margin: 'auto' }} >
-                                <Tab label="BUY" {...a11yProps(0)} className={classes.tabButtons} style={{ backgroundColor: value === 0 ? "white" : "", color: value === 0 ? "rgb(252, 184, 22)" : "" }} />
-                                <Tab label="RENT" {...a11yProps(1)} className={classes.tabButtons} style={{ backgroundColor: value === 1 ? "white" : "", color: value === 1 ? "rgb(252, 184, 22)" : "" }} />
-                                <Tab label="WANTED" {...a11yProps(2)} className={classes.tabButtons} style={{ backgroundColor: value === 2 ? "white" : "", color: value === 2 ? "rgb(252, 184, 22)" : "" }} />
-                                <Tab label="PROJECT" {...a11yProps(3)} className={classes.tabButtons} style={{ backgroundColor: value === 3 ? "white" : "", color: value === 3 ? "rgb(252, 184, 22)" : "" }} />
-                            </Tabs>
-                        </AppBar>
+
+                        <Tabs className={classes.myTab} TabIndicatorProps={{ style: { height: '5px', backgroundColor: 'rgb(252, 184, 22)' } }} value={value} onChange={handleChange} aria-label="simple tabs example" centered >
+                            <Tab label="BUY" {...a11yProps(0)} className={classes.tabButtons} style={{ backgroundColor: value === 0 ? "white" : "", color: value === 0 ? "rgb(252, 184, 22)" : "" }} />
+                            <Tab label="RENT" {...a11yProps(1)} className={classes.tabButtons} style={{ backgroundColor: value === 1 ? "white" : "", color: value === 1 ? "rgb(252, 184, 22)" : "" }} />
+                            <Tab label="WANTED" {...a11yProps(2)} className={classes.tabButtons} style={{ backgroundColor: value === 2 ? "white" : "", color: value === 2 ? "rgb(252, 184, 22)" : "" }} />
+                            <Tab label="PROJECT" {...a11yProps(3)} className={classes.tabButtons} style={{ backgroundColor: value === 3 ? "white" : "", color: value === 3 ? "rgb(252, 184, 22)" : "" }} />
+                        </Tabs>
                         {/* TABS */}
                         <TabPanel value={value} index={0} className={classes.tabPanels}>
                             <Buy />

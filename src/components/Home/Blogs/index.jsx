@@ -11,7 +11,12 @@ const useStyles = makeStyles((theme) => ({
     paper: {
         textAlign: 'center',
         color: theme.palette.text.secondary,
-        height: '37rem'
+        height: '37rem',
+        maxWidth: 370,
+        margin: 'auto',
+        [theme.breakpoints.down('md')]: {
+            maxWidth: 500,
+        }
     },
     blogImageBox: {
         width: '100%',
@@ -51,7 +56,10 @@ const useStyles = makeStyles((theme) => ({
     blogFooter: {
         display: 'flex',
         marginTop: '3rem',
-        padding: '1rem'
+        padding: '1rem',
+        [theme.breakpoints.down('md')]: {
+            marginTop: '0.8rem',
+        },
 
     },
     categoryIcon: {
@@ -59,7 +67,10 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        color: 'black'
+        color: 'black',
+        [theme.breakpoints.down('md')]: {
+            fontSize: '13px'
+        },
     },
     ReadMore: {
         backgroundColor: ' rgb(252, 184, 22)',
@@ -67,8 +78,14 @@ const useStyles = makeStyles((theme) => ({
         padding: '1rem',
         border: 'none',
         borderRadius: '5px',
-        fontWeight:'bold',
+        fontWeight: 'bold',
         cursor: 'pointer',
+        [theme.breakpoints.down('md')]: {
+            fontSize: '10px',
+            padding: '0.9rem',
+            margin: '0 auto',
+
+        },
         '&:hover': {
             color: 'white'
         }
@@ -82,9 +99,7 @@ const Blogs = () => {
         <div style={{ margin: '5rem 0' }}>
             <h1 style={{ margin: '1rem', textAlign: 'center', textTransform: 'uppercase' }}>Recent from the Blog</h1>
             <Container maxWidth="lg" >
-
                 <Grid container spacing={3}>
-
                     <Grid item xs={12} md={4}>
                         <Paper className={classes.paper}>
                             <div className={classes.blogImageBox}>
@@ -101,7 +116,7 @@ const Blogs = () => {
                         </Paper>
                     </Grid>
 
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12}  md={4}>
                         <Paper className={classes.paper}>
                             <div className={classes.blogImageBox}>
                                 <img src={property} alt="" className={classes.blogImage} />

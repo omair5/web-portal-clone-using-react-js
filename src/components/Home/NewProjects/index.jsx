@@ -6,7 +6,6 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import styles from './newprojects.module.css'
 import propertyImage from './images/property.jpeg'
 import Tooltip from '@material-ui/core/Tooltip';
@@ -88,11 +87,17 @@ const useStyles = makeStyles({
     },
     viewMoreButton: {
         backgroundColor: '#fcb812',
-        display: 'block',
+        width: '45%',
         margin: '0 auto',
         marginBottom: '10px',
         fontWeight: 'bolder',
-        padding: '7px'
+        fontSize: '12px',
+        padding: '12px',
+        textAlign: 'center',
+        borderRadius: '5px',
+        '&:hover': {
+            color: 'white'
+        }
     }
 });
 
@@ -105,8 +110,7 @@ const NewProjects = () => {
             <Grid container spacing={2}>
 
                 {/* CARD 1 */}
-                <Grid item xs={12} md={4} >
-
+                <Grid item xs={12} sm={6} md={4} >
                     <Card className={classes.root}>
                         <CardActionArea>
                             <CardMedia
@@ -149,21 +153,20 @@ const NewProjects = () => {
                                         <LocalOfferOutlinedIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '4px' }} />
                                         <h3 style={{ fontWeight: 'bolder' }}><span style={{ fontSize: '14px' }}>PKR</span> 1.39 Crore </h3>
                                     </div>
-                                    <img src={propertyImage} className={classes.dealer} />
+                                    <img src={propertyImage} className={classes.dealer} alt={'dealer logo'} />
                                 </div>
                             </CardContent>
 
-                            <div >
-                                <Button className={classes.viewMoreButton}>
-                                    View More Details
-                            </Button>
-                            </div>
+                            <p className={classes.viewMoreButton}>
+                                View More Details
+                            </p>
+
                         </CardActionArea>
                     </Card>
                 </Grid>
 
                 {/* CARD 2 */}
-                <Grid item xs={12} md={4} >
+                <Grid item xs={12} sm={6} md={4} >
 
                     <Card className={classes.root}>
                         <CardActionArea>
@@ -207,21 +210,20 @@ const NewProjects = () => {
                                         <LocalOfferOutlinedIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '4px' }} />
                                         <h3 style={{ fontWeight: 'bolder' }}><span style={{ fontSize: '14px' }}>PKR</span> 1.39 Crore </h3>
                                     </div>
-                                    <img src={propertyImage} className={classes.dealer} />
+                                    <img src={propertyImage} className={classes.dealer} alt={'dealer logo'} />
                                 </div>
                             </CardContent>
 
-                            <div >
-                                <Button className={classes.viewMoreButton}>
-                                    View More Details
-                                </Button>
-                            </div>
+                            <p className={classes.viewMoreButton}>
+                                View More Details
+                            </p>
+
                         </CardActionArea>
                     </Card>
                 </Grid>
 
                 {/* CARD 3 */}
-                <Grid item xs={12} md={4} >
+                <Grid item xs={12} sm={6} md={4} >
 
                     <Card className={classes.root}>
                         <CardActionArea>
@@ -265,15 +267,14 @@ const NewProjects = () => {
                                         <LocalOfferOutlinedIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '4px' }} />
                                         <h3 style={{ fontWeight: 'bolder' }}><span style={{ fontSize: '14px' }}>PKR</span> 1.39 Crore </h3>
                                     </div>
-                                    <img src={propertyImage} className={classes.dealer} />
+                                    <img src={propertyImage} className={classes.dealer} alt={'dealer logo'} />
                                 </div>
                             </CardContent>
 
-                            <div >
-                                <Button className={classes.viewMoreButton}>
-                                    View More Details
-                                </Button>
-                            </div>
+                            <p className={classes.viewMoreButton}>
+                                View More Details
+                            </p>
+
                         </CardActionArea>
                     </Card>
                 </Grid>

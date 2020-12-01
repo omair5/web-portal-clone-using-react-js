@@ -48,3 +48,12 @@
 .footer-copyRights p {
     text-align: right;
 }
+
+@media screen and (max-width: 960px) {
+    .footer-log h2 {
+        text-align: center;
+    }
+    .footer-copyRights p {
+        text-align: center;
+    }
+}
