@@ -1,9 +1,14 @@
 import React from 'react';
+import AapKaPropertyPartner from '../../components/AboutUs/AapKaPropertyPartner';
+import AboutHeader from '../../components/AboutUs/AboutHeader';
+import AboutSection from '../../components/AboutUs/AboutSection';
 import Layout from '../../components/Layout/Layout';
 const AboutUs = () => {
     return (
         <Layout>
-            <h1>this is about us page</h1>
+            <AboutHeader />
+            <AapKaPropertyPartner />
+            <AboutSection />
         </Layout>);
 }
 
