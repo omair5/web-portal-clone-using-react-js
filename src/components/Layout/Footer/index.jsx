@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import './style.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebook, faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
+import { faFacebookF, faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
 
 
 const Footer = () => {
@@ -36,7 +36,7 @@ const Footer = () => {
                     <Grid item xs={12} md={3}  >
                         <h4 className='yellow-color'>Follow Us</h4>
                         <div className='footer-links'>
-                            <p> <FontAwesomeIcon icon={faFacebook} style={{ paddingRight: '2px' }} /> Facebook</p>
+                            <p> <FontAwesomeIcon icon={faFacebookF} style={{ paddingRight: '2px' }} /> Facebook</p>
                             <p> <FontAwesomeIcon icon={faTwitter} style={{ paddingRight: '5px' }} />Twitter</p>
                             <p><FontAwesomeIcon icon={faYoutube} style={{ paddingRight: '5px' }} />YouTube</p>
                             <p> <FontAwesomeIcon icon={faInstagram} style={{ paddingRight: '5px' }} />Instagram</p>
