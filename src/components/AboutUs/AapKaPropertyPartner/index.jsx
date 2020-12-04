@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
-import PropertyPartner from './images/property_partner.png'
+import PropertyPartner from './images/property_partner.jpg'
 
 // STYLES
 const useStyles = makeStyles(theme => ({

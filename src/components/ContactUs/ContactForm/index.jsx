@@ -16,7 +16,19 @@ const useStyles = makeStyles((theme) => ({
     mainContainer: {
         maxWidth: '70%',
         height: 'auto',
-        margin: '10px auto',
+        margin: '0px auto',
+        marginBottom: '60px',
+        [theme.breakpoints.down('md')]: {
+            marginTop: '15px',
+        },
+        '& h1': {
+            textAlign: 'center',
+            textTransform: 'uppercase',
+            color: '#fcb812',
+            [theme.breakpoints.down('sm')]: {
+                fontSize: '15px'
+            },
+        }
     },
     InputStyle: {
         width: '100%',

@@ -7,8 +7,9 @@ const ContactUs = () => {
     return (
         <Layout>
             <FindUsAt />
-            <LocationMap />
             <ContactForm />
+            <LocationMap />
+            
         </Layout>
     );
 }

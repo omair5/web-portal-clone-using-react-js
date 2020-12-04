@@ -14,7 +14,10 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         alignItems: 'center',
         '& h1': {
-            fontSize: '40px'
+            fontSize: '40px',
+            [theme.breakpoints.down('md')]: {
+                fontSize: '25px',
+            },
         }
     },
     FindUs: {
@@ -60,7 +63,10 @@ const useStyles = makeStyles((theme) => ({
         '& h2': {
             textAlign: 'center',
             padding: '10px',
-            color: '#fcb812'
+            color: '#fcb812',
+            [theme.breakpoints.only('md')]: {
+                fontSize: '15px',
+            },
         },
         '& p': {
             textAlign: 'center',

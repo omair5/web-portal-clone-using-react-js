@@ -2,7 +2,7 @@ import React from 'react';
 import Slider from "react-slick";
 import Container from '@material-ui/core/Container';
 import styles from './carouselSlider.module.css'
-import carousel2 from './images/carousel2.png'
+import carousel2 from './images/carousel2.jpg'
 
 function SampleNextArrow(props) {
     const { className, style, onClick } = props;
