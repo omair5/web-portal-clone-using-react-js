@@ -34,8 +34,6 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     blogImage: {
-        width: '100%',
-        height: '100%',
         transition: 'all 0.3s ease',
     },
     content: {
@@ -103,23 +101,7 @@ const Blogs = () => {
                     <Grid item xs={12} md={4}>
                         <Paper className={classes.paper}>
                             <div className={classes.blogImageBox}>
-                                <img src={property} alt="" className={classes.blogImage} />
-                                <div className={classes.overlay}>hello</div>
-                            </div>
-                            <div className={classes.content}>
-                                <p>Top Locations for the Property Investors in Karachi View post to know where to invest in Karachi the hub of Pakistan Real Estate Trends </p>
-                            </div>
-                            <div className={classes.blogFooter}>
-                                <p className={classes.categoryIcon}> <ClassIcon style={{ fontSize: '25px', color: 'rgb(252, 184, 22)' }} />Real Estate Trends</p>
-                                <button className={classes.ReadMore}>READ MORE</button>
-                            </div>
-                        </Paper>
-                    </Grid>
-
-                    <Grid item xs={12}  md={4}>
-                        <Paper className={classes.paper}>
-                            <div className={classes.blogImageBox}>
-                                <img src={property} alt="" className={classes.blogImage} />
+                                <img src={property} alt="" className={classes.blogImage} width='100%' height='100%' />
                                 <div className={classes.overlay}>hello</div>
                             </div>
                             <div className={classes.content}>
@@ -135,7 +117,23 @@ const Blogs = () => {
                     <Grid item xs={12} md={4}>
                         <Paper className={classes.paper}>
                             <div className={classes.blogImageBox}>
-                                <img src={property} alt="" className={classes.blogImage} />
+                                <img src={property} alt="" className={classes.blogImage} width='100%' height='100%' />
+                                <div className={classes.overlay}>hello</div>
+                            </div>
+                            <div className={classes.content}>
+                                <p>Top Locations for the Property Investors in Karachi View post to know where to invest in Karachi the hub of Pakistan Real Estate Trends </p>
+                            </div>
+                            <div className={classes.blogFooter}>
+                                <p className={classes.categoryIcon}> <ClassIcon style={{ fontSize: '25px', color: 'rgb(252, 184, 22)' }} />Real Estate Trends</p>
+                                <button className={classes.ReadMore}>READ MORE</button>
+                            </div>
+                        </Paper>
+                    </Grid>
+
+                    <Grid item xs={12} md={4}>
+                        <Paper className={classes.paper}>
+                            <div className={classes.blogImageBox}>
+                                <img src={property} alt="" className={classes.blogImage} width='100%' height='100%' />
                                 <div className={classes.overlay}>hello</div>
                             </div>
                             <div className={classes.content}>
