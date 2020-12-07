@@ -15,9 +15,9 @@ function Navbar() {
     const handleClick = () => setClick(!click);
     const closeMobileMenu = () => setClick(false);
 
-    const onMouseEnter = () => {
+    const onClick = () => {
         if (window.innerWidth < 960) {
-            setDropdown(false);
+            setDropdown(true);
         } else {
             setDropdown(true);
         }
@@ -67,9 +67,9 @@ function Navbar() {
                         <Link to='/partners' className='nav-links' onClick={closeMobileMenu} > Partners </Link>
                     </li>
 
-                    <li className='nav-item' onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+                    <li className='nav-item' onClick={onClick} onMouseLeave={onMouseLeave}>
                         {dropdown && <Dropdown />}
-                        <div className='nav-links' onClick={closeMobileMenu}>Who We Are <FontAwesomeIcon icon={faCaretDown} style={{ cursor: 'pointer' }} /></div>
+                        <div className='nav-links' >Who We Are <FontAwesomeIcon icon={faCaretDown} style={{ cursor: 'pointer' }} /></div>
 
                     </li>
 
