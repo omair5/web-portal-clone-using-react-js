@@ -6,6 +6,10 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import AppBar from '@material-ui/core/AppBar';
+import BuyTab from '../BuyTab';
+import RentTab from '../RentTab'
+import WantedTab from '../Wanted';
+import ProjectTab from '../Project';
 
 
 
@@ -45,7 +49,6 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
     tabButtons: {
         margin: '0px 1.5rem',
-        marginTop: '2rem',
         fontSize: '1.5rem',
         fontWeight: 'bold',
         color: 'black',
@@ -53,25 +56,23 @@ const useStyles = makeStyles((theme) => ({
             fontSize: '1rem',
             minWidth: "10%",
             margin: '0px 3px',
-            marginTop: '2rem',
             paddingTop: '2px'
         }
     },
     tabPanels: {
-        backgroundColor: 'white',
-        color: 'black',
-        height: 'auto',
-        marginTop: '2.4rem',
-        borderRadius: '5px'
+        backgroundColor: 'red',
+
 
     },
     MainContainer: {
         border: '2px solid rgb(230, 230, 230)',
-        marginLeft: '10px'
+        backgroundColor: 'red',
+        height: '700px',
+        overflowY: 'scroll'
 
     },
     appBar: {
-        backgroundColor: 'rgb(222, 222, 222)'
+        backgroundColor: 'rgb(222, 222, 222)',
     }
 }));
 
@@ -99,19 +100,19 @@ const SimpleTabs = () => {
 
                 {/* TABS */}
                 <TabPanel value={value} index={0} className={classes.tabPanels}>
-                    tab 1
+                    <BuyTab />
                 </TabPanel>
 
                 <TabPanel value={value} index={1} className={classes.tabPanels}>
-                    tab 2
+                    <RentTab />
                 </TabPanel>
 
                 <TabPanel value={value} index={2} className={classes.tabPanels}>
-                    tab 3
+                    <WantedTab />
                 </TabPanel>
 
                 <TabPanel value={value} index={3} className={classes.tabPanels}>
-                    tab 4
+                    <ProjectTab />
                 </TabPanel>
             </div>
 
