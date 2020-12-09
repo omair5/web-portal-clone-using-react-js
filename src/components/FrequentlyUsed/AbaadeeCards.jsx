@@ -99,7 +99,6 @@ const useStyles = makeStyles({
 
 const AbaadeeCards = (props) => {
     const classes = useStyles();
-    console.log(props)
     const { buildingName, location, squareFeet, bed, price, builderLogo, MainBox } = props
     return (
         <>

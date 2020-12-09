@@ -6,6 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import AppBar from '@material-ui/core/AppBar';
+import ExploreSearch from '../ExploreSearch'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -89,7 +90,7 @@ const SimpleTabs = () => {
 
                 {/* TABS */}
                 <TabPanel value={value} index={0} className={classes.tabPanels}>
-                    search
+                    <ExploreSearch />
                 </TabPanel>
 
                 <TabPanel value={value} index={1} className={classes.tabPanels}>

@@ -14,8 +14,7 @@ const BuyTab = () => {
                         bed={3}
                         price={'1.39 CRORE'}
                         builderLogo={propertyImage}
-                        MainBox={{ maxWidth: '100%' }}
-                    />
+                        MainBox={{ maxWidth: '95%' }} />
                 </Grid>
                 <Grid item sm={6}>
                     <AbaadeeCards
@@ -25,8 +24,7 @@ const BuyTab = () => {
                         bed={3}
                         price={'1.39 CRORE'}
                         builderLogo={propertyImage}
-                        MainBox={{ maxWidth: '100%' }}
-                    />
+                        MainBox={{ maxWidth: '95%' }} />
                 </Grid>
                 <Grid item sm={6}>
                     <AbaadeeCards
@@ -36,8 +34,7 @@ const BuyTab = () => {
                         bed={3}
                         price={'1.39 CRORE'}
                         builderLogo={propertyImage}
-                        MainBox={{ maxWidth: '100%' }}
-                    />
+                        MainBox={{ maxWidth: '95%' }} />
                 </Grid>
                 <Grid item sm={6}>
                     <AbaadeeCards
@@ -47,8 +44,7 @@ const BuyTab = () => {
                         bed={3}
                         price={'1.39 CRORE'}
                         builderLogo={propertyImage}
-                        MainBox={{ maxWidth: '100%' }}
-                    />
+                        MainBox={{ maxWidth: '95%' }} />
                 </Grid>
                 <Grid item sm={6}>
                     <AbaadeeCards
@@ -58,8 +54,7 @@ const BuyTab = () => {
                         bed={3}
                         price={'1.39 CRORE'}
                         builderLogo={propertyImage}
-                        MainBox={{ maxWidth: '100%' }}
-                    />
+                        MainBox={{ maxWidth: '95%' }} />
                 </Grid>
                 <Grid item sm={6}>
                     <AbaadeeCards
@@ -69,8 +64,7 @@ const BuyTab = () => {
                         bed={3}
                         price={'1.39 CRORE'}
                         builderLogo={propertyImage}
-                        MainBox={{ maxWidth: '100%' }}
-                    />
+                        MainBox={{ maxWidth: '95%' }} />
                 </Grid>
                 <Grid item sm={6}>
                     <AbaadeeCards
@@ -80,8 +74,7 @@ const BuyTab = () => {
                         bed={3}
                         price={'1.39 CRORE'}
                         builderLogo={propertyImage}
-                        MainBox={{ maxWidth: '100%' }}
-                    />
+                        MainBox={{ maxWidth: '95%' }} />
                 </Grid>
                 <Grid item sm={6}>
                     <AbaadeeCards
@@ -91,8 +84,7 @@ const BuyTab = () => {
                         bed={3}
                         price={'1.39 CRORE'}
                         builderLogo={propertyImage}
-                        MainBox={{ maxWidth: '100%' }}
-                    />
+                        MainBox={{ maxWidth: '95%' }} />
                 </Grid>
                 <Grid item sm={6}>
                     <AbaadeeCards
@@ -102,8 +94,7 @@ const BuyTab = () => {
                         bed={3}
                         price={'1.39 CRORE'}
                         builderLogo={propertyImage}
-                        MainBox={{ maxWidth: '100%' }}
-                    />
+                        MainBox={{ maxWidth: '95%' }} />
                 </Grid>
             </Grid>
         </>
