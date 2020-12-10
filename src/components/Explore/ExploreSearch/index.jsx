@@ -3,8 +3,8 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Slider from '@material-ui/core/Slider';
 import { makeStyles } from "@material-ui/core/styles";
-
 import SearchIcon from '@material-ui/icons/Search';
+import AbaadeeButton from '../../FrequentlyUsed/Button';
 
 // FOR ROOT
 const useStylesBase = makeStyles(theme => ({
@@ -16,28 +16,22 @@ const useStylesBase = makeStyles(theme => ({
 }));
 // FOR GENERAL
 const useStyles = makeStyles(theme => ({
-    MainContainer: {
-        backgroundColor: 'purple',
-    },
     forAutoComplete: {
         width: '100%',
         height: '60px',
         margin: '7px 0px',
-        backgroundColor: 'yellow'
     },
     forTextField: {
         height: '100%',
     },
-    myButton: {
-        backgroundColor: '#fcb812',
-        display: 'flex',
-        justifyContent: "center",
-        alignItems: 'center',
-        padding: '10px',
-        marginTop: '20px',
-        fontWeight: 'bolder',
-        fontSize: '15px',
-        cursor: 'pointer'
+    PriceSlider: {
+        width: '100%',
+        height: '50px',
+        margin: '5px 0px',
+        '& p': {
+            fontSize: '15px',
+            fontWeight: 'bolder'
+        }
     }
 }));
 // FOR SLIDER
@@ -244,7 +238,7 @@ const ExploreSearchs = () => {
             />
             {/* RANGE SLIDER */}
             <div >
-                <div styles={{ width: '100%', height: '60px', margin: '5px 0px' }} >
+                <div className={classes.PriceSlider} >
                     <p>Price Range</p>
                     <p>PKR <span className='yellow'>{value[0]}</span> — PKR <span className='yellow'>{value[1]}</span></p>
                 </div>
@@ -261,10 +255,10 @@ const ExploreSearchs = () => {
                 />
             </div>
             {/* SEARCH BUTTON  */}
-            <div className={classes.myButton}>
-                <div><SearchIcon style={{ fontSize: '25px' }} /></div>
-                <div >SEARCH</div>
-            </div>
+            <AbaadeeButton
+                innerContent={'SEARCH'}
+                buttonIcon={<SearchIcon style={{ fontSize: '25px' }} />}
+            />
         </div >
     );
 }

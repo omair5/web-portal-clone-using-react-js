@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import AppBar from '@material-ui/core/AppBar';
 import ExploreSearch from '../ExploreSearch'
+import ExploreCategories from '../Categories';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -53,15 +54,11 @@ const useStyles = makeStyles((theme) => ({
             paddingTop: '2px'
         }
     },
-    tabPanels: {
-        backgroundColor: 'red',
-    },
     MainContainer: {
         border: '2px solid rgb(230, 230, 230)',
-        height: '700px',
+        height: '600px',
         overflowY: 'scroll',
         overflowX: 'hidden'
-
     },
     appBar: {
         backgroundColor: 'rgb(222, 222, 222)',
@@ -80,8 +77,9 @@ const SimpleTabs = () => {
     return (
         <>
             {/* TAB BUTTONS */}
-            <div className={classes.MainContainer}>
-                <AppBar position="static" className={classes.appBar}>
+            {/* this custom-scroll class is used from app.css */}
+            <div className={`${classes.MainContainer} custom-scroll`}>
+                <AppBar position="sticky" className={classes.appBar}>
                     <Tabs TabIndicatorProps={{ style: { height: '5px', backgroundColor: 'rgb(252, 184, 22)' } }} value={value} onChange={handleChange} aria-label="simple tabs example" centered >
                         <Tab label="FILTERS" {...a11yProps(0)} className={classes.tabButtons} style={{ color: value === 0 ? "rgb(252, 184, 22)" : "" }} />
                         <Tab label="CATEGORIES" {...a11yProps(1)} className={classes.tabButtons} style={{ color: value === 1 ? "rgb(252, 184, 22)" : "" }} />
@@ -94,7 +92,7 @@ const SimpleTabs = () => {
                 </TabPanel>
 
                 <TabPanel value={value} index={1} className={classes.tabPanels}>
-                    categories
+                    <ExploreCategories />
                 </TabPanel>
             </div>
 

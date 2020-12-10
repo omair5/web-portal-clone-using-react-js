@@ -59,21 +59,24 @@ const useStyles = makeStyles((theme) => ({
             paddingTop: '2px'
         }
     },
-    tabPanels: {
-        backgroundColor: 'red',
-
-
-    },
     MainContainer: {
         border: '2px solid rgb(230, 230, 230)',
-        backgroundColor: 'red',
-        height: '700px',
-        overflowY: 'scroll'
+        height: '600px',
+        overflowY: 'scroll',
 
     },
     appBar: {
         backgroundColor: 'rgb(222, 222, 222)',
-    }
+    },
+    ResultCount: {
+        textAlign: 'center',
+        marginTop: '10px',
+        "& span": {
+            fontSize: '20px',
+            fontWeight:'bolder'
+        }
+    },
+
 }));
 
 
@@ -88,8 +91,9 @@ const SimpleTabs = () => {
     return (
         <>
             {/* TAB BUTTONS */}
-            <div className={classes.MainContainer}>
-                <AppBar position="static" className={classes.appBar}>
+            {/* this custom-scroll class is used from app.css */}
+            <div className={`${classes.MainContainer} custom-scroll`}>
+                <AppBar position="sticky" className={classes.appBar}>
                     <Tabs TabIndicatorProps={{ style: { height: '5px', backgroundColor: 'rgb(252, 184, 22)' } }} value={value} onChange={handleChange} aria-label="simple tabs example" centered >
                         <Tab label="BUY" {...a11yProps(0)} className={classes.tabButtons} style={{ color: value === 0 ? "rgb(252, 184, 22)" : "" }} />
                         <Tab label="RENT" {...a11yProps(1)} className={classes.tabButtons} style={{ color: value === 1 ? "rgb(252, 184, 22)" : "" }} />
@@ -97,7 +101,9 @@ const SimpleTabs = () => {
                         <Tab label="PROJECT" {...a11yProps(3)} className={classes.tabButtons} style={{ color: value === 3 ? "rgb(252, 184, 22)" : "" }} />
                     </Tabs>
                 </AppBar>
-
+                <div className={classes.ResultCount}>
+                    <span>1567 RESULTS</span>
+                </div>
                 {/* TABS */}
                 <TabPanel value={value} index={0} className={classes.tabPanels}>
                     <BuyTab />

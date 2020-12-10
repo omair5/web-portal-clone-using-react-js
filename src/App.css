@@ -43,3 +43,29 @@ p {
 .yellow {
   color: #fcb812;
 }
+
+.custom-scroll {
+  overflow-y: scroll;
+}
+
+/* The emerging W3C standard
+   that is currently Firefox-only */
+
+.custom-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: white #fcb812;
+}
+
+/* Works on Chrome/Edge/Safari */
+
+.custom-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: white;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: #fcb812;
+}
