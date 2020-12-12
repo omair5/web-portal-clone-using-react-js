@@ -61,19 +61,22 @@ const useStyles = makeStyles((theme) => ({
     },
     MainContainer: {
         border: '2px solid rgb(230, 230, 230)',
+        borderRight: 'none',
+        borderTop: 'none',
         height: '600px',
         overflowY: 'scroll',
 
     },
     appBar: {
         backgroundColor: 'rgb(222, 222, 222)',
+        zIndex: 1
     },
     ResultCount: {
         textAlign: 'center',
         marginTop: '10px',
         "& span": {
             fontSize: '20px',
-            fontWeight:'bolder'
+            fontWeight: 'bolder'
         }
     },
 

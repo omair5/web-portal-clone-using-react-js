@@ -1,6 +1,8 @@
-// import { combineReducers } from 'redux'
-// // import all reducers
+import { combineReducers } from 'redux'
+import ExploreSearch from './ExploreSearch'
+import ExploreCards from './ExploreCards'
 
-// export default combineReducers({
-//     // key:reducer
-// })
+export default combineReducers({
+    ExploreSearch: ExploreSearch,
+    ExploreCards: ExploreCards
+})

@@ -6,7 +6,7 @@ const BuyTab = () => {
     return (
         <>
             <Grid container spacing={3}>
-                <Grid item sm={6}>
+                <Grid item xs={12} md={6}>
                     <AbaadeeCards
                         buildingName={'BILAL PLAZA'}
                         location={'Malir, Karachi, Pakistan'}
@@ -16,7 +16,7 @@ const BuyTab = () => {
                         builderLogo={propertyImage}
                         MainBox={{ maxWidth: '95%' }} />
                 </Grid>
-                <Grid item sm={6}>
+                <Grid item xs={12} md={6}>
                     <AbaadeeCards
                         buildingName={'BILAL PLAZA'}
                         location={'Malir, Karachi, Pakistan'}
@@ -26,7 +26,7 @@ const BuyTab = () => {
                         builderLogo={propertyImage}
                         MainBox={{ maxWidth: '95%' }} />
                 </Grid>
-                <Grid item sm={6}>
+                <Grid item xs={12} md={6}>
                     <AbaadeeCards
                         buildingName={'BILAL PLAZA'}
                         location={'Malir, Karachi, Pakistan'}
@@ -36,7 +36,7 @@ const BuyTab = () => {
                         builderLogo={propertyImage}
                         MainBox={{ maxWidth: '95%' }} />
                 </Grid>
-                <Grid item sm={6}>
+                <Grid item xs={12} md={6}>
                     <AbaadeeCards
                         buildingName={'BILAL PLAZA'}
                         location={'Malir, Karachi, Pakistan'}
@@ -46,7 +46,7 @@ const BuyTab = () => {
                         builderLogo={propertyImage}
                         MainBox={{ maxWidth: '95%' }} />
                 </Grid>
-                <Grid item sm={6}>
+                <Grid item xs={12} md={6}>
                     <AbaadeeCards
                         buildingName={'BILAL PLAZA'}
                         location={'Malir, Karachi, Pakistan'}
@@ -56,7 +56,7 @@ const BuyTab = () => {
                         builderLogo={propertyImage}
                         MainBox={{ maxWidth: '95%' }} />
                 </Grid>
-                <Grid item sm={6}>
+                <Grid item xs={12} md={6}>
                     <AbaadeeCards
                         buildingName={'BILAL PLAZA'}
                         location={'Malir, Karachi, Pakistan'}
@@ -66,7 +66,7 @@ const BuyTab = () => {
                         builderLogo={propertyImage}
                         MainBox={{ maxWidth: '95%' }} />
                 </Grid>
-                <Grid item sm={6}>
+                <Grid item xs={12} md={6}>
                     <AbaadeeCards
                         buildingName={'BILAL PLAZA'}
                         location={'Malir, Karachi, Pakistan'}
@@ -76,7 +76,7 @@ const BuyTab = () => {
                         builderLogo={propertyImage}
                         MainBox={{ maxWidth: '95%' }} />
                 </Grid>
-                <Grid item sm={6}>
+                <Grid item xs={12} md={6}>
                     <AbaadeeCards
                         buildingName={'BILAL PLAZA'}
                         location={'Malir, Karachi, Pakistan'}
@@ -86,7 +86,7 @@ const BuyTab = () => {
                         builderLogo={propertyImage}
                         MainBox={{ maxWidth: '95%' }} />
                 </Grid>
-                <Grid item sm={6}>
+                <Grid item xs={12} md={6}>
                     <AbaadeeCards
                         buildingName={'BILAL PLAZA'}
                         location={'Malir, Karachi, Pakistan'}

@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
         width: '60%',
         [theme.breakpoints.down('md')]: {
             width: '90%',
-          },
+        },
 
     }
 }));

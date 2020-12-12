@@ -21,7 +21,6 @@ const useStyles = makeStyles(theme => ({
 
     },
     CategoryChilds: {
-        backgroundColor: 'green',
         width: '100%',
         height: '140px',
         position: 'relative',

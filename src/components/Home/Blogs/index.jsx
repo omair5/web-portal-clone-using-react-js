@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
         height: '37rem',
         maxWidth: 370,
         margin: 'auto',
+        border: '1px solid rgb(212, 212, 212)',
         [theme.breakpoints.down('md')]: {
             maxWidth: 500,
         }
@@ -102,7 +103,7 @@ const Blogs = () => {
                         <Paper className={classes.paper}>
                             <div className={classes.blogImageBox}>
                                 <img src={property} alt="" className={classes.blogImage} width='100%' height='100%' />
-                                <div className={classes.overlay}>hello</div>
+                                <div className={classes.overlay}></div>
                             </div>
                             <div className={classes.content}>
                                 <p>Top Locations for the Property Investors in Karachi View post to know where to invest in Karachi the hub of Pakistan Real Estate Trends </p>

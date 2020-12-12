@@ -55,13 +55,15 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     MainContainer: {
-        border: '2px solid rgb(230, 230, 230)',
+        // border: '2px solid rgb(230, 230, 230)',
         height: '600px',
         overflowY: 'scroll',
         overflowX: 'hidden'
     },
     appBar: {
         backgroundColor: 'rgb(222, 222, 222)',
+        zIndex: 1
+
     }
 }));
 

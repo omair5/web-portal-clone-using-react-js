@@ -6,7 +6,7 @@ const ProjectTab = () => {
     return (
         <>
             <Grid container spacing={3}>
-                <Grid item sm={6}>
+                <Grid item xs={12} md={6}>
                     <AbaadeeCards
                         buildingName={'BILAL PLAZA'}
                         location={'Malir, Karachi, Pakistan'}
