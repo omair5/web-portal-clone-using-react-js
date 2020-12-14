@@ -75,7 +75,6 @@ const SimpleTabs = () => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-
     return (
         <>
             {/* TAB BUTTONS */}

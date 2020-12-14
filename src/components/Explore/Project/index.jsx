@@ -21,4 +21,4 @@ const ProjectTab = () => {
     );
 }
 
-export default ProjectTab;
+export default React.memo(ProjectTab);

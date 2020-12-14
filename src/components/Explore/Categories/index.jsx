@@ -113,4 +113,4 @@ const ExploreCategories = () => {
     );
 }
 
-export default ExploreCategories;
+export default React.memo(ExploreCategories);

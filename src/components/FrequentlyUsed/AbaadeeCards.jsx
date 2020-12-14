@@ -159,4 +159,4 @@ const AbaadeeCards = (props) => {
     )
 }
 
-export default AbaadeeCards;
+export default React.memo(AbaadeeCards);

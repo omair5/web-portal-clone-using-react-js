@@ -33,4 +33,4 @@ const WantedTab = () => {
     );
 }
 
-export default WantedTab;
+export default React.memo(WantedTab);

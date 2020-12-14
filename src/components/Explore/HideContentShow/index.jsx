@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
     mainContainer: {
         backgroundColor: '#fcb812',
         width: '100%',
-        height: '65px',
+        height: '61.5px',
         position: 'fixed',
         bottom: 0,
         zIndex: 9,
@@ -15,7 +15,11 @@ const useStyles = makeStyles((theme) => ({
             width: '50%',
             backgroundColor: '#fcb812',
             display: "inline-block",
-            textAlign: 'center'
+            textAlign: 'center',
+            fontSize: '12px',
+            fontWeight: 'bolder',
+            color: 'white',
+            letterSpacing: '1.4px'
         }
     }
 }));
@@ -37,12 +41,12 @@ const HideContentShow = () => {
         <>
             <div className={classes.mainContainer}>
                 <span
-                    style={{ padding: "30px", cursor: 'pointer' }}
+                    style={{ padding: "30px", cursor: 'pointer', borderRight: '1px solid black' }}
                     onClick={HandleSearch}>
                     SEARCH
                 </span>
                 <span
-                    style={{ padding: "30px", cursor: 'pointer' }}
+                    style={{ padding: "30px", cursor: 'pointer', borderLeft: '1px solid black' }}
                     onClick={HandleCard}>
                     PROPERTY LIST
                 </span>
@@ -51,4 +55,4 @@ const HideContentShow = () => {
     );
 }
 
-export default HideContentShow;
+export default React.memo(HideContentShow);

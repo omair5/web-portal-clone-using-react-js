@@ -43,18 +43,18 @@ const useStyles = makeStyles((theme) => ({
 const Explore = () => {
     // LOGIC
     const classes = useStyles();
-    const SearchState = useSelector(state => state.ExploreSearch)
-    const CardState = useSelector(state => state.ExploreCards)
+    const SearchShow = useSelector(state => state.SearchShow)
+    const CardShow = useSelector(state => state.CardShow)
     return (
         <Layout>
             <Advertisement />
             <Grid container className={classes.MainContainer} >
                 {/* SEARCH FILTER */}
-                <Grid item md={3} xs={12} className={`${SearchState ? 'contentDisplay' : 'contentHide'} ${classes.hideComponent}`}  >
+                <Grid item md={3} xs={12} className={classes.hideComponent} style={{ display: SearchShow ? 'block' : 'none' }}  >
                     <Filter />
                 </Grid>
                 {/* SEARCH RESULTS */}
-                <Grid item md={9} xs={12} className={`${CardState ? 'contentDisplay' : 'contentHide'}`} >
+                <Grid item md={9} xs={12} style={{ display: CardShow ? 'block' : 'none' }} >
                     <ExploreTabs />
                 </Grid>
             </Grid>
@@ -64,9 +64,4 @@ const Explore = () => {
         </Layout >);
 }
 
-export default Explore;
-
-
-// style={{ display: HideAndShow === 'search' ? 'block' : 'none' }}
-
-// style={{ display: HideAndShow === 'cards' ? 'block' : 'none' }}
+export default React.memo(Explore);

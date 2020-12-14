@@ -3,6 +3,6 @@ import ExploreSearch from './ExploreSearch'
 import ExploreCards from './ExploreCards'
 
 export default combineReducers({
-    ExploreSearch: ExploreSearch,
-    ExploreCards: ExploreCards
+    SearchShow: ExploreSearch,
+    CardShow: ExploreCards
 })

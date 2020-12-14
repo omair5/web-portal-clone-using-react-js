@@ -22,4 +22,4 @@ const RentTab = () => {
     );
 }
 
-export default RentTab;
+export default React.memo(RentTab);

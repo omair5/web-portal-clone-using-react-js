@@ -101,4 +101,4 @@ const BuyTab = () => {
     );
 }
 
-export default BuyTab;
+export default React.memo(BuyTab);

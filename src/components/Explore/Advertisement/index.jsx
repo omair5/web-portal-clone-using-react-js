@@ -1,3 +1,4 @@
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Advertisement1 from './images/explore 1.jpg'
@@ -47,4 +48,4 @@ const Advertisement = () => {
     );
 }
 
-export default Advertisement;
+export default React.memo(Advertisement);

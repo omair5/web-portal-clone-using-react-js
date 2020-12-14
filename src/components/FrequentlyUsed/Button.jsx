@@ -29,4 +29,4 @@ const AbaadeeButton = (props) => {
     );
 }
 
-export default AbaadeeButton;
+export default React.memo(AbaadeeButton);

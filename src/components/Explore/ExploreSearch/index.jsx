@@ -263,7 +263,7 @@ const ExploreSearchs = () => {
     );
 }
 
-export default ExploreSearchs;
+export default React.memo(ExploreSearchs);
 
 
 
