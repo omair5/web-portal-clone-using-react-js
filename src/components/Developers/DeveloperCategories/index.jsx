@@ -2,7 +2,7 @@ import React from 'react';
 import CategoryImage from './images/category.jpeg'
 import CategoryLinkImage from '../../FrequentlyUsed/CategoryLinkImage';
 
-const ExploreCategories = () => {
+const DeveloperCategories = () => {
     return (
         <>
             <CategoryLinkImage
@@ -39,4 +39,4 @@ const ExploreCategories = () => {
     );
 }
 
-export default React.memo(ExploreCategories);
+export default React.memo(DeveloperCategories);

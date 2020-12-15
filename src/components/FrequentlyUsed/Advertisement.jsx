@@ -1,8 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Advertisement1 from './images/explore 1.jpg'
-import Advertisement2 from './images/explore 2.jpg'
 import Slider from "react-slick";
 
 // STYLES
@@ -17,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 
     }
 }));
-const Advertisement = () => {
+const Advertisement = ({ Ads: { Ad1, Ad2 }, alt: { alt1, alt2 } }) => {
     // LOGIC
     const classes = useStyles();
     // CAROUSEL SETTING
@@ -40,8 +38,8 @@ const Advertisement = () => {
         <>
             <Container maxWidth="md" className={classes.mainContainer}>
                 <Slider {...settings}>
-                    <img src={Advertisement1} alt="pearl villas" height={100} width={100} />
-                    <img src={Advertisement2} alt="gohar residency" height={100} width={100} />
+                    <img src={Ad1} alt={alt1} height={100} width={100} />
+                    <img src={Ad2} alt={alt2} height={100} width={100} />
                 </Slider>
             </Container>
         </>
