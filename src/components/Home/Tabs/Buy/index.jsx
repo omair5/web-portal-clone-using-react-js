@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import Slider from '@material-ui/core/Slider';
 import { makeStyles } from "@material-ui/core/styles";
 import SearchIcon from '@material-ui/icons/Search';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import styles from './buy.module.css'
 
 const useStyles = makeStyles(theme => ({
@@ -14,18 +14,13 @@ const useStyles = makeStyles(theme => ({
         }
     },
 }));
-// FOR SLIDER
-function valuetext(value) {
-    return `${value}°C`;
-}
+
 
 const Buy = () => {
     const classes = useStyles();
     // FOR SLIDER
-    const [value, setValue] = React.useState([0, 18000000]);
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
+    const [priceContainer, setpriceContainer] = useState(false);
+
     return (
         <div>
             {/* THIS IS ROW 1 */}
@@ -126,28 +121,57 @@ const Buy = () => {
             </Grid>
 
             {/* THIS IS ROW 2 */}
-            <Grid container className={styles.secondGrid} >
+            <Grid container className={styles.secondGrid}>
                 <Grid item xs={12} md={3} >
-                    <div className={styles.tab_slider}>
-                        <div className={styles.sliderLabel}>
-                            Price Range
-                            <br />
-                            PKR <span className='yellow'>{value[0]}</span> — PKR <span className='yellow'>{value[1]}</span>
+                    <div className={styles.tab_slider} >
+                        <div onClick={() => setpriceContainer(!priceContainer)}>
+                            <div className={styles.mylabel}>
+                                <p>Price Range (PKR)</p>
+                            </div>
+                            <div className={styles.priceRange}>
+                                <p>0</p>
+                                <p>to</p>
+                                <p>10 crore</p>
+                                <ArrowDropDownIcon />
+                            </div>
                         </div>
-                        <Slider
-                            value={value}
-                            onChange={handleChange}
-                            // valueLabelDisplay="auto"
-                            aria-labelledby="range-slider"
-                            getAriaValueText={valuetext}
-                            min={0}
-                            step={1000}
-                            max={18000000}
-                            style={{ color: 'rgb(252, 184, 22)' }}
-                        />
-                    </div>
-                </Grid>
-                <Grid item xs={12} md={3} className={`${styles.gridtwoPadding} ${styles.locationSelect}`} >
+                        {priceContainer &&
+                            <div className={`${styles.priceBox} custom-scroll`}>
+                                {/* MIN VALUES */}
+                                <div className={styles.min}>
+                                    <h5>MIN</h5>
+                                    <div className={styles.minValues}>
+                                        <p  onClick={() => console.log('jkj')}>1 lac</p>
+
+                                       
+                                    </div >
+                                </div >
+                                {/* MAX VALUES */}
+                                <div div className={styles.max} >
+                                    <h5>MAX</h5>
+                                    <div className={styles.maxValues}>
+                                        <p>10 crore</p>
+                                        <p>10 crore</p>
+                                        <p>10 crore</p>
+                                        <p>10 crore</p>
+                                        <p>10 crore</p>
+                                        <p>10 crore</p>
+                                        <p>10 crore</p>
+                                        <p>10 crore</p>
+                                        <p>10 crore</p>
+                                        <p>10 crore</p>
+                                        <p>10 crore</p>
+                                        <p>10 crore</p>
+                                    </div>
+                                </div >
+                            </div >
+                        }
+                    </div >
+                </Grid >
+
+                {/* THIS IS ROW 2 */}
+
+                <Grid Grid item xs={12} md={3} className={`${styles.gridtwoPadding} ${styles.locationSelect}`} >
                     <Autocomplete
                         id="combo-box-demo4"
                         options={top100Films}
@@ -177,7 +201,7 @@ const Buy = () => {
                         />
                         }
                     />
-                </Grid>
+                </Grid >
                 <Grid item xs={12} md={3} className={`${styles.gridtwoPadding} ${styles.locationSelect}`} >
                     <Autocomplete
                         id="combo-box-demo5"
@@ -215,7 +239,7 @@ const Buy = () => {
                         <div className={styles.search}>SEARCH</div>
                     </div>
                 </Grid>
-            </Grid>
+            </Grid >
         </div >
     );
 }
