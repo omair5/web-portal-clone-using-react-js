@@ -7,11 +7,9 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Tooltip from '@material-ui/core/Tooltip';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import Divider from '@material-ui/core/Divider';
-import SingleBedIcon from '@material-ui/icons/SingleBed';
-import AspectRatioIcon from '@material-ui/icons/AspectRatio';
-import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
-const useStyles = makeStyles({
+import ApartmentIcon from '@material-ui/icons/Apartment';
+import PhoneIcon from '@material-ui/icons/Phone';
+const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 370,
         margin: 'auto',
@@ -36,7 +34,6 @@ const useStyles = makeStyles({
             backgroundColor: 'rgba(0,0,0,0.7)',
         }
     },
-
     mainContainer: {
         margin: '10px 20px',
         display: 'flex',
@@ -49,10 +46,6 @@ const useStyles = makeStyles({
         marginRight: '0.5rem',
         fontWeight: 'bolder',
     },
-    price: {
-        border: '1px solid white',
-        padding: '1rem'
-    },
     bookmarkIcon: {
         alignSelf: 'center',
         fontSize: '25px',
@@ -61,8 +54,9 @@ const useStyles = makeStyles({
             color: 'white'
         }
     },
-    location: {
+    CardFooter: {
         margin: '120px 20px',
+        display: 'flex'
     },
     locationIcon: {
         fontSize: '25px',
@@ -77,7 +71,7 @@ const useStyles = makeStyles({
         margin: '20px 0px',
         justifyContent: 'space-between'
     },
-    dealer: {
+    Developer: {
         width: '50px',
         height: '50px',
         borderRadius: '50%'
@@ -99,20 +93,25 @@ const useStyles = makeStyles({
     alignIconNinfo: {
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        [theme.breakpoints.only('md')]: {
+            "& h5": {
+                fontSize: '10px'
+            }
+        },
     }
-});
+}));
 
-const AbaadeeCards = (props) => {
+const DeveloperCard = (props) => {
     const classes = useStyles();
-    const { buildingName, location, squareFeet, bed, price, builderLogo, MainBox } = props
+    const { bgImage, DeveloperLogo, DeveloperName, Address, PhoneNumber, MainBox } = props
     return (
         <>
             <Card className={classes.root} style={MainBox}>
                 <CardActionArea>
                     <CardMedia
                         className={classes.media}
-                        image={builderLogo}
+                        image={bgImage}
 
                     />
                     <div className={classes.overlay}>
@@ -122,11 +121,19 @@ const AbaadeeCards = (props) => {
                                 <FavoriteBorderIcon className={classes.bookmarkIcon} />
                             </Tooltip>
                         </div>
-                        <div className={classes.location}>
-                            <h4>PROJECT : {buildingName}</h4>
-                            <div className={classes.address}>
-                                <LocationOnIcon className={classes.locationIcon} />
-                                <h5 style={{ alignSelf: 'center' }}>{location}</h5>
+
+                        <div className={classes.CardFooter}>
+                            {/* FOR DEVELOPER LOGO */}
+                            <div style={{ marginRight: '5px' }}>
+                                <img src={DeveloperLogo} className={classes.Developer} alt={'Developer logo'} />
+                            </div>
+                            {/* FOR DEVELOPER NAME AND ADDRESS */}
+                            <div>
+                                <h5>{DeveloperName}</h5>
+                                <div className={classes.address}>
+                                    <LocationOnIcon className={classes.locationIcon} />
+                                    <h5 style={{ alignSelf: 'center' }}>{Address}</h5>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -134,34 +141,22 @@ const AbaadeeCards = (props) => {
                     <CardContent>
                         <div className={classes.contentDisplay}>
                             <div className={classes.alignIconNinfo}>
-                                <AspectRatioIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '6px' }} />
-                                <h4>{squareFeet} Square Feet </h4>
+                                <ApartmentIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '6px' }} />
+                                <h5> {DeveloperName}</h5>
                             </div>
                             <div className={classes.alignIconNinfo}>
-                                <SingleBedIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '4px' }} />
-                                <h4>{bed} BED</h4>
+                                <PhoneIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '4px' }} />
+                                <h5>{PhoneNumber}</h5>
                             </div>
-                        </div>
-
-                        <Divider />
-
-                        <div className={classes.contentDisplay}>
-                            <div className={classes.alignIconNinfo} style={{ marginTop: '10px' }}>
-                                <LocalOfferOutlinedIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '4px' }} />
-                                <h3 style={{ fontWeight: 'bolder' }}><span style={{ fontSize: '14px' }}>PKR</span> {price} </h3>
-                            </div>
-                            <img src={builderLogo} className={classes.dealer} alt={'dealer logo'} />
                         </div>
                     </CardContent>
 
                     <p className={classes.viewMoreButton}>
                         View More Details
-                            </p>
-
+                    </p>
                 </CardActionArea>
             </Card>
         </>
     )
 }
-
-export default React.memo(AbaadeeCards);
+export default React.memo(DeveloperCard);

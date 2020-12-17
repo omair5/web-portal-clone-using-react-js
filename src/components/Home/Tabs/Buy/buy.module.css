@@ -48,22 +48,22 @@
     cursor: auto;
 }
 
-.min, .max {
+.priceHeading {
     /* background-color: rgb(252, 184, 22); */
     flex-basis: 50%;
     margin: 0px 10px
 }
 
-.min h5, .max h5 {
+.priceHeading h5 {
     padding: 5px;
     text-align: center;
 }
 
-.minValues, .maxValues {
+.priceValues{
     border: 1px solid rgb(172, 172, 172);
 }
 
-.minValues p, .maxValues p {
+.priceValues p, .priceValues p {
     border: 1px solid rgb(172, 172, 172);
     padding: 5px;
     text-align: center;

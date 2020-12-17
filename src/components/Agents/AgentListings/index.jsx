@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import DeveloperCards from '../DeveloperCards';
+import AgentCards from '../AgentCards';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const DeveloperListings = () => {
+const AgentListings = () => {
     const classes = useStyles();
     return (
         <>
@@ -36,11 +36,11 @@ const DeveloperListings = () => {
                 </div>
                 {/* CARDS */}
                 <div className={classes.ForTopMargin}>
-                    <DeveloperCards />
+                    <AgentCards />
                 </div>
             </div>
 
         </>
     );
 }
-export default React.memo(DeveloperListings);
+export default React.memo(AgentListings);

@@ -138,18 +138,16 @@ const Buy = () => {
                         {priceContainer &&
                             <div className={`${styles.priceBox} custom-scroll`}>
                                 {/* MIN VALUES */}
-                                <div className={styles.min}>
+                                <div className={styles.priceHeading}>
                                     <h5>MIN</h5>
-                                    <div className={styles.minValues}>
-                                        <p  onClick={() => console.log('jkj')}>1 lac</p>
-
-                                       
+                                    <div className={styles.priceValues}>
+                                        <p onClick={() => console.log('jkj')}>1 lac</p>
                                     </div >
                                 </div >
                                 {/* MAX VALUES */}
-                                <div div className={styles.max} >
+                                <div div className={styles.priceHeading} >
                                     <h5>MAX</h5>
-                                    <div className={styles.maxValues}>
+                                    <div className={styles.priceValues}>
                                         <p>10 crore</p>
                                         <p>10 crore</p>
                                         <p>10 crore</p>
@@ -171,7 +169,7 @@ const Buy = () => {
 
                 {/* THIS IS ROW 2 */}
 
-                <Grid Grid item xs={12} md={3} className={`${styles.gridtwoPadding} ${styles.locationSelect}`} >
+                <Grid item xs={12} md={3} className={`${styles.gridtwoPadding} ${styles.locationSelect}`} >
                     <Autocomplete
                         id="combo-box-demo4"
                         options={top100Films}
