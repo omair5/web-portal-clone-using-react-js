@@ -10,7 +10,7 @@ import Layout from "../../components/Layout/Layout";
 
 const Home = () => {
     return (
-        <Layout >
+        <Layout FooterDisplay={true}>
             <SimpleTabs />
             <CarouselSlider />
             <Advertisement />

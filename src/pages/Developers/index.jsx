@@ -43,7 +43,7 @@ const Developers = () => {
     const classes = useStyles();
 
     return (
-        <Layout>
+        <Layout FooterDisplay={false}>
             <Advertisement
                 Ads={{ Ad1: Developer1, Ad2: Developer2 }}
                 alt={{ alt1: "pearl villas", alt2: "gohar residency" }}

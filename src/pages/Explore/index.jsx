@@ -47,7 +47,7 @@ const Explore = () => {
     const SearchShow = useSelector(state => state.SearchShow)
     const CardShow = useSelector(state => state.CardShow)
     return (
-        <Layout>
+        <Layout FooterDisplay={false}>
             {/* ADVERTISEMENT COMPONENT FROM FREQUENTLY USED COMPONENTS */}
             <Advertisement
                 Ads={{ Ad1: Advertisement1, Ad2: Advertisement2 }}

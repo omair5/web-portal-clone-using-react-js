@@ -43,7 +43,7 @@ const Agents = () => {
     const classes = useStyles();
 
     return (
-        <Layout>
+        <Layout FooterDisplay={false}>
             <Advertisement
                 Ads={{ Ad1: Agent1, Ad2: Agent2 }}
                 alt={{ alt1: "pearl villas", alt2: "gohar residency" }}

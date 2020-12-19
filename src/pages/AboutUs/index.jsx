@@ -5,7 +5,7 @@ import AboutSection from '../../components/AboutUs/AboutSection';
 import Layout from '../../components/Layout/Layout';
 const AboutUs = () => {
     return (
-        <Layout>
+        <Layout FooterDisplay={true}>
             <AboutHeader />
             <AapKaPropertyPartner />
             <AboutSection />

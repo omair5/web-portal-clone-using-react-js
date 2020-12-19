@@ -5,11 +5,10 @@ import LocationMap from '../../components/ContactUs/LocationMap';
 import Layout from '../../components/Layout/Layout';
 const ContactUs = () => {
     return (
-        <Layout>
+        <Layout FooterDisplay={true}>
             <FindUsAt />
             <ContactForm />
             <LocationMap />
-            
         </Layout>
     );
 }
