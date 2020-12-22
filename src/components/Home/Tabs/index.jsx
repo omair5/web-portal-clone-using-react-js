@@ -7,6 +7,9 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import styles from './tabs.module.css';
+import Rent from './Rent';
+import Wanted from './Wanted';
+import Projects from './Projects';
 
 
 function TabPanel(props) {
@@ -96,7 +99,7 @@ const SimpleTabs = () => {
                         {/* TAB BUTTONS */}
                         <div className={classes.root}>
 
-                            <Tabs  TabIndicatorProps={{ style: { height: '5px', backgroundColor: 'rgb(252, 184, 22)' } }} value={value} onChange={handleChange} aria-label="simple tabs example" centered >
+                            <Tabs TabIndicatorProps={{ style: { height: '5px', backgroundColor: 'rgb(252, 184, 22)' } }} value={value} onChange={handleChange} aria-label="simple tabs example" centered >
                                 <Tab label="BUY" {...a11yProps(0)} className={classes.tabButtons} style={{ backgroundColor: value === 0 ? "white" : "", color: value === 0 ? "rgb(252, 184, 22)" : "" }} />
                                 <Tab label="RENT" {...a11yProps(1)} className={classes.tabButtons} style={{ backgroundColor: value === 1 ? "white" : "", color: value === 1 ? "rgb(252, 184, 22)" : "" }} />
                                 <Tab label="WANTED" {...a11yProps(2)} className={classes.tabButtons} style={{ backgroundColor: value === 2 ? "white" : "", color: value === 2 ? "rgb(252, 184, 22)" : "" }} />
@@ -108,15 +111,15 @@ const SimpleTabs = () => {
                             </TabPanel>
 
                             <TabPanel value={value} index={1} className={classes.tabPanels}>
-                                <Buy />
+                                <Rent />
                             </TabPanel>
 
                             <TabPanel value={value} index={2} className={classes.tabPanels}>
-                                <Buy />
+                                <Wanted />
                             </TabPanel>
 
                             <TabPanel value={value} index={3} className={classes.tabPanels}>
-                                <Buy />
+                                <Projects />
                             </TabPanel>
                         </div>
                     </div>

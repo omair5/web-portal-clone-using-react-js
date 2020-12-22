@@ -5,20 +5,24 @@ import { makeStyles } from '@material-ui/core/styles';
 // STYLES
 const useStyles = makeStyles((theme) => ({
     mainContainer: {
-        backgroundColor: '#fcb812',
-        width: '100%',
-        height: '61.5px',
+        backgroundColor: 'rgb(54, 54, 54)',
+        display: 'flex',
+        height: '35px',
         position: 'fixed',
         bottom: 0,
+        left: 0,
+        right: 0,
         zIndex: 9,
-        "& span": {
-            width: '50%',
-            backgroundColor: '#fcb812',
-            display: "inline-block",
-            textAlign: 'center',
-            fontSize: '12px',
-            fontWeight: 'bolder',
+        "& p": {
+            flexBasis: '50%',
+            backgroundColor: 'rgb(54, 54, 54)',
             color: 'white',
+            borderRight: '1px solid black',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontWeight: 'bolder',
             letterSpacing: '1.4px'
         }
     }
@@ -40,16 +44,15 @@ const HideContentShow = () => {
     return (
         <>
             <div className={classes.mainContainer}>
-                <span
-                    style={{ padding: "30px", cursor: 'pointer', borderRight: '1px solid black' }}
+                <p
                     onClick={HandleSearch}>
                     SEARCH
-                </span>
-                <span
-                    style={{ padding: "30px", cursor: 'pointer', borderLeft: '1px solid black' }}
+                </p>
+                <p
+                    style={{ borderLeft: '1px solid black' }}
                     onClick={HandleCard}>
                     PROPERTY LIST
-                </span>
+                </p>
             </div>
         </>
     );

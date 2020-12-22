@@ -17,14 +17,13 @@ const useStyles = makeStyles(theme => ({
     forAutoComplete: {
         width: '100%',
         height: '60px',
-        margin: '7px 0px',
     },
     forTextField: {
         height: '100%',
     }
 }));
 
-const AutoCompleteTextField = ({ id, label }) => {
+const AutoCompleteTextField = ({ id, label,style }) => {
     const classes = useStyles();
     const classesBase = useStylesBase();
     return (
@@ -34,6 +33,7 @@ const AutoCompleteTextField = ({ id, label }) => {
                 options={top100Films}
                 getOptionLabel={(option) => option.title}
                 className={classes.forAutoComplete}
+                style={style}
                 renderInput={(params) => <TextField {...params} label={label}
                     className={classes.forTextField}
                     // FOR UNDERLINE STYLE

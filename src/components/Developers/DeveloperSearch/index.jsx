@@ -10,21 +10,25 @@ const DeveloperSearch = () => {
             <AutoCompleteTextField
                 id="combo-box-demo1"
                 label="City"
+                style={{ margin: '7px 0px' }}
             />
             {/* LOCATION */}
             <AutoCompleteTextField
                 id="combo-box-demo2"
                 label="Location"
+                style={{ margin: '7px 0px' }}
             />
             {/* Developer Name */}
             <AutoCompleteTextField
                 id="combo-box-demo3"
                 label="Developer Name"
+                style={{ margin: '7px 0px' }}
             />
             {/* Property Types */}
             <AutoCompleteTextField
                 id="combo-box-demo4"
                 label="Property Types"
+                style={{ margin: '7px 0px' }}
             />
 
             {/* SEARCH BUTTON  */}

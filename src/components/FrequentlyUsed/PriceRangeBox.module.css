@@ -1,0 +1,73 @@
+.tab_slider {
+    width: '100%';
+    min-height: 60px;
+    border-bottom: 2px solid gray;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    position: relative;
+}
+
+.priceRange {
+    display: flex;
+    margin-top: auto;
+}
+
+.mylabel p {
+    color: black;
+    font-weight: bold;
+    font-size: 12px;
+    padding-top: 8px;
+}
+
+.priceRange p {
+    flex-grow: 1;
+    color: black;
+    font-weight: bold;
+    font-size: 15px,
+}
+
+.tab_slider:hover {
+    border-bottom: 2px solid black;
+}
+
+.priceBox {
+    background-color: rgba(0, 0, 0,0.9);
+    color: white;
+    position: absolute;
+    height: 200px;
+    width: 100%;
+    top: 65px;
+    z-index: 5;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: flex;
+    cursor: auto;
+}
+
+.priceHeading {
+    /* background-color: rgb(252, 184, 22); */
+    flex-basis: 50%;
+    margin: 0px 10px
+}
+
+.priceHeading h5 {
+    padding: 5px;
+    text-align: center;
+}
+
+.priceValues {
+    border: 1px solid rgb(172, 172, 172);
+}
+
+.priceValues p, .priceValues p {
+    border: 1px solid rgb(172, 172, 172);
+    padding: 5px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.priceValues p:focus {
+    background-color: blueviolet;
+}

@@ -67,7 +67,7 @@ function Navbar() {
                         <Link to='/partners' className='nav-links' onClick={closeMobileMenu} > Partners </Link>
                     </li>
                     <div className='WhoWeAreHide'>
-                        <li className='nav-item' onClick={onClick} onMouseLeave={onMouseLeave}>
+                        <li className='nav-item' onMouseEnter={onClick} onMouseLeave={onMouseLeave}>
                             {dropdown && <Dropdown />}
                             <div className='nav-links' >Who We Are <FontAwesomeIcon icon={faCaretDown} style={{ cursor: 'pointer' }} /></div>
 
@@ -75,10 +75,10 @@ function Navbar() {
                     </div>
                     <div className='WhoWeAreShow'>
                         <li className='nav-item'>
-                            <Link  to='/about' className='nav-links' onClick={closeMobileMenu} > About Us </Link>
+                            <Link to='/about' className='nav-links' onClick={closeMobileMenu} > About Us </Link>
                         </li>
                         <li className='nav-item'>
-                            <Link  to='/contact' className='nav-links' onClick={closeMobileMenu} > Contact Us </Link>
+                            <Link to='/contact' className='nav-links' onClick={closeMobileMenu} > Contact Us </Link>
                         </li>
                     </div>
 

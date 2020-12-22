@@ -31,12 +31,6 @@ const useStyles = makeStyles((theme) => ({
             display: 'block',
         },
     },
-    contentDisplay: {
-        display: 'block'
-    },
-    contentHide: {
-        display: 'none'
-    }
 }));
 
 const Developers = () => {

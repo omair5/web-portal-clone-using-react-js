@@ -1,30 +1,29 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import SearchIcon from '@material-ui/icons/Search';
-import styles from './buy.module.css'
+import styles from '../Buy/buy.module.css'
 import AutoCompleteTextField from '../../../FrequentlyUsed/AutoCompleteTextField';
-import PriceRangeBox from '../../../FrequentlyUsed/PriceRangeBox';
 
-const Buy = () => {
+const Wanted = () => {
     return (
         <div>
             {/* THIS IS ROW 1 */}
             <Grid container >
-                <Grid item xs={12} md={3} >
+                <Grid item xs={12} md={4} >
                     {/* CITY */}
                     <AutoCompleteTextField
                         id="combo-box-demo1"
                         label='City'
                     />
                 </Grid>
-                <Grid item xs={12} md={6} className={styles.locationSelect}>
+                <Grid item xs={12} md={4} className={styles.locationSelect}>
                     {/* LOCATION */}
                     <AutoCompleteTextField
                         id="combo-box-demo2"
                         label='Location'
                     />
                 </Grid>
-                <Grid item xs={12} md={3} >
+                <Grid item xs={12} md={4} >
                     {/* PROPERTY TYPE */}
                     <AutoCompleteTextField
                         id="combo-box-demo3"
@@ -34,21 +33,15 @@ const Buy = () => {
             </Grid>
 
             {/* THIS IS ROW 2 */}
-
-            {/* PRICE RANGE BOX */}
             <Grid container className={styles.secondGrid}>
-                <Grid item xs={12} md={3} >
-                    <PriceRangeBox />
-                </Grid >
-
-                <Grid item xs={12} md={3} className={`${styles.gridtwoPadding} ${styles.locationSelect}`} >
+                <Grid item xs={12} md={4} className={`${styles.gridtwoPadding} ${styles.locationSelect}`} >
                     {/* AREA UNIT */}
                     <AutoCompleteTextField
                         id="combo-box-demo4"
                         label='Area Unit'
                     />
                 </Grid >
-                <Grid item xs={12} md={3} className={`${styles.gridtwoPadding} ${styles.locationSelect}`} >
+                <Grid item xs={12} md={4} className={`${styles.gridtwoPadding} ${styles.locationSelect}`} >
                     {/* BEDS */}
                     <AutoCompleteTextField
                         id="combo-box-demo5"
@@ -56,7 +49,7 @@ const Buy = () => {
                     />
                 </Grid>
                 {/* SEARCH BUTTON */}
-                <Grid item xs={12} md={3} >
+                <Grid item xs={12} md={4} >
                     <div className={styles.searchButtonBox}>
                         <div><SearchIcon style={{ fontSize: '25px' }} /></div>
                         <div className={styles.search}>SEARCH</div>
@@ -67,4 +60,4 @@ const Buy = () => {
     );
 }
 
-export default React.memo(Buy);
+export default React.memo(Wanted);

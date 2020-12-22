@@ -2,10 +2,10 @@
     z-index: 200;
     width: 200px;
     position: absolute;
-    top: 80px;
+    top: 50px;
     list-style: none;
     text-align: start;
-    background: rgb(252, 184, 22);
+    background: #fcb812
 }
 
 .dropdown-menu li {

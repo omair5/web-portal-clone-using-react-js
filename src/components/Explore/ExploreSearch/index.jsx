@@ -35,31 +35,37 @@ const ExploreSearchs = () => {
             <AutoCompleteTextField
                 id="combo-box-demo1"
                 label="Location"
+                style={{ margin: '7px 0px' }}
             />
             {/* CITY */}
             <AutoCompleteTextField
                 id="combo-box-demo2"
                 label="City"
+                style={{ margin: '7px 0px' }}
             />
             {/* PROPERTY TYPE */}
             <AutoCompleteTextField
                 id="combo-box-demo3"
                 label="Property Type"
+                style={{ margin: '7px 0px' }}
             />
             {/* Area Unit */}
             <AutoCompleteTextField
                 id="combo-box-demo4"
                 label="Area Unit"
+                style={{ margin: '7px 0px' }}
             />
             {/* BEDS */}
             <AutoCompleteTextField
                 id="combo-box-demo5"
                 label="Beds"
+                style={{ margin: '7px 0px' }}
             />
             {/* TOTAL ROOMS */}
             <AutoCompleteTextField
                 id="combo-box-demo6"
                 label="Total Rooms"
+                style={{ margin: '7px 0px' }}
             />
             {/* RANGE SLIDER */}
             <div >

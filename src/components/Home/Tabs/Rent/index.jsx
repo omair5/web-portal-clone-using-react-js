@@ -1,11 +1,11 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import SearchIcon from '@material-ui/icons/Search';
-import styles from './buy.module.css'
+import styles from '../Buy/buy.module.css'
 import AutoCompleteTextField from '../../../FrequentlyUsed/AutoCompleteTextField';
 import PriceRangeBox from '../../../FrequentlyUsed/PriceRangeBox';
 
-const Buy = () => {
+const Rent = () => {
     return (
         <div>
             {/* THIS IS ROW 1 */}
@@ -67,4 +67,4 @@ const Buy = () => {
     );
 }
 
-export default React.memo(Buy);
+export default React.memo(Rent);
