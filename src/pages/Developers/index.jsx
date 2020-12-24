@@ -2,12 +2,13 @@ import React from 'react';
 import Advertisement from '../../components/FrequentlyUsed/Advertisement';
 import Layout from '../../components/Layout/Layout';
 import { makeStyles } from '@material-ui/core/styles';
-import HideContentShow from '../../components/Explore/HideContentShow';
+import { useSelector } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import Developer1 from './images/developer1.jpg'
 import Developer2 from './images/developer2.jpg'
 import DeveloperListings from '../../components/Developers/DeveloperListings';
 import DeveloperFilter from '../../components/Developers/DeveloperFilter';
+import FooterForMobileDevices from '../../components/FrequentlyUsed/FooterForMobileDevices';
 
 const useStyles = makeStyles((theme) => ({
     MainContainer: {
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
             display: 'none',
         },
     },
-    HideContentShow: {
+    FooterForMobileDevices: {
         display: 'none',
         [theme.breakpoints.up('md')]: {
             display: 'none',
@@ -35,7 +36,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Developers = () => {
     const classes = useStyles();
-
+    const DeveloperSearchShow = useSelector(state => state.DeveloperSearchShow)
+    const DeveloperCardShow = useSelector(state => state.DeveloperCardShow)
     return (
         <Layout FooterDisplay={false}>
             <Advertisement
@@ -45,16 +47,19 @@ const Developers = () => {
 
             <Grid container className={classes.MainContainer} >
                 {/* SEARCH FILTER */}
-                <Grid item md={3} xs={12} className={classes.hideComponent} >
+                <Grid item md={3} xs={12} className={classes.hideComponent} style={{ display: DeveloperSearchShow ? 'block' : 'none' }} >
                     <DeveloperFilter />
                 </Grid>
                 {/* SEARCH RESULTS */}
-                <Grid item md={9} xs={12} >
+                <Grid item md={9} xs={12} style={{ display: DeveloperCardShow ? 'block' : 'none' }}>
                     <DeveloperListings />
                 </Grid>
             </Grid>
-            <div className={classes.HideContentShow} >
-                <HideContentShow />
+            <div className={classes.FooterForMobileDevices} >
+                <FooterForMobileDevices
+                    toSearchText='DEVELOPERS LIST'
+                    id='search-2'
+                />
             </div>
 
         </Layout>);

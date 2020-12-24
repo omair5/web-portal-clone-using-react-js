@@ -4,11 +4,11 @@ import Filter from '../../components/Explore/Filter';
 import Layout from '../../components/Layout/Layout';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import HideContentShow from '../../components/Explore/HideContentShow';
 import { useSelector } from 'react-redux';
 import Advertisement from '../../components/FrequentlyUsed/Advertisement';
 import Advertisement1 from './images/explore 1.jpg'
 import Advertisement2 from './images/explore 2.jpg'
+import FooterForMobileDevices from '../../components/FrequentlyUsed/FooterForMobileDevices';
 
 // STYLES
 const useStyles = makeStyles((theme) => ({
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
             display: 'none',
         },
     },
-    HideContentShow: {
+    FooterForMobileDevices: {
         display: 'none',
         [theme.breakpoints.up('md')]: {
             display: 'none',
@@ -58,8 +58,11 @@ const Explore = () => {
                     <ExploreTabs />
                 </Grid>
             </Grid>
-            <div className={classes.HideContentShow} >
-                <HideContentShow />
+            <div className={classes.FooterForMobileDevices} >
+                <FooterForMobileDevices
+                    toSearchText='PROPERTY LIST'
+                    id='search-1'
+                />
             </div>
         </Layout >);
 }
