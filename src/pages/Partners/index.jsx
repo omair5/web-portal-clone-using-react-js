@@ -1,10 +1,17 @@
 import React from 'react';
+import Advertisement from '../../components/FrequentlyUsed/Advertisement';
 import Layout from '../../components/Layout/Layout';
+import OurPartners from '../../components/Partners/OurPartners';
+import Partner1 from './images/partner1.jpg'
+import Partner2 from './images/partner2.jpg'
 const Partners = () => {
     return (
         <Layout FooterDisplay={true}>
-            <h1>this is partners page</h1>
-            {console.log('this is partners page ')}
+            <Advertisement
+                Ads={{ Ad1: Partner1, Ad2: Partner2 }}
+                alt={{ alt1: "pearl villas", alt2: "gohar residency" }}
+            />
+            <OurPartners />
         </Layout>);
 }
 
