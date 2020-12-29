@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import styles from './PriceRangeBox.module.css'
 const PriceRangeBox = () => {
@@ -7,7 +7,7 @@ const PriceRangeBox = () => {
     const [maximumValue, setmaximumValue] = useState('10 crore')
     const [minbg, setminbg] = useState(0)
     const [maxbg, setmaxbg] = useState(0)
-    const boxRef = useRef(null)
+    const searchRef = useRef(null)
 
     const HandleMinimum = (e) => {
         setminimumValue(e.target.innerText)
@@ -19,9 +19,22 @@ const PriceRangeBox = () => {
         setmaxbg(parseInt(e.target.id))
 
     }
+
+    useEffect(() => {
+        document.addEventListener('click', function (e) {
+            console.log(e)
+            if ((e.target.parentElement.className === 'PriceRangeBox_priceRange__ulkxQ') || (e.target.parentElement.className === 'PriceRangeBox_priceValues__4zsF_') || (e.target.className === 'PriceRangeBox_priceBox__1jyZb custom-scroll')||(e.target.parentElement.className === 'PriceRangeBox_priceHeading__2LgRW')) {
+                return
+            }
+            else {
+                setpriceContainer(false)
+            }
+        })
+    }, [searchRef])
+
     return (
         <>
-            <div className={styles.tab_slider} >
+            <div className={styles.tab_slider} id='RangeBoxParent'>
                 <div onClick={() => setpriceContainer(!priceContainer)}>
                     {console.log('this is price container state', priceContainer)}
                     <div className={styles.mylabel}>
@@ -35,7 +48,7 @@ const PriceRangeBox = () => {
                     </div>
                 </div>
                 {priceContainer &&
-                    <div className={`${styles.priceBox} custom-scroll`} ref={boxRef} id='rangebox'>
+                    <div className={`${styles.priceBox} custom-scroll`} ref={searchRef} id='RangeBoxChild'>
                         {/* MIN VALUES */}
                         <div className={styles.priceHeading}>
                             <h5>MIN</h5>
@@ -69,5 +82,4 @@ const PriceRangeBox = () => {
         </>
     );
 }
-
 export default React.memo(PriceRangeBox);

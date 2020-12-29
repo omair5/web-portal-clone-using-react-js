@@ -2,7 +2,11 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import AbaadeeCards from '../../FrequentlyUsed/AbaadeeCards';
 import propertyImage from '../../Home/NewProjects/images/property.jpeg'
+import Pagination from '@material-ui/lab/Pagination';
+import { useStyles, useStylesBase } from '../../FrequentlyUsed/PaginationStyles'
 const RentTab = () => {
+    const classes = useStyles();
+    const classesBase = useStylesBase();
     return (
         <>
             <Grid container spacing={3}>
@@ -18,6 +22,11 @@ const RentTab = () => {
                     />
                 </Grid>
             </Grid>
+            <Pagination count={10}
+                className={classes.paginationContainer}
+                classes={classesBase}
+                size="large"
+            />
         </>
     );
 }
