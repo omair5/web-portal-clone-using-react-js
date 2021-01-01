@@ -23,7 +23,7 @@ const PriceRangeBox = () => {
     useEffect(() => {
         document.addEventListener('click', function (e) {
             console.log(e)
-            if ((e.target.parentElement.className === 'PriceRangeBox_priceRange__ulkxQ') || (e.target.parentElement.className === 'PriceRangeBox_priceValues__4zsF_') || (e.target.className === 'PriceRangeBox_priceBox__1jyZb custom-scroll')||(e.target.parentElement.className === 'PriceRangeBox_priceHeading__2LgRW')) {
+            if ((e.target.parentElement.className === 'PriceRangeBox_priceRange__ulkxQ') || (e.target.parentElement.className === 'PriceRangeBox_priceValues__4zsF_') || (e.target.className === 'PriceRangeBox_priceBox__1jyZb custom-scroll') || (e.target.parentElement.className === 'PriceRangeBox_priceHeading__2LgRW')) {
                 return
             }
             else {
@@ -36,7 +36,6 @@ const PriceRangeBox = () => {
         <>
             <div className={styles.tab_slider} id='RangeBoxParent'>
                 <div onClick={() => setpriceContainer(!priceContainer)}>
-                    {console.log('this is price container state', priceContainer)}
                     <div className={styles.mylabel}>
                         <p>Price Range (PKR)</p>
                     </div>
@@ -49,7 +48,7 @@ const PriceRangeBox = () => {
                 </div>
                 {priceContainer &&
                     <div className={`${styles.priceBox} custom-scroll`} ref={searchRef} id='RangeBoxChild'>
-                        {/* MIN VALUES */}
+
                         <div className={styles.priceHeading}>
                             <h5>MIN</h5>
                             <div className={styles.priceValues} onClick={(e) => HandleMinimum(e)}>
@@ -62,7 +61,7 @@ const PriceRangeBox = () => {
                                 <p id={7} style={{ backgroundColor: minbg === 7 ? '#fcb812' : 'transparent' }}>90 lac</p>
                             </div >
                         </div >
-                        {/* MAX VALUES */}
+
                         <div div className={styles.priceHeading} >
                             <h5>MAX</h5>
                             <div className={styles.priceValues} onClick={(e) => HandleMaximum(e)}>

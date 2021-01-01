@@ -5,6 +5,9 @@ import BlogPost from '../FrequentlyUsed/BlogPosts';
 import ClassIcon from '@material-ui/icons/Class';
 import property from './images/property.jpeg'
 import { Container } from '@material-ui/core';
+import Pagination from '@material-ui/lab/Pagination';
+import { useStylesBase } from '../FrequentlyUsed/PaginationStyles'
+
 
 const useStyles = makeStyles({
     MainHeading: {
@@ -14,12 +17,19 @@ const useStyles = makeStyles({
     },
     BlogContainer: {
         margin: '15px auto'
+    },
+    paginationContainer: {
+        maxWidth: '100%',
+        margin: 'auto',
+        marginTop: '30px',
     }
 });
 
 
 const BlogShow = () => {
     const classes = useStyles();
+    const classesBase = useStylesBase();
+
     return (
         <>
             <h1 className={classes.MainHeading}>REAL ESTATE BLOGS</h1>
@@ -90,6 +100,12 @@ const BlogShow = () => {
                         />
                     </Grid>
                 </Grid>
+
+                <Pagination count={10}
+                    className={classes.paginationContainer}
+                    classes={classesBase}
+                    size="large"
+                />
             </Container>
         </>
     );
