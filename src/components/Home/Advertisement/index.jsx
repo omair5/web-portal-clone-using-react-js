@@ -3,7 +3,7 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import styles from './advertisement.module.css'
-import advertisement1 from './images/advertisement1.jpg'
+import advertisement1 from './images/advertisement1.webp'
 const Advertisement = () => {
     return (
         <Container maxWidth='lg'>
@@ -11,11 +11,11 @@ const Advertisement = () => {
                 <Grid container>
                     {/* ADVERTISEMENT 1 */}
                     <Grid item md={6} >
-                        <img src={advertisement1} alt="" height='100%' width='100%' />
+                        <img src={advertisement1} alt="advertisement1" height='100%' width='100%' />
                     </Grid>
                     {/* ADVERTISEMENT 2 */}
                     <Grid item md={6}>
-                        <img src={advertisement1} alt="" height='100%' width='100%' />
+                        <img src={advertisement1} alt="advertisement2" height='100%' width='100%' />
                     </Grid>
                 </Grid>
             </Box>
