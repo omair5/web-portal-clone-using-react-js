@@ -1,0 +1,12 @@
+.backgroundImg {
+    width: 100%;
+    min-height: 60vh;
+    /* use fallback image with optimized size here  background-image: url('./areaguidefallback.jpg');*/
+    background-image: url('./areaguide.webp');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
