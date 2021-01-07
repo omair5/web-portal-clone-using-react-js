@@ -10,19 +10,22 @@ export const useStyles = makeStyles((theme) => ({
 export const useStylesBase = makeStyles(theme => ({
     root: {
         "& .MuiPaginationItem-sizeLarge": {
-            fontSize: '20px'
+            fontSize: '20px',
+            [theme.breakpoints.down('md')]: {
+                fontSize: '12px',
+            },
         },
         '& .MuiPaginationItem-page.Mui-selected': {
             backgroundColor: '#fcb812',
-            color:'black',
-           },
-           '& .MuiButtonBase-root': {
-            "&:hover":{
+            color: 'black',
+        },
+        '& .MuiButtonBase-root': {
+            "&:hover": {
                 backgroundColor: '#fcb812',
             }
-           },
-           "& .MuiPagination-ul": {
-            justifyContent:"center"
+        },
+        "& .MuiPagination-ul": {
+            justifyContent: "center"
         },
     },
 }));

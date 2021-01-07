@@ -22,7 +22,6 @@ const PriceRangeBox = () => {
 
     useEffect(() => {
         document.addEventListener('click', function (e) {
-            console.log(e)
             if ((e.target.parentElement.className === 'PriceRangeBox_priceRange__ulkxQ') || (e.target.parentElement.className === 'PriceRangeBox_priceValues__4zsF_') || (e.target.className === 'PriceRangeBox_priceBox__1jyZb custom-scroll') || (e.target.parentElement.className === 'PriceRangeBox_priceHeading__2LgRW')) {
                 return
             }
@@ -43,7 +42,7 @@ const PriceRangeBox = () => {
                         <p>{minimumValue}</p>
                         <p>to</p>
                         <p>{maximumValue}</p>
-                        <ArrowDropDownIcon />
+                        <ArrowDropDownIcon style={{ marginTop: '7px', fontSize: '20px' }} />
                     </div>
                 </div>
                 {priceContainer &&

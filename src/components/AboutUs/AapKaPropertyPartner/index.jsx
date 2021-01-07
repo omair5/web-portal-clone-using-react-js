@@ -44,6 +44,10 @@ const useStyles = makeStyles(theme => ({
             }
         },
     },
+    grid2: {
+        display: 'flex',
+        alignItems: 'center'
+    },
     abaadee: {
         color: '#fcb812',
         fontWeight: 'bolder'
@@ -69,15 +73,15 @@ const AapKaPropertyPartner = () => {
             <div className={classes.mainContainer}>
                 <Container maxWidth="lg" >
                     <Grid container >
-                        <Grid item xs={12} sm={12} md={6} className={classes.grid1}  >
+                        <Grid item xs={12} sm={12} md={6} className={classes.grid1} >
                             <div style={{ margin: '0px auto' }} >
                                 <h1> <span className={classes.abaadee}>ABAADEE</span> APKA PROPERTY PARTNER</h1>
                                 <Button >ADD PROPERTY</Button>
                             </div>
                         </Grid>
 
-                        <Grid item xs={12} md={6} >
-                            <img className={classes.PartnerImage} src={PropertyPartner} alt="property partner" width='450px' height='400px' />
+                        <Grid item xs={12} md={6} className={classes.grid2}>
+                            <img className={classes.PartnerImage} src={PropertyPartner} alt="property partner" width='90%' height='90%' />
                         </Grid>
                     </Grid>
                 </Container>

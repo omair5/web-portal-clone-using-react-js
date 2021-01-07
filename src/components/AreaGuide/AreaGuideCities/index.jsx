@@ -48,8 +48,8 @@ const AreaGuideCities = ({ cityName, LahoreAreas }) => {
                 <h1>{cityName}</h1>
                 <hr className={classes.hrLine} />
                 <Grid container spacing={3} className={classes.gridContainer}>
-                    {LahoreAreas.map(value => (
-                        <Grid item xs={12} md={4}>
+                    {LahoreAreas.map((value, index) => (
+                        <Grid item xs={12} md={4} key={index}>
                             <div className={classes.paperContainer}>
                                 <img src={value.areaImage} alt="dha city" width='100%' height='70%' />
                                 <h4>{value.areaName}</h4>
