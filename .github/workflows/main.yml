@@ -35,4 +35,4 @@ jobs:
     - name: MAKING BUILD FOLDER
       run: yarn build
     - name: DEPLOYING
-      run: surge ./build abaadee_react.surge.sh --token ${{ secrets.MY_SECRET }} 
+      run: surge ./build abaadee_dev_version.surge.sh --token ${{ secrets.MY_SECRET }} 
