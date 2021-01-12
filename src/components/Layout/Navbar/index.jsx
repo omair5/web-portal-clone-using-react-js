@@ -7,6 +7,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
 import './Navbar.css';
 import Dropdown from './Dropdown';
+import SignIn from './SignIn';
+import Register from './Register';
 
 function Navbar() {
     const [click, setClick] = useState(false);
@@ -83,7 +85,7 @@ function Navbar() {
                     </div>
 
                     <li className='nav-item sigin-register-mobile'>
-                        <span className='nav-sigin-register '>Sign in</span>  or <span className='nav-sigin-register'>Register</span>
+                        <SignIn /> or <Register />
                     </li>
                 </ul>
                 <Button />

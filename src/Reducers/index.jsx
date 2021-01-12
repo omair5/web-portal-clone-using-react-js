@@ -5,6 +5,7 @@ import DeveloperSearch from './DeveloperSearch'
 import DeveloperCards from './DeveloperCards'
 import AgentCards from './AgentCards'
 import AgentSearch from './AgentSearch'
+import SignInDialog from './SignInDialog'
 
 
 
@@ -15,6 +16,6 @@ export default combineReducers({
     DeveloperSearchShow: DeveloperSearch,
     DeveloperCardShow: DeveloperCards,
     AgentSearchShow: AgentSearch,
-    AgentCardShow: AgentCards
-
+    AgentCardShow: AgentCards,
+    SignInDialogStatus: SignInDialog
 })
