@@ -24,20 +24,11 @@ const useStylesCheckBox = makeStyles(theme => ({
 }));
 
 const useStyles = makeStyles({
-    sigin: {
-        textDecoration: 'none',
-        color: 'white',
-        padding: '1rem',
-        cursor: 'pointer',
-        "&:hover": {
-            color: 'black'
-        }
-    },
     mainContainer: {
         backgroundColor: "white",
         minHeight: '500px',
         maxWidth: '400px',
-        overflow:"hidden"
+        overflow: "hidden"
     },
     connectWith: {
         marginTop: '15px'
@@ -66,8 +57,13 @@ const SignInDialogBox = () => {
 
     // THIS STATE IS TO CLOSE DIALOG BOX
     const handleClose = () => {
-        dispatch({type:'CloseSignInDialog'})
+        dispatch({ type: 'CloseSignInDialog' })
     };
+    // TO OPEN REGISTER DIALOG OnClick on DONT HAVE AN ACCOUNT
+    const HandleRegister = () => {
+        dispatch({ type: 'CloseSignInDialog' })
+        dispatch({ type: 'OpenRegisterDialog' })
+    }
     // THIS IS FOR CHECKBOX
     const [state, setState] = React.useState({
         checkedA: true,
@@ -90,12 +86,14 @@ const SignInDialogBox = () => {
                     <InputTextField
                         TextFieldId='1'
                         TextFieldPlaceHolder='Username'
+                        InputType='text'
                     />
 
                     {/* FOR PASSWORD */}
                     <InputTextField
                         TextFieldId='2'
                         TextFieldPlaceHolder='Password'
+                        InputType='password'
                     />
 
                     {/* SIGN IN BUTTON */}
@@ -133,7 +131,7 @@ const SignInDialogBox = () => {
                     {/* FOOTER */}
                     <div className={`${classes.IconWithText} ${classes.footer}`}>
                         <p><FontAwesomeIcon icon={faUser} /></p>
-                        <p style={{ marginLeft: '5px' }}>Don't Have An Account?</p>
+                        <p style={{ marginLeft: '5px' }} onClick={HandleRegister}>Don't Have An Account?</p>
                     </div>
 
                     <div className={`${classes.IconWithText} ${classes.footer}`}>

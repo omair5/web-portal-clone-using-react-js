@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-
 const useStyles = makeStyles({
     buttonContainer: {
         margin: '10px 0px',
@@ -33,5 +32,4 @@ const SignInAndRegisterButton = ({ ButtonIcon, ButtonText, bgColor }) => {
         </>
     );
 }
-
 export default React.memo(SignInAndRegisterButton);

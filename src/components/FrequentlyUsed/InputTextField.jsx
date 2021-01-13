@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     },
 });
 
-const InputTextField = ({ TextFieldId, TextFieldPlaceHolder }) => {
+const InputTextField = ({ TextFieldId, TextFieldPlaceHolder, InputType }) => {
     const classes = useStyles();
     const classesBase = useStylesBase();
     return (
@@ -28,6 +28,7 @@ const InputTextField = ({ TextFieldId, TextFieldPlaceHolder }) => {
                 <TextField
                     id={TextFieldId}
                     placeholder={TextFieldPlaceHolder}
+                    type={InputType}
                     classes={classesBase}
                     className={classes.inputfield}
                     // FOR INPUT STYLING
