@@ -1,10 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import { faCaretDown, faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
 import React, { useState } from 'react';
 import { Button } from './Button';
 import { Link } from 'react-router-dom';
-import MenuIcon from '@material-ui/icons/Menu';
-import CloseIcon from '@material-ui/icons/Close';
 import './Navbar.css';
 import Dropdown from './Dropdown';
 import SignIn from './SignIn';
@@ -42,7 +40,7 @@ function Navbar() {
 
                 {/* RESPONSIVE ICONS */}
                 <div className='menu-icon' onClick={handleClick}>
-                    {click ? <CloseIcon style={{ fontSize: '40px' }} /> : <MenuIcon style={{ fontSize: '40px' }} />}
+                    {click ? <FontAwesomeIcon icon={faTimes} style={{ fontSize: '30px', marginRight: '18px',marginTop:'5px' }} /> : <FontAwesomeIcon icon={faBars} style={{ fontSize: '30px', marginRight: '15px',marginTop:'5px' }} />}
                 </div>
 
                 <ul className={click ? 'nav-menu active' : 'nav-menu'}>

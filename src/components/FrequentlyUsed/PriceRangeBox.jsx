@@ -61,7 +61,7 @@ const PriceRangeBox = () => {
                             </div >
                         </div >
 
-                        <div div className={styles.priceHeading} >
+                        <div className={styles.priceHeading} >
                             <h5>MAX</h5>
                             <div className={styles.priceValues} onClick={(e) => HandleMaximum(e)}>
                                 <p id={1} style={{ backgroundColor: maxbg === 1 ? '#fcb812' : 'transparent' }}>5 crore</p>
