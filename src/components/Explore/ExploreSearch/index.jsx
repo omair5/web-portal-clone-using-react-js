@@ -1,9 +1,9 @@
 import React from 'react';
-import Slider from '@material-ui/core/Slider';
 import { makeStyles } from "@material-ui/core/styles";
 import SearchIcon from '@material-ui/icons/Search';
 import AbaadeeButton from '../../FrequentlyUsed/Button';
 import AutoCompleteTextField from '../../FrequentlyUsed/AutoCompleteTextField';
+import PriceRangeBox from '../../FrequentlyUsed/PriceRangeBox';
 
 // FOR GENERAL
 const useStyles = makeStyles(theme => ({
@@ -17,18 +17,10 @@ const useStyles = makeStyles(theme => ({
         }
     }
 }));
-// FOR SLIDER
-function valuetext(value) {
-    return `${value}°C`;
-}
 
 const ExploreSearchs = () => {
     const classes = useStyles();
-    // FOR SLIDER
-    const [value, setValue] = React.useState([0, 18000000]);
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
+
     return (
         <div className={classes.MainContainer}>
             {/*LOCATION  */}
@@ -67,24 +59,10 @@ const ExploreSearchs = () => {
                 label="Total Rooms"
                 style={{ margin: '7px 0px' }}
             />
-            {/* RANGE SLIDER */}
-            <div >
-                <div className={classes.PriceSlider} >
-                    <p>Price Range</p>
-                    <p>PKR <span className='yellow'>{value[0]}</span> — PKR <span className='yellow'>{value[1]}</span></p>
-                </div>
-                <Slider
-                    value={value}
-                    onChange={handleChange}
-                    // valueLabelDisplay="auto"
-                    aria-labelledby="range-slider"
-                    getAriaValueText={valuetext}
-                    min={0}
-                    step={1000}
-                    max={18000000}
-                    style={{ color: 'rgb(252, 184, 22)' }}
-                />
-            </div>
+            {/* PRICE RANGE SELECTOR */}
+            {/* <PriceRangeBox /> */}
+            <h1>hello</h1>
+
             {/* SEARCH BUTTON  */}
             <AbaadeeButton
                 innerContent={'SEARCH'}

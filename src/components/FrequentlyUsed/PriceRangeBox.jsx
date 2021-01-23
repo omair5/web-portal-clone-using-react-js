@@ -29,6 +29,7 @@ const PriceRangeBox = () => {
                 setpriceContainer(false)
             }
         })
+        document.removeEventListener('click', () => console.log('removed'))
     }, [searchRef])
 
     return (

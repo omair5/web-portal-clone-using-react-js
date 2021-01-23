@@ -38,7 +38,8 @@ const Rent = () => {
             {/* PRICE RANGE BOX */}
             <Grid container className={styles.secondGrid}>
                 <Grid item xs={12} md={3} >
-                    <PriceRangeBox />
+                    {/* <PriceRangeBox /> */}
+                    <h1>hello</h1>
                 </Grid >
 
                 <Grid item xs={12} md={3} className={`${styles.gridtwoPadding} ${styles.locationSelect}`} >

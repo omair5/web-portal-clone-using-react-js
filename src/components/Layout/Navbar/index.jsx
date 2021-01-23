@@ -40,7 +40,7 @@ function Navbar() {
 
                 {/* RESPONSIVE ICONS */}
                 <div className='menu-icon' onClick={handleClick}>
-                    {click ? <FontAwesomeIcon icon={faTimes} style={{ fontSize: '30px', marginRight: '18px',marginTop:'5px' }} /> : <FontAwesomeIcon icon={faBars} style={{ fontSize: '30px', marginRight: '15px',marginTop:'5px' }} />}
+                    {click ? <FontAwesomeIcon icon={faTimes} style={{ fontSize: '30px', marginRight: '18px', marginTop: '5px' }} /> : <FontAwesomeIcon icon={faBars} style={{ fontSize: '30px', marginRight: '15px', marginTop: '5px' }} />}
                 </div>
 
                 <ul className={click ? 'nav-menu active' : 'nav-menu'}>
@@ -91,5 +91,4 @@ function Navbar() {
         </>
     );
 }
-
 export default React.memo(Navbar);

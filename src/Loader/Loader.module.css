@@ -9,17 +9,7 @@
 
 .LoaderContainer {
     display: block;
-    animation-name: loader;
-    animation-duration: 4s;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-@keyframes loader {
-    from {
-        transform: scale(0.9);
-    }
-    to {
-        transform: scale(1);
-    }
+    width: auto;
+    height: auto;
+    margin: auto;
 }
