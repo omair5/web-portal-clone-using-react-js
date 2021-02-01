@@ -7,9 +7,7 @@ import AgentCards from './AgentCards'
 import AgentSearch from './AgentSearch'
 import SignInDialog from './SignInDialog'
 import RegisterDialog from './RegisterDialog'
-
-
-
+import ListingGalleryCarousel from './ListingGalleryCarousel'
 
 export default combineReducers({
     SearchShow: ExploreSearch,
@@ -20,5 +18,6 @@ export default combineReducers({
     AgentCardShow: AgentCards,
     SignInDialogStatus: SignInDialog,
     RegisterDialogStatus: RegisterDialog,
+    ListingCarousel: ListingGalleryCarousel
 
 })

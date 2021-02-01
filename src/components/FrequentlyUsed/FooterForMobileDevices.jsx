@@ -32,7 +32,6 @@ const FooterForMobileDevices = ({ toSearchText, id }) => {
     const dispatch = useDispatch()
 
     const HandleSearch = (e) => {
-        console.log('event of search', e.target.id)
         if (e.target.id === 'search-1') {
             dispatch({ type: 'searchToggle', payload: true })
             dispatch({ type: 'cardToggle', payload: false })
@@ -48,7 +47,6 @@ const FooterForMobileDevices = ({ toSearchText, id }) => {
 
     }
     const HandleCard = (e) => {
-        console.log('event of card', e.target.innerHTML)
         if (e.target.innerHTML === 'PROPERTY LIST') {
             dispatch({ type: 'searchToggle', payload: false })
             dispatch({ type: 'cardToggle', payload: true })

@@ -60,6 +60,7 @@ p {
 
 .custom-scroll::-webkit-scrollbar {
   width: 8px;
+  height: 6px;
 }
 
 .custom-scroll::-webkit-scrollbar-track {
@@ -68,4 +69,16 @@ p {
 
 .custom-scroll::-webkit-scrollbar-thumb {
   background-color: #fcb812;
+}
+
+.buttonStyle {
+  padding: 15px;
+  margin-left: 15px;
+  background-color: #fcb812;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
 }

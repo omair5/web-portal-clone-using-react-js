@@ -6,14 +6,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import store from './store';
 import { Provider } from 'react-redux'
 import Loader from './Loader/Loader'
-// import Explore from './pages/Explore'
-// import Developers from './pages/Developers'
-// import Agents from './pages/Agents'
-// import Blogs from './pages/Blogs'
-// import AreaGuide from './pages/AreaGuide'
-// import Partners from './pages/Partners'
-// import ContactUs from './pages/ContactUs'
-// import AboutUs from './pages/AboutUs'
 const Home = React.lazy(() => import('./pages/Home'));
 const Explore = React.lazy(() => import('./pages/Explore'));
 const Developers = React.lazy(() => import('./pages/Developers'));
@@ -24,6 +16,8 @@ const Partners = React.lazy(() => import('./pages/Partners'));
 const ContactUs = React.lazy(() => import('./pages/ContactUs'));
 const AboutUs = React.lazy(() => import('./pages/AboutUs'));
 const UserLogin = React.lazy(() => import('./pages/UserLogIn'));
+const Listings = React.lazy(() => import('./pages/Listings'));
+
 
 
 function App() {
@@ -44,6 +38,7 @@ function App() {
               <Route exact path='/contact' component={ContactUs} />
               <Route exact path='/about' component={AboutUs} />
               <Route exact path='/my-account' component={UserLogin} />
+              <Route exact path='/listings' component={Listings} />
             </Switch>
           </Suspense>
         </Router>
