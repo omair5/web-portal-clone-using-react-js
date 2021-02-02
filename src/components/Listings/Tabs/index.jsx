@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import GetInTouch from '../GetInTouch';
 import Tab1 from '../Tab1';
+import Tab2 from '../Tab2';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -86,7 +87,7 @@ function SimpleTabs() {
             </TabPanel>
 
             <TabPanel value={value} index={1}>
-                two
+                <Tab2 />
             </TabPanel>
         </div>
     );
