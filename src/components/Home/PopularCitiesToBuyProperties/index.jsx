@@ -10,9 +10,9 @@ const PopularCitiesToBuyProperties = () => {
             <h2 className={styles.marginBottom}>Popular Cities To Buy Properties</h2>
             <hr />
             <Grid container className={styles.marginTop}>
-                <Grid item xs={12} md={4} >
+                <Grid item xs={12} sm={6} md={4} >
                     <h3>Houses</h3>
-                    <Box className={styles.city_links} mt={3}>
+                    <Box className={styles.city_links} mt={2} >
                         <p>Houses For Sale in Karachi</p>
                         <p>Houses For Sale in Lahore</p>
                         <p>Houses For Sale in Islamabad</p>
@@ -22,8 +22,8 @@ const PopularCitiesToBuyProperties = () => {
                         <p>Houses For Sale in Sargodha</p>
                     </Box>
                 </Grid>
-                <Grid item xs={12} md={4} >
-                    <Box className={`${styles.city_links} ${styles.marginMiddle}`} >
+                <Grid item xs={12} sm={6} md={4} >
+                    <Box className={styles.city_links} mt={5.7}>
                         <p>Houses For Sale in Karachi</p>
                         <p>Houses For Sale in Lahore</p>
                         <p>Houses For Sale in Islamabad</p>
@@ -33,9 +33,9 @@ const PopularCitiesToBuyProperties = () => {
                         <p>Houses For Sale in Sargodha</p>
                     </Box>
                 </Grid>
-                <Grid item xs={12} md={4} >
+                <Grid item xs={12} sm={6} md={4} className={styles.wrapper} >
                     <h3>Flats And Apartments</h3>
-                    <Box className={styles.city_links} mt={3}>
+                    <Box className={styles.city_links} mt={2}>
                         <p>Houses For Sale in Karachi</p>
                         <p>Houses For Sale in Lahore</p>
                         <p>Houses For Sale in Islamabad</p>

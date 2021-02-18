@@ -1,0 +1,28 @@
+.gotoTop {
+    background-color: #fcb812;
+    position: fixed;
+    bottom: 10px;
+    right: 5px;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 100;
+    animation: mymove 1s infinite;
+    animation-direction: alternate-reverse;
+}
+
+.UpArrow {
+    color: rgb(59, 70, 86);
+}
+
+@keyframes mymove {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.06);
+    }
+    0% {
+        transform: scale(1);
+    }
+}

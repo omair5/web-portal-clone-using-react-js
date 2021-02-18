@@ -1,21 +1,25 @@
-:root {
-    --primary: white;
-}
-
 .btn {
-    padding: 8px 20px;
+    padding: 15px 15px;
     border-radius: 4px;
     outline: none;
     border: none;
     font-size: 1.4rem;
     color: rgb(252, 184, 22);
     cursor: pointer;
-    background-color: var(--primary);
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-out;
+    width: 150px;
+}
+
+.btn p {
+    font-size: 14px;
+    padding-left: 4px;
 }
 
 .btn:hover {
-    transition: all 0.3s ease-out;
-    background-color: transparent;
-    color: #fff;
+    color: black;
     border-radius: 4px;
 }

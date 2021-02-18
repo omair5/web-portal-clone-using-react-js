@@ -4,6 +4,8 @@ import Layout from '../../components/Layout/Layout';
 import OurPartners from '../../components/Partners/OurPartners';
 import Partner1 from './images/partner1.jpg'
 import Partner2 from './images/partner2.jpg'
+import GoToTop from '../../GoToTop'
+
 const Partners = () => {
     return (
         <Layout FooterDisplay={true}>
@@ -12,6 +14,7 @@ const Partners = () => {
                 alt={{ alt1: "pearl villas", alt2: "gohar residency" }}
             />
             <OurPartners />
+            <GoToTop />
         </Layout>);
 }
 

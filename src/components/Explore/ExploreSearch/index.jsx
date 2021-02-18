@@ -60,9 +60,8 @@ const ExploreSearchs = () => {
                 style={{ margin: '7px 0px' }}
             />
             {/* PRICE RANGE SELECTOR */}
-            {/* <PriceRangeBox /> */}
-            <h1>hello</h1>
-
+            <PriceRangeBox />
+            
             {/* SEARCH BUTTON  */}
             <AbaadeeButton
                 innerContent={'SEARCH'}

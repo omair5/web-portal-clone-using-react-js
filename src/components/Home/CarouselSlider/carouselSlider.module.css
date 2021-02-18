@@ -11,3 +11,26 @@
     margin: auto;
     display: block;
 }
+
+.arrows {
+    background-color: silver;
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    z-index: 20;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.nextArrow {
+    top: 50%;
+    right: -5%;
+}
+
+.prevArrow {
+    top: 50%;
+    left: -5%;
+}

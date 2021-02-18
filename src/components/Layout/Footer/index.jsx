@@ -33,7 +33,7 @@ const Footer = () => {
                         </div>
                     </Grid>
 
-                    <Grid item xs={12} md={3}  >
+                    <Grid item xs={12} md={3} className='wrap3'>
                         <h4 className='yellow-color'>Follow Us</h4>
                         <div className='footer-links'>
                             <p> <FontAwesomeIcon icon={faFacebookF} style={{ paddingRight: '2px' }} /> Facebook</p>
@@ -42,7 +42,7 @@ const Footer = () => {
                             <p> <FontAwesomeIcon icon={faInstagram} style={{ paddingRight: '5px' }} />Instagram</p>
                         </div>
                     </Grid>
-                    <Grid item xs={12} md={3} >
+                    <Grid item xs={12} md={3} className='wrap4'>
                         <div >
                             <h4 className='yellow-color'>SUBSCRIBE TO OUR NEWSLETTER</h4>
                             <TextField placeholder='ENTER YOUR EMAIL' style={{ outline: '1px solid white', width: '100%', padding: '8px', marginTop: '10px' }} InputProps={{ style: { fontSize: '1.3rem', color: 'white' }, disableUnderline: true }} />

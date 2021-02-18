@@ -15,8 +15,11 @@ const AreaGuide = React.lazy(() => import('./pages/AreaGuide'));
 const Partners = React.lazy(() => import('./pages/Partners'));
 const ContactUs = React.lazy(() => import('./pages/ContactUs'));
 const AboutUs = React.lazy(() => import('./pages/AboutUs'));
+const AddProperty = React.lazy(() => import('./pages/AddProperty'))
 const UserLogin = React.lazy(() => import('./pages/UserLogIn'));
 const Listings = React.lazy(() => import('./pages/Listings'));
+const Packages = React.lazy(() => import('./pages/packages'));
+
 
 
 
@@ -37,8 +40,13 @@ function App() {
               <Route exact path='/partners' component={Partners} />
               <Route exact path='/contact' component={ContactUs} />
               <Route exact path='/about' component={AboutUs} />
+              <Route exact path='/add-property' component={AddProperty} />
+              {/* dashboard */}
               <Route exact path='/my-account' component={UserLogin} />
+              {/* listing of property , this page will be made from API */}
               <Route exact path='/listings' component={Listings} />
+              {/* after clicking on any type of add property u will be directed to this page */}
+              <Route exact path='/packages' component={Packages} />
             </Switch>
           </Suspense>
         </Router>

@@ -18,4 +18,17 @@
 
 .marginBottom {
     margin-bottom: 1rem;
+    color: #fcb812;
+}
+
+@media only screen and (max-width: 960px) {
+    .wrapper3 {
+        margin-top: 40px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .wrapper2 {
+        margin-top: 40px;
+    }
 }

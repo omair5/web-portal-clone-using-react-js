@@ -5,11 +5,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import CropOriginalIcon from '@material-ui/icons/CropOriginal';
 import Slider from "react-slick";
 import GalleryImage from './images/galleryimage.jpg'
-import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import styles from './gallery.module.css'
 import { useDispatch } from 'react-redux'
-import SimpleModal from './SimpleModal';
+import SimpleModal from './SimpleModal'
+import { SampleNextArrow, SamplePrevArrow } from './CustomArrows'
 
 
 const useStyles = makeStyles(theme => ({
@@ -19,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     },
     icon: {
         fontSize: '20px',
-        color:'#fcb812'
+        color: '#fcb812'
 
     },
     iconContainer: {
@@ -48,25 +46,6 @@ const useStyles = makeStyles(theme => ({
     }
 
 }));
-
-function SampleNextArrow(props) {
-    const { onClick } = props;
-    return (
-        <div className={`${styles.arrows} ${styles.nextArrow}`} onClick={onClick}>
-            <NavigateNextIcon />
-        </div>
-    );
-}
-
-function SamplePrevArrow(props) {
-    const { onClick } = props;
-    return (
-        <div className={styles.arrows} onClick={onClick}>
-            <NavigateBeforeIcon />
-        </div>
-    );
-}
-
 
 const Gallery = () => {
     const classes = useStyles();
@@ -103,19 +82,19 @@ const Gallery = () => {
                     <div className={classes.SliderContainer}>
                         <Slider {...settings} >
                             <div className={classes.SliderChild} >
-                                <img src={GalleryImage} alt="plot" className={classes.picture} onClick={HandleClick}/>
+                                <img src={GalleryImage} alt="plot" className={classes.picture} onClick={HandleClick} />
                             </div>
                             <div className={classes.SliderChild}>
-                                <img src={GalleryImage} alt="plot" className={classes.picture} onClick={HandleClick}/>
+                                <img src={GalleryImage} alt="plot" className={classes.picture} onClick={HandleClick} />
                             </div>
                             <div className={classes.SliderChild}>
-                                <img src={GalleryImage} alt="plot" className={classes.picture} onClick={HandleClick}/>
+                                <img src={GalleryImage} alt="plot" className={classes.picture} onClick={HandleClick} />
                             </div>
                             <div className={classes.SliderChild}>
-                                <img src={GalleryImage} alt="plot" className={classes.picture} onClick={HandleClick}/>
+                                <img src={GalleryImage} alt="plot" className={classes.picture} onClick={HandleClick} />
                             </div>
                             <div className={classes.SliderChild}>
-                                <img src={GalleryImage} alt="plot" className={classes.picture} onClick={HandleClick}/>
+                                <img src={GalleryImage} alt="plot" className={classes.picture} onClick={HandleClick} />
                             </div>
                         </Slider>
                     </div>

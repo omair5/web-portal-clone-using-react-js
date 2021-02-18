@@ -20,16 +20,21 @@ const PriceRangeBox = () => {
 
     }
 
+    const HandleBodyClick = (e) => {
+        if ((e.target.parentElement.className === 'PriceRangeBox_priceRange__ulkxQ') || (e.target.parentElement.className === 'PriceRangeBox_priceValues__4zsF_') || (e.target.className === 'PriceRangeBox_priceBox__1jyZb custom-scroll') || (e.target.parentElement.className === 'PriceRangeBox_priceHeading__2LgRW')) {
+            return
+        }
+        else {
+            setpriceContainer(false)
+        }
+    }
+
     useEffect(() => {
-        document.addEventListener('click', function (e) {
-            if ((e.target.parentElement.className === 'PriceRangeBox_priceRange__ulkxQ') || (e.target.parentElement.className === 'PriceRangeBox_priceValues__4zsF_') || (e.target.className === 'PriceRangeBox_priceBox__1jyZb custom-scroll') || (e.target.parentElement.className === 'PriceRangeBox_priceHeading__2LgRW')) {
-                return
-            }
-            else {
-                setpriceContainer(false)
-            }
-        })
-        document.removeEventListener('click', () => console.log('removed'))
+        window.addEventListener('click', HandleBodyClick)
+        // cleanup this component
+        return () => {
+            window.removeEventListener('click', HandleBodyClick);
+        };
     }, [searchRef])
 
     return (

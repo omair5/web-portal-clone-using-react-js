@@ -1,12 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown, faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
 import React, { useState } from 'react';
-import { Button } from './Button';
+import Button from './Button';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import Dropdown from './Dropdown';
 import SignIn from './SignIn';
 import Register from './Register';
+import abaadeeLogo from './abaadeeLogo.png'
 
 function Navbar() {
     const [click, setClick] = useState(false);
@@ -35,7 +36,7 @@ function Navbar() {
         <>
             <nav className='navbar'>
                 <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
-                    Abaadee.com
+                    <img src={abaadeeLogo} alt="LOGO" />
                 </Link>
 
                 {/* RESPONSIVE ICONS */}
@@ -85,8 +86,12 @@ function Navbar() {
                     <li className='nav-item sigin-register-mobile'>
                         <SignIn /> or <Register />
                     </li>
+
+                    {/* ADD PROPERTY BUTTON */}
+                    <li className='forMobileAddButton' >
+                        <Link to='/add-property' style={{ textDecoration: 'none' }} className='forMobileAddButton'><Button /></Link>
+                    </li>
                 </ul>
-                <Button />
             </nav>
         </>
     );

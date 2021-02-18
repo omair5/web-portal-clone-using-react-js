@@ -7,6 +7,7 @@ import PopularCitiesToBuyProperties from "../../components/Home/PopularCitiesToB
 import PopularLocationsForHome from "../../components/Home/PopularLocationsForHome";
 import SimpleTabs from "../../components/Home/Tabs"
 import Layout from "../../components/Layout/Layout";
+import GoToTop from "../../GoToTop";
 
 const Home = () => {
     return (
@@ -19,6 +20,7 @@ const Home = () => {
             <PopularLocationsForHome />
             <PopularCitiesForRent />
             <Blogs />
+            <GoToTop />
         </Layout >
     );
 }

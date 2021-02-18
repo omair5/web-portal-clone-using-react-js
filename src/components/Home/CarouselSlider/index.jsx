@@ -3,26 +3,24 @@ import Slider from "react-slick";
 import Container from '@material-ui/core/Container';
 import styles from './carouselSlider.module.css'
 import carousel2 from './images/carousel2.jpg'
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 function SampleNextArrow(props) {
-    const { className, style, onClick } = props;
+    const { onClick } = props;
     return (
-        <div
-            className={className}
-            style={{ ...style, display: "block", background: "silver", borderRadius: '50%' }}
-            onClick={onClick}
-        />
+        <div className={`${styles.arrows} ${styles.nextArrow}`} onClick={onClick}>
+            <NavigateNextIcon />
+        </div>
     );
 }
 
 function SamplePrevArrow(props) {
-    const { className, style, onClick } = props;
+    const { onClick } = props;
     return (
-        <div
-            className={className}
-            style={{ ...style, display: "block", background: "silver", borderRadius: '50%' }}
-            onClick={onClick}
-        />
+        <div className={`${styles.arrows} ${styles.prevArrow}`} onClick={onClick}>
+            <NavigateBeforeIcon />
+        </div>
     );
 }
 

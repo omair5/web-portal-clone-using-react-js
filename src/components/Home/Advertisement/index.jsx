@@ -10,13 +10,11 @@ const Advertisement = () => {
             <Box className={styles.mainBox} my={3}>
                 <Grid container>
                     {/* ADVERTISEMENT 1 */}
-                    <Grid item xs={12} md={6} style={{ backgroundColor: 'red' }}>
+                    <Grid item xs={12} md={6}>
                         <img src={advertisement1} alt="advertisement1" height='100%' width='100%' />
                     </Grid>
                     {/* ADVERTISEMENT 2 */}
-                    <Grid item xs={12} md={6} style={{
-                        backgroundColor: 'green'
-                    }} >
+                    <Grid item xs={12} md={6}>
                         <img src={advertisement1} alt="advertisement2" height='100%' width='100%' />
                     </Grid>
                 </Grid>

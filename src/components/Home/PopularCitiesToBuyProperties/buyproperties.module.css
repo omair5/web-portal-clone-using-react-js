@@ -12,14 +12,17 @@
     color: rgb(252, 184, 22);
 }
 
-.marginMiddle {
-    margin-top: 5rem;
-}
-
 .marginTop {
     margin-top: 1rem;
 }
 
 .marginBottom {
     margin-bottom: 1rem;
+    color: #fcb812;
+}
+
+@media only screen and (max-width: 960px) {
+    .wrapper {
+        margin-top: 40px;
+    }
 }

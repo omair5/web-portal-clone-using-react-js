@@ -2,6 +2,7 @@ import React from 'react';
 import AreaGuideCities from '../../components/AreaGuide/AreaGuideCities';
 import AreaGuideHeader from '../../components/AreaGuide/AreaGuideHeader';
 import Layout from '../../components/Layout/Layout';
+import GoToTop from '../../GoToTop';
 import AreaImage from './areaImage.webp'
 const AreaGuide = () => {
     return (
@@ -23,6 +24,7 @@ const AreaGuide = () => {
                 cityName='PESHAWAR'
                 LahoreAreas={PeshawarAreas}
             />
+            <GoToTop />
         </Layout>);
 }
 
