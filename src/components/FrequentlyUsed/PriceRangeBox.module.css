@@ -14,18 +14,18 @@
 }
 
 .mylabel p {
-    color: black;
     font-weight: bold;
     font-size: 12px;
     padding-top: 8px;
+    color: #fcb812;
 }
 
 .priceRange p {
     flex-grow: 1;
-    color: black;
     font-weight: bold;
     font-size: 15px;
     padding: 5px 0px;
+    color: rgb(59, 70, 86);
 }
 
 .tab_slider:hover {
@@ -33,7 +33,7 @@
 }
 
 .priceBox {
-    background-color: rgba(0, 0, 0,0.9);
+    background-color: rgba(0, 0, 0, 0.9);
     color: white;
     position: absolute;
     height: 200px;

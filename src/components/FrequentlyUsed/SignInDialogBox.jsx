@@ -30,11 +30,18 @@ const useStyles = makeStyles({
         maxWidth: '400px',
         overflow: "hidden"
     },
+    createAccount: {
+        marginLeft: '5px',
+    },
     connectWith: {
         marginTop: '15px'
     },
     IconWithText: {
-        display: 'flex'
+        display: 'flex',
+        "& p": {
+            color: 'rgb(59, 70, 86)',
+            fontWeight: 'bolder',
+        }
     },
     footer: {
         padding: '5px 0px',
@@ -79,7 +86,7 @@ const SignInDialogBox = () => {
                     {/* sig in */}
                     <div className={classes.IconWithText}>
                         <p><FontAwesomeIcon icon={faUserAlt} /></p>
-                        <p style={{ marginLeft: '5px' }}>sign in </p>
+                        <p className={classes.createAccount}>sign in </p>
                     </div>
 
                     {/* FOR USERNAME */}

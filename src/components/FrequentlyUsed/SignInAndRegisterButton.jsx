@@ -10,7 +10,12 @@ const useStyles = makeStyles({
         color: 'white',
         border: 'none',
         outline: 'none',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        opacity: '0.9',
+        "&:hover": {
+            opacity: '1',
+
+        }
     },
 
     childContainer: {
@@ -23,7 +28,7 @@ const SignInAndRegisterButton = ({ ButtonIcon, ButtonText, bgColor }) => {
     const classes = useStyles();
     return (
         <>
-            <button className={classes.buttonContainer} style={bgColor}>
+            <button className={classes.buttonContainer} style={bgColor} type="submit">
                 <div className={classes.childContainer}>
                     <p>{ButtonIcon && <FontAwesomeIcon icon={ButtonIcon} style={{ marginRight: '10px' }} />}</p>
                     <p>{ButtonText}</p>

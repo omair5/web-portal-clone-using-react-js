@@ -23,16 +23,18 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const AutoCompleteTextField = ({ id, label,style }) => {
+const AutoCompleteTextField = ({ id, label, style, callBack, val }) => {
     const classes = useStyles();
     const classesBase = useStylesBase();
     return (
         <>
             <Autocomplete
                 id={id}
+                inputValue={val}
                 options={top100Films}
                 getOptionLabel={(option) => option.title}
                 className={classes.forAutoComplete}
+                onChange={callBack}
                 style={style}
                 renderInput={(params) => <TextField {...params} label={label}
                     className={classes.forTextField}
@@ -43,17 +45,15 @@ const AutoCompleteTextField = ({ id, label,style }) => {
                         ...params.InputProps,
                         style: {
                             color: "black",
-                            fontWeight: 'bolder',
                             fontSize: '15px',
                         }
                     }}
                     // FOR LABEL STYLING
                     InputLabelProps={{
-                        ...params.InputLabelProps,
                         style: {
-                            color: "black",
+                            color: "#fcb812",
                             fontWeight: 'bold',
-                            fontSize: '15px',
+                            fontSize: '12px',
                         }
                     }}
                 />
