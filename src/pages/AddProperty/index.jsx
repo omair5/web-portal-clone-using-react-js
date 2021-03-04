@@ -1,41 +1,30 @@
-import React from 'react';
-import styles from './addproperty.module.css'
-import Grid from '@material-ui/core/Grid';
-
-// IMPORT FROM LOCAL COMPONENTS
 import Layout from '../../components/Layout/Layout';
-import AddPropertyCard from '../../components/AddProperty/AddPropertyCard';
+import GoToTop from '../../GoToTop';
+import Container from '@material-ui/core/Container';
+import PropertyTypeAndLocation from '../../components/AddProperty/PropertyTypeAndLocation';
+import { makeStyles } from '@material-ui/core/styles';
+
+
+
+const useStyles = makeStyles((theme) => ({
+    mainContainer: {
+        margin: '15px auto'
+    }
+}));
+
+
+// var converter = require('number-to-words');
+// const check = converter.toWords(13000); // => “thirteen”
 const AddProperty = () => {
+    const classes = useStyles();
     return (
-        <>
-            <Layout FooterDisplay={true}>
-                <div className={styles.MainContainer}>
-                    <h1>CHOOSE TYPE</h1>
-                    <div className={styles.CardContainer}>
-                        <Grid container spacing={3} >
-                            <Grid item xs={12} md={4} >
-                                <AddPropertyCard
-                                    propertyType='SALE'
-                                />
-                            </Grid>
+        <Layout FooterDisplay={true}>
 
-                            <Grid item xs={12} md={4} >
-                                <AddPropertyCard
-                                    propertyType='RENT'
-                                />
-                            </Grid>
+            <Container maxWidth="md" className={classes.mainContainer}>
+                <PropertyTypeAndLocation />
+            </Container>
 
-                            <Grid item xs={12} md={4} >
-                                <AddPropertyCard
-                                    propertyType='WANTED'
-                                />
-                            </Grid>
-                        </Grid>
-                    </div>
-                </div>
-            </Layout>
-        </>
-    );
+            <GoToTop />
+        </Layout>);
 }
-
-export default React.memo(AddProperty);
+export default AddProperty;

@@ -21,8 +21,6 @@ const Listings = React.lazy(() => import('./pages/Listings'));
 const Packages = React.lazy(() => import('./pages/packages'));
 
 
-
-
 function App() {
   return (
     <>
