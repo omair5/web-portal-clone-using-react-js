@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DialogContent from '@material-ui/core/DialogContent';
 import Dialog from '@material-ui/core/Dialog';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -10,6 +10,7 @@ import { faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { faUserAlt, faUser, faLock } from '@fortawesome/free-solid-svg-icons'
 import InputTextField from '../FrequentlyUsed/InputTextField';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 
 const useStylesCheckBox = makeStyles(theme => ({
     root: {
@@ -61,6 +62,10 @@ const SignInDialogBox = () => {
     //    USING STATE FROM STORE
     const SignInDialogStatus = useSelector(state => state.SignInDialogStatus)
     const dispatch = useDispatch()
+    // state for username & password
+    const [signinData, setsigninData] = useState({ username: '', password: '' })
+
+
 
     // THIS STATE IS TO CLOSE DIALOG BOX
     const handleClose = () => {
@@ -79,36 +84,56 @@ const SignInDialogBox = () => {
         setState({ ...state, [event.target.name]: event.target.checked });
     };
 
+    // HANDLE INPUT CHANGE
+    const HandleInputChange = (e) => {
+        setsigninData({ ...signinData, [e.target.name]: e.target.value })
+    }
+
+    const HandleSubmit = (e) => {
+        e.preventDefault();
+       axios.post('http://192.168.18.195:3000/auth/signin', signinData).then((response) => {console.log(response)})
+        console.log(signinData)
+    }
+
+
     return (
         <>
             <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={SignInDialogStatus} >
                 <DialogContent className={classes.mainContainer}>
-                    {/* sig in */}
+                    {/* sign in */}
                     <div className={classes.IconWithText}>
                         <p><FontAwesomeIcon icon={faUserAlt} /></p>
                         <p className={classes.createAccount}>sign in </p>
                     </div>
 
                     {/* FOR USERNAME */}
-                    <InputTextField
-                        TextFieldId='1'
-                        TextFieldPlaceHolder='Username'
-                        InputType='text'
-                    />
+                    <form onSubmit={HandleSubmit}>
+                        <InputTextField
+                            TextFieldId='1'
+                            TextFieldPlaceHolder='Username'
+                            InputType='text'
+                            callBack={HandleInputChange}
+                            name='username'
+                            value={signinData.username}
+                        />
 
-                    {/* FOR PASSWORD */}
-                    <InputTextField
-                        TextFieldId='2'
-                        TextFieldPlaceHolder='Password'
-                        InputType='password'
-                    />
+                        {/* FOR PASSWORD */}
+                        <InputTextField
+                            TextFieldId='2'
+                            TextFieldPlaceHolder='Password'
+                            InputType='password'
+                            callBack={HandleInputChange}
+                            name='password'
+                            value={signinData.password}
+                        />
 
-                    {/* SIGN IN BUTTON */}
-                    <SignInAndRegisterButton
-                        ButtonIcon=''
-                        ButtonText='Sign in'
-                        bgColor={{ backgroundColor: '#fcb812' }}
-                    />
+                        {/* SIGN IN BUTTON */}
+                        <SignInAndRegisterButton
+                            ButtonIcon=''
+                            ButtonText='Sign in'
+                            bgColor={{ backgroundColor: '#fcb812' }}
+                        />
+                    </form>
 
                     {/* REMEMBER ME CHECKIN BOX */}
                     <div>

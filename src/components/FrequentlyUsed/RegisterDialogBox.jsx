@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DialogContent from '@material-ui/core/DialogContent';
 import Dialog from '@material-ui/core/Dialog';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,6 +9,7 @@ import { faUserAlt } from '@fortawesome/free-solid-svg-icons'
 import InputTextField from '../FrequentlyUsed/InputTextField';
 import { useDispatch, useSelector } from 'react-redux';
 import AutoCompleteTextField from './AutoCompleteTextField';
+import axios from 'axios';
 
 const useStyles = makeStyles({
     mainContainer: {
@@ -75,8 +76,10 @@ const RegisterDialogBox = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (formFields.password === formFields.cpassword) {
-            const FormData = { ...formFields, ...formDropDownField }
+            const username = `${formFields.fname} ${formFields.lname}`
+            const FormData = { username: username, email: formFields.email, password: formFields.password, phone_number: formFields.number, country_id: '2', city_id: '3' }
             console.log(FormData)
+            axios.post('http://192.168.18.195:3000/auth/signup', FormData).then(res => console.log(res))
             setformFields({ fname: '', lname: '', email: '', password: '', cpassword: '', number: '' })
             setformDropDownField({ country: '', city: '' })
             setpasswordMatchingError(false)
@@ -87,6 +90,8 @@ const RegisterDialogBox = () => {
         }
 
     }
+
+    useEffect(() => { }, [])
 
     return (
         <>
