@@ -3,7 +3,7 @@
 }
 
 .city_links {
-    line-height: 2rem;
+    line-height: 2.5rem;
     cursor: pointer;
     font-size: 14px;
 }
@@ -16,6 +16,14 @@
     margin-top: 1rem;
 }
 
+.mt16 {
+    margin-top: 16px;
+}
+
+.mt47 {
+    margin-top: 47px;
+}
+
 .marginBottom {
     margin-bottom: 1rem;
     color: #fcb812;
@@ -23,6 +31,9 @@
 
 @media only screen and (max-width: 960px) {
     .wrapper {
-        margin-top: 40px;
+        margin-top: 16px !important;
+    }
+    .mt47 {
+        margin-top: 0px;
     }
 }

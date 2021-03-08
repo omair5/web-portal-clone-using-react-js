@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import DialogContent from '@material-ui/core/DialogContent';
 import Dialog from '@material-ui/core/Dialog';
 import { makeStyles } from '@material-ui/core/styles';
@@ -44,14 +44,21 @@ const useStyles = makeStyles({
 
 const RegisterDialogBox = () => {
     const classes = useStyles();
+    // --------------------STATES
+
     //    USING STATE FROM STORE
     const RegisterDialogStatus = useSelector(state => state.RegisterDialogStatus)
     const dispatch = useDispatch()
-    // FORM FIELDS STATE
+    // FORM FIELDS 
     const [formFields, setformFields] = useState({ fname: '', lname: '', email: '', password: '', cpassword: '', number: '' })
-    const [formDropDownField, setformDropDownField] = useState({ country: '', city: '' })
+    // FOR CHECKING PASSWORD MATCH
     const [passwordMatchingError, setpasswordMatchingError] = useState(false)
+    // FOR AUTOCOMPLETE TEXTFIELD CONTROLLED VALUE
+    const countries = ['pakistan', 'iran', 'usa', 'iraq', 'sweden', 'china'];
+    const cities = ['karachi', 'lahore', 'islamabad', 'beijing', 'peshawar', 'multan'];
+    const [formDropDownField, setformDropDownField] = useState({ country: null, city: null })
 
+    // --------------------HANDLE CALLBACKS
 
     // THIS FUNCTION WILL CLOSE DIALOG BOX
     const handleClose = () => {
@@ -66,12 +73,11 @@ const RegisterDialogBox = () => {
     const HandleChange = (e) => {
         setformFields({ ...formFields, [e.target.name]: e.target.value })
     }
-
-    const HandleDropDownChange = (e) => {
-        const name = e.target.id.split("-")[0]
-        setformDropDownField({ ...formDropDownField, [name]: e.target.innerHTML })
+    // THIS FUNCTION HANDLES DROPDOWN VALUES
+    const HandleDropDownValue = (event, newValue) => {
+        const key = event.target.id.split('-')[0]
+        setformDropDownField({ ...formDropDownField, [key]: newValue })
     }
-
     // THIS FUNCTION WILL SUBMIT THE FORM
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -81,7 +87,7 @@ const RegisterDialogBox = () => {
             console.log(FormData)
             axios.post('http://192.168.18.195:3000/auth/signup', FormData).then(res => console.log(res))
             setformFields({ fname: '', lname: '', email: '', password: '', cpassword: '', number: '' })
-            setformDropDownField({ country: '', city: '' })
+            setformDropDownField({ country: null, city: null })
             setpasswordMatchingError(false)
             console.log('submitted')
         }
@@ -91,12 +97,10 @@ const RegisterDialogBox = () => {
 
     }
 
-    useEffect(() => { }, [])
-
     return (
         <>
             <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={RegisterDialogStatus}>
-                <div className=" custom-scroll">
+                <div className="custom-scroll">
                     <DialogContent className={`${classes.mainContainer}`}>
                         {/* Register */}
                         <div className={classes.IconWithText}>
@@ -160,8 +164,10 @@ const RegisterDialogBox = () => {
                                 id='country'
                                 label="COUNTRY"
                                 style={{ margin: '10px 0px' }}
-                                callBack={HandleDropDownChange}
-                                val={formDropDownField.country}
+                                value={formDropDownField.country}
+                                onChange={HandleDropDownValue}
+                                required={true}
+                                options={countries}
                             />
 
                             {/* FOR CITY */}
@@ -169,8 +175,10 @@ const RegisterDialogBox = () => {
                                 id='city'
                                 label="CITY"
                                 style={{ margin: '10px 0px' }}
-                                callBack={HandleDropDownChange}
-                                val={formDropDownField.city}
+                                value={formDropDownField.city}
+                                onChange={HandleDropDownValue}
+                                required={true}
+                                options={cities}
                             />
 
                             {/* FOR PASSWORD */}

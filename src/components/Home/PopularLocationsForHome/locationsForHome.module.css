@@ -3,7 +3,7 @@
 }
 
 .city_links {
-    line-height: 2rem;
+    line-height: 2.5rem;
     cursor: pointer;
     font-size: 14px;
 }
@@ -22,13 +22,7 @@
 }
 
 @media only screen and (max-width: 960px) {
-    .wrapper3 {
-        margin-top: 40px;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    .wrapper2 {
-        margin-top: 40px;
+    .wrapper {
+        margin-top: 16px !important;
     }
 }

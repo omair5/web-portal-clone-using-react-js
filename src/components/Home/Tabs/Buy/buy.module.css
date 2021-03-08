@@ -15,10 +15,12 @@
     justify-content: center;
     align-items: center;
     background-color: rgb(252, 184, 22);
+    color: rgb(59, 70, 86);
     border-radius: 5px;
     padding: 1.5rem;
     margin-top: 0.5rem;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 .search {
@@ -36,5 +38,8 @@
     }
     .tab_slider {
         padding: 0px
+    }
+    .secondGrid {
+        margin-top: 0px
     }
 }
