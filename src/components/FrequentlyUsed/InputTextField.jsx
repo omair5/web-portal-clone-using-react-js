@@ -32,7 +32,6 @@ const InputTextField = ({ TextFieldId, TextFieldPlaceHolder, InputType, required
 
     const HandleVisibleClick = () => {
         setShow(!show)
-        console.log(show)
     }
 
     return (

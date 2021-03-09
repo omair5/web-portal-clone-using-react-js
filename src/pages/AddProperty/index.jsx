@@ -3,6 +3,7 @@ import GoToTop from '../../GoToTop';
 import Container from '@material-ui/core/Container';
 import PropertyTypeAndLocation from '../../components/AddProperty/PropertyTypeAndLocation';
 import { makeStyles } from '@material-ui/core/styles';
+import PropertyDetails from '../../components/AddProperty/PropertyDetails';
 
 
 
@@ -22,6 +23,7 @@ const AddProperty = () => {
 
             <Container maxWidth="md" className={classes.mainContainer}>
                 <PropertyTypeAndLocation />
+                <PropertyDetails />
             </Container>
 
             <GoToTop />
