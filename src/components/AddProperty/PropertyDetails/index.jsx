@@ -48,10 +48,6 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 'bold',
         padding: '13px 10px'
     },
-    // InputStyle: {
-    //     width: '100%',
-    //     fontSize: '50px'
-    // },
     halfInputField: {
         width: '50%'
     },
@@ -65,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
         borderColor: 'silver',
         borderRadius: '5px',
         "&:focus": {
-            border: '1px solid rgb(59, 70, 86)',
+            // border: '2px solid rgb(59, 70, 86)',
             outline: 'none'
         },
     },
@@ -206,11 +202,11 @@ const PropertyDetails = () => {
                         <div className={classes.wrapperContainer}>
                             <p>Unit *</p>
                             <select name="square-feet" id="square-feet" className={classes.landAreaContainer}>
-                                <option value="Square Feet" className={classes.option}>Square Feet</option>
-                                <option value="Square Yards" className={classes.option}>Square Yards</option>
-                                <option value="Square Meters" className={classes.option}>Square Meters</option>
-                                <option value="Marla" className={classes.option}>Marla</option>
-                                <option value="Kanal" className={classes.option}>Kanal</option>
+                                <option value="Square Feet">Square Feet</option>
+                                <option value="Square Yards">Square Yards</option>
+                                <option value="Square Meters">Square Meters</option>
+                                <option value="Marla">Marla</option>
+                                <option value="Kanal">Kanal</option>
                             </select>
                         </div>
                     </Grid>

@@ -4,18 +4,6 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Homes from './Homes';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-
-const useBaseStyles = makeStyles({
-    root: {
-        "& .MuiFilledInput-underline:before": {
-            borderBottom: '2px solid #fcb812'
-        }
-    }
-});
 
 const useStyles = makeStyles((theme) => ({
     radio: {
@@ -59,41 +47,29 @@ const useStyles = makeStyles((theme) => ({
             textTransform: 'uppercase'
         }
     },
-    formControl: {
-        width: '100%',
-        margin: '10px 0px'
-    },
-    inputLabel: {
-        color: '#fcb812',
-        fontWeight: 'bolder',
-        fontSize: '15px',
-        textTransform: 'uppercase',
-        "&$inputFocused": {
-            color: "#fcb812"
+    wrapperContainer: {
+        "& p": {
+            color: '#fcb812',
+            fontWeight: 'bolder',
+            fontSize: '15px',
+            textTransform: 'uppercase'
         }
     },
-    inputFocused: {}
+    landAreaContainer: {
+        margin: '10px 0px',
+        width: '100%',
+        padding: '13px 2px',
+        borderColor: 'silver',
+        borderRadius: '5px',
+        "&:focus": {
+            outline: 'none'
+        },
+    },
 
 }));
 
 const PropertyTypeAndLocation = () => {
     const classes = useStyles();
-    const baseClasses = useBaseStyles()
-    // ------------------- STATES
-    const [state, setState] = React.useState({
-        age: '',
-        name: 'hai',
-    });
-    // ------------------- HANDLE CALLBACK
-
-    const handleChange = (event) => {
-        const name = event.target.name;
-        setState({
-            ...state,
-            [name]: event.target.value,
-        });
-    };
-
     return (
         <>
             <h4 className={classes.mainHeading}>PROPERTY TYPE AND LOCATION</h4>
@@ -186,60 +162,29 @@ const PropertyTypeAndLocation = () => {
 
 
                     {/* SELECT CITY */}
-                    <FormControl required variant="filled" className={classes.formControl} classes={baseClasses}>
-                        <InputLabel htmlFor="filled-age-native-simple"
-                            className={classes.inputLabel}
-                            classes={{ focused: classes.inputFocused }}>
-                            CITY
-                        </InputLabel>
-                        <Select
-                            native
-                            value={state.age}
-                            onChange={handleChange}
-                            inputProps={{
-                                name: 'age',
-                                id: 'filled-age-native-simple',
-                                style: {
-                                    color: "rgb(59, 70, 86)",
-                                    fontSize: '12px',
-                                }
-                            }}
-                        >
-                            <option value={10}>Ten</option>
-                            <option value={20}>Twenty</option>
-                            <option value={30}>Thirty</option>
-                        </Select>
-                        <FormHelperText>Required</FormHelperText>
-                    </FormControl>
+                    <div className={classes.wrapperContainer}>
+                        <p>CITY *</p>
+                        <select name="city" id="city" className={classes.landAreaContainer}>
+                            <option value="Square Feet">Select City</option>
+                            <option value="Square Yards">Square Yards</option>
+                            <option value="Square Meters">Square Meters</option>
+                            <option value="Marla">Marla</option>
+                            <option value="Kanal">Kanal</option>
+                        </select>
+                    </div>
 
                     {/* SELECT LOCATION */}
-                    <FormControl required disabled variant="filled" className={classes.formControl} classes={baseClasses}>
-                        <InputLabel htmlFor="filled-age-native-simple"
-                            className={classes.inputLabel}
-                            classes={{ focused: classes.inputFocused }}>
-                            LOCATION
-                        </InputLabel>
-                        <Select
-                            native
-                            value={state.age}
-                            onChange={handleChange}
-                            inputProps={{
-                                name: 'age',
-                                id: 'filled-age-native-simple',
-                                style: {
-                                    color: "rgb(59, 70, 86)",
-                                    fontSize: '12px',
-                                }
-                            }}
-                        >
-                            <option value={10}>Ten</option>
-                            <option value={20}>Twenty</option>
-                            <option value={30}>Thirty</option>
-                        </Select>
-                        <FormHelperText>Required</FormHelperText>
-                    </FormControl>
+                    <div className={classes.wrapperContainer}>
+                        <p>LOCATION *</p>
+                        <select name="location" id="location" disabled className={classes.landAreaContainer}>
+                            <option value="Square Feet">Gulshan-e-Iqbal</option>
+                            <option value="Square Yards">Square Yards</option>
+                            <option value="Square Meters">Square Meters</option>
+                            <option value="Marla">Marla</option>
+                            <option value="Kanal">Kanal</option>
+                        </select>
+                    </div>
                 </div>
-
             </div>
         </>
     );

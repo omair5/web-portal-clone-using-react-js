@@ -6,6 +6,7 @@ import AutoCompleteTextField from '../../../FrequentlyUsed/AutoCompleteTextField
 import PriceRangeBox from '../../../FrequentlyUsed/PriceRangeBox';
 
 const Buy = () => {
+    const priceRange = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
     return (
         <div>
             {/* THIS IS ROW 1 */}
@@ -38,7 +39,9 @@ const Buy = () => {
             {/* PRICE RANGE BOX */}
             <Grid container className={styles.secondGrid}>
                 <Grid item xs={12} md={3} >
-                    <PriceRangeBox />
+                    <PriceRangeBox
+                        priceRange={priceRange}
+                    />
                 </Grid >
 
                 <Grid item xs={12} md={3} className={`${styles.gridtwoPadding} ${styles.locationSelect}`} >
