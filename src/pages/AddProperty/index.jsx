@@ -11,6 +11,12 @@ import AddImages from '../../components/AddProperty/AddImages';
 const useStyles = makeStyles((theme) => ({
     mainContainer: {
         margin: '15px auto'
+    },
+    buttonContainer: {
+        backgroundColor: 'green',
+        width: '20%',
+        display: 'block',
+        margin: '20px auto'
     }
 }));
 const AddProperty = () => {
@@ -22,6 +28,7 @@ const AddProperty = () => {
                 <PropertyTypeAndLocation />
                 <PropertyDetails />
                 <AddImages />
+                <button className={classes.buttonContainer}>SUBMIT PROPERTY</button>
             </Container>
 
             <GoToTop />

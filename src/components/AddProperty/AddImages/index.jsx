@@ -5,6 +5,7 @@ import ImageUploading from 'react-images-uploading';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import CreateRoundedIcon from '@material-ui/icons/CreateRounded';
 import DeleteForeverRoundedIcon from '@material-ui/icons/DeleteForeverRounded';
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
     mainHeading: {
@@ -12,13 +13,20 @@ const useStyles = makeStyles((theme) => ({
         color: 'white',
         padding: '10px'
     },
+    noteContainer: {
+        marginTop: '10px',
+        "& li": {
+            padding: '3px 0px',
+            fontSize: '15px',
+            color: 'rgb(59, 70, 86)'
+        }
+    },
     mainContainer: {
-        // backgroundColor: 'red',
-        margin: '20px auto'
+        margin: '20px 0px',
     },
     buttonContainer: {
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'start',
     },
     addButton: {
         display: 'flex',
@@ -27,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '5px',
         border: '2px solid rgb(59, 70, 86)',
         padding: '7px',
-        margin: '0px 10px',
+        marginRight: '10px',
         backgroundColor: 'white',
         cursor: 'pointer',
         outline: 'none',
@@ -41,7 +49,6 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     imageContainer: {
-        // backgroundColor: 'red',
         marginTop: '20px',
         display: 'flex',
         justifyContent: 'start'
@@ -64,29 +71,32 @@ const useStyles = makeStyles((theme) => ({
         height: '150px',
         border: '3px solid rgb(59, 70, 86)'
     },
+    errorContainer: {
+        marginTop: '15px'
+    },
+    errorMessage: {
+        marginTop: '5px',
+    }
 }));
 
 const AddImages = () => {
     const classes = useStyles();
-
-    const [images, setImages] = React.useState([]);
-    const [error, seterror] = useState(false)
+    const [images, setImages] = useState([]);
     const maxNumber = 10;
 
     const onChange = (imageList, addUpdateIndex) => {
-        // data for submit
         console.log(imageList, addUpdateIndex);
         setImages(imageList);
     }
-    const onError = (errors, files) => {
-        // data for submit
-        console.log(errors, files);
-        seterror(true)
-        // setImages(imageList);
-    }
     return (
         <>
-            <h4 className={classes.mainHeading}>PROPERTY DETAILS</h4>
+            <h4 className={classes.mainHeading}>ADD IMAGES</h4>
+            <div className={classes.noteContainer}>
+                <h4>NOTE</h4>
+                <li>you are not allowed to upload more than 10 images</li>
+                <li>image size should not be greater than 200kb</li>
+                <li>only jpg & png image formats are supported</li>
+            </div>
             <Container maxWidth="sm" className={classes.mainContainer}>
                 <ImageUploading
                     multiple
@@ -96,7 +106,6 @@ const AddImages = () => {
                     dataURLKey="data_url"
                     acceptType={['jpg', 'png']}
                     maxFileSize={200000}
-                    onError={onError}
                 >
                     {({
                         imageList,
@@ -112,15 +121,9 @@ const AddImages = () => {
                         // write your building UI
                         <div className="upload__image-wrapper">
                             <div className={classes.buttonContainer}>
-                                {errors && <div>
-                                    {errors.maxNumber && <span>Number of selected images exceed maxNumber</span>}
-                                    {errors.acceptType && <span>Your selected file type is not allow</span>}
-                                    {errors.maxFileSize && <span>Selected file size exceed maxFileSize</span>}
-                                    {errors.resolution && <span>Selected file is not match your desired resolution</span>}
-                                </div>}
                                 {/* ADD IMAGES */}
                                 <button
-                                    style={isDragging ? { color: 'red' } : undefined}
+                                    style={isDragging ? { backgroundColor: 'rgb(59, 70, 86)' } : undefined}
                                     onClick={onImageUpload}
                                     {...dragProps}
                                     className={classes.addButton}
@@ -130,13 +133,47 @@ const AddImages = () => {
                                 </button>
 
                                 {/* REMOVE ALL IMAGES */}
-                                <button
-                                    onClick={onImageRemoveAll}
-                                    className={classes.addButton}
-                                >
-                                    <p>Remove All Images</p>
-                                </button>
+                                {imageList.length !== 0 ?
+                                    <button
+                                        onClick={onImageRemoveAll}
+                                        className={classes.addButton}
+                                    >
+                                        <p>Remove All Images</p>
+                                    </button> : null
+                                }
                             </div>
+
+                            {errors && <div className={classes.errorContainer}>
+                                {errors.maxNumber && <span>Number of selected images exceed maxNumber</span>}
+                                {errors.maxNumber &&
+                                    <Alert severity="error">
+                                        <AlertTitle>Error</AlertTitle>
+                                        <div className={classes.errorMessage}>
+                                            <b >Number Of Selected Images Exceed Maximum Number Of Images Allowed!</b>
+                                            <br />
+                                            <b>Maximum Number Of Images Allowed : 10</b>
+                                        </div>
+                                    </Alert>}
+                                {errors.acceptType &&
+                                    <Alert severity="error">
+                                        <AlertTitle>Error</AlertTitle>
+                                        <div className={classes.errorMessage}>
+                                            <b >Your Selected File Type Is Not Allowed!</b>
+                                            <br />
+                                            <b>Only jpg & png Image Formats Are Supported</b>
+                                        </div>
+                                    </Alert>}
+                                {errors.maxFileSize &&
+                                    <Alert severity="error">
+                                        <AlertTitle>Error</AlertTitle>
+                                        <div className={classes.errorMessage}>
+                                            <b >Selected File Size Exceed Maximum File Size Limit!</b>
+                                            <br />
+                                            <b>Maximum File Size Limit Is : 200kb</b>
+                                        </div>
+                                    </Alert>
+                                }
+                            </div>}
 
                             {imageList.map((image, index) => (
                                 <div key={index} className={classes.imageContainer}>
