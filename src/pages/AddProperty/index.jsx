@@ -14,9 +14,24 @@ const useStyles = makeStyles((theme) => ({
     },
     buttonContainer: {
         backgroundColor: 'green',
-        width: '20%',
+        minWidth: '20%',
         display: 'block',
-        margin: '20px auto'
+        margin: '30px auto',
+        padding: '20px',
+        outline: 'none',
+        border: 'none',
+        fontSize: '15px',
+        fontWeight: 'bold',
+        borderRadius: '7px',
+        backgroundColor: '#fcb812',
+        cursor: 'pointer',
+        color: 'rgb(59, 70, 86)',
+        transition:'all 0.5s ease',
+        "&:hover":{
+            color:'white',
+            transform:'scale(1.03)'
+        }
+
     }
 }));
 const AddProperty = () => {
