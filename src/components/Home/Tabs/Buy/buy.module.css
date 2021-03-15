@@ -6,8 +6,17 @@
     padding: 0px 10px
 }
 
-.gridtwoPadding {
-    padding-top: 1.3rem;
+.childContainer p {
+    font-weight: bold;
+    font-size: 12px;
+    color: #fcb812;
+    padding-left: 3px;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    /* background-color: blue; */
 }
 
 .searchButtonBox {
@@ -15,12 +24,14 @@
     justify-content: center;
     align-items: center;
     background-color: rgb(252, 184, 22);
-    color: rgb(59, 70, 86);
+    color: white;
     border-radius: 5px;
     padding: 1.5rem;
     margin-top: 0.5rem;
     cursor: pointer;
     transition: 0.3s;
+    margin: '0px auto';
+    width: 90%;
 }
 
 .search {
@@ -30,16 +41,28 @@
 
 .serach, .searchButtonBox:hover {
     color: white;
+    background-color: rgb(59, 70, 86);
+}
+
+.pr10 {
+    padding-right: 10px;
+}
+
+.marginBottomMobile {
+    margin-bottom: 0px;
 }
 
 @media screen and (max-width: 960px) {
     .locationSelect {
         padding: 0px
     }
-    .tab_slider {
-        padding: 0px
-    }
     .secondGrid {
         margin-top: 0px
+    }
+    .marginBottomMobile {
+        margin-bottom: 15px;
+    }
+    .pr10 {
+        padding-right: 0px;
     }
 }

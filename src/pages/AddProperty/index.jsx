@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
         margin: '15px auto'
     },
     buttonContainer: {
-        backgroundColor: 'green',
         minWidth: '20%',
         display: 'block',
         margin: '30px auto',

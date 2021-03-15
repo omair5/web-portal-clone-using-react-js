@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import SearchIcon from '@material-ui/icons/Search';
 import AbaadeeButton from '../../FrequentlyUsed/Button';
 import AutoCompleteTextField from '../../FrequentlyUsed/AutoCompleteTextField';
-import PriceRangeBox from '../../FrequentlyUsed/PriceRangeBox';
+import RangeBox from '../../FrequentlyUsed/RangeBox';
 
 // FOR GENERAL
 const useStyles = makeStyles(theme => ({
@@ -60,8 +60,8 @@ const ExploreSearchs = () => {
                 style={{ margin: '7px 0px' }}
             />
             {/* PRICE RANGE SELECTOR */}
-            <PriceRangeBox />
-            
+            <RangeBox />
+
             {/* SEARCH BUTTON  */}
             <AbaadeeButton
                 innerContent={'SEARCH'}
