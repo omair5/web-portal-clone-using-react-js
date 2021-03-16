@@ -2,54 +2,119 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import SearchIcon from '@material-ui/icons/Search';
 import styles from '../Buy/buy.module.css'
-import AutoCompleteTextField from '../../../FrequentlyUsed/AutoCompleteTextField';
+import Select from 'react-select';
+import RangeBox from '../../../FrequentlyUsed/RangeBox';
+// THIS WILL USED IN REACT-SELECT
+import { colourStyles } from '../ColourStyles'
+import { PropertyTypeOptions, formatGroupLabel } from '../SelectGroupStyles'
 
 const Projects = () => {
+    const area = [0, 120, 240, 280, 320, 380, 400, 420, 440, 480, 520, 560, 600]
+    const options = [
+        { value: 'chocolate', label: 'Chocolate' },
+        { value: 'strawberry', label: 'Strawberry' },
+        { value: 'vanilla', label: 'Vanilla' },
+    ];
     return (
         <div>
             {/* THIS IS ROW 1 */}
             <Grid container >
-                <Grid item xs={12} md={4} >
-                    {/* CITY */}
-                    <AutoCompleteTextField
-                        id="combo-box-demo1"
-                        label='City'
+                {/* CITY */}
+                <Grid item xs={12} md={4} className={`${styles.childContainer} ${styles.marginBottomMobile}`} >
+                    <p>City</p>
+                    <Select
+                        // value={selectedOption}
+                        // onChange={handleSelect}
+                        // defaultValue={colourOptions[0]}
+                        // isLoading={isLoading}
+                        isSearchable={false}
+                        name="city"
+                        options={options}
+                        placeholder="Select City"
+                        label='city'
+                        styles={colourStyles}
+                        components={{
+                            IndicatorSeparator: () => null
+                        }}
                     />
                 </Grid>
-                <Grid item xs={12} md={4} className={styles.locationSelect}>
-                    {/* Project Title */}
-                    <AutoCompleteTextField
-                        id="combo-box-demo2"
+
+                {/* Project Title */}
+                <Grid item xs={12} md={4} className={`${styles.locationSelect} ${styles.childContainer} ${styles.marginBottomMobile}`} >
+                    <p>Project Title</p>
+                    <Select
+                        // value={selectedOption}
+                        // onChange={handleSelect}
+                        // defaultValue={colourOptions[0]}
+                        // isLoading={isLoading}
+                        isSearchable={false}
+                        name="Project Title"
+                        options={options}
+                        placeholder="Select Project Title"
                         label='Project Title'
+                        styles={colourStyles}
+                        components={{
+                            IndicatorSeparator: () => null
+                        }}
                     />
                 </Grid>
-                <Grid item xs={12} md={4} >
-                    {/* PROPERTY TYPE */}
-                    <AutoCompleteTextField
-                        id="combo-box-demo3"
+
+                {/*PROPERTY TYPE */}
+                <Grid item xs={12} md={4} className={`${styles.childContainer} ${styles.marginBottomMobile}`}>
+                    <p>Property Type</p>
+                    <Select
+                        isLoading={false}
+                        isSearchable={false}
+                        name="property type"
+                        placeholder="Select Property Type"
                         label='Property Type'
+                        styles={colourStyles}
+                        components={{
+                            IndicatorSeparator: () => null
+                        }}
+                        options={PropertyTypeOptions}
+                        formatGroupLabel={formatGroupLabel}
                     />
                 </Grid>
             </Grid>
 
+
+
+
+
+
             {/* THIS IS ROW 2 */}
-            <Grid container className={styles.secondGrid}>
-                <Grid item xs={12} md={4} className={`${styles.gridtwoPadding} ${styles.locationSelect}`} >
-                    {/* Developer Title */}
-                    <AutoCompleteTextField
-                        id="combo-box-demo4"
+            <Grid container className={`${styles.secondGrid} ${styles.marginBottomMobile}`} >
+                {/* Developer Title */}
+                <Grid item xs={12} md={4} className={`${styles.childContainer} ${styles.marginBottomMobile}`} style={{ marginTop: 'auto', marginBottom: '4px' }}>
+                    <p>Developer Title</p>
+                    <Select
+                        // value={selectedOption}
+                        // onChange={handleSelect}
+                        // defaultValue={colourOptions[0]}
+                        isLoading={false}
+                        isSearchable={false}
+                        name="Developer Title"
+                        options={options}
+                        placeholder="Select Developer Title"
                         label='Developer Title'
-                    />
-                </Grid >
-                <Grid item xs={12} md={4} className={`${styles.gridtwoPadding} ${styles.locationSelect}`} >
-                    {/* Area Unit */}
-                    <AutoCompleteTextField
-                        id="combo-box-demo5"
-                        label='Area Unit'
+                        styles={colourStyles}
+                        components={{
+                            IndicatorSeparator: () => null
+                        }}
                     />
                 </Grid>
-                {/* SEARCH BUTTON */}
-                <Grid item xs={12} md={4} >
+
+                {/* AREA UNIT */}
+                <Grid item xs={12} md={4} className={`${styles.gridtwoPadding} ${styles.locationSelect} ${styles.marginBottomMobile}`}  >
+                    <RangeBox
+                        Range={area}
+                        heading='Area Range'
+                    />
+                </Grid >
+
+                {/*  SEARCH BUTTON   */}
+                <Grid item xs={12} md={4} className={styles.buttonContainer} >
                     <div className={styles.searchButtonBox}>
                         <div><SearchIcon style={{ fontSize: '25px' }} /></div>
                         <div className={styles.search}>SEARCH</div>

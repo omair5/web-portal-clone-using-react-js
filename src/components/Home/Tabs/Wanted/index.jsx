@@ -38,7 +38,7 @@ const Wanted = () => {
     return (
         <div>
             {/* THIS IS ROW 1 */}
-            <Grid container >
+            <Grid container spacing={3} >
                 {/* CITY */}
                 <Grid item xs={12} md={4} className={`${styles.childContainer} ${styles.marginBottomMobile}`} >
                     <p>City</p>
@@ -82,7 +82,7 @@ const Wanted = () => {
             </Grid>
 
             {/* THIS IS ROW 2 */}
-            <Grid container className={styles.secondGrid}>
+            <Grid container className={styles.secondGrid} spacing={1}>
                 {/* AREA UNIT */}
                 <Grid item xs={12} md={3} className={`${styles.gridtwoPadding} ${styles.locationSelect} ${styles.marginBottomMobile}`}  >
                     <RangeBox

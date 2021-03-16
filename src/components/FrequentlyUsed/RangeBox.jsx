@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ArrowDropDownIcon from '@material-ui/icons/ExpandMore';
 import styles from './PriceRangeBox.module.css'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import { v4 as uuidv4 } from 'uuid';
@@ -46,11 +46,15 @@ const RangeBox = ({ Range, heading }) => {
                             <p>{minimumValue}</p>
                             <p>to</p>
                             <p>{maximumValue}</p>
-                            <ArrowDropDownIcon style={{ marginTop: '7px', fontSize: '20px' }} />
+                            <ArrowDropDownIcon
+                                style={{
+                                    marginTop: '7px', fontSize: '25px', color: 'silver',marginRight:'5px'
+                                }}
+                            />
                         </div>
                     </div>
                     {open &&
-                        <div className={`${styles.priceBox} custom-scroll`} id='RangeBoxChild'>
+                        <div className={`${styles.priceBox}`} id='RangeBoxChild'>
 
                             <div className={styles.priceHeading}>
                                 <h5>MIN</h5>

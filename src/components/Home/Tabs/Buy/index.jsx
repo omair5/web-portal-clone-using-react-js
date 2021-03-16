@@ -7,8 +7,11 @@ import Select from 'react-select';
 // THIS WILL USED IN REACT-SELECT
 import { colourStyles } from '../ColourStyles'
 import { PropertyTypeOptions, formatGroupLabel } from '../SelectGroupStyles'
+import ChangeAreaUnitPopUp from '../ChangeAreaUnitPopUp';
+import { useDispatch } from 'react-redux'
 
 const Buy = () => {
+    const dispatch = useDispatch()
     const priceRange = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
     const area = [0, 120, 240, 280, 320, 380, 400, 420, 440, 480, 520, 560, 600]
     const beds = [
@@ -29,6 +32,11 @@ const Buy = () => {
         { value: 'strawberry', label: 'Strawberry' },
         { value: 'vanilla', label: 'Vanilla' },
     ];
+
+    // HANDLE CHANGE AREA UNIT
+    const HandleOpenPopUp = () => {
+        dispatch({ type: 'open_area_unit_pop_up' })
+    }
 
     // const [selectedOption, setselectedOption] = useState(null)
     // const handleSelect = (selectedOption) => {
@@ -146,6 +154,11 @@ const Buy = () => {
                     </div>
                 </Grid>
             </Grid >
+            <div className={styles.footer} >
+                <span onClick={HandleOpenPopUp}>Change Area Unit</span>
+                <span>Reset Search</span>
+                <ChangeAreaUnitPopUp />
+            </div>
         </div >
     );
 }

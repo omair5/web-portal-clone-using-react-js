@@ -1,5 +1,5 @@
 .secondGrid {
-    margin-top: 2.5rem
+    padding-top: 20px;
 }
 
 .locationSelect {
@@ -16,7 +16,6 @@
 .buttonContainer {
     display: flex;
     justify-content: center;
-    /* background-color: blue; */
 }
 
 .searchButtonBox {
@@ -52,6 +51,19 @@
     margin-bottom: 0px;
 }
 
+.footer {
+    margin-top: 15px;
+}
+
+.footer span {
+    padding: 7px;
+    background-color: rgb(0, 0, 0, 0.9);
+    color: #fcb812;
+    cursor: pointer;
+    margin: 0px 10px;
+    border-radius: 5px;
+}
+
 @media screen and (max-width: 960px) {
     .locationSelect {
         padding: 0px
@@ -60,9 +72,14 @@
         margin-top: 0px
     }
     .marginBottomMobile {
-        margin-bottom: 15px;
+        padding: 5px 0px;
     }
     .pr10 {
         padding-right: 0px;
+    }
+    .footer {
+        width: 95%;
+        margin: auto;
+        margin-top: 15px;
     }
 }

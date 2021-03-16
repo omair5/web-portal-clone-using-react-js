@@ -100,9 +100,7 @@ const Rent = () => {
             </Grid>
 
             {/* THIS IS ROW 2 */}
-
-            {/* PRICE RANGE BOX */}
-            <Grid container className={styles.secondGrid}>
+            <Grid container className={`${styles.secondGrid} ${styles.marginBottomMobile}`} >
                 {/* PRICE RANGE BOX */}
                 <Grid item xs={12} md={3} >
                     <RangeBox
