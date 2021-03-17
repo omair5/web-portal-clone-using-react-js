@@ -4,12 +4,15 @@ import styles from './PriceRangeBox.module.css'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import { v4 as uuidv4 } from 'uuid';
 
-const RangeBox = ({ Range, heading }) => {
+const RangeBox = ({ RangeMin, RangeMax, heading, unit }) => {
+    console.log(RangeMin)
+    console.log(RangeMax)
+
     const [open, setOpen] = useState(false);
     const [minimumValue, setminimumValue] = useState('0')
     const [maximumValue, setmaximumValue] = useState('Any')
-    const [minRange, setminRange] = useState(Range)
-    const [maxRange, setmaxRange] = useState(Range)
+    const [minRange, setminRange] = useState(RangeMin)
+    const [maxRange, setmaxRange] = useState(RangeMax)
     // const [bgcolor, setbgcolor] = useState(false)
 
     const HandleMinimum = (e) => {
@@ -40,7 +43,7 @@ const RangeBox = ({ Range, heading }) => {
                 <div className={styles.tab_slider} id='RangeBoxParent'>
                     <div onClick={handleClick}>
                         <div className={styles.mylabel}>
-                            <p>{heading}</p>
+                            <p>{heading} {unit && <span>({unit})</span>}</p>
                         </div>
                         <div className={styles.priceRange}>
                             <p>{minimumValue}</p>
@@ -48,7 +51,7 @@ const RangeBox = ({ Range, heading }) => {
                             <p>{maximumValue}</p>
                             <ArrowDropDownIcon
                                 style={{
-                                    marginTop: '7px', fontSize: '25px', color: 'silver',marginRight:'5px'
+                                    marginTop: '7px', fontSize: '25px', color: 'silver', marginRight: '5px'
                                 }}
                             />
                         </div>

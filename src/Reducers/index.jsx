@@ -9,6 +9,7 @@ import SignInDialog from './SignInDialog'
 import RegisterDialog from './RegisterDialog'
 import ListingGalleryCarousel from './ListingGalleryCarousel'
 import AreaUnitPopUp from './AreaUnitPopUp'
+import Home_AreaUnit from './Home_AreaUnit'
 
 export default combineReducers({
     SearchShow: ExploreSearch,
@@ -20,5 +21,6 @@ export default combineReducers({
     SignInDialogStatus: SignInDialog,
     RegisterDialogStatus: RegisterDialog,
     ListingCarousel: ListingGalleryCarousel,
-    AreaUnitPopUp: AreaUnitPopUp
+    AreaUnitPopUp: AreaUnitPopUp,
+    Home_AreaUnit: Home_AreaUnit
 })

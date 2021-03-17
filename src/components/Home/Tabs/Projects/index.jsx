@@ -4,6 +4,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import styles from '../Buy/buy.module.css'
 import Select from 'react-select';
 import RangeBox from '../../../FrequentlyUsed/RangeBox';
+import FooterButtons from '../FooterButtons';
 // THIS WILL USED IN REACT-SELECT
 import { colourStyles } from '../ColourStyles'
 import { PropertyTypeOptions, formatGroupLabel } from '../SelectGroupStyles'
@@ -78,11 +79,6 @@ const Projects = () => {
                 </Grid>
             </Grid>
 
-
-
-
-
-
             {/* THIS IS ROW 2 */}
             <Grid container className={`${styles.secondGrid} ${styles.marginBottomMobile}`} >
                 {/* Developer Title */}
@@ -121,7 +117,12 @@ const Projects = () => {
                     </div>
                 </Grid>
             </Grid >
+
+            {/* change area unit and reset buttons */}
+            <FooterButtons />
         </div >
+
+
     );
 }
 

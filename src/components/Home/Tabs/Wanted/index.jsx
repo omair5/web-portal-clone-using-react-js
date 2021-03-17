@@ -4,6 +4,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import styles from '../Buy/buy.module.css'
 import RangeBox from '../../../FrequentlyUsed/RangeBox';
 import Select from 'react-select';
+import FooterButtons from '../FooterButtons';
 // THIS WILL USED IN REACT-SELECT
 import { colourStyles } from '../ColourStyles'
 import { PropertyTypeOptions, formatGroupLabel } from '../SelectGroupStyles'
@@ -137,6 +138,9 @@ const Wanted = () => {
                     </div>
                 </Grid>
             </Grid >
+
+            {/* change area unit and reset buttons */}
+            <FooterButtons />
         </div >
     );
 }

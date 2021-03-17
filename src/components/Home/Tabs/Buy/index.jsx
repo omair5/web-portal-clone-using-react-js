@@ -4,39 +4,35 @@ import SearchIcon from '@material-ui/icons/Search';
 import styles from './buy.module.css'
 import RangeBox from '../../../FrequentlyUsed/RangeBox';
 import Select from 'react-select';
+import FooterButtons from '../FooterButtons';
+import { useSelector } from 'react-redux'
+import { beds, buy_price_range_min, buy_price_range_max } from '../SelectDropDownValues'
 // THIS WILL USED IN REACT-SELECT
 import { colourStyles } from '../ColourStyles'
 import { PropertyTypeOptions, formatGroupLabel } from '../SelectGroupStyles'
-import ChangeAreaUnitPopUp from '../ChangeAreaUnitPopUp';
-import { useDispatch } from 'react-redux'
 
 const Buy = () => {
-    const dispatch = useDispatch()
-    const priceRange = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
+    const areaUnit = useSelector(state => state.Home_AreaUnit)
+    // const priceRange = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
     const area = [0, 120, 240, 280, 320, 380, 400, 420, 440, 480, 520, 560, 600]
-    const beds = [
-        { value: 'studio', label: 'studio' },
-        { value: '1', label: '1' },
-        { value: '2', label: '2' },
-        { value: '3', label: '3' },
-        { value: '4', label: '4' },
-        { value: '5', label: '5' },
-        { value: '6', label: '6' },
-        { value: '7', label: '7' },
-        { value: '8', label: '8' },
-        { value: '9', label: '9' },
-        { value: '10+', label: '10+' },
-    ];
+    // const beds = [
+    //     { value: 'studio', label: 'studio' },
+    //     { value: '1', label: '1' },
+    //     { value: '2', label: '2' },
+    //     { value: '3', label: '3' },
+    //     { value: '4', label: '4' },
+    //     { value: '5', label: '5' },
+    //     { value: '6', label: '6' },
+    //     { value: '7', label: '7' },
+    //     { value: '8', label: '8' },
+    //     { value: '9', label: '9' },
+    //     { value: '10+', label: '10+' },
+    // ];
     const options = [
         { value: 'chocolate', label: 'Chocolate' },
         { value: 'strawberry', label: 'Strawberry' },
         { value: 'vanilla', label: 'Vanilla' },
     ];
-
-    // HANDLE CHANGE AREA UNIT
-    const HandleOpenPopUp = () => {
-        dispatch({ type: 'open_area_unit_pop_up' })
-    }
 
     // const [selectedOption, setselectedOption] = useState(null)
     // const handleSelect = (selectedOption) => {
@@ -113,7 +109,8 @@ const Buy = () => {
                 {/* PRICE RANGE BOX */}
                 <Grid item xs={12} md={3} >
                     <RangeBox
-                        Range={priceRange}
+                        RangeMin={buy_price_range_min}
+                        RangeMax={buy_price_range_max}
                         heading='Price Range (PKR)'
                     />
                 </Grid >
@@ -122,7 +119,8 @@ const Buy = () => {
                 <Grid item xs={12} md={3} className={`${styles.gridtwoPadding} ${styles.locationSelect} ${styles.marginBottomMobile}`}  >
                     <RangeBox
                         Range={area}
-                        heading='Area Range'
+                        heading='Area'
+                        unit={areaUnit}
                     />
                 </Grid >
 
@@ -154,11 +152,10 @@ const Buy = () => {
                     </div>
                 </Grid>
             </Grid >
-            <div className={styles.footer} >
-                <span onClick={HandleOpenPopUp}>Change Area Unit</span>
-                <span>Reset Search</span>
-                <ChangeAreaUnitPopUp />
-            </div>
+
+            {/* change area unit and reset buttons */}
+            <FooterButtons />
+
         </div >
     );
 }

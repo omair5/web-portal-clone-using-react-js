@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import Slide from '@material-ui/core/Slide';
 import { useDispatch, useSelector } from 'react-redux'
@@ -75,6 +75,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 function ChangeAreaUnitPopUp() {
     const classes = useStyles();
     const dispatch = useDispatch()
+    const AreaUnitPopUp = useSelector(state => state.AreaUnitPopUp)
+    const [selectedOption, setselectedOption] = useState(null)
+
     const options = [
         { value: 'Square Feet', label: 'Square Feet' },
         { value: 'Square Yards', label: 'Square Yards' },
@@ -83,11 +86,33 @@ function ChangeAreaUnitPopUp() {
         { value: 'Kanal', label: 'Kanal' },
     ];
 
-    const AreaUnitPopUp = useSelector(state => state.AreaUnitPopUp)
-
     const handleClose = () => {
         dispatch({ type: 'close_area_unit_pop_up' })
+        switch (selectedOption.value) {
+            case 'Square Feet':
+                dispatch({ type: 'change_to_SQFT' })
+                break;
+            case 'Square Yards':
+                dispatch({ type: 'change_to_SQYD' })
+                break;
+            case 'Square Meters':
+                dispatch({ type: 'change_to_SQM' })
+                break;
+            case 'Marla':
+                dispatch({ type: 'change_to_MARLA' })
+                break;
+            case 'Kanal':
+                dispatch({ type: 'change_to_KANAL' })
+                break;
+            default:
+                dispatch({ type: 'change_to_SQFT' })
+        }
     };
+
+    const handleSelect = (selectedOption) => {
+        setselectedOption(selectedOption)
+        console.log(`Option selected:`, selectedOption);
+    }
 
     return (
         <div>
@@ -101,8 +126,8 @@ function ChangeAreaUnitPopUp() {
                     <h3>Change Area Unit</h3>
                     <div className={classes.areaUnitSelect}>
                         <Select
-                            // value={selectedOption}
-                            // onChange={handleSelect}
+                            value={selectedOption}
+                            onChange={handleSelect}
                             styles={colourStyles}
                             defaultValue={options[0]}
                             isSearchable={false}
@@ -114,10 +139,8 @@ function ChangeAreaUnitPopUp() {
                             menuPosition={'fixed'}
                         />
                     </div>
-
-
                 </div>
-                <button className={classes.button}>SAVE</button>
+                <button onClick={handleClose} className={classes.button}>SAVE</button>
             </Dialog>
         </div>
     );
