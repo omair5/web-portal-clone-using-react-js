@@ -10,6 +10,8 @@ import RegisterDialog from './RegisterDialog'
 import ListingGalleryCarousel from './ListingGalleryCarousel'
 import AreaUnitPopUp from './AreaUnitPopUp'
 import Home_AreaUnit from './Home_AreaUnit'
+import Home_Area_min_range from './Home_Area_min_range'
+import Home_Area_max_range from './Home_Area_max_range'
 
 export default combineReducers({
     SearchShow: ExploreSearch,
@@ -22,5 +24,7 @@ export default combineReducers({
     RegisterDialogStatus: RegisterDialog,
     ListingCarousel: ListingGalleryCarousel,
     AreaUnitPopUp: AreaUnitPopUp,
-    Home_AreaUnit: Home_AreaUnit
+    Home_AreaUnit: Home_AreaUnit,
+    Home_Area_min_range: Home_Area_min_range,
+    Home_Area_max_range: Home_Area_max_range
 })

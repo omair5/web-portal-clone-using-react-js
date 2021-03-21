@@ -91,27 +91,38 @@ function ChangeAreaUnitPopUp() {
         switch (selectedOption.value) {
             case 'Square Feet':
                 dispatch({ type: 'change_to_SQFT' })
+                dispatch({ type: 'sqft_min_range' })
+                dispatch({ type: 'sqft_max_range' })
                 break;
             case 'Square Yards':
                 dispatch({ type: 'change_to_SQYD' })
+                dispatch({ type: 'sqyd_min_range' })
+                dispatch({ type: 'sqyd_max_range' })
                 break;
             case 'Square Meters':
                 dispatch({ type: 'change_to_SQM' })
+                dispatch({ type: 'sqm_min_range' })
+                dispatch({ type: 'sqm_max_range' })
                 break;
             case 'Marla':
                 dispatch({ type: 'change_to_MARLA' })
+                dispatch({ type: 'marla_min_range' })
+                dispatch({ type: 'marla_max_range' })
                 break;
             case 'Kanal':
                 dispatch({ type: 'change_to_KANAL' })
+                dispatch({ type: 'kanal_min_range' })
+                dispatch({ type: 'kanal_max_range' })
                 break;
             default:
                 dispatch({ type: 'change_to_SQFT' })
+                dispatch({ type: 'sqft_min_range' })
+                dispatch({ type: 'sqft_max_range' })
         }
     };
 
     const handleSelect = (selectedOption) => {
         setselectedOption(selectedOption)
-        console.log(`Option selected:`, selectedOption);
     }
 
     return (
@@ -131,10 +142,10 @@ function ChangeAreaUnitPopUp() {
                             styles={colourStyles}
                             defaultValue={options[0]}
                             isSearchable={false}
-                            name="city"
+                            name="unit"
                             options={options}
-                            placeholder="Select City"
-                            label='city'
+                            placeholder="Select Unit"
+                            label='unit'
                             menuPortalTarget={document.body}
                             menuPosition={'fixed'}
                         />

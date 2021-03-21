@@ -1,32 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ArrowDropDownIcon from '@material-ui/icons/ExpandMore';
 import styles from './PriceRangeBox.module.css'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import { v4 as uuidv4 } from 'uuid';
 
 const RangeBox = ({ RangeMin, RangeMax, heading, unit }) => {
-    console.log(RangeMin)
-    console.log(RangeMax)
-
     const [open, setOpen] = useState(false);
     const [minimumValue, setminimumValue] = useState('0')
     const [maximumValue, setmaximumValue] = useState('Any')
-    const [minRange, setminRange] = useState(RangeMin)
-    const [maxRange, setmaxRange] = useState(RangeMax)
-    // const [bgcolor, setbgcolor] = useState(false)
+    const [minRange, setminRange] = useState([])
+    const [maxRange, setmaxRange] = useState([])
+
+    useEffect(() => {
+        setminRange(RangeMin)
+        setmaxRange(RangeMax)
+        setminimumValue('0')
+        setmaximumValue('Any')
+    }, [RangeMin, RangeMax])
 
     const HandleMinimum = (e) => {
         setminimumValue(e.target.innerText)
-        const selectedValue = +e.target.innerText
-        const copiedPriceRange = [...Range]
-        setmaxRange(copiedPriceRange.filter(value => (value > selectedValue)))
+        const selectedValue = +e.target.innerText.replace(/,/g, '')
+        const copiedPriceRange = [...RangeMin]
+        setmaxRange(copiedPriceRange.filter(value => (+value.replace(/,/g, '') >= selectedValue)))
     }
 
     const HandleMaximum = (e) => {
         setmaximumValue(e.target.innerText)
-        const selectedValue = +e.target.innerText
-        const copiedPriceRange = [...Range]
-        setminRange(copiedPriceRange.filter(value => (value < selectedValue)))
+        const selectedValue = +e.target.innerText.replace(/,/g, '')
+        const copiedPriceRange = [...RangeMax]
+        setminRange(copiedPriceRange.filter(value => (+value.replace(/,/g, '') <= selectedValue)))
     }
 
     const handleClick = () => {

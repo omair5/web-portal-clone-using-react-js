@@ -68,6 +68,10 @@
     font-size: 13px;
 }
 
+.priceValues p:active {
+    background-color: #fcb812;
+}
+
 @media screen and (max-width: 960px) {
     .tab_slider {
         margin-bottom: 10px;

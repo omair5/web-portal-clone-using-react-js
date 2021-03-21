@@ -13,21 +13,13 @@ import { PropertyTypeOptions, formatGroupLabel } from '../SelectGroupStyles'
 
 const Buy = () => {
     const areaUnit = useSelector(state => state.Home_AreaUnit)
-    // const priceRange = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
-    const area = [0, 120, 240, 280, 320, 380, 400, 420, 440, 480, 520, 560, 600]
-    // const beds = [
-    //     { value: 'studio', label: 'studio' },
-    //     { value: '1', label: '1' },
-    //     { value: '2', label: '2' },
-    //     { value: '3', label: '3' },
-    //     { value: '4', label: '4' },
-    //     { value: '5', label: '5' },
-    //     { value: '6', label: '6' },
-    //     { value: '7', label: '7' },
-    //     { value: '8', label: '8' },
-    //     { value: '9', label: '9' },
-    //     { value: '10+', label: '10+' },
-    // ];
+    const area_min_range = useSelector(state => state.Home_Area_min_range)
+    const area_max_range = useSelector(state => state.Home_Area_max_range)
+    console.log('this is min range', area_min_range)
+    console.log('this is min range', area_max_range)
+
+
+
     const options = [
         { value: 'chocolate', label: 'Chocolate' },
         { value: 'strawberry', label: 'Strawberry' },
@@ -118,7 +110,8 @@ const Buy = () => {
                 {/* AREA UNIT */}
                 <Grid item xs={12} md={3} className={`${styles.gridtwoPadding} ${styles.locationSelect} ${styles.marginBottomMobile}`}  >
                     <RangeBox
-                        Range={area}
+                        RangeMin={area_min_range}
+                        RangeMax={area_max_range}
                         heading='Area'
                         unit={areaUnit}
                     />
@@ -130,7 +123,6 @@ const Buy = () => {
                     <Select
                         // value={selectedOption}
                         // onChange={handleSelect}
-                        // defaultValue={colourOptions[0]}
                         isLoading={false}
                         isSearchable={false}
                         name="beds"
