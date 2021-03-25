@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import store from './store';
 import { Provider } from 'react-redux'
 import Loader from './Loader/Loader'
+import ProtectedRoutes from './PotectedRoutes';
 const Home = React.lazy(() => import('./pages/Home'));
 const Explore = React.lazy(() => import('./pages/Explore'));
 const Developers = React.lazy(() => import('./pages/Developers'));
@@ -17,8 +18,8 @@ const ContactUs = React.lazy(() => import('./pages/ContactUs'));
 const AboutUs = React.lazy(() => import('./pages/AboutUs'));
 const AddProperty = React.lazy(() => import('./pages/AddProperty'))
 const UserLogin = React.lazy(() => import('./pages/UserLogIn'));
-const Listings = React.lazy(() => import('./pages/Listings'));
-const Packages = React.lazy(() => import('./pages/packages'));
+// const Listings = React.lazy(() => import('./pages/Listings'));
+// const Packages = React.lazy(() => import('./pages/packages'));
 
 
 function App() {
@@ -38,13 +39,16 @@ function App() {
               <Route exact path='/partners' component={Partners} />
               <Route exact path='/contact' component={ContactUs} />
               <Route exact path='/about' component={AboutUs} />
-              <Route exact path='/add-property' component={AddProperty} />
+              <Route exact path='/add-property'>
+                <ProtectedRoutes Component={AddProperty} />
+              </Route>
+
               {/* dashboard */}
               <Route exact path='/my-account' component={UserLogin} />
               {/* listing of property , this page will be made from API */}
-              <Route exact path='/listings' component={Listings} />
+              {/* <Route exact path='/listings' component={Listings} /> */}
               {/* after clicking on any type of add property u will be directed to this page */}
-              <Route exact path='/packages' component={Packages} />
+              {/* <Route exact path='/packages' component={Packages} /> */}
             </Switch>
           </Suspense>
         </Router>

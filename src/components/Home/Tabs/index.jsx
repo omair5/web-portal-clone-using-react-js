@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Buy from './Buy';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,6 +10,9 @@ import styles from './tabs.module.css';
 import Rent from './Rent';
 import Wanted from './Wanted';
 import Projects from './Projects';
+import HomeGetCities from '../../../Services/HomeGetCities'
+import HomeGetLocations from '../../../Services/HomeGetLocations'
+import { useDispatch } from 'react-redux';
 
 
 function TabPanel(props) {
@@ -80,11 +83,26 @@ const useStyles = makeStyles((theme) => ({
 
 const SimpleTabs = () => {
     const classes = useStyles();
+    const dispatch = useDispatch()
+
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
+    // FETCHING CITY API
+    useEffect(() => {
+        async function GetCitiesHome() {
+            const cities_options = []
+            const cities = await HomeGetCities()
+            cities.map(value => (
+                cities_options.push({ label: value, value: value })
+            ))
+            dispatch({ type: 'populate_cities_in_select_list', payload: cities_options })
+        }
+        GetCitiesHome()
+    }, [dispatch])
 
     return (
         <>

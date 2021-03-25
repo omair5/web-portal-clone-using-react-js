@@ -1,36 +1,54 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import SearchIcon from '@material-ui/icons/Search';
 import styles from './buy.module.css'
 import RangeBox from '../../../FrequentlyUsed/RangeBox';
 import Select from 'react-select';
 import FooterButtons from '../FooterButtons';
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { beds, buy_price_range_min, buy_price_range_max } from '../SelectDropDownValues'
 // THIS WILL USED IN REACT-SELECT
 import { colourStyles } from '../ColourStyles'
 import { PropertyTypeOptions, formatGroupLabel } from '../SelectGroupStyles'
+import HomeGetLocations from '../../../../Services/HomeGetLocations';
 
 const Buy = () => {
     const areaUnit = useSelector(state => state.Home_AreaUnit)
     const area_min_range = useSelector(state => state.Home_Area_min_range)
     const area_max_range = useSelector(state => state.Home_Area_max_range)
-    console.log('this is min range', area_min_range)
-    console.log('this is min range', area_max_range)
+    const cities_options_list = useSelector(state => state.Home_cities_Reducer)
+    const locations_options_list = useSelector(state => state.Home_Locations_Reducer)
+    const dispatch = useDispatch()
+    const [selectedOption, setselectedOption] = useState({ label: "Karachi", value: 'Karachi' })
 
+    // FETCHING KARACHI LOCATION API
+    useEffect(() => {
+        async function GetLocationsHome() {
+            const locations_options = []
+            const location = await HomeGetLocations()
+            location.map(value => (
+                locations_options.push({ label: value, value: value })
+            ))
+            dispatch({ type: 'populate_location_in_select_list', payload: locations_options })
+        }
+        GetLocationsHome()
+    }, [dispatch])
 
-
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' },
-    ];
-
-    // const [selectedOption, setselectedOption] = useState(null)
-    // const handleSelect = (selectedOption) => {
-    //     setselectedOption(selectedOption)
-    //     console.log(`Option selected:`, selectedOption);
-    // }
+    // callback function to handle city change
+    const handleSelect = (selectedOption) => {
+        setselectedOption(selectedOption)
+        dispatch({ type: 'empty_select_list' })
+        const city_whose_location_to_be_fetched = selectedOption.value
+        async function GetLocationsFromHome() {
+            const locations_options = []
+            const locations = await HomeGetLocations(city_whose_location_to_be_fetched)
+            locations.map(value => (
+                locations_options.push({ label: value, value: value })
+            ))
+            dispatch({ type: 'populate_location_in_select_list', payload: locations_options })
+        }
+        GetLocationsFromHome()
+    }
 
     return (
         <div>
@@ -40,13 +58,12 @@ const Buy = () => {
                 <Grid item xs={12} md={3} className={`${styles.childContainer} ${styles.marginBottomMobile}`} >
                     <p>City</p>
                     <Select
-                        // value={selectedOption}
-                        // onChange={handleSelect}
-                        // defaultValue={colourOptions[0]}
-                        // isLoading={isLoading}
+                        value={selectedOption}
+                        onChange={handleSelect}
+                        isLoading={cities_options_list.length === 0 && true}
                         isSearchable={false}
                         name="city"
-                        options={options}
+                        options={cities_options_list}
                         placeholder="Select City"
                         label='city'
                         styles={colourStyles}
@@ -62,12 +79,11 @@ const Buy = () => {
                     <Select
                         // value={selectedOption}
                         // onChange={handleSelect}
-                        // defaultValue={colourOptions[0]}
-                        // isLoading={isLoading}
+                        isLoading={locations_options_list.length === 0 && true}
                         isClearable={true}
                         isSearchable={true}
                         name="location"
-                        options={options}
+                        options={locations_options_list}
                         placeholder="Select Location"
                         label='Location'
                         styles={colourStyles}

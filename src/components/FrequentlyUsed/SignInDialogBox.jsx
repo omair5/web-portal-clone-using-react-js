@@ -62,8 +62,8 @@ const SignInDialogBox = () => {
     //    USING STATE FROM STORE
     const SignInDialogStatus = useSelector(state => state.SignInDialogStatus)
     const dispatch = useDispatch()
-    // state for username & password
-    const [signinData, setsigninData] = useState({ username: '', password: '' })
+    // state for user_name & password
+    const [signinData, setsigninData] = useState({ user_name: '', password: '' })
 
 
 
@@ -91,7 +91,7 @@ const SignInDialogBox = () => {
 
     const HandleSubmit = (e) => {
         e.preventDefault();
-       axios.post('http://192.168.18.195:3000/auth/signin', signinData).then((response) => {console.log(response)})
+        axios.post('http://localhost:3200/auth/signin', signinData).then((response) => { console.log(response) }).catch(res=>console.log(res))
         console.log(signinData)
     }
 
@@ -113,8 +113,8 @@ const SignInDialogBox = () => {
                             TextFieldPlaceHolder='Username'
                             InputType='text'
                             callBack={HandleInputChange}
-                            name='username'
-                            value={signinData.username}
+                            name='user_name'
+                            value={signinData.user_name}
                         />
 
                         {/* FOR PASSWORD */}

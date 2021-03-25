@@ -1,16 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import SearchIcon from '@material-ui/icons/Search';
 import styles from '../Buy/buy.module.css'
 import Select from 'react-select';
 import RangeBox from '../../../FrequentlyUsed/RangeBox';
 import FooterButtons from '../FooterButtons';
+import { useSelector } from 'react-redux'
 // THIS WILL USED IN REACT-SELECT
 import { colourStyles } from '../ColourStyles'
 import { PropertyTypeOptions, formatGroupLabel } from '../SelectGroupStyles'
 
 const Projects = () => {
-    const area = [0, 120, 240, 280, 320, 380, 400, 420, 440, 480, 520, 560, 600]
+    const areaUnit = useSelector(state => state.Home_AreaUnit)
+    const area_min_range = useSelector(state => state.Home_Area_min_range)
+    const area_max_range = useSelector(state => state.Home_Area_max_range)
+    const cities_options_list = useSelector(state => state.Home_cities_Reducer)
+    const [selectedOption, setselectedOption] = useState({ label: "Karachi", value: 'Karachi' })
+
+    // callback function to handle city change
+    const handleSelect = (selectedOption) => {
+        setselectedOption(selectedOption)
+    }
+
     const options = [
         { value: 'chocolate', label: 'Chocolate' },
         { value: 'strawberry', label: 'Strawberry' },
@@ -24,13 +35,12 @@ const Projects = () => {
                 <Grid item xs={12} md={4} className={`${styles.childContainer} ${styles.marginBottomMobile}`} >
                     <p>City</p>
                     <Select
-                        // value={selectedOption}
-                        // onChange={handleSelect}
-                        // defaultValue={colourOptions[0]}
-                        // isLoading={isLoading}
+                        value={selectedOption}
+                        onChange={handleSelect}
+                        isLoading={cities_options_list.length === 0 && true}
                         isSearchable={false}
                         name="city"
-                        options={options}
+                        options={cities_options_list}
                         placeholder="Select City"
                         label='city'
                         styles={colourStyles}
@@ -104,8 +114,10 @@ const Projects = () => {
                 {/* AREA UNIT */}
                 <Grid item xs={12} md={4} className={`${styles.gridtwoPadding} ${styles.locationSelect} ${styles.marginBottomMobile}`}  >
                     <RangeBox
-                        Range={area}
-                        heading='Area Range'
+                        RangeMin={area_min_range}
+                        RangeMax={area_max_range}
+                        heading='Area'
+                        unit={areaUnit}
                     />
                 </Grid >
 
@@ -121,9 +133,6 @@ const Projects = () => {
             {/* change area unit and reset buttons */}
             <FooterButtons />
         </div >
-
-
     );
 }
-
 export default React.memo(Projects);

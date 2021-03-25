@@ -10,6 +10,7 @@ import BuyTab from '../BuyTab';
 import RentTab from '../RentTab'
 import WantedTab from '../Wanted';
 import ProjectTab from '../Project';
+import { useDispatch, useSelector } from 'react-redux'
 
 
 
@@ -85,10 +86,29 @@ const useStyles = makeStyles((theme) => ({
 
 const SimpleTabs = () => {
     const classes = useStyles();
-    const [value, setValue] = React.useState(0);
+    const current_tab = useSelector((state) => state.Explore_Listings_Tabs)
+    const dispatch = useDispatch()
 
     const handleChange = (event, newValue) => {
-        setValue(newValue);
+        switch (newValue) {
+            case 0:
+                dispatch({ type: 'set_current_tab_to_buy' })
+                break;
+            case 1:
+                dispatch({ type: 'set_current_tab_to_rent' })
+                break;
+            case 2:
+                dispatch({ type: 'set_current_tab_to_wanted' })
+                break;
+            case 3:
+                dispatch({ type: 'set_current_tab_to_project' })
+                break;
+            default:
+                break;
+        }
+        console.log(newValue)
+        // to change the search bar component in the left side bar of listing
+        dispatch({ type: newValue.toString() })
     };
 
     return (
@@ -97,30 +117,30 @@ const SimpleTabs = () => {
             {/* this custom-scroll class is used from app.css */}
             <div className={`${classes.MainContainer} custom-scroll`}>
                 <AppBar position="sticky" className={classes.appBar}>
-                    <Tabs TabIndicatorProps={{ style: { height: '5px', backgroundColor: 'rgb(252, 184, 22)' } }} value={value} onChange={handleChange} aria-label="simple tabs example" centered >
-                        <Tab label="BUY" {...a11yProps(0)} className={classes.tabButtons} style={{ color: value === 0 ? "rgb(252, 184, 22)" : "" }} />
-                        <Tab label="RENT" {...a11yProps(1)} className={classes.tabButtons} style={{ color: value === 1 ? "rgb(252, 184, 22)" : "" }} />
-                        <Tab label="WANTED" {...a11yProps(2)} className={classes.tabButtons} style={{ color: value === 2 ? "rgb(252, 184, 22)" : "" }} />
-                        <Tab label="PROJECT" {...a11yProps(3)} className={classes.tabButtons} style={{ color: value === 3 ? "rgb(252, 184, 22)" : "" }} />
+                    <Tabs TabIndicatorProps={{ style: { height: '5px', backgroundColor: 'rgb(252, 184, 22)' } }} value={current_tab} onChange={handleChange} aria-label="simple tabs example" centered >
+                        <Tab label="BUY" {...a11yProps(0)} className={classes.tabButtons} style={{ color: current_tab === 0 ? "rgb(252, 184, 22)" : "" }} />
+                        <Tab label="RENT" {...a11yProps(1)} className={classes.tabButtons} style={{ color: current_tab === 1 ? "rgb(252, 184, 22)" : "" }} />
+                        <Tab label="WANTED" {...a11yProps(2)} className={classes.tabButtons} style={{ color: current_tab === 2 ? "rgb(252, 184, 22)" : "" }} />
+                        <Tab label="PROJECT" {...a11yProps(3)} className={classes.tabButtons} style={{ color: current_tab === 3 ? "rgb(252, 184, 22)" : "" }} />
                     </Tabs>
                 </AppBar>
                 <div className={classes.ResultCount}>
                     <span>1567 RESULTS</span>
                 </div>
                 {/* TABS */}
-                <TabPanel value={value} index={0} className={classes.tabPanels}>
+                <TabPanel value={current_tab} index={0} className={classes.tabPanels}>
                     <BuyTab />
                 </TabPanel>
 
-                <TabPanel value={value} index={1} className={classes.tabPanels}>
+                <TabPanel value={current_tab} index={1} className={classes.tabPanels}>
                     <RentTab />
                 </TabPanel>
 
-                <TabPanel value={value} index={2} className={classes.tabPanels}>
+                <TabPanel value={current_tab} index={2} className={classes.tabPanels}>
                     <WantedTab />
                 </TabPanel>
 
-                <TabPanel value={value} index={3} className={classes.tabPanels}>
+                <TabPanel value={current_tab} index={3} className={classes.tabPanels}>
                     <ProjectTab />
                 </TabPanel>
             </div>

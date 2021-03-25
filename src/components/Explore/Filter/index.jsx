@@ -6,8 +6,12 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import AppBar from '@material-ui/core/AppBar';
-import ExploreSearch from '../ExploreSearch'
+import ExploreSearchBuy from '../ExploreSearch/ExploreSearchBuy'
+import ExploreSearchRent from '../ExploreSearch/ExploreSearchRent'
+import ExploreSearchWanted from '../ExploreSearch/ExploreSearchWanted'
+import ExploreSearchProject from '../ExploreSearch/ExploreSearchProject'
 import ExploreCategories from '../Categories';
+import { useSelector } from 'react-redux'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -55,7 +59,6 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     MainContainer: {
-        // border: '2px solid rgb(230, 230, 230)',
         height: '600px',
         overflowY: 'scroll',
         overflowX: 'hidden'
@@ -63,7 +66,6 @@ const useStyles = makeStyles((theme) => ({
     appBar: {
         backgroundColor: 'rgb(222, 222, 222)',
         zIndex: 1
-
     }
 }));
 
@@ -71,10 +73,12 @@ const useStyles = makeStyles((theme) => ({
 const SimpleTabs = () => {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
+    const changeExploreTab = useSelector(state => state.Explore_Change_tab)
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
     return (
         <>
             {/* TAB BUTTONS */}
@@ -89,7 +93,22 @@ const SimpleTabs = () => {
 
                 {/* TABS */}
                 <TabPanel value={value} index={0} className={classes.tabPanels}>
-                    <ExploreSearch />
+                    {
+                        (() => {
+                            switch (changeExploreTab) {
+                                case 'buy':
+                                    return <ExploreSearchBuy />
+                                case 'rent':
+                                    return <ExploreSearchRent />
+                                case 'wanted':
+                                    return <ExploreSearchWanted />
+                                case 'project':
+                                    return <ExploreSearchProject />
+                                default:
+                                    return <ExploreSearchBuy />
+                            }
+                        })()
+                    }
                 </TabPanel>
 
                 <TabPanel value={value} index={1} className={classes.tabPanels}>

@@ -69,9 +69,8 @@ function Navbar() {
                     </li>
                     <div className='WhoWeAreHide'>
                         <li className='nav-item' onMouseEnter={onClick} onMouseLeave={onMouseLeave}>
-                            {dropdown && <Dropdown />}
                             <div className='nav-links' >Who We Are <FontAwesomeIcon icon={faCaretDown} style={{ cursor: 'pointer' }} /></div>
-
+                            {dropdown && <Dropdown />}
                         </li>
                     </div>
                     <div className='WhoWeAreShow'>

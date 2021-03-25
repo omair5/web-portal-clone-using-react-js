@@ -1,40 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import SearchIcon from '@material-ui/icons/Search';
 import styles from '../Buy/buy.module.css'
 import RangeBox from '../../../FrequentlyUsed/RangeBox';
 import Select from 'react-select';
 import FooterButtons from '../FooterButtons';
+import { beds } from '../SelectDropDownValues';
+import { useSelector } from 'react-redux'
 // THIS WILL USED IN REACT-SELECT
 import { colourStyles } from '../ColourStyles'
 import { PropertyTypeOptions, formatGroupLabel } from '../SelectGroupStyles'
 
 const Wanted = () => {
-    const area = [0, 120, 240, 280, 320, 380, 400, 420, 440, 480, 520, 560, 600]
-    const beds = [
-        { value: 'studio', label: 'studio' },
-        { value: '1', label: '1' },
-        { value: '2', label: '2' },
-        { value: '3', label: '3' },
-        { value: '4', label: '4' },
-        { value: '5', label: '5' },
-        { value: '6', label: '6' },
-        { value: '7', label: '7' },
-        { value: '8', label: '8' },
-        { value: '9', label: '9' },
-        { value: '10+', label: '10+' },
-    ];
+    const areaUnit = useSelector(state => state.Home_AreaUnit)
+    const area_min_range = useSelector(state => state.Home_Area_min_range)
+    const area_max_range = useSelector(state => state.Home_Area_max_range)
+    const cities_options_list = useSelector(state => state.Home_cities_Reducer)
+    const [selectedOption, setselectedOption] = useState({ label: "Karachi", value: 'Karachi' })
+
+
     const options = [
         { value: 'chocolate', label: 'Chocolate' },
         { value: 'strawberry', label: 'Strawberry' },
         { value: 'vanilla', label: 'Vanilla' },
     ];
 
-    // const [selectedOption, setselectedOption] = useState(null)
-    // const handleSelect = (selectedOption) => {
-    //     setselectedOption(selectedOption)
-    //     console.log(`Option selected:`, selectedOption);
-    // }
+    // callback function to handle city change
+    const handleSelect = (selectedOption) => {
+        setselectedOption(selectedOption)
+    }
 
     return (
         <div>
@@ -44,13 +38,12 @@ const Wanted = () => {
                 <Grid item xs={12} md={4} className={`${styles.childContainer} ${styles.marginBottomMobile}`} >
                     <p>City</p>
                     <Select
-                        // value={selectedOption}
-                        // onChange={handleSelect}
-                        // defaultValue={colourOptions[0]}
-                        // isLoading={isLoading}
+                        value={selectedOption}
+                        onChange={handleSelect}
+                        isLoading={cities_options_list.length === 0 && true}
                         isSearchable={false}
                         name="city"
-                        options={options}
+                        options={cities_options_list}
                         placeholder="Select City"
                         label='city'
                         styles={colourStyles}
@@ -87,8 +80,10 @@ const Wanted = () => {
                 {/* AREA UNIT */}
                 <Grid item xs={12} md={3} className={`${styles.gridtwoPadding} ${styles.locationSelect} ${styles.marginBottomMobile}`}  >
                     <RangeBox
-                        Range={area}
-                        heading='Area Range'
+                        RangeMin={area_min_range}
+                        RangeMax={area_max_range}
+                        heading='Area'
+                        unit={areaUnit}
                     />
                 </Grid >
 

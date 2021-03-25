@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DialogContent from '@material-ui/core/DialogContent';
 import Dialog from '@material-ui/core/Dialog';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,6 +10,8 @@ import InputTextField from '../FrequentlyUsed/InputTextField';
 import { useDispatch, useSelector } from 'react-redux';
 import AutoCompleteTextField from './AutoCompleteTextField';
 import axios from 'axios';
+import RegisterCountryApi from '../../Services/RegisterCountryApi'
+import RegisterGetCities from '../../Services/RegisterGetCities';
 
 const useStyles = makeStyles({
     mainContainer: {
@@ -53,10 +55,21 @@ const RegisterDialogBox = () => {
     const [formFields, setformFields] = useState({ fname: '', lname: '', email: '', password: '', cpassword: '', number: '' })
     // FOR CHECKING PASSWORD MATCH
     const [passwordMatchingError, setpasswordMatchingError] = useState(false)
+    // FOR COUNTRIES
+    const [countries, setcountries] = useState([])
+    // FOR CITIES
+    const [cities, setcities] = useState([])
+    // FOR SHOWING CITY FIELD
+    const [showCity, setshowCity] = useState(false)
     // FOR AUTOCOMPLETE TEXTFIELD CONTROLLED VALUE
-    const countries = ['pakistan', 'iran', 'usa', 'iraq', 'sweden', 'china'];
-    const cities = ['karachi', 'lahore', 'islamabad', 'beijing', 'peshawar', 'multan'];
     const [formDropDownField, setformDropDownField] = useState({ country: null, city: null })
+
+    useEffect(() => {
+        async function CountryApiRegister() {
+            setcountries(await RegisterCountryApi())
+        }
+        CountryApiRegister()
+    }, [])
 
     // --------------------HANDLE CALLBACKS
 
@@ -76,6 +89,13 @@ const RegisterDialogBox = () => {
     // THIS FUNCTION HANDLES DROPDOWN VALUES
     const HandleDropDownValue = (event, newValue) => {
         const key = event.target.id.split('-')[0]
+        if (newValue === 'Pakistan') {
+            setshowCity(true)
+            async function GetCitiesRegister() {
+                setcities(await RegisterGetCities())
+            }
+            GetCitiesRegister()
+        }
         setformDropDownField({ ...formDropDownField, [key]: newValue })
     }
     // THIS FUNCTION WILL SUBMIT THE FORM
@@ -83,12 +103,13 @@ const RegisterDialogBox = () => {
         e.preventDefault();
         if (formFields.password === formFields.cpassword) {
             const username = `${formFields.fname} ${formFields.lname}`
-            const FormData = { username: username, email: formFields.email, password: formFields.password, phone_number: formFields.number, country_id: '2', city_id: '3' }
+            const FormData = { user_name: username, email: formFields.email, password: formFields.password, phone_number: formFields.number, city: formDropDownField.city, country: formDropDownField.country }
             console.log(FormData)
-            axios.post('http://192.168.18.195:3000/auth/signup', FormData).then(res => console.log(res))
+            axios.post('http://localhost:3200/auth/signup', FormData).then(res => console.log(res))
             setformFields({ fname: '', lname: '', email: '', password: '', cpassword: '', number: '' })
             setformDropDownField({ country: null, city: null })
             setpasswordMatchingError(false)
+            setshowCity(false)
             console.log('submitted')
         }
         else {
@@ -171,15 +192,16 @@ const RegisterDialogBox = () => {
                             />
 
                             {/* FOR CITY */}
-                            <AutoCompleteTextField
-                                id='city'
-                                label="CITY"
-                                style={{ margin: '10px 0px' }}
-                                value={formDropDownField.city}
-                                onChange={HandleDropDownValue}
-                                required={true}
-                                options={cities}
-                            />
+                            {showCity ?
+                                <AutoCompleteTextField
+                                    id='city'
+                                    label="CITY"
+                                    style={{ margin: '10px 0px' }}
+                                    value={formDropDownField.city}
+                                    onChange={HandleDropDownValue}
+                                    required={true}
+                                    options={cities}
+                                /> : null}
 
                             {/* FOR PASSWORD */}
                             <InputTextField
@@ -193,6 +215,8 @@ const RegisterDialogBox = () => {
                                 value={formFields.password}
                                 name='password'
                                 passwordVisibility={true}
+                                helperText=" The password must be at least 4 characters long, but no more than 20"
+                                pattern='.{4,32}'
                             />
 
                             {/* FOR CONFIRM PASSWORD */}
