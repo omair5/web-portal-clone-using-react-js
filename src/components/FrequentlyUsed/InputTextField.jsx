@@ -26,7 +26,7 @@ const useStyles = makeStyles({
     }
 });
 
-const InputTextField = ({ TextFieldId, TextFieldPlaceHolder, InputType, required, pattern, title, autoComplete, labelText, helperText, autofocus, value, callBack, name, passwordVisibility, error }) => {
+const InputTextField = ({ TextFieldId, TextFieldPlaceHolder, InputType, required, pattern, title, autoComplete, labelText, helperText, autofocus, value, callBack, name, passwordVisibility, error, outlined }) => {
     const classes = useStyles();
     const classesBase = useStylesBase();
     const [show, setShow] = useState(false)
@@ -52,6 +52,7 @@ const InputTextField = ({ TextFieldId, TextFieldPlaceHolder, InputType, required
                     onChange={callBack}
                     name={name}
                     error={error}
+                    variant={outlined}
                     // FOR INPUT STYLING
                     // inputProps are used to pass attributes native to the underlying 
                     // HTML input element, e.g. name, id, style.

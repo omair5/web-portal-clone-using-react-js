@@ -1,0 +1,94 @@
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Grid from '@material-ui/core/Grid';
+import Checkbox from '@material-ui/core/Checkbox';
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import Typography from '@material-ui/core/Typography';
+
+
+const useStyles = makeStyles((theme) => ({
+    MainContainer: {
+        margin: '25px 0px'
+    },
+    subHeading: {
+        color: '#fcb812',
+        padding: '15px 0px',
+        letterSpacing: '1px'
+    },
+    check: {
+        color: '#fcb812'
+    }
+}));
+
+const MainFeatures = () => {
+    const classes = useStyles();
+    const [features, setfeatures] = useState({
+        Possession: false,
+        Corner: false,
+        Park_Facing: false,
+        Boundary_Wall: false,
+        Extra_Land: false,
+        Main_Boulevard: false,
+        File: false,
+    });
+    const { Possession, Corner, Park_Facing, Boundary_Wall, Extra_Land, Main_Boulevard, File } = features
+
+    const handleChange = (event) => {
+        setfeatures({ ...features, [event.target.name]: event.target.checked });
+    };
+    return (
+        <>
+            <div className={classes.MainContainer}>
+                <h4 className={classes.subHeading}>MAIN FEATURES</h4>
+                <Grid container spacing={3}>
+                    <Grid item xs={6} sm={6} md={4} lg={3}>
+                        <FormControlLabel
+                            control={<Checkbox checked={Possession} onChange={handleChange} name='Possession' disableRipple={true} icon={<CheckBoxOutlineBlankIcon fontSize="large" />} checkedIcon={<CheckBoxIcon fontSize="large" className={classes.check} />} />}
+                            label={<Typography variant="h6" style={{ color: 'rgb(76, 84, 85)', fontWeight: 'bold' }}>Possession</Typography>}
+                        />
+                    </Grid>
+                    <Grid item xs={6} sm={6} md={4} lg={3}>
+                        <FormControlLabel
+                            control={<Checkbox checked={Corner} onChange={handleChange} name='Corner' disableRipple={true} icon={<CheckBoxOutlineBlankIcon fontSize="large" />} checkedIcon={<CheckBoxIcon fontSize="large" className={classes.check} />} />}
+                            label={<Typography variant="h6" style={{ color: 'rgb(76, 84, 85)', fontWeight: 'bold' }}>Corner</Typography>}
+                        />
+                    </Grid>
+                    <Grid item xs={6} sm={6} md={4} lg={3}>
+                        <FormControlLabel
+                            control={<Checkbox checked={Park_Facing} onChange={handleChange} name='Park_Facing' disableRipple={true} icon={<CheckBoxOutlineBlankIcon fontSize="large" />} checkedIcon={<CheckBoxIcon fontSize="large" className={classes.check} />} />}
+                            label={<Typography variant="h6" style={{ color: 'rgb(76, 84, 85)', fontWeight: 'bold' }}>Park Facing</Typography>}
+                        />
+                    </Grid>
+                    <Grid item xs={6} sm={6} md={4} lg={3}>
+                        <FormControlLabel
+                            control={<Checkbox checked={Boundary_Wall} onChange={handleChange} name='Boundary_Wall' disableRipple={true} icon={<CheckBoxOutlineBlankIcon fontSize="large" />} checkedIcon={<CheckBoxIcon fontSize="large" className={classes.check} />} />}
+                            label={<Typography variant="h6" style={{ color: 'rgb(76, 84, 85)', fontWeight: 'bold' }}>Boundary Wall</Typography>}
+                        />
+                    </Grid>
+                    <Grid item xs={6} sm={6} md={4} lg={3}>
+                        <FormControlLabel
+                            control={<Checkbox checked={Extra_Land} onChange={handleChange} name='Extra_Land' disableRipple={true} icon={<CheckBoxOutlineBlankIcon fontSize="large" />} checkedIcon={<CheckBoxIcon fontSize="large" className={classes.check} />} />}
+                            label={<Typography variant="h6" style={{ color: 'rgb(76, 84, 85)', fontWeight: 'bold' }}>Extra Land</Typography>}
+                        />
+                    </Grid>
+                    <Grid item xs={6} sm={6} md={4} lg={3}>
+                        <FormControlLabel
+                            control={<Checkbox checked={Main_Boulevard} onChange={handleChange} name='Main_Boulevard' disableRipple={true} icon={<CheckBoxOutlineBlankIcon fontSize="large" />} checkedIcon={<CheckBoxIcon fontSize="large" className={classes.check} />} />}
+                            label={<Typography variant="h6" style={{ color: 'rgb(76, 84, 85)', fontWeight: 'bold' }}>Main Boulevard</Typography>}
+                        />
+                    </Grid>
+                    <Grid item xs={6} sm={6} md={4} lg={3}>
+                        <FormControlLabel
+                            control={<Checkbox checked={File} onChange={handleChange} name='File' disableRipple={true} icon={<CheckBoxOutlineBlankIcon fontSize="large" />} checkedIcon={<CheckBoxIcon fontSize="large" className={classes.check} />} />}
+                            label={<Typography variant="h6" style={{ color: 'rgb(76, 84, 85)', fontWeight: 'bold' }}>File</Typography>}
+                        />
+                    </Grid>
+                </Grid>
+
+            </div>
+        </>
+    );
+}
+export default React.memo(MainFeatures);

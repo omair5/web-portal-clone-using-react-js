@@ -5,6 +5,9 @@ import PropertyTypeAndLocation from '../../components/AddProperty/PropertyTypeAn
 import { makeStyles } from '@material-ui/core/styles';
 import PropertyDetails from '../../components/AddProperty/PropertyDetails';
 import AddImages from '../../components/AddProperty/AddImages';
+import HomeFeatures from '../../components/AddProperty/HomeFeatures';
+import PlotFeatures from '../../components/AddProperty/PlotFeatures';
+import CommercialFeatures from '../../components/AddProperty/CommercialFeatures';
 
 
 
@@ -25,10 +28,10 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#fcb812',
         cursor: 'pointer',
         color: 'rgb(59, 70, 86)',
-        transition:'all 0.5s ease',
-        "&:hover":{
-            color:'white',
-            transform:'scale(1.03)'
+        transition: 'all 0.5s ease',
+        "&:hover": {
+            color: 'white',
+            transform: 'scale(1.03)'
         }
 
     }
@@ -42,6 +45,9 @@ const AddProperty = () => {
                 <PropertyTypeAndLocation />
                 <PropertyDetails />
                 <AddImages />
+                {/* <HomeFeatures /> */}
+                {/* <PlotFeatures /> */}
+                {/* <CommercialFeatures /> */}
                 <button className={classes.buttonContainer}>SUBMIT PROPERTY</button>
             </Container>
 

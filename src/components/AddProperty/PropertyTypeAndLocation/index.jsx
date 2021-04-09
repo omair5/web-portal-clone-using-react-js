@@ -7,20 +7,19 @@ import Container from '@material-ui/core/Container';
 import Homes from './Homes';
 import Plots from './Plots';
 import Commercial from './Commercial';
+import Select from 'react-select';
+import { colourStyles } from './ColourStyles'
 
 const useStyles = makeStyles((theme) => ({
     radio: {
+        "& svg": {
+            fontSize: '23px'
+        },
         '&$checked': {
             color: 'rgb(59, 70, 86)'
         }
     },
-    checkboxLabel: {
-        fontSize: 40
-    },
     checked: {},
-    RadioGroup: {
-        marginLeft: '20px'
-    },
     RadioLabel: {
         fontSize: '17px',
         "& svg": {
@@ -28,43 +27,35 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     mainHeading: {
-        backgroundColor: 'rgb(59, 70, 86)',
+        backgroundColor: 'rgb(76, 84, 85)',
         color: 'white',
-        padding: '10px'
+        padding: '10px',
+        margin: '30px 0px'
     },
     mainContainer: {
         margin: '10px auto'
     },
     horizontalRow: {
-        display: 'flex',
-        justifyContent: 'start',
-        alignItems: 'center',
         margin: '15px 0px',
         "& p": {
             color: '#fcb812',
             fontWeight: 'bolder',
             fontSize: '15px',
-            textTransform: 'uppercase'
+            textTransform: 'uppercase',
+            letterSpacing: '1px'
         }
     },
-    wrapperContainer: {
+    cityAndLocation: {
+        margin: '15px 0px',
         "& p": {
             color: '#fcb812',
             fontWeight: 'bolder',
             fontSize: '15px',
-            textTransform: 'uppercase'
+            textTransform: 'uppercase',
+            paddingBottom: '10px',
+            letterSpacing: '1px'
         }
-    },
-    landAreaContainer: {
-        margin: '10px 0px',
-        width: '100%',
-        padding: '13px 2px',
-        borderColor: 'silver',
-        borderRadius: '5px',
-        "&:focus": {
-            outline: 'none'
-        },
-    },
+    }
 }));
 
 const PropertyTypeAndLocation = () => {
@@ -78,15 +69,18 @@ const PropertyTypeAndLocation = () => {
     }
 
     console.log(propertyDetails)
+
+
+
     return (
         <>
             <h4 className={classes.mainHeading}>PROPERTY TYPE AND LOCATION</h4>
-            {/* PURPOSE */}
             <Container maxWidth='sm' className={classes.mainContainer}>
                 <div>
+                    {/* PURPOSE */}
                     <div className={classes.horizontalRow}>
-                        <p>Purpose * :</p>
-                        <RadioGroup aria-label="purpose" name="purpose" row className={classes.RadioGroup} onChange={HandleChange}>
+                        <p>Purpose</p>
+                        <RadioGroup aria-label="purpose" name="purpose" row onChange={HandleChange} >
                             <FormControlLabel
                                 value="sale"
                                 control={<Radio classes={{ root: classes.radio, checked: classes.checked }} />}
@@ -116,8 +110,8 @@ const PropertyTypeAndLocation = () => {
                     {/* WANTED FOR */}
                     {propertyDetails.purpose === 'wanted' ?
                         <div className={classes.horizontalRow}>
-                            <p>Wanted For :</p>
-                            <RadioGroup aria-label="purpose" name="purpose" row className={classes.RadioGroup}>
+                            <p>Wanted For</p>
+                            <RadioGroup aria-label="purpose" name="purpose" row >
                                 <FormControlLabel
                                     value="Buy"
                                     control={<Radio classes={{ root: classes.radio, checked: classes.checked }} />}
@@ -140,8 +134,8 @@ const PropertyTypeAndLocation = () => {
 
                     {/* PROPERTY TYPE */}
                     <div className={classes.horizontalRow}>
-                        <p>PROPERTY TYPE* :</p>
-                        <RadioGroup aria-label="PROPERTY TYPE" name="propertyType" row className={classes.RadioGroup} onChange={HandleChange}>
+                        <p>PROPERTY TYPE</p>
+                        <RadioGroup aria-label="PROPERTY TYPE" name="propertyType" row onChange={HandleChange}>
                             <FormControlLabel
                                 value="Homes"
                                 control={<Radio classes={{ root: classes.radio, checked: classes.checked }} />}
@@ -191,27 +185,42 @@ const PropertyTypeAndLocation = () => {
                     }
 
                     {/* SELECT CITY */}
-                    <div className={classes.wrapperContainer}>
-                        <p>CITY *</p>
-                        <select name="city" id="city" className={classes.landAreaContainer}>
-                            <option value="Square Feet">Select City</option>
-                            <option value="Square Yards">Square Yards</option>
-                            <option value="Square Meters">Square Meters</option>
-                            <option value="Marla">Marla</option>
-                            <option value="Kanal">Kanal</option>
-                        </select>
+                    <div className={classes.cityAndLocation}>
+                        <p>CITY </p>
+                        <Select
+                            // value={selectedCity}
+                            // onChange={HandleCitySelect}
+                            // isLoading={cities_options_list.length === 0 && true}
+                            isSearchable={false}
+                            // name="city"
+                            // options={cities_options_list}
+                            placeholder="Select City"
+                            label='city'
+                            styles={colourStyles}
+                            components={{
+                                IndicatorSeparator: () => null
+                            }}
+                        />
                     </div>
 
                     {/* SELECT LOCATION */}
-                    <div className={classes.wrapperContainer}>
-                        <p>LOCATION *</p>
-                        <select name="location" id="location" disabled className={classes.landAreaContainer}>
-                            <option value="Square Feet">Gulshan-e-Iqbal</option>
-                            <option value="Square Yards">Square Yards</option>
-                            <option value="Square Meters">Square Meters</option>
-                            <option value="Marla">Marla</option>
-                            <option value="Kanal">Kanal</option>
-                        </select>
+                    <div className={classes.cityAndLocation}>
+                        <p>LOCATION </p>
+                        <Select
+                            // value={selectedCity}
+                            // onChange={HandleCitySelect}
+                            // isLoading={cities_options_list.length === 0 && true}
+                            isSearchable={false}
+                            isDisabled={true}
+                            // name="city"
+                            // options={cities_options_list}
+                            placeholder="Select Location"
+                            label='city'
+                            styles={colourStyles}
+                            components={{
+                                IndicatorSeparator: () => null
+                            }}
+                        />
                     </div>
                 </div>
             </Container>

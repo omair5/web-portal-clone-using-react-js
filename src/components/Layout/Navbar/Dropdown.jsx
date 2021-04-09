@@ -20,7 +20,7 @@ function Dropdown() {
             onClick={() => setClick(false)}
           >
             About Us
-              </Link>
+            </Link>
         </li>
 
         <li >
@@ -30,11 +30,10 @@ function Dropdown() {
             onClick={() => setClick(false)}
           >
             Contact Us
-              </Link>
+          </Link>
         </li>
       </ul>
     </>
   );
 }
-
 export default React.memo(Dropdown);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles({
     buttonContainer: {
@@ -17,21 +18,20 @@ const useStyles = makeStyles({
 
         }
     },
-
     childContainer: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
     },
 });
-const SignInAndRegisterButton = ({ ButtonIcon, ButtonText, bgColor }) => {
+const SignInAndRegisterButton = ({ ButtonIcon, ButtonText, bgColor, spin }) => {
     const classes = useStyles();
     return (
         <>
             <button className={classes.buttonContainer} style={bgColor} type="submit">
                 <div className={classes.childContainer}>
                     <p>{ButtonIcon && <FontAwesomeIcon icon={ButtonIcon} style={{ marginRight: '10px' }} />}</p>
-                    <p>{ButtonText}</p>
+                    <div>{spin ? <CircularProgress style={{ width: '13px', height: '13px' }} /> : ButtonText}</div>
                 </div>
             </button>
         </>

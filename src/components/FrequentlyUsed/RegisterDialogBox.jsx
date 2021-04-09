@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import DialogContent from '@material-ui/core/DialogContent';
 import Dialog from '@material-ui/core/Dialog';
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,13 +12,33 @@ import AutoCompleteTextField from './AutoCompleteTextField';
 import axios from 'axios';
 import RegisterCountryApi from '../../Services/RegisterCountryApi'
 import RegisterGetCities from '../../Services/RegisterGetCities';
+import ConfirmationEmailDialog from './ConfirmationEmailDialog';
 
 const useStyles = makeStyles({
     mainContainer: {
         backgroundColor: "white",
         minHeight: '750px',
         maxWidth: '400px',
-        overflow: "hidden"
+        overflow: "hidden",
+        "& h4": {
+            textAlign: 'center',
+            padding: '10px 0px',
+            color: 'rgb(83, 90, 89)'
+        }
+    },
+    iconContainer: {
+        width: '80px',
+        height: '80px',
+        borderRadius: '50%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        border: '2px solid rgb(83, 90, 89)',
+        margin: '10px auto'
+    },
+    icon: {
+        color: 'rgb(83, 90, 89)',
+        fontSize: '35px'
     },
     createAccount: {
         marginLeft: '5px',
@@ -41,11 +61,16 @@ const useStyles = makeStyles({
         cursor: 'pointer',
         color: 'rgb(59, 70, 86)',
         fontWeight: 'bolder'
+    },
+    AlreadyExist: {
+        color: 'red',
+        textAlign: 'center',
     }
 });
 
 const RegisterDialogBox = () => {
     const classes = useStyles();
+    const mounted = useRef(true);
     // --------------------STATES
 
     //    USING STATE FROM STORE
@@ -63,12 +88,21 @@ const RegisterDialogBox = () => {
     const [showCity, setshowCity] = useState(false)
     // FOR AUTOCOMPLETE TEXTFIELD CONTROLLED VALUE
     const [formDropDownField, setformDropDownField] = useState({ country: null, city: null })
+    // LOADER 
+    const [loader, setloader] = useState(false)
+    // EMAIL ALREADY EXIST
+    const [emailAlreadyExist, setemailAlreadyExist] = useState(false)
 
     useEffect(() => {
+        mounted.current = true;
         async function CountryApiRegister() {
-            setcountries(await RegisterCountryApi())
+            if (mounted.current) {
+                setcountries(await RegisterCountryApi())
+            }
         }
         CountryApiRegister()
+        // cancel subscription to useEffect
+        return () => mounted.current = false;
     }, [])
 
     // --------------------HANDLE CALLBACKS
@@ -101,21 +135,34 @@ const RegisterDialogBox = () => {
     // THIS FUNCTION WILL SUBMIT THE FORM
     const handleSubmit = (e) => {
         e.preventDefault();
+        setloader(true)
         if (formFields.password === formFields.cpassword) {
             const username = `${formFields.fname} ${formFields.lname}`
             const FormData = { user_name: username, email: formFields.email, password: formFields.password, phone_number: formFields.number, city: formDropDownField.city, country: formDropDownField.country }
-            console.log(FormData)
-            axios.post('http://localhost:3200/auth/signup', FormData).then(res => console.log(res))
-            setformFields({ fname: '', lname: '', email: '', password: '', cpassword: '', number: '' })
-            setformDropDownField({ country: null, city: null })
-            setpasswordMatchingError(false)
-            setshowCity(false)
-            console.log('submitted')
+            axios.post('http://localhost:3200/auth/signup', FormData)
+                .then(res => {
+                    if (mounted.current) {
+                        setloader(false)
+                        console.log(res)
+                        if (res.data.status === 201 || res.data.message === 'Please cheak your Email') {
+                            setformFields({ fname: '', lname: '', email: '', password: '', cpassword: '', number: '' })
+                            setformDropDownField({ country: null, city: null })
+                            setpasswordMatchingError(false)
+                            setshowCity(false)
+                            setemailAlreadyExist(false)
+                            dispatch({ type: 'open_confirmation_email_dialog' })
+                            dispatch({ type: 'CloseRegisterDialog' })
+                        }
+                        else if (res.data.status === 409) {
+                            setemailAlreadyExist(true)
+                        }
+                    }
+                })
         }
         else {
+            setloader(false)
             setpasswordMatchingError(true)
         }
-
     }
 
     return (
@@ -124,10 +171,10 @@ const RegisterDialogBox = () => {
                 <div className="custom-scroll">
                     <DialogContent className={`${classes.mainContainer}`}>
                         {/* Register */}
-                        <div className={classes.IconWithText}>
-                            <p><FontAwesomeIcon icon={faUserAlt} /></p>
-                            <p className={classes.createAccount}>CREATE AN ACCOUNT </p>
+                        <div className={classes.iconContainer}>
+                            <FontAwesomeIcon icon={faUserAlt} className={classes.icon} />
                         </div>
+                        <h4 >CREATE AN ACCOUNT</h4>
                         <form onSubmit={handleSubmit} >
                             {/* FOR FIRST NAME */}
                             <InputTextField
@@ -254,11 +301,14 @@ const RegisterDialogBox = () => {
                                 passwordVisibility={false}
                             />
 
+                            {emailAlreadyExist && <p className={classes.AlreadyExist}>The Email You Are Using To Sign Up Already Exist</p>}
+
                             {/* SIGN UP BUTTON */}
                             <SignInAndRegisterButton
                                 ButtonIcon=''
                                 ButtonText='Sign Up'
                                 bgColor={{ backgroundColor: '#fcb812' }}
+                                spin={loader}
                             />
                         </form>
 
@@ -282,6 +332,7 @@ const RegisterDialogBox = () => {
                     </DialogContent>
                 </div>
             </Dialog>
+            <ConfirmationEmailDialog />
         </>
     );
 }

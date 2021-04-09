@@ -85,6 +85,18 @@
     display: none;
 }
 
+.userContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.userContainer p {
+    color: white;
+    width: auto;
+}
+
 @media screen and (max-width: 1255px) {
     .NavbarItems {
         position: relative;
@@ -149,5 +161,9 @@
     .forMobileAddButton {
         padding-bottom: 10px;
         margin: auto;
+    }
+    .userContainer {
+        position: absolute;
+        right: 70px;
     }
 }

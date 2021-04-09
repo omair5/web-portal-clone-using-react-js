@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import SearchIcon from '@material-ui/icons/Search';
 import styles from '../Buy/buy.module.css'
@@ -10,24 +10,56 @@ import { useSelector } from 'react-redux'
 // THIS WILL USED IN REACT-SELECT
 import { colourStyles } from '../ColourStyles'
 import { PropertyTypeOptions, formatGroupLabel } from '../SelectGroupStyles'
+import HomeGetLocations from '../../../../Services/HomeGetLocations';
+
 
 const Wanted = () => {
     const areaUnit = useSelector(state => state.Home_AreaUnit)
     const area_min_range = useSelector(state => state.Home_Area_min_range)
     const area_max_range = useSelector(state => state.Home_Area_max_range)
     const cities_options_list = useSelector(state => state.Home_cities_Reducer)
-    const [selectedOption, setselectedOption] = useState({ label: "Karachi", value: 'Karachi' })
+    const [cityLocations, setcityLocations] = useState([])
+    const [selectedCity, setselectedCity] = useState({ label: "Karachi", value: 'Karachi' })
+    const [SelectedLocation, setSelectedLocation] = useState('')
 
 
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' },
-    ];
+    // FETCHING KARACHI LOCATION API
+    useEffect(() => {
+        let mounted = true
+
+        async function GetLocationsHome() {
+            const locations_options = []
+            const location = await HomeGetLocations()
+            location.map(value => (
+                locations_options.push({ label: value, value: value })
+            ))
+            if (mounted) {
+                setcityLocations(locations_options)
+            }
+        }
+        GetLocationsHome()
+
+        return () => mounted = false
+    }, [])
 
     // callback function to handle city change
-    const handleSelect = (selectedOption) => {
-        setselectedOption(selectedOption)
+    const HandleCitySelect = (selectedOption) => {
+        setselectedCity(selectedOption)
+        setcityLocations([])
+        const city_whose_location_to_be_fetched = selectedOption.value
+        async function GetLocationsFromHome() {
+            const locations_options = []
+            const locations = await HomeGetLocations(city_whose_location_to_be_fetched)
+            locations.map(value => (
+                locations_options.push({ label: value, value: value })
+            ))
+            setcityLocations(locations_options)
+        }
+        GetLocationsFromHome()
+    }
+
+    const HandleLocationSelect = (e) => {
+        setSelectedLocation(e)
     }
 
     return (
@@ -38,11 +70,10 @@ const Wanted = () => {
                 <Grid item xs={12} md={4} className={`${styles.childContainer} ${styles.marginBottomMobile}`} >
                     <p>City</p>
                     <Select
-                        value={selectedOption}
-                        onChange={handleSelect}
+                        value={selectedCity}
+                        onChange={HandleCitySelect}
                         isLoading={cities_options_list.length === 0 && true}
                         isSearchable={false}
-                        name="city"
                         options={cities_options_list}
                         placeholder="Select City"
                         label='city'
@@ -57,14 +88,12 @@ const Wanted = () => {
                 <Grid item xs={12} md={8} className={`${styles.locationSelect} ${styles.childContainer} ${styles.marginBottomMobile}`}>
                     <p>Location</p>
                     <Select
-                        // value={selectedOption}
-                        // onChange={handleSelect}
-                        // defaultValue={colourOptions[0]}
-                        // isLoading={isLoading}
+                        value={SelectedLocation}
+                        onChange={HandleLocationSelect}
+                        isLoading={cityLocations.length === 0 && true}
                         isClearable={true}
                         isSearchable={true}
-                        name="location"
-                        options={options}
+                        options={cityLocations}
                         placeholder="Select Location"
                         label='Location'
                         styles={colourStyles}

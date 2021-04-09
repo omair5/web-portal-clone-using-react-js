@@ -18,6 +18,8 @@ const ContactUs = React.lazy(() => import('./pages/ContactUs'));
 const AboutUs = React.lazy(() => import('./pages/AboutUs'));
 const AddProperty = React.lazy(() => import('./pages/AddProperty'))
 const UserLogin = React.lazy(() => import('./pages/UserLogIn'));
+const PageNotFound = React.lazy(() => import('./pages/PageNotFound'));
+const ResetPasswordDialogBox = React.lazy(() => import('./components/FrequentlyUsed/ResetPasswordDialogBox'));
 // const Listings = React.lazy(() => import('./pages/Listings'));
 // const Packages = React.lazy(() => import('./pages/packages'));
 
@@ -42,6 +44,8 @@ function App() {
               <Route exact path='/add-property'>
                 <ProtectedRoutes Component={AddProperty} />
               </Route>
+              <Route exact path='/reset/password' component={ResetPasswordDialogBox} />
+              <Route path='*' exact={true} component={PageNotFound} />
 
               {/* dashboard */}
               <Route exact path='/my-account' component={UserLogin} />

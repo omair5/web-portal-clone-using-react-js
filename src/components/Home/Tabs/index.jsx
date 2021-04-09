@@ -11,13 +11,11 @@ import Rent from './Rent';
 import Wanted from './Wanted';
 import Projects from './Projects';
 import HomeGetCities from '../../../Services/HomeGetCities'
-import HomeGetLocations from '../../../Services/HomeGetLocations'
 import { useDispatch } from 'react-redux';
 
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
-
     return (
         <div
             role="tabpanel"
@@ -84,7 +82,6 @@ const useStyles = makeStyles((theme) => ({
 const SimpleTabs = () => {
     const classes = useStyles();
     const dispatch = useDispatch()
-
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -93,15 +90,20 @@ const SimpleTabs = () => {
 
     // FETCHING CITY API
     useEffect(() => {
+        let mounted = true
         async function GetCitiesHome() {
             const cities_options = []
             const cities = await HomeGetCities()
             cities.map(value => (
                 cities_options.push({ label: value, value: value })
             ))
-            dispatch({ type: 'populate_cities_in_select_list', payload: cities_options })
+            if (mounted) {
+                dispatch({ type: 'populate_cities_in_select_list', payload: cities_options })
+            }
         }
         GetCitiesHome()
+        // cancel subscription to useEffect
+        return () => mounted = false;
     }, [dispatch])
 
     return (

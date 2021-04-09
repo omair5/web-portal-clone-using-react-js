@@ -23,9 +23,10 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     mainHeading: {
-        backgroundColor: 'rgb(59, 70, 86)',
+        backgroundColor: 'rgb(76, 84, 85)',
         color: 'white',
-        padding: '10px'
+        padding: '10px',
+        margin: '30px 0px'
     },
     mainContainer: {
         margin: '20px auto',
@@ -39,7 +40,8 @@ const useStyles = makeStyles((theme) => ({
             color: '#fcb812',
             fontWeight: 'bolder',
             fontSize: '15px',
-            textTransform: 'uppercase'
+            textTransform: 'uppercase',
+            letterSpacing: '1px'
         }
     },
     inputStyles: {
@@ -73,6 +75,13 @@ const useStyles = makeStyles((theme) => ({
 const PropertyDetails = () => {
     const classes = useStyles();
     const classesBase = useStylesBase();
+    const AreaOptions = [
+        { value: 'Square Feet', label: 'Square Feet' },
+        { value: 'Square Yards', label: 'Square Yards' },
+        { value: 'Square Meters', label: 'Square Meters' },
+        { value: 'Marla', label: 'Marla' },
+        { value: 'Kanal', label: 'Kanal' },
+    ];
 
     // -------------------- STATES
     const [price, setPrice] = useState('')

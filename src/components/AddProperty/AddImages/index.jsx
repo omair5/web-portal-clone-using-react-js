@@ -9,9 +9,10 @@ import { Alert, AlertTitle } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
     mainHeading: {
-        backgroundColor: 'rgb(59, 70, 86)',
+        backgroundColor: 'rgb(76, 84, 85)',
         color: 'white',
-        padding: '10px'
+        padding: '10px',
+        margin: '30px 0px'
     },
     noteContainer: {
         marginTop: '10px',
@@ -178,6 +179,7 @@ const AddImages = () => {
                             {imageList.map((image, index) => (
                                 <div key={index} className={classes.imageContainer}>
                                     <img src={image['data_url']} alt="" className={classes.image} />
+
                                     <div className={classes.imageIcon}>
                                         <DeleteForeverRoundedIcon
                                             className={classes.icon}

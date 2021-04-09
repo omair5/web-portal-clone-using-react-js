@@ -4,6 +4,20 @@ export const useStyles = makeStyles((theme) => ({
         maxWidth: '100%',
         margin: 'auto',
         marginTop: '30px',
+    },
+    ResultCount: {
+        textAlign: 'center',
+        padding: '10px 0px',
+        paddingBottom: '20px',
+        "& span": {
+            fontSize: '20px',
+            fontWeight: 'bolder',
+            color: 'rgb(76, 84, 85)'
+        }
+    },
+    progressBarContainer: {
+        display: 'flex',
+        justifyContent: 'center'
     }
 }));
 

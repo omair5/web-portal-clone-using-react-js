@@ -124,9 +124,7 @@ const SimpleTabs = () => {
                         <Tab label="PROJECT" {...a11yProps(3)} className={classes.tabButtons} style={{ color: current_tab === 3 ? "rgb(252, 184, 22)" : "" }} />
                     </Tabs>
                 </AppBar>
-                <div className={classes.ResultCount}>
-                    <span>1567 RESULTS</span>
-                </div>
+               
                 {/* TABS */}
                 <TabPanel value={current_tab} index={0} className={classes.tabPanels}>
                     <BuyTab />

@@ -3,30 +3,32 @@ import ArrowDropDownIcon from '@material-ui/icons/ExpandMore';
 import styles from './PriceRangeBox.module.css'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import { v4 as uuidv4 } from 'uuid';
+import { useDispatch, useSelector } from 'react-redux';
 
 const RangeBox = ({ RangeMin, RangeMax, heading, unit }) => {
     const [open, setOpen] = useState(false);
-    const [minimumValue, setminimumValue] = useState('0')
-    const [maximumValue, setmaximumValue] = useState('Any')
+    const minPrice = useSelector(state => state.FrequentlyUsed_Min_Price_Range)
+    const maxPrice = useSelector(state => state.FrequentlyUsed_Max_Price_Range)
     const [minRange, setminRange] = useState([])
     const [maxRange, setmaxRange] = useState([])
+    const dispatch = useDispatch()
 
     useEffect(() => {
         setminRange(RangeMin)
         setmaxRange(RangeMax)
-        setminimumValue('0')
-        setmaximumValue('Any')
-    }, [RangeMin, RangeMax])
+        dispatch({ type: 'clear_min_value_of_price' })
+        dispatch({ type: 'clear_max_value_of_price' })
+    }, [RangeMin, RangeMax, dispatch])
 
     const HandleMinimum = (e) => {
-        setminimumValue(e.target.innerText)
+        dispatch({ type: 'set_min_value_of_price', payload: e.target.innerText })
         const selectedValue = +e.target.innerText.replace(/,/g, '')
         const copiedPriceRange = [...RangeMin]
         setmaxRange(copiedPriceRange.filter(value => (+value.replace(/,/g, '') >= selectedValue)))
     }
 
     const HandleMaximum = (e) => {
-        setmaximumValue(e.target.innerText)
+        dispatch({ type: 'set_max_value_of_price', payload: e.target.innerText })
         const selectedValue = +e.target.innerText.replace(/,/g, '')
         const copiedPriceRange = [...RangeMax]
         setminRange(copiedPriceRange.filter(value => (+value.replace(/,/g, '') <= selectedValue)))
@@ -49,9 +51,9 @@ const RangeBox = ({ RangeMin, RangeMax, heading, unit }) => {
                             <p>{heading} {unit && <span>({unit})</span>}</p>
                         </div>
                         <div className={styles.priceRange}>
-                            <p>{minimumValue}</p>
+                            <p>{minPrice}</p>
                             <p>to</p>
-                            <p>{maximumValue}</p>
+                            <p>{maxPrice}</p>
                             <ArrowDropDownIcon
                                 style={{
                                     marginTop: '7px', fontSize: '25px', color: 'silver', marginRight: '5px'

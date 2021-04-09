@@ -7,7 +7,7 @@ const ProtectedRoutes = ({ Component }) => {
     const history = useHistory()
 
     useEffect(() => {
-        if (!localStorage.getItem('user-info')) {
+        if (!localStorage.getItem('secretkey')) {
             history.push('/')
             dispatch({ type: 'OpenSignInDialog' })
         }

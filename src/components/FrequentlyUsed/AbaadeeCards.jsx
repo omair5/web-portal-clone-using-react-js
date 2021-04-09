@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -11,6 +11,8 @@ import Divider from '@material-ui/core/Divider';
 import SingleBedIcon from '@material-ui/icons/SingleBed';
 import AspectRatioIcon from '@material-ui/icons/AspectRatio';
 import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
+import Default from './default.jpg'
+import FetchingImages from '../../Services/FetchingImages';
 const useStyles = makeStyles({
     root: {
         maxWidth: 370,
@@ -105,14 +107,27 @@ const useStyles = makeStyles({
 
 const AbaadeeCards = (props) => {
     const classes = useStyles();
-    const { buildingName, location, squareFeet, bed, price, builderLogo, MainBox } = props
+    const { buildingName, location, areaSize, areaUnit, beds, price, cover_image, MainBox } = props
+    const [bgimg, setbgimg] = useState('')
+
+    useEffect(() => {
+        let mounted = true
+        async function CardBgImage() {
+            if (mounted) {
+                setbgimg(await FetchingImages(cover_image))
+            }
+        }
+        CardBgImage();
+        return () => mounted = false
+    }, [bgimg, cover_image])
+
     return (
         <>
             <Card className={classes.root} style={MainBox}>
                 <CardActionArea>
                     <CardMedia
                         className={classes.media}
-                        image={builderLogo}
+                        image={bgimg ? bgimg : Default}
 
                     />
                     <div className={classes.overlay}>
@@ -135,11 +150,11 @@ const AbaadeeCards = (props) => {
                         <div className={classes.contentDisplay}>
                             <div className={classes.alignIconNinfo}>
                                 <AspectRatioIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '6px' }} />
-                                <h4>{squareFeet} Square Feet </h4>
+                                <h4>{areaSize} {areaUnit} </h4>
                             </div>
                             <div className={classes.alignIconNinfo}>
                                 <SingleBedIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '4px' }} />
-                                <h4>{bed} BED</h4>
+                                <h4>{beds} BED</h4>
                             </div>
                         </div>
 
@@ -150,13 +165,13 @@ const AbaadeeCards = (props) => {
                                 <LocalOfferOutlinedIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '4px' }} />
                                 <h3 style={{ fontWeight: 'bolder' }}><span style={{ fontSize: '14px' }}>PKR</span> {price} </h3>
                             </div>
-                            <img src={builderLogo} className={classes.dealer} alt={'dealer logo'} />
+                            <img src={bgimg} className={classes.dealer} alt={'dealer logo'} />
                         </div>
                     </CardContent>
 
                     <p className={classes.viewMoreButton}>
                         View More Details
-                            </p>
+                    </p>
 
                 </CardActionArea>
             </Card>

@@ -1,21 +1,22 @@
 .dropdown-menu {
     z-index: 200;
-    width: 200px;
+    width: 135px;
     position: absolute;
     top: 50px;
     list-style: none;
     text-align: start;
-    background: #fcb812
+    background: rgb(76, 84, 85)
 }
 
 .dropdown-menu li {
     cursor: pointer;
+    transition: all 0.5s ease;
 }
 
-/* .dropdown-menu li:hover {
-    background-color: white;
+.dropdown-menu li:hover {
+    background-color: #fcb812;
     color: black;
-} */
+}
 
 .dropdown-menu.clicked {
     display: none;
@@ -30,4 +31,14 @@
     padding: 16px;
 }
 
-@media screen and (max-width: 1050px) {}
+.positionForUserContainer {
+    top: 60px;
+    width: 125px
+}
+
+@media screen and (max-width: 1256px) {
+    .dropdown-menu {
+        top: 30px;
+        right: 3px;
+    }
+}

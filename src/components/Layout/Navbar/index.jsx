@@ -1,22 +1,31 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown, faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from './Button';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import Dropdown from './Dropdown';
+import DropdownForUserFeatures from './DropdownForUserFeatures'
 import SignIn from './SignIn';
 import Register from './Register';
 import abaadeeLogo from './abaadeeLogo.png'
+import { useSelector, useDispatch } from 'react-redux'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 function Navbar() {
     const [click, setClick] = useState(false);
     const [dropdown, setDropdown] = useState(false);
+    const [dropdownUser, setdropdownUser] = useState(false);
+    const AuthorizedUser = useSelector(state => state.AuthorizedUserReducer)
+    const AuthorizedUserName = useSelector(state => state.AuthorizedUserNameReducer)
+    const dispatch = useDispatch()
 
     const handleClick = () => setClick(!click);
     const closeMobileMenu = () => setClick(false);
 
-    const onClick = () => {
+    const onMouseEnter = () => {
         if (window.innerWidth < 960) {
             setDropdown(true);
         } else {
@@ -31,6 +40,26 @@ function Navbar() {
             setDropdown(false);
         }
     };
+
+    const HandleClickUser = () => {
+        setdropdownUser(!dropdownUser)
+    }
+
+    const handleClickAway = () => {
+        setdropdownUser(false)
+
+    }
+
+    useEffect(() => {
+        let mounted = true
+        if (localStorage.getItem('secretkey')) {
+            if (mounted) {
+                dispatch({ type: 'set_authorized_user' })
+                dispatch({ type: 'authorized_user_name', payload: localStorage.getItem('username') })
+            };
+            return () => mounted = false
+        }
+    }, [dispatch])
 
     return (
         <>
@@ -68,7 +97,7 @@ function Navbar() {
                         <Link to='/partners' className='nav-links' onClick={closeMobileMenu} > Partners </Link>
                     </li>
                     <div className='WhoWeAreHide'>
-                        <li className='nav-item' onMouseEnter={onClick} onMouseLeave={onMouseLeave}>
+                        <li className='nav-item' onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
                             <div className='nav-links' >Who We Are <FontAwesomeIcon icon={faCaretDown} style={{ cursor: 'pointer' }} /></div>
                             {dropdown && <Dropdown />}
                         </li>
@@ -82,15 +111,34 @@ function Navbar() {
                         </li>
                     </div>
 
-                    <li className='nav-item sigin-register-mobile'>
-                        <SignIn /> or <Register />
-                    </li>
+                    {
+                        AuthorizedUser ? null :
+                            <li className='nav-item sigin-register-mobile'>
+                                <SignIn /> or <Register />
+                            </li>
+                    }
+
 
                     {/* ADD PROPERTY BUTTON */}
                     <li className='forMobileAddButton' >
                         <Link to='/add-property' style={{ textDecoration: 'none' }} className='forMobileAddButton'><Button /></Link>
                     </li>
                 </ul>
+
+                {
+                    AuthorizedUser &&
+                    <ClickAwayListener onClickAway={handleClickAway}>
+                        <div className='userContainer' onClick={HandleClickUser}>
+                            <AccountCircleIcon style={{ fontSize: '25px', marginRight: '5px', color: 'rgb(76, 84, 85)' }} />
+                            <p>{AuthorizedUserName}</p>
+                            <ArrowDropDownIcon style={{ marginLeft: '2px', color: 'white' }} />
+                            {dropdownUser && <DropdownForUserFeatures />}
+                        </div>
+                    </ClickAwayListener>
+
+
+
+                }
             </nav>
         </>
     );
