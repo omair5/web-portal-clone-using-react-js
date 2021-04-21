@@ -7,8 +7,8 @@ import Facing from '../HomeFeatures/Facing';
 
 const useStyles = makeStyles((theme) => ({
     mainHeading: {
-        backgroundColor: 'rgb(76, 84, 85)',
-        color: 'white',
+        backgroundColor: '#fcb812',
+        color: 'black',
         padding: '10px',
         margin: '30px 0px'
     },

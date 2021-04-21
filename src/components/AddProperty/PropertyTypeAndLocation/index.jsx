@@ -13,6 +13,7 @@ import HomeGetLocations from '../../../Services/HomeGetLocations';
 import { UseStyles } from './mainStyles'
 
 const PropertyTypeAndLocation = () => {
+    console.log('property type and location')
     const classes = UseStyles();
     const dispatch = useDispatch()
     // GETTING STATES FROM REDUX STORE
@@ -210,4 +211,4 @@ const PropertyTypeAndLocation = () => {
         </>
     );
 }
-export default PropertyTypeAndLocation;
+export default React.memo(PropertyTypeAndLocation);

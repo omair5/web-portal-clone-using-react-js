@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
         margin: '25px 0px'
     },
     subHeading: {
-        color: '#fcb812',
+        color: 'rgb(76, 84, 85)',
         padding: '15px 0px',
         letterSpacing: '1px'
     },

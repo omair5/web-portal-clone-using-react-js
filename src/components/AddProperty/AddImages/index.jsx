@@ -6,12 +6,11 @@ import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import CreateRoundedIcon from '@material-ui/icons/CreateRounded';
 import DeleteForeverRoundedIcon from '@material-ui/icons/DeleteForeverRounded';
 import { Alert, AlertTitle } from '@material-ui/lab';
-import UploadMainImge from '../UploadMainImge';
 
 const useStyles = makeStyles((theme) => ({
     mainHeading: {
-        backgroundColor: 'rgb(76, 84, 85)',
-        color: 'white',
+        backgroundColor: '#fcb812',
+        color: 'black',
         padding: '10px',
         margin: '30px 0px'
     },
@@ -20,16 +19,22 @@ const useStyles = makeStyles((theme) => ({
         "& li": {
             padding: '3px 0px',
             fontSize: '15px',
-            color: 'rgb(59, 70, 86)'
+            color: 'rgb(59, 70, 86)',
+        },
+        "& h4": {
+            color: 'rgb(76, 84, 85)',
+            fontWeight: 'bolder',
+            fontSize: '18px'
         }
     },
     mainContainer: {
-        margin: '20px autopx',
+        margin: '20px auto',
     },
     buttonContainer: {
         display: 'flex',
         justifyContent: 'start',
-        marginTop: '15px',
+        marginTop: '20px',
+        marginBottom: '20px',
     },
     addButton: {
         display: 'flex',
@@ -43,13 +48,11 @@ const useStyles = makeStyles((theme) => ({
         cursor: 'pointer',
         outline: 'none',
         "&:hover": {
-            backgroundColor: 'rgb(59, 70, 86)',
-            color: 'white',
-            border: '2px solid silver',
+            backgroundColor: '#ededed',
         },
         "& p": {
             fontWeight: 'bolder',
-            color: '#fcb812'
+            color: 'rgb(76, 84, 85)'
         },
         "& span": {
             color: 'gray',
@@ -93,6 +96,17 @@ const useStyles = makeStyles((theme) => ({
     },
     errorMessage: {
         marginTop: '5px',
+    },
+    CoverImage: {
+        position: 'absolute',
+        backgroundColor: 'rgba(0,0,0,0.7)',
+        bottom: '5px',
+        right: '2px',
+        left: '3px',
+        textAlign: 'center',
+        color: 'white',
+        fontWeight: 'bolder',
+        padding: '8px 0px'
     }
 }));
 
@@ -105,15 +119,20 @@ const AddImages = () => {
         console.log(imageList, addUpdateIndex);
         setImages(imageList);
     }
+    const check = () => {
+        console.log('in progress')
+    }
+
     return (
         <>
             <h4 className={classes.mainHeading}>ADD IMAGES</h4>
-            <UploadMainImge />
-            {/* <div className={classes.noteContainer}>
+            <div className={classes.noteContainer}>
                 <h4>NOTE</h4>
-                <li>image size should not be greater than 5mb</li>
-                <li>only jpg & png image formats are supported</li>
-            </div> */}
+                <li>The First Image You Upload Will Be Treated As Cover Image Of Your Property.</li>
+                <li>You Can Not Upload More Than 50 Images.</li>
+                <li>Image Size Should Not Be Greater Than 5mb</li>
+                <li>Only jpg & png Image Formats Are Supported</li>
+            </div>
             <Container maxWidth="lg" className={classes.mainContainer}>
                 <ImageUploading
                     multiple
@@ -146,7 +165,7 @@ const AddImages = () => {
                                     className={classes.addButton}
                                 >
                                     <AddAPhotoIcon style={{ fontSize: '35px', marginRight: '10px' }} />
-                                    <p>Upload Gallery Images <br /> <span>OR Drag Them In</span> <br /> <span>(Max FileSize 5MB, accepts .jpg, .png)</span></p>
+                                    <p>Upload Images <br /> <span>OR Drag Them In</span> <br /> <span>(Max FileSize 5MB, accepts .jpg, .png)</span></p>
                                 </button>
 
                                 {/* REMOVE ALL IMAGES */}
@@ -195,7 +214,7 @@ const AddImages = () => {
 
                             <div className={classes.imageContainer}>
                                 {imageList.map((image, index) => (
-                                    <div key={index} className={classes.imageWrapper}>
+                                    <div key={index} className={classes.imageWrapper} onProgress={check}>
                                         <img src={image['data_url']} alt="" className={classes.image} />
 
                                         <div className={classes.imageIcon}>
@@ -208,6 +227,10 @@ const AddImages = () => {
                                                 onClick={() => onImageUpdate(index)}
                                             />
                                         </div>
+                                        {index === 0 &&
+                                            <div className={classes.CoverImage}>
+                                                <h5>COVER IMAGE</h5>
+                                            </div>}
                                     </div>
                                 ))}
                             </div>

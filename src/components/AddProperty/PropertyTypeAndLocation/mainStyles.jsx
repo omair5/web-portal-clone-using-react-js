@@ -6,7 +6,7 @@ export const UseStyles = makeStyles((theme) => ({
             fontSize: '23px'
         },
         '&$checked': {
-            color: 'rgb(59, 70, 86)'
+            color: '#fcb812'
         }
     },
     checked: {},
@@ -17,8 +17,8 @@ export const UseStyles = makeStyles((theme) => ({
         }
     },
     mainHeading: {
-        backgroundColor: 'rgb(76, 84, 85)',
-        color: 'white',
+        backgroundColor: '#fcb812',
+        color: 'black',
         padding: '10px',
         margin: '30px 0px'
     },
@@ -28,9 +28,9 @@ export const UseStyles = makeStyles((theme) => ({
     horizontalRow: {
         margin: '15px 0px',
         "& p": {
-            color: '#fcb812',
+            color: 'rgb(76, 84, 85)',
             fontWeight: 'bolder',
-            fontSize: '15px',
+            fontSize: '20px',
             textTransform: 'uppercase',
             letterSpacing: '1px'
         }
@@ -38,9 +38,9 @@ export const UseStyles = makeStyles((theme) => ({
     cityAndLocation: {
         margin: '15px 0px',
         "& p": {
-            color: '#fcb812',
+            color: 'rgb(76, 84, 85)',
             fontWeight: 'bolder',
-            fontSize: '15px',
+            fontSize: '18px',
             textTransform: 'uppercase',
             paddingBottom: '10px',
             letterSpacing: '1px'

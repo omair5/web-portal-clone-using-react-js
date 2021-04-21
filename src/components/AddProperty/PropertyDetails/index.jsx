@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     mainHeading: {
-        backgroundColor: 'rgb(76, 84, 85)',
-        color: 'white',
+        backgroundColor: '#fcb812',
+        color: 'black',
         padding: '10px',
         margin: '30px 0px'
     },
@@ -37,9 +37,9 @@ const useStyles = makeStyles((theme) => ({
     },
     wrapperContainer: {
         "& p": {
-            color: '#fcb812',
+            color: 'rgb(76, 84, 85)',
             fontWeight: 'bolder',
-            fontSize: '15px',
+            fontSize: '18px',
             textTransform: 'uppercase',
             letterSpacing: '1px'
         }
@@ -63,7 +63,6 @@ const useStyles = makeStyles((theme) => ({
         borderColor: 'silver',
         borderRadius: '5px',
         "&:focus": {
-            // border: '2px solid rgb(59, 70, 86)',
             outline: 'none'
         },
     },
@@ -73,6 +72,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PropertyDetails = () => {
+    console.log('property details')
     const classes = useStyles();
     const classesBase = useStylesBase();
 
