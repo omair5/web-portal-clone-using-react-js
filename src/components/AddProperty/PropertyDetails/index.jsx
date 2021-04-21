@@ -75,13 +75,6 @@ const useStyles = makeStyles((theme) => ({
 const PropertyDetails = () => {
     const classes = useStyles();
     const classesBase = useStylesBase();
-    const AreaOptions = [
-        { value: 'Square Feet', label: 'Square Feet' },
-        { value: 'Square Yards', label: 'Square Yards' },
-        { value: 'Square Meters', label: 'Square Meters' },
-        { value: 'Marla', label: 'Marla' },
-        { value: 'Kanal', label: 'Kanal' },
-    ];
 
     // -------------------- STATES
     const [price, setPrice] = useState('')

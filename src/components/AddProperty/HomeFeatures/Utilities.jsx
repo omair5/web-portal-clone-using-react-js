@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
@@ -6,6 +6,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import Typography from '@material-ui/core/Typography';
+import { useSelector, useDispatch } from 'react-redux'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -24,18 +25,14 @@ const useStyles = makeStyles((theme) => ({
 
 const Utilities = () => {
     const classes = useStyles();
-    const [features, setfeatures] = useState({
-        Electricity: false,
-        Gas: false,
-        Water: false,
-        Maintenance: false,
-        Sewerage: false,
-    });
+    const dispatch = useDispatch()
+    const features = useSelector(state => state.Home_utilities)
     const { Electricity, Gas, Water, Maintenance, Sewerage } = features
 
     const handleChange = (event) => {
-        setfeatures({ ...features, [event.target.name]: event.target.checked });
+        dispatch({ type: 'set_Home_utilities', payload: { name: event.target.name, checked: event.target.checked } })
     };
+    console.log(features)
     return (
         <>
             <div className={classes.MainContainer}>

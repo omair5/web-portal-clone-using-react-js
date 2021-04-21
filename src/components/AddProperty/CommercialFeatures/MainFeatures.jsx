@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
@@ -6,7 +6,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import Typography from '@material-ui/core/Typography';
-
+import { useDispatch, useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
     MainContainer: {
@@ -24,23 +24,14 @@ const useStyles = makeStyles((theme) => ({
 
 const MainFeatures = () => {
     const classes = useStyles();
-    const [features, setfeatures] = useState({
-        Public_Parking: false,
-        Underground_Parking: false,
-        Elevator: false,
-        Lobby: false,
-        Furnished: false,
-        Central_Heating: false,
-        Central_Cooling: false,
-        Mosque: false,
-        Security_Staff: false,
-        Maintenance_Staff: false,
-    });
+    const dispatch = useDispatch()
+    const features = useSelector(state => state.Commercial_Main_Features)
     const { Public_Parking, Underground_Parking, Elevator, Lobby, Furnished, Central_Heating, Central_Cooling, Mosque, Security_Staff, Maintenance_Staff } = features
 
     const handleChange = (event) => {
-        setfeatures({ ...features, [event.target.name]: event.target.checked });
+        dispatch({ type: 'set_commercial_main_features', payload: { name: event.target.name, checked: event.target.checked } })
     };
+    console.log(features)
     return (
         <>
             <div className={classes.MainContainer}>

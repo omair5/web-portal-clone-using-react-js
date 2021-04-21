@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useEffect, useState } from 'react';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -9,68 +8,55 @@ import Plots from './Plots';
 import Commercial from './Commercial';
 import Select from 'react-select';
 import { colourStyles } from './ColourStyles'
-
-const useStyles = makeStyles((theme) => ({
-    radio: {
-        "& svg": {
-            fontSize: '23px'
-        },
-        '&$checked': {
-            color: 'rgb(59, 70, 86)'
-        }
-    },
-    checked: {},
-    RadioLabel: {
-        fontSize: '17px',
-        "& svg": {
-            fontSize: '20px'
-        }
-    },
-    mainHeading: {
-        backgroundColor: 'rgb(76, 84, 85)',
-        color: 'white',
-        padding: '10px',
-        margin: '30px 0px'
-    },
-    mainContainer: {
-        margin: '10px auto'
-    },
-    horizontalRow: {
-        margin: '15px 0px',
-        "& p": {
-            color: '#fcb812',
-            fontWeight: 'bolder',
-            fontSize: '15px',
-            textTransform: 'uppercase',
-            letterSpacing: '1px'
-        }
-    },
-    cityAndLocation: {
-        margin: '15px 0px',
-        "& p": {
-            color: '#fcb812',
-            fontWeight: 'bolder',
-            fontSize: '15px',
-            textTransform: 'uppercase',
-            paddingBottom: '10px',
-            letterSpacing: '1px'
-        }
-    }
-}));
+import { useSelector, useDispatch } from 'react-redux'
+import HomeGetLocations from '../../../Services/HomeGetLocations';
+import { UseStyles } from './mainStyles'
 
 const PropertyTypeAndLocation = () => {
-    const classes = useStyles();
-    const [propertyDetails, setpropertyDetails] = useState({ purpose: '', propertyType: '' })
+    const classes = UseStyles();
+    const dispatch = useDispatch()
+    // GETTING STATES FROM REDUX STORE
+    const cities_options_list = useSelector(state => state.Home_cities_Reducer)
+    const propertyDetails = useSelector(state => state.PropertyDetails)
+    const selectedCity = useSelector(state => state.AddProperty_Selected_City)
+    const SelectedLocation = useSelector(state => state.AddProperty_Selected_Country)
+    // LOCAL STATES
+    const [cityLocations, setcityLocations] = useState([])
 
+
+    // HANDLING PURPOSE ,PROPERTY TYPE & WANTED TYPE
     const HandleChange = (e) => {
-        console.log(e.target.name)
-        console.log(e.target.value)
-        setpropertyDetails({ ...propertyDetails, [e.target.name]: e.target.value })
+        dispatch({ type: 'set_property_details', payload: { name: e.target.name, value: e.target.value } })
     }
 
-    console.log(propertyDetails)
+    // THIS CALLBACK WILL BE FIRED WHEN USER SELECTS A CITY
+    const HandleCitySelect = (selectedOption) => {
+        dispatch({ type: 'add_property_selected_city', payload: selectedOption })
+        setcityLocations([])
+        dispatch({ type: 'add_property_clear_selected_country' })
+        const city_whose_location_to_be_fetched = selectedOption.value
+        async function GetLocationsFromHome() {
+            const locations_options = []
+            const locations = await HomeGetLocations(city_whose_location_to_be_fetched)
+            locations.map(value => (
+                locations_options.push({ label: value, value: value })
+            ))
+            setcityLocations(locations_options)
+        }
+        GetLocationsFromHome().catch(err => console.log(err))
+    }
 
+    // HANDLING LOCATION CHANGE
+    const HandleLocationSelect = (selectedOption) => {
+        dispatch({ type: 'add_property_selected_country', payload: selectedOption })
+    }
 
+    // CLEARING WANTED TYPE IF WANTED IS NOT SELECTED
+    useEffect(() => {
+        if (propertyDetails.propertyType !== 'wanted') {
+            propertyDetails.wantedType = ''
+        }
+    }, [propertyDetails])
 
     return (
         <>
@@ -111,7 +97,7 @@ const PropertyTypeAndLocation = () => {
                     {propertyDetails.purpose === 'wanted' ?
                         <div className={classes.horizontalRow}>
                             <p>Wanted For</p>
-                            <RadioGroup aria-label="purpose" name="purpose" row >
+                            <RadioGroup aria-label="purpose" name="wantedType" onChange={HandleChange} row >
                                 <FormControlLabel
                                     value="Buy"
                                     control={<Radio classes={{ root: classes.radio, checked: classes.checked }} />}
@@ -188,12 +174,11 @@ const PropertyTypeAndLocation = () => {
                     <div className={classes.cityAndLocation}>
                         <p>CITY </p>
                         <Select
-                            // value={selectedCity}
-                            // onChange={HandleCitySelect}
-                            // isLoading={cities_options_list.length === 0 && true}
+                            value={selectedCity}
+                            onChange={HandleCitySelect}
+                            isLoading={cities_options_list.length === 0 && true}
                             isSearchable={false}
-                            // name="city"
-                            // options={cities_options_list}
+                            options={cities_options_list}
                             placeholder="Select City"
                             label='city'
                             styles={colourStyles}
@@ -207,15 +192,13 @@ const PropertyTypeAndLocation = () => {
                     <div className={classes.cityAndLocation}>
                         <p>LOCATION </p>
                         <Select
-                            // value={selectedCity}
-                            // onChange={HandleCitySelect}
-                            // isLoading={cities_options_list.length === 0 && true}
-                            isSearchable={false}
-                            isDisabled={true}
-                            // name="city"
-                            // options={cities_options_list}
+                            value={SelectedLocation}
+                            onChange={HandleLocationSelect}
+                            isSearchable={true}
+                            isDisabled={selectedCity === '' ? true : false}
+                            options={cityLocations}
                             placeholder="Select Location"
-                            label='city'
+                            label='location'
                             styles={colourStyles}
                             components={{
                                 IndicatorSeparator: () => null

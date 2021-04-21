@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Select from 'react-select';
 import { colourStyles } from './ColourStyles'
+import { useDispatch, useSelector } from 'react-redux'
+
 
 const data = [
     { label: 'Office', value: 'Office' },
@@ -13,11 +15,22 @@ const data = [
 
 
 const Commercial = () => {
+    const dispatch = useDispatch()
+    const CommercialSubType = useSelector(state => state.SubPropertyType)
+
+    useEffect(() => {
+        dispatch({ type: 'clear_property_sub_type' })
+    }, [dispatch])
+
+    const HandleCommercialSubType = (selectedOption) => {
+        dispatch({ type: 'set_sub_type_commercial', payload: selectedOption })
+    }
+
     return (
         <>
             <Select
-                // value={selectedCity}
-                // onChange={HandleCitySelect}
+                value={CommercialSubType}
+                onChange={HandleCommercialSubType}
                 isSearchable={false}
                 options={data}
                 placeholder="Select SubType Of Commercial"

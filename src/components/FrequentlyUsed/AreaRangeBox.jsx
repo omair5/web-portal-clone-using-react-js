@@ -13,7 +13,6 @@ const AreaRangeBox = ({ RangeMin, RangeMax, heading, unit }) => {
     const [maxRange, setmaxRange] = useState([])
     const dispatch = useDispatch()
 
-
     useEffect(() => {
         setminRange(RangeMin)
         setmaxRange(RangeMax)

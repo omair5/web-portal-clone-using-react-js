@@ -5,14 +5,14 @@ async function ExploreGetProperties(property_type) {
     const properties = await response.json()
     return properties.map(value => (
         {
-            city: value.city_id.city_name,
+            city: value.city.city_name,
             building_name: value.property_title,
-            location: value.Location_id.location_name,
+            location: value.Location.location_name,
             area_size: value.land_area,
-            area_unit: value.area_unit_id.area_name,
-            beds: value.bed_id.beds_quantity,
+            area_unit: value.area_unit.area_name,
+            beds: value.bed.beds_quantity,
             price: value.price,
-            cover_image: value.images.map(value => value.imageurl),
+            cover_image: value.title_image,
         }
     ))
 }

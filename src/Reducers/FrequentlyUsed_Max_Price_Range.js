@@ -5,7 +5,7 @@ const FrequentlyUsed_Max_Price_Range = (state = initialState, action) => {
         case 'set_max_value_of_price':
             return action.payload
         case 'clear_max_value_of_price':
-            return state
+            return 'Any'
         default:
             return state
     }

@@ -1,37 +1,65 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import AbaadeeCards from '../../FrequentlyUsed/AbaadeeCards';
-import propertyImage from '../../Home/NewProjects/images/property.jpeg';
 import Pagination from '@material-ui/lab/Pagination';
 import { useStyles, useStylesBase } from '../../FrequentlyUsed/PaginationStyles'
+import { v4 as uuidv4 } from 'uuid';
+import SkeletonForCards from '../../SkeletonForCards';
+import { useSelector } from 'react-redux';
+import NoPropertyFound from '../../FrequentlyUsed/NoPropertyFound'
+
 const WantedTab = () => {
     const classes = useStyles();
     const classesBase = useStylesBase();
+    const WantedPropertyList = useSelector(state => state.Explore_Wanted_Properties)
+    const WantedPropertySkeleton = useSelector(state => state.Explore_Wanted_Skeleton)
+    const ShowMessage = useSelector(state => state.Explore_Wanted_Not_Found_Message)
+
     return (
         <>
-            <Grid container spacing={3}>
-                <Grid item xs={12} md={6}>
-                    <AbaadeeCards
-                        buildingName={'BILAL PLAZA'}
-                        location={'Malir, Karachi, Pakistan'}
-                        squareFeet={460}
-                        bed={3}
-                        price={'1.39 CRORE'}
-                        builderLogo={propertyImage}
-                        MainBox={{ maxWidth: '95%' }}
-                    />
+            {/* SHOW CARDS SKELETON AS LOADER */}
+            {WantedPropertySkeleton ?
+                <Grid container spacing={3}>
+                    {
+                        Array(9).fill().map(() => (
+                            <Grid item xs={12} md={6} key={uuidv4()}>
+                                <SkeletonForCards />
+                            </Grid>
+                        ))
+                    }
+                </Grid> :
+                <div className={classes.ResultCount}>
+                    <span>{WantedPropertyList.length} Results Found</span>
+                </div>
+            }
+
+            {/* SHOW BUY PROPERTY LIST */}
+            {WantedPropertyList.length !== 0 &&
+                <Grid container spacing={3}>
+                    {
+                        WantedPropertyList.map(value => (
+                            <Grid item xs={12} md={6} key={uuidv4()}>
+                                <AbaadeeCards
+                                    buildingName={value.building_name}
+                                    location={`${value.location}, ${value.city}`}
+                                    areaSize={value.area_size}
+                                    areaUnit={value.area_unit}
+                                    beds={value.beds}
+                                    price={value.price}
+                                    cover_image={value.cover_image}
+                                    MainBox={{ maxWidth: '95%' }} />
+                            </Grid>
+                        ))
+                    }
                 </Grid>
-                <Grid item xs={12} md={6}>
-                    <AbaadeeCards
-                        buildingName={'BILAL PLAZA'}
-                        location={'Malir, Karachi, Pakistan'}
-                        squareFeet={460}
-                        bed={3}
-                        price={'1.39 CRORE'}
-                        builderLogo={propertyImage}
-                        MainBox={{ maxWidth: '95%' }} />
-                </Grid>
-            </Grid>
+            }
+
+            {/* SHOW MESSGAE NO PROPERTY FOUND */}
+            {
+                ShowMessage && <NoPropertyFound />
+            }
+
+            {/* PAGINATION */}
             <Pagination count={10}
                 className={classes.paginationContainer}
                 classes={classesBase}
@@ -40,5 +68,4 @@ const WantedTab = () => {
         </>
     );
 }
-
 export default React.memo(WantedTab);

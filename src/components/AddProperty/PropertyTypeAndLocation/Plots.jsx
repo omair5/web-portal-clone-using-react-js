@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Select from 'react-select';
 import { colourStyles } from './ColourStyles'
+import { useDispatch, useSelector } from 'react-redux'
 
 const data = [
     { label: 'Residential Plot', value: 'Residential Plot' },
@@ -13,11 +14,22 @@ const data = [
 
 
 const Plots = () => {
+    const dispatch = useDispatch()
+    const PlotSubType = useSelector(state => state.SubPropertyType)
+
+    useEffect(() => {
+        dispatch({ type: 'clear_property_sub_type' })
+    }, [dispatch])
+
+    const HandlePlotSubType = (selectedOption) => {
+        dispatch({ type: 'set_sub_type_plot', payload: selectedOption })
+    }
+
     return (
         <>
             <Select
-                // value={selectedCity}
-                // onChange={HandleCitySelect}
+                value={PlotSubType}
+                onChange={HandlePlotSubType}
                 isSearchable={false}
                 options={data}
                 placeholder="Select SubType Of Plot"

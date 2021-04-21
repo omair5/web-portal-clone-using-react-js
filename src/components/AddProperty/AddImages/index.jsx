@@ -6,6 +6,7 @@ import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import CreateRoundedIcon from '@material-ui/icons/CreateRounded';
 import DeleteForeverRoundedIcon from '@material-ui/icons/DeleteForeverRounded';
 import { Alert, AlertTitle } from '@material-ui/lab';
+import UploadMainImge from '../UploadMainImge';
 
 const useStyles = makeStyles((theme) => ({
     mainHeading: {
@@ -23,46 +24,61 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     mainContainer: {
-        margin: '20px 0px',
+        margin: '20px autopx',
     },
     buttonContainer: {
         display: 'flex',
         justifyContent: 'start',
+        marginTop: '15px',
     },
     addButton: {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: '5px',
-        border: '2px solid rgb(59, 70, 86)',
-        padding: '7px',
+        padding: '20px',
+        border: '2px dashed silver',
         marginRight: '10px',
         backgroundColor: 'white',
         cursor: 'pointer',
         outline: 'none',
         "&:hover": {
             backgroundColor: 'rgb(59, 70, 86)',
-            color: 'white'
+            color: 'white',
+            border: '2px solid silver',
         },
         "& p": {
             fontWeight: 'bolder',
             color: '#fcb812'
+        },
+        "& span": {
+            color: 'gray',
+            fontSize: '10px'
         }
     },
     imageContainer: {
         marginTop: '20px',
         display: 'flex',
-        justifyContent: 'start'
-
+        flexWrap: 'wrap',
+    },
+    imageWrapper: {
+        marginRight: '15px',
+        marginBottom: '10px',
+        position: 'relative',
     },
     imageIcon: {
         marginLeft: '10px',
+        position: 'absolute',
+        backgroundColor: 'rgba(0,0,0,0.7)',
+        top: '3px',
+        right: '3px',
+        borderRadius: '2px'
     },
     icon: {
         fontSize: '30px',
         cursor: 'pointer',
         margin: '5px',
-        color: 'rgb(59, 70, 86)',
+        color: 'white',
         "&:hover": {
             transform: 'scale(1.1)'
         }
@@ -70,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
     image: {
         width: '200px',
         height: '150px',
-        border: '3px solid rgb(59, 70, 86)'
+        border: '3px solid silver'
     },
     errorContainer: {
         marginTop: '15px'
@@ -83,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
 const AddImages = () => {
     const classes = useStyles();
     const [images, setImages] = useState([]);
-    const maxNumber = 10;
+    const maxNumber = 50;
 
     const onChange = (imageList, addUpdateIndex) => {
         console.log(imageList, addUpdateIndex);
@@ -92,13 +108,13 @@ const AddImages = () => {
     return (
         <>
             <h4 className={classes.mainHeading}>ADD IMAGES</h4>
-            <div className={classes.noteContainer}>
+            <UploadMainImge />
+            {/* <div className={classes.noteContainer}>
                 <h4>NOTE</h4>
-                <li>you are not allowed to upload more than 10 images</li>
-                <li>image size should not be greater than 200kb</li>
+                <li>image size should not be greater than 5mb</li>
                 <li>only jpg & png image formats are supported</li>
-            </div>
-            <Container maxWidth="sm" className={classes.mainContainer}>
+            </div> */}
+            <Container maxWidth="lg" className={classes.mainContainer}>
                 <ImageUploading
                     multiple
                     value={images}
@@ -106,7 +122,7 @@ const AddImages = () => {
                     maxNumber={maxNumber}
                     dataURLKey="data_url"
                     acceptType={['jpg', 'png']}
-                    maxFileSize={200000}
+                    maxFileSize={5000000}
                 >
                     {({
                         imageList,
@@ -129,8 +145,8 @@ const AddImages = () => {
                                     {...dragProps}
                                     className={classes.addButton}
                                 >
-                                    <AddAPhotoIcon style={{ fontSize: '25px', marginRight: '10px' }} />
-                                    <p>Add Images</p>
+                                    <AddAPhotoIcon style={{ fontSize: '35px', marginRight: '10px' }} />
+                                    <p>Upload Gallery Images <br /> <span>OR Drag Them In</span> <br /> <span>(Max FileSize 5MB, accepts .jpg, .png)</span></p>
                                 </button>
 
                                 {/* REMOVE ALL IMAGES */}
@@ -139,6 +155,7 @@ const AddImages = () => {
                                         onClick={onImageRemoveAll}
                                         className={classes.addButton}
                                     >
+                                        <DeleteForeverRoundedIcon style={{ fontSize: '35px', marginRight: '10px' }} />
                                         <p>Remove All Images</p>
                                     </button> : null
                                 }
@@ -152,7 +169,7 @@ const AddImages = () => {
                                         <div className={classes.errorMessage}>
                                             <b >Number Of Selected Images Exceed Maximum Number Of Images Allowed!</b>
                                             <br />
-                                            <b>Maximum Number Of Images Allowed : 10</b>
+                                            <b>Maximum Number Of Images Allowed : 50</b>
                                         </div>
                                     </Alert>}
                                 {errors.acceptType &&
@@ -170,28 +187,30 @@ const AddImages = () => {
                                         <div className={classes.errorMessage}>
                                             <b >Selected File Size Exceed Maximum File Size Limit!</b>
                                             <br />
-                                            <b>Maximum File Size Limit Is : 200kb</b>
+                                            <b>Maximum File Size Limit Is : 5MB</b>
                                         </div>
                                     </Alert>
                                 }
                             </div>}
 
-                            {imageList.map((image, index) => (
-                                <div key={index} className={classes.imageContainer}>
-                                    <img src={image['data_url']} alt="" className={classes.image} />
+                            <div className={classes.imageContainer}>
+                                {imageList.map((image, index) => (
+                                    <div key={index} className={classes.imageWrapper}>
+                                        <img src={image['data_url']} alt="" className={classes.image} />
 
-                                    <div className={classes.imageIcon}>
-                                        <DeleteForeverRoundedIcon
-                                            className={classes.icon}
-                                            onClick={() => onImageRemove(index)}
-                                        />
-                                        <CreateRoundedIcon
-                                            className={classes.icon}
-                                            onClick={() => onImageUpdate(index)}
-                                        />
+                                        <div className={classes.imageIcon}>
+                                            <DeleteForeverRoundedIcon
+                                                className={classes.icon}
+                                                onClick={() => onImageRemove(index)}
+                                            />
+                                            <CreateRoundedIcon
+                                                className={classes.icon}
+                                                onClick={() => onImageUpdate(index)}
+                                            />
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
                     )}
                 </ImageUploading>

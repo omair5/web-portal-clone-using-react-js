@@ -3,7 +3,13 @@ import { makeStyles } from '@material-ui/core/styles';
 const UseStyles = makeStyles((theme) => ({
 
     childContainer: {
-        margin: '30px 0px'
+        margin: '30px 0px',
+    },
+    paraStyle: {
+        fontWeight: 'bold',
+        fontSize: '12px',
+        color: '#fcb812',
+        paddingLeft: '3px',
     },
     searchButtonBox: {
         display: 'flex',

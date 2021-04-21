@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
@@ -6,6 +6,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import Typography from '@material-ui/core/Typography';
+import { useSelector, useDispatch } from 'react-redux'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -24,20 +25,14 @@ const useStyles = makeStyles((theme) => ({
 
 const MainFeatures = () => {
     const classes = useStyles();
-    const [features, setfeatures] = useState({
-        Possession: false,
-        Corner: false,
-        Park_Facing: false,
-        Boundary_Wall: false,
-        Extra_Land: false,
-        Main_Boulevard: false,
-        File: false,
-    });
+    const dispatch = useDispatch()
+    const features = useSelector(state => state.Plot_Main_Features)
     const { Possession, Corner, Park_Facing, Boundary_Wall, Extra_Land, Main_Boulevard, File } = features
 
     const handleChange = (event) => {
-        setfeatures({ ...features, [event.target.name]: event.target.checked });
+        dispatch({ type: 'set_plot_main_features', payload: { name: event.target.name, checked: event.target.checked } })
     };
+    console.log('from plot', features)
     return (
         <>
             <div className={classes.MainContainer}>

@@ -3,16 +3,19 @@ import SearchIcon from '@material-ui/icons/Search';
 import RangeBox from '../../FrequentlyUsed/RangeBox';
 import AreaRangeBox from '../../FrequentlyUsed/AreaRangeBox';
 import Select from 'react-select';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import FooterButtons from '../../Home/Tabs/FooterButtons';
 import { beds, buy_price_range_min, buy_price_range_max } from '../../Home/Tabs/SelectDropDownValues'
 import HomeGetLocations from '../../../Services/HomeGetLocations';
 import UseStyles from './SearchStyles'
 // THIS WILL USED IN REACT-SELECT
 import { colourStyles } from '../../Home/Tabs/ColourStyles'
 import { PropertyTypeOptions, formatGroupLabel } from '../../Home/Tabs/SelectGroupStyles'
+import axios from 'axios';
 
 
 const ExploreSearchs = () => {
+    const dispatch = useDispatch()
     const classes = UseStyles();
     const areaUnit = useSelector(state => state.Home_AreaUnit)
     const area_min_range = useSelector(state => state.Home_Area_min_range)
@@ -20,10 +23,10 @@ const ExploreSearchs = () => {
     const cities_options_list = useSelector(state => state.Home_cities_Reducer)
     const [selectedCity, setselectedCity] = useState({ label: "Karachi", value: 'Karachi' })
     const [cityLocations, setcityLocations] = useState([])
-    // const minPrice = useSelector(state => state.FrequentlyUsed_Min_Price_Range)
-    // const maxPrice = useSelector(state => state.FrequentlyUsed_Max_Price_Range)
-    // const minArea = useSelector(state => state.FrequentlyUsed_Min_Area_Range)
-    // const maxArea = useSelector(state => state.FrequentlyUsed_Max_Area_Range)
+    const minPrice = useSelector(state => state.FrequentlyUsed_Min_Price_Range)
+    const maxPrice = useSelector(state => state.FrequentlyUsed_Max_Price_Range)
+    const minArea = useSelector(state => state.FrequentlyUsed_Min_Area_Range)
+    const maxArea = useSelector(state => state.FrequentlyUsed_Max_Area_Range)
     const [SelectedLocation, setSelectedLocation] = useState('')
     const [SelectedPropertyType, setSelectedPropertyType] = useState('')
     const [SelectedBed, setSelectedBed] = useState('')
@@ -41,15 +44,24 @@ const ExploreSearchs = () => {
                 setcityLocations(locations_options)
             }
         }
-        GetLocationsHome()
+        GetLocationsHome().catch(err => console.log(err))
 
         return () => mounted = false
     }, [])
+
+    // TO CLEAR PREVIOUS VALUES FROM OTHER COMPONENTS
+    useEffect(() => {
+        dispatch({ type: 'clear_min_value_of_price' })
+        dispatch({ type: 'clear_max_value_of_price' })
+        dispatch({ type: 'clear_min_value_of_area' })
+        dispatch({ type: 'clear_max_value_of_area' })
+    }, [dispatch])
 
     // callback function to handle city change
     const HandleCitySelect = (selectedOption) => {
         setselectedCity(selectedOption)
         setcityLocations([])
+        setSelectedLocation('')
         const city_whose_location_to_be_fetched = selectedOption.value
         async function GetLocationsFromHome() {
             const locations_options = []
@@ -59,7 +71,13 @@ const ExploreSearchs = () => {
             ))
             setcityLocations(locations_options)
         }
-        GetLocationsFromHome()
+        GetLocationsFromHome().catch(err => console.log(err))
+
+        if (selectedOption.value !== 'Karachi') {
+            dispatch({ type: 'change_to_MARLA' })
+            dispatch({ type: 'marla_min_range' })
+            dispatch({ type: 'marla_max_range' })
+        }
     }
 
     const HandleLocationSelect = (e) => {
@@ -72,10 +90,54 @@ const ExploreSearchs = () => {
         setSelectedBed(e)
     }
 
+    const HandleSubmit = () => {
+        dispatch({ type: 'clear_explore_buy_properties' })
+        dispatch({ type: 'show_buy_properties_skeleton' })
+        const search_data = {
+            purpose: 'Buy',
+            city_name: selectedCity.value,
+            location_name: SelectedLocation.value,
+            property_type: SelectedPropertyType.value,
+            min_price: minPrice,
+            max_price: maxPrice,
+            min_area: minArea,
+            max_area: maxArea,
+            beds: SelectedBed.value
+        }
+        console.log(search_data)
+        axios.post('http://localhost:3200/addproperty/getpropertydata', search_data).then(response => {
+            if (response.data.length !== 0) {
+                const buy_properties_data = response.data.map((value) => {
+                    return {
+                        city: value.city.city_name,
+                        building_name: value.property_title,
+                        location: value.Location.location_name,
+                        area_size: value.land_area,
+                        area_unit: value.area_unit.area_name,
+                        beds: value.bed.beds_quantity,
+                        price: value.price,
+                        cover_image: value.title_image,
+                    }
+                })
+                dispatch({ type: 'hide_buy_properties_skeleton' })
+                dispatch({ type: 'buy_listings_are_found_hide_message' })
+                dispatch({ type: 'explore_buy_properties', payload: buy_properties_data })
+            }
+            else {
+                dispatch({ type: 'hide_buy_properties_skeleton' })
+                dispatch({ type: 'no_buy_listings_are_found_show_message' })
+            }
+
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
     return (
         <div className={classes.mainContainer}>
             {/*CITY*/}
             <div className={classes.childContainer}>
+                <p className={classes.paraStyle}>City</p>
                 <Select
                     value={selectedCity}
                     onChange={HandleCitySelect}
@@ -94,6 +156,7 @@ const ExploreSearchs = () => {
 
             {/* LOCATION */}
             <div className={classes.childContainer}>
+                <p className={classes.paraStyle}>Location</p>
                 <Select
                     value={SelectedLocation}
                     onChange={HandleLocationSelect}
@@ -113,6 +176,7 @@ const ExploreSearchs = () => {
 
             {/* PROPERTY TYPE */}
             <div className={classes.childContainer}>
+                <p className={classes.paraStyle}>Property Type</p>
                 <Select
                     value={SelectedPropertyType}
                     onChange={HandlePropertyType}
@@ -143,6 +207,7 @@ const ExploreSearchs = () => {
 
             {/* BEDS */}
             <div className={classes.childContainer}>
+                <p className={classes.paraStyle}>Beds</p>
                 <Select
                     value={SelectedBed}
                     onChange={HandleBeds}
@@ -169,11 +234,15 @@ const ExploreSearchs = () => {
             </div>
 
             {/* SEARCH BUTTON  */}
-            <div className={classes.searchButtonBox} >
+            <div className={classes.searchButtonBox} onClick={HandleSubmit} >
                 <div><SearchIcon style={{ fontSize: '25px' }} /></div>
                 <div className={classes.search}>SEARCH</div>
             </div>
+
+            {/* change area unit and reset buttons */}
+            <FooterButtons />
         </div >
+
     );
 }
 export default React.memo(ExploreSearchs);

@@ -3,25 +3,36 @@ import Grid from '@material-ui/core/Grid';
 import SearchIcon from '@material-ui/icons/Search';
 import styles from '../Buy/buy.module.css'
 import RangeBox from '../../../FrequentlyUsed/RangeBox';
+import AreaRangeBox from '../../../FrequentlyUsed/AreaRangeBox';
 import Select from 'react-select';
 import FooterButtons from '../FooterButtons';
 import { beds, rent_price_range_min, rent_price_range_max } from '../SelectDropDownValues'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 // THIS WILL USED IN REACT-SELECT
 import { colourStyles } from '../ColourStyles'
 import { PropertyTypeOptions, formatGroupLabel } from '../SelectGroupStyles'
 import HomeGetLocations from '../../../../Services/HomeGetLocations';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom'
+
 
 
 const Rent = () => {
+    const dispatch = useDispatch()
+    const history = useHistory()
     const areaUnit = useSelector(state => state.Home_AreaUnit)
     const area_min_range = useSelector(state => state.Home_Area_min_range)
     const area_max_range = useSelector(state => state.Home_Area_max_range)
     const cities_options_list = useSelector(state => state.Home_cities_Reducer)
+    const minPrice = useSelector(state => state.FrequentlyUsed_Min_Price_Range)
+    const maxPrice = useSelector(state => state.FrequentlyUsed_Max_Price_Range)
+    const minArea = useSelector(state => state.FrequentlyUsed_Min_Area_Range)
+    const maxArea = useSelector(state => state.FrequentlyUsed_Max_Area_Range)
     const [cityLocations, setcityLocations] = useState([])
     const [selectedCity, setselectedCity] = useState({ label: "Karachi", value: 'Karachi' })
     const [SelectedLocation, setSelectedLocation] = useState('')
-
+    const [SelectedPropertyType, setSelectedPropertyType] = useState('')
+    const [SelectedBed, setSelectedBed] = useState('')
 
     // FETCHING KARACHI LOCATION API
     useEffect(() => {
@@ -36,16 +47,25 @@ const Rent = () => {
                 setcityLocations(locations_options)
             }
         }
-        GetLocationsHome()
+        GetLocationsHome().catch(err => console.log(err))
         // cancel subscription to useEffect
         return () => mounted = false;
     }, [])
+
+    // TO CLEAR PREVIOUS VALUES FROM OTHER COMPONENTS
+    useEffect(() => {
+        dispatch({ type: 'clear_min_value_of_price' })
+        dispatch({ type: 'clear_max_value_of_price' })
+        dispatch({ type: 'clear_min_value_of_area' })
+        dispatch({ type: 'clear_max_value_of_area' })
+    }, [dispatch])
 
 
     // CALLBACK FUNCTIION TO HANDLE CITY CHANGE
     const HandleCitySelect = (selectedOption) => {
         setselectedCity(selectedOption)
         setcityLocations([])
+        setSelectedLocation('')
         const city_whose_location_to_be_fetched = selectedOption.value
         async function GetLocationsFromHome() {
             const locations_options = []
@@ -55,11 +75,69 @@ const Rent = () => {
             ))
             setcityLocations(locations_options)
         }
-        GetLocationsFromHome()
+        GetLocationsFromHome().catch(err => console.log(err))
+
+        if (selectedOption.value !== 'Karachi') {
+            dispatch({ type: 'change_to_MARLA' })
+            dispatch({ type: 'marla_min_range' })
+            dispatch({ type: 'marla_max_range' })
+        }
     }
 
     const HandleLocationSelect = (e) => {
         setSelectedLocation(e)
+    }
+    const HandlePropertyType = (e) => {
+        setSelectedPropertyType(e)
+    }
+    const HandleBeds = (e) => {
+        setSelectedBed(e)
+    }
+
+    const HandleSubmit = () => {
+        history.push('/explore')
+        dispatch({ type: 'set_current_tab_to_rent' })
+        dispatch({ type: '1' })
+        dispatch({ type: 'clear_explore_Rent_properties' })
+        dispatch({ type: 'show_buy_properties_skeleton' })
+        const search_data = {
+            purpose: 'Rent',
+            city_name: selectedCity.value,
+            location_name: SelectedLocation.value,
+            property_type: SelectedPropertyType.value,
+            min_price: minPrice,
+            max_price: maxPrice,
+            min_area: minArea,
+            max_area: maxArea,
+            beds: SelectedBed.value
+        }
+        console.log(search_data)
+        axios.post('http://localhost:3200/addproperty/getpropertydata', search_data).then(response => {
+            if (response.data.length !== 0) {
+                const rent_properties_data = response.data.map((value) => {
+                    return {
+                        city: value.city.city_name,
+                        building_name: value.property_title,
+                        location: value.Location.location_name,
+                        area_size: value.land_area,
+                        area_unit: value.area_unit.area_name,
+                        beds: value.bed.beds_quantity,
+                        price: value.price,
+                        cover_image: value.title_image,
+                    }
+                })
+                dispatch({ type: 'hide_rent_properties_skeleton' })
+                dispatch({ type: 'rent_listings_are_found_hide_message' })
+                dispatch({ type: 'explore_rent_properties', payload: rent_properties_data })
+            }
+            else {
+                dispatch({ type: 'hide_rent_properties_skeleton' })
+                dispatch({ type: 'no_rent_listings_are_found_show_message' })
+            }
+
+        }).catch(err => {
+            console.log(err)
+        })
     }
 
     return (
@@ -107,6 +185,8 @@ const Rent = () => {
                 <Grid item xs={12} md={3} className={`${styles.childContainer} ${styles.marginBottomMobile}`}>
                     <p>Property Type</p>
                     <Select
+                        value={SelectedPropertyType}
+                        onChange={HandlePropertyType}
                         isLoading={false}
                         isSearchable={false}
                         name="property type"
@@ -135,7 +215,7 @@ const Rent = () => {
 
                 {/* AREA UNIT */}
                 <Grid item xs={12} md={3} className={`${styles.gridtwoPadding} ${styles.locationSelect} ${styles.marginBottomMobile}`}  >
-                    <RangeBox
+                    <AreaRangeBox
                         RangeMin={area_min_range}
                         RangeMax={area_max_range}
                         heading='Area'
@@ -147,9 +227,8 @@ const Rent = () => {
                 <Grid item xs={12} md={3} className={`${styles.childContainer} ${styles.marginBottomMobile}`} style={{ marginTop: 'auto', marginBottom: '4px' }}>
                     <p>Beds</p>
                     <Select
-                        // value={selectedOption}
-                        // onChange={handleSelect}
-                        // defaultValue={colourOptions[0]}
+                        value={SelectedBed}
+                        onChange={HandleBeds}
                         isLoading={false}
                         isSearchable={false}
                         name="beds"
@@ -165,7 +244,7 @@ const Rent = () => {
 
                 {/*  SEARCH BUTTON   */}
                 <Grid item xs={12} md={3} className={styles.buttonContainer} >
-                    <div className={styles.searchButtonBox}>
+                    <div className={styles.searchButtonBox} onClick={HandleSubmit}>
                         <div><SearchIcon style={{ fontSize: '25px' }} /></div>
                         <div className={styles.search}>SEARCH</div>
                     </div>

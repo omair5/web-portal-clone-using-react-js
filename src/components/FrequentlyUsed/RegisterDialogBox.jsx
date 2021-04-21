@@ -4,7 +4,6 @@ import Dialog from '@material-ui/core/Dialog';
 import { makeStyles } from '@material-ui/core/styles';
 import SignInAndRegisterButton from '../FrequentlyUsed/SignInAndRegisterButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { faUserAlt } from '@fortawesome/free-solid-svg-icons'
 import InputTextField from '../FrequentlyUsed/InputTextField';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,6 +12,7 @@ import axios from 'axios';
 import RegisterCountryApi from '../../Services/RegisterCountryApi'
 import RegisterGetCities from '../../Services/RegisterGetCities';
 import ConfirmationEmailDialog from './ConfirmationEmailDialog';
+import SocialMediaSignInSignUp from './SocialMediaSignInSignUp';
 
 const useStyles = makeStyles({
     mainContainer: {
@@ -100,7 +100,7 @@ const RegisterDialogBox = () => {
                 setcountries(await RegisterCountryApi())
             }
         }
-        CountryApiRegister()
+        CountryApiRegister().catch(err => console.log(err))
         // cancel subscription to useEffect
         return () => mounted.current = false;
     }, [])
@@ -126,9 +126,11 @@ const RegisterDialogBox = () => {
         if (newValue === 'Pakistan') {
             setshowCity(true)
             async function GetCitiesRegister() {
-                setcities(await RegisterGetCities())
+                if (mounted.current) {
+                    setcities(await RegisterGetCities())
+                }
             }
-            GetCitiesRegister()
+            GetCitiesRegister().catch(err => console.log(err))
         }
         setformDropDownField({ ...formDropDownField, [key]: newValue })
     }
@@ -315,18 +317,20 @@ const RegisterDialogBox = () => {
                         <p className={classes.connectWith}>Or connect with</p>
 
                         {/* SIGN IN WITH GOOGLE */}
-                        <SignInAndRegisterButton
+                        {/* <SignInAndRegisterButton
                             ButtonIcon={faGoogle}
                             ButtonText='Register with Google'
                             bgColor={{ backgroundColor: '#c71610' }}
-                        />
+                        /> */}
 
                         {/* SIGN IN WITH FACEBOOK */}
-                        <SignInAndRegisterButton
+                        {/* <SignInAndRegisterButton
                             ButtonIcon={faFacebookF}
                             ButtonText='Register with Facebook'
                             bgColor={{ backgroundColor: '#3b5998' }}
-                        />
+                        /> */}
+
+                        <SocialMediaSignInSignUp />
 
                         <p className={classes.AlreadyRegistered} onClick={HandleSignIn}>Already Registered?</p>
                     </DialogContent>

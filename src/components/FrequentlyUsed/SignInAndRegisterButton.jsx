@@ -24,11 +24,11 @@ const useStyles = makeStyles({
         justifyContent: 'center'
     },
 });
-const SignInAndRegisterButton = ({ ButtonIcon, ButtonText, bgColor, spin }) => {
+const SignInAndRegisterButton = ({ ButtonIcon, ButtonText, bgColor, spin, onClick }) => {
     const classes = useStyles();
     return (
         <>
-            <button className={classes.buttonContainer} style={bgColor} type="submit">
+            <button className={classes.buttonContainer} style={bgColor} type="submit" onClick={onClick}>
                 <div className={classes.childContainer}>
                     <p>{ButtonIcon && <FontAwesomeIcon icon={ButtonIcon} style={{ marginRight: '10px' }} />}</p>
                     <div>{spin ? <CircularProgress style={{ width: '13px', height: '13px' }} /> : ButtonText}</div>

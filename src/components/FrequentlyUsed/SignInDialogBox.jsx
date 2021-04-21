@@ -6,13 +6,13 @@ import Dialog from '@material-ui/core/Dialog';
 import { makeStyles } from '@material-ui/core/styles';
 import SignInAndRegisterButton from '../FrequentlyUsed/SignInAndRegisterButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { faUserAlt, faUser, faLock } from '@fortawesome/free-solid-svg-icons'
 import InputTextField from '../FrequentlyUsed/InputTextField';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import axios from 'axios';
 import ForgetPasswordDialogBox from './ForgetPasswordDialogBox';
+import SocialMediaSignInSignUp from './SocialMediaSignInSignUp';
 
 
 // const useStylesCheckBox = makeStyles(theme => ({
@@ -193,18 +193,19 @@ const SignInDialogBox = () => {
                         <p className={classes.connectWith}>Or connect with</p>
 
                         {/* SIGN IN WITH GOOGLE */}
-                        <SignInAndRegisterButton
+                        {/* <SignInAndRegisterButton
                             ButtonIcon={faGoogle}
                             ButtonText='Sign in with Google'
                             bgColor={{ backgroundColor: '#c71610' }}
-                        />
+                        /> */}
 
                         {/* SIGN IN WITH FACEBOOK */}
-                        <SignInAndRegisterButton
+                        {/* <SignInAndRegisterButton
                             ButtonIcon={faFacebookF}
                             ButtonText='Login with Facebook'
                             bgColor={{ backgroundColor: '#3b5998' }}
-                        />
+                        /> */}
+                        <SocialMediaSignInSignUp />
 
                         {/* FOOTER */}
                         <div className={`${classes.IconWithText} ${classes.footer}`}>

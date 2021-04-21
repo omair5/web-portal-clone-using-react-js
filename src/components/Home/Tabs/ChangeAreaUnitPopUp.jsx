@@ -76,7 +76,7 @@ function ChangeAreaUnitPopUp() {
     const classes = useStyles();
     const dispatch = useDispatch()
     const AreaUnitPopUp = useSelector(state => state.AreaUnitPopUp)
-    const [selectedOption, setselectedOption] = useState(null)
+    const [selectedOption, setselectedOption] = useState({ value: 'Square Feet', label: 'Square Feet' })
 
     const options = [
         { value: 'Square Feet', label: 'Square Feet' },
@@ -88,6 +88,7 @@ function ChangeAreaUnitPopUp() {
 
     const handleClose = () => {
         dispatch({ type: 'close_area_unit_pop_up' })
+        console.log(selectedOption.value)
         switch (selectedOption.value) {
             case 'Square Feet':
                 dispatch({ type: 'change_to_SQFT' })
@@ -140,7 +141,6 @@ function ChangeAreaUnitPopUp() {
                             value={selectedOption}
                             onChange={handleSelect}
                             styles={colourStyles}
-                            defaultValue={options[0]}
                             isSearchable={false}
                             name="unit"
                             options={options}

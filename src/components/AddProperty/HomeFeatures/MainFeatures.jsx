@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
@@ -6,6 +6,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import Typography from '@material-ui/core/Typography';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -14,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     },
     subHeading: {
         color: '#fcb812',
-        padding:'15px 0px',
+        padding: '15px 0px',
         letterSpacing: '1px'
     },
     check: {
@@ -24,34 +25,14 @@ const useStyles = makeStyles((theme) => ({
 
 const MainFeatures = () => {
     const classes = useStyles();
-    const [features, setfeatures] = useState({
-        Dining_Room: false,
-        Drawing_Room: false,
-        Store_Room: false,
-        Tv_Lounge: false,
-        Balcony: false,
-        Lawn: false,
-        Laundry_Room: false,
-        Study_Room: false,
-        Powder_Room: false,
-        Prayer_Room: false,
-        Kitchen: false,
-        Dirty_Kitchen: false,
-        Central_Cooling: false,
-        Central_Heating: false,
-        Servant_Quarter: false,
-        Furnished: false,
-        Swimmimg_Pool: false,
-        Security_Staff: false,
-        Elavator: false,
-        Gym: false,
-        Maintenance_Staff: false,
-    });
+    const dispatch = useDispatch()
+    const features = useSelector(state => state.Home_Main_Features)
     const { Dining_Room, Drawing_Room, Store_Room, Tv_Lounge, Balcony, Lawn, Laundry_Room, Study_Room, Powder_Room, Prayer_Room, Kitchen, Dirty_Kitchen, Central_Cooling, Central_Heating, Servant_Quarter, Furnished, Swimmimg_Pool, Security_Staff, Elavator, Gym, Maintenance_Staff } = features
 
     const handleChange = (event) => {
-        setfeatures({ ...features, [event.target.name]: event.target.checked });
+        dispatch({ type: 'set_home_main_features', payload: { name: event.target.name, checked: event.target.checked } })
     };
+    console.log(features)
     return (
         <>
             <div className={classes.MainContainer}>

@@ -24,6 +24,32 @@ import AuthorizedUserReducer from './AuthorizedUserReducer'
 import FrequentlyUsed_Forget_Password from './FrequentlyUsed_Forget_Password'
 import FrequentlyUsed_Reset_Password from './FrequentlyUsed_Reset_Password'
 import AuthorizedUserNameReducer from './AuthorizedUserNameReducer'
+import Explore_Buy_Properties from './Explore_Buy_Properties'
+import Explore_Buy_Skeleton from './Explore_Buy_Skeleton'
+import Explore_Buy_Not_Found_Message from './Explore_Buy_Not_Found_Message'
+import Explore_Rent_Properties from './Explore_Rent_Properties'
+import Explore_Rent_Skeleton from './Explore_Rent_Skeleton'
+import Explore_Rent_Not_Found_Message from './Explore_Rent_Not_Found_Message'
+import Explore_Wanted_Properties from './Explore_Wanted_Properties'
+import Explore_Wanted_Skeleton from './Explore_Wanted_Skeleton'
+import Explore_Wanted_Not_Found_Message from './Explore_Wanted_Not_Found_Message'
+import SubPropertyType from './AddProperty/SubPropertyType'
+import PropertyDetails from './AddProperty/PropertyDetails'
+import AddProperty_Selected_City from './AddProperty/AddProperty_Selected_City'
+import AddProperty_Selected_Country from './AddProperty/AddProperty_Selected_Country'
+import Home_General_Info_Inputs from './AddProperty/Home_General_Info_Inputs'
+import Home_Flooring from './AddProperty/Home_Flooring'
+import Home_Backup from './AddProperty/Home_Backup'
+import Home_Main_Features from './AddProperty/Home_Main_Features'
+import Home_business_And_Communication from './AddProperty/Home_Business_And_Communication'
+import Home_utilities from './AddProperty/Home_Utilities'
+import Home_Facing from './AddProperty/Home_Facing'
+import Plot_Main_Features from './AddProperty/Plot_Main_Features'
+import Commercial_General_Info_Inputs from './AddProperty/Commercial_General_Info_Inputs'
+import Commercial_Flooring from './AddProperty/Commercial_Flooring'
+import Commercial_Backup from './AddProperty/Commercial_Backup'
+import Commercial_business_And_Communication from './AddProperty/Commercial_Bussiness_And_Communication'
+import Commercial_Main_Features from './AddProperty/Commercial_Main_Features'
 
 export default combineReducers({
     SearchShow: ExploreSearch,
@@ -50,5 +76,31 @@ export default combineReducers({
     AuthorizedUserReducer: AuthorizedUserReducer,
     FrequentlyUsed_Forget_Password: FrequentlyUsed_Forget_Password,
     FrequentlyUsed_Reset_Password: FrequentlyUsed_Reset_Password,
-    AuthorizedUserNameReducer: AuthorizedUserNameReducer
+    AuthorizedUserNameReducer: AuthorizedUserNameReducer,
+    Explore_Buy_Properties: Explore_Buy_Properties,
+    Explore_Buy_Skeleton: Explore_Buy_Skeleton,
+    Explore_Buy_Not_Found_Message: Explore_Buy_Not_Found_Message,
+    Explore_Rent_Properties: Explore_Rent_Properties,
+    Explore_Rent_Skeleton: Explore_Rent_Skeleton,
+    Explore_Rent_Not_Found_Message: Explore_Rent_Not_Found_Message,
+    Explore_Wanted_Properties: Explore_Wanted_Properties,
+    Explore_Wanted_Skeleton: Explore_Wanted_Skeleton,
+    Explore_Wanted_Not_Found_Message: Explore_Wanted_Not_Found_Message,
+    SubPropertyType: SubPropertyType,
+    PropertyDetails: PropertyDetails,
+    AddProperty_Selected_City: AddProperty_Selected_City,
+    AddProperty_Selected_Country: AddProperty_Selected_Country,
+    Home_General_Info_Inputs: Home_General_Info_Inputs,
+    Home_Flooring: Home_Flooring,
+    Home_Backup: Home_Backup,
+    Home_Main_Features: Home_Main_Features,
+    Home_business_And_Communication: Home_business_And_Communication,
+    Home_utilities: Home_utilities,
+    Home_Facing: Home_Facing,
+    Plot_Main_Features: Plot_Main_Features,
+    Commercial_General_Info_Inputs: Commercial_General_Info_Inputs,
+    Commercial_Flooring: Commercial_Flooring,
+    Commercial_Backup: Commercial_Backup,
+    Commercial_business_And_Communication: Commercial_business_And_Communication,
+    Commercial_Main_Features: Commercial_Main_Features
 })

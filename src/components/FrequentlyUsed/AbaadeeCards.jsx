@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Tooltip from '@material-ui/core/Tooltip';
+// import Tooltip from '@material-ui/core/Tooltip';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+// import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import Divider from '@material-ui/core/Divider';
 import SingleBedIcon from '@material-ui/icons/SingleBed';
 import AspectRatioIcon from '@material-ui/icons/AspectRatio';
 import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
 import Default from './default.jpg'
-import FetchingImages from '../../Services/FetchingImages';
 const useStyles = makeStyles({
     root: {
         maxWidth: 370,
@@ -108,18 +107,6 @@ const useStyles = makeStyles({
 const AbaadeeCards = (props) => {
     const classes = useStyles();
     const { buildingName, location, areaSize, areaUnit, beds, price, cover_image, MainBox } = props
-    const [bgimg, setbgimg] = useState('')
-
-    useEffect(() => {
-        let mounted = true
-        async function CardBgImage() {
-            if (mounted) {
-                setbgimg(await FetchingImages(cover_image))
-            }
-        }
-        CardBgImage();
-        return () => mounted = false
-    }, [bgimg, cover_image])
 
     return (
         <>
@@ -127,15 +114,15 @@ const AbaadeeCards = (props) => {
                 <CardActionArea>
                     <CardMedia
                         className={classes.media}
-                        image={bgimg ? bgimg : Default}
+                        image={cover_image ? cover_image : Default}
 
                     />
                     <div className={classes.overlay}>
                         <div className={classes.mainContainer}>
                             <span className={classes.featured}>FEATURED</span>
-                            <Tooltip title={<h6>Bookmark</h6>}>
+                            {/* <Tooltip title={<h6>Bookmark</h6>}>
                                 <FavoriteBorderIcon className={classes.bookmarkIcon} />
-                            </Tooltip>
+                            </Tooltip> */}
                         </div>
                         <div className={classes.location}>
                             <h4>PROJECT : {buildingName}</h4>
@@ -165,7 +152,7 @@ const AbaadeeCards = (props) => {
                                 <LocalOfferOutlinedIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '4px' }} />
                                 <h3 style={{ fontWeight: 'bolder' }}><span style={{ fontSize: '14px' }}>PKR</span> {price} </h3>
                             </div>
-                            <img src={bgimg} className={classes.dealer} alt={'dealer logo'} />
+                            <img src={cover_image} className={classes.dealer} alt={'dealer logo'} />
                         </div>
                     </CardContent>
 

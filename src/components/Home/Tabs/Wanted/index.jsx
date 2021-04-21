@@ -6,27 +6,34 @@ import RangeBox from '../../../FrequentlyUsed/RangeBox';
 import Select from 'react-select';
 import FooterButtons from '../FooterButtons';
 import { beds } from '../SelectDropDownValues';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 // THIS WILL USED IN REACT-SELECT
 import { colourStyles } from '../ColourStyles'
 import { PropertyTypeOptions, formatGroupLabel } from '../SelectGroupStyles'
 import HomeGetLocations from '../../../../Services/HomeGetLocations';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom'
 
 
 const Wanted = () => {
+    const dispatch = useDispatch()
+    const history = useHistory()
     const areaUnit = useSelector(state => state.Home_AreaUnit)
     const area_min_range = useSelector(state => state.Home_Area_min_range)
     const area_max_range = useSelector(state => state.Home_Area_max_range)
     const cities_options_list = useSelector(state => state.Home_cities_Reducer)
+    const minArea = useSelector(state => state.FrequentlyUsed_Min_Area_Range)
+    const maxArea = useSelector(state => state.FrequentlyUsed_Max_Area_Range)
     const [cityLocations, setcityLocations] = useState([])
     const [selectedCity, setselectedCity] = useState({ label: "Karachi", value: 'Karachi' })
     const [SelectedLocation, setSelectedLocation] = useState('')
+    const [SelectedPropertyType, setSelectedPropertyType] = useState('')
+    const [SelectedBed, setSelectedBed] = useState('')
 
 
     // FETCHING KARACHI LOCATION API
     useEffect(() => {
         let mounted = true
-
         async function GetLocationsHome() {
             const locations_options = []
             const location = await HomeGetLocations()
@@ -37,15 +44,22 @@ const Wanted = () => {
                 setcityLocations(locations_options)
             }
         }
-        GetLocationsHome()
+        GetLocationsHome().catch(err => console.log(err))
 
         return () => mounted = false
     }, [])
+
+    // TO CLEAR PREVIOUS VALUES FROM OTHER COMPONENTS
+    useEffect(() => {
+        dispatch({ type: 'clear_min_value_of_area' })
+        dispatch({ type: 'clear_max_value_of_area' })
+    }, [dispatch])
 
     // callback function to handle city change
     const HandleCitySelect = (selectedOption) => {
         setselectedCity(selectedOption)
         setcityLocations([])
+        setSelectedLocation('')
         const city_whose_location_to_be_fetched = selectedOption.value
         async function GetLocationsFromHome() {
             const locations_options = []
@@ -55,11 +69,67 @@ const Wanted = () => {
             ))
             setcityLocations(locations_options)
         }
-        GetLocationsFromHome()
+        GetLocationsFromHome().catch(err => console.log(err))
+
+        if (selectedOption.value !== 'Karachi') {
+            dispatch({ type: 'change_to_MARLA' })
+            dispatch({ type: 'marla_min_range' })
+            dispatch({ type: 'marla_max_range' })
+        }
     }
 
     const HandleLocationSelect = (e) => {
         setSelectedLocation(e)
+    }
+    const HandlePropertyType = (e) => {
+        setSelectedPropertyType(e)
+    }
+    const HandleBeds = (e) => {
+        setSelectedBed(e)
+    }
+
+    const HandleSubmit = () => {
+        history.push('/explore')
+        dispatch({ type: 'set_current_tab_to_wanted' })
+        dispatch({ type: '2' })
+        dispatch({ type: 'clear_explore_wanted_properties' })
+        dispatch({ type: 'show_wanted_properties_skeleton' })
+        const search_data = {
+            purpose: 'Wanted',
+            city_name: selectedCity.value,
+            location_name: SelectedLocation.value,
+            property_type: SelectedPropertyType.value,
+            min_area: minArea,
+            max_area: maxArea,
+            beds: SelectedBed.value
+        }
+        console.log(search_data)
+        axios.post('http://localhost:3200/addproperty/getpropertydata', search_data).then(response => {
+            if (response.data.length !== 0) {
+                const wanted_properties_data = response.data.map((value) => {
+                    return {
+                        city: value.city.city_name,
+                        building_name: value.property_title,
+                        location: value.Location.location_name,
+                        area_size: value.land_area,
+                        area_unit: value.area_unit.area_name,
+                        beds: value.bed.beds_quantity,
+                        price: value.price,
+                        cover_image: value.title_image,
+                    }
+                })
+                dispatch({ type: 'hide_wanted_properties_skeleton' })
+                dispatch({ type: 'wanted_listings_are_found_hide_message' })
+                dispatch({ type: 'explore_wanted_properties', payload: wanted_properties_data })
+            }
+            else {
+                dispatch({ type: 'hide_wanted_properties_skeleton' })
+                dispatch({ type: 'no_wanted_listings_are_found_show_message' })
+            }
+
+        }).catch(err => {
+            console.log(err)
+        })
     }
 
     return (
@@ -120,6 +190,8 @@ const Wanted = () => {
                 <Grid item xs={12} md={3} className={`${styles.childContainer} ${styles.marginBottomMobile} ${styles.pr10}`} style={{ marginTop: 'auto', marginBottom: '4px' }}>
                     <p>Property Type</p>
                     <Select
+                        value={SelectedPropertyType}
+                        onChange={HandlePropertyType}
                         isLoading={false}
                         isSearchable={false}
                         name="property type"
@@ -138,9 +210,8 @@ const Wanted = () => {
                 <Grid item xs={12} md={3} className={`${styles.childContainer} ${styles.marginBottomMobile}`} style={{ marginTop: 'auto', marginBottom: '4px' }}>
                     <p>Beds</p>
                     <Select
-                        // value={selectedOption}
-                        // onChange={handleSelect}
-                        // defaultValue={colourOptions[0]}
+                        value={SelectedBed}
+                        onChange={HandleBeds}
                         isLoading={false}
                         isSearchable={false}
                         name="beds"
@@ -156,7 +227,7 @@ const Wanted = () => {
 
                 {/*  SEARCH BUTTON   */}
                 <Grid item xs={12} md={3} className={styles.buttonContainer} >
-                    <div className={styles.searchButtonBox}>
+                    <div className={styles.searchButtonBox} onClick={HandleSubmit}>
                         <div><SearchIcon style={{ fontSize: '25px' }} /></div>
                         <div className={styles.search}>SEARCH</div>
                     </div>

@@ -26,7 +26,7 @@ const useStyles = makeStyles({
     }
 });
 
-const InputTextField = ({ TextFieldId, TextFieldPlaceHolder, InputType, required, pattern, title, autoComplete, labelText, helperText, autofocus, value, callBack, name, passwordVisibility, error, outlined }) => {
+const InputTextField = ({ TextFieldId, TextFieldPlaceHolder, InputType, required, pattern, title, autoComplete, labelText, helperText, autofocus, value, callBack, name, passwordVisibility, error, outlined, maxlength }) => {
     const classes = useStyles();
     const classesBase = useStylesBase();
     const [show, setShow] = useState(false)
@@ -60,7 +60,8 @@ const InputTextField = ({ TextFieldId, TextFieldPlaceHolder, InputType, required
                         pattern: pattern,
                         title: title,
                         className: classes.inputStyles,
-                        autoComplete: autoComplete
+                        autoComplete: autoComplete,
+                        maxLength: maxlength
                     }}
 
                     // InputProps passes props to the wrapper Material 

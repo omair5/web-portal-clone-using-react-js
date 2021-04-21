@@ -5,7 +5,7 @@ const FrequentlyUsed_Min_Price_Range = (state = initialState, action) => {
         case 'set_min_value_of_price':
             return action.payload
         case 'clear_min_value_of_price':
-            return state
+            return '0'
         default:
             return state
     }

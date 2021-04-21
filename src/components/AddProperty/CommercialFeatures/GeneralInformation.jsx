@@ -4,6 +4,7 @@ import InputTextField from '../../FrequentlyUsed/InputTextField'
 import Grid from '@material-ui/core/Grid';
 import { colourStyles } from '../HomeFeatures/ColourStyles'
 import Select from 'react-select';
+import { useDispatch, useSelector } from 'react-redux';
 
 const flooring = [
     { label: 'Tiles', value: 'Tiles' },
@@ -38,6 +39,30 @@ const useStyles = makeStyles((theme) => ({
 
 const GeneralInformation = () => {
     const classes = useStyles();
+    const dispatch = useDispatch()
+    const generalInfoInputs = useSelector(state => state.Commercial_General_Info_Inputs)
+    const { year, rooms, parking, floors } = generalInfoInputs
+    console.log(generalInfoInputs)
+    const selectedFloor = useSelector(state => state.Commercial_Flooring)
+    const selectedBackup = useSelector(state => state.Commercial_Backup)
+
+    // HANDLE CALLBACKS
+    const HandleInputChange = (e) => {
+        if (isNaN(e.target.value)) {
+            return
+        }
+        else {
+            dispatch({ type: 'set_commercial_general_info_inputs', payload: { name: e.target.name, value: e.target.value } })
+        }
+    }
+
+    const HandleFloorSelect = (selectedOption) => {
+        dispatch({ type: 'set_commercial_flooring', payload: selectedOption })
+    }
+    const HandleBackupSelect = (selectedOption) => {
+        dispatch({ type: 'set_commercial_backup', payload: selectedOption })
+    }
+
     return (
         <>
             <div className={classes.MainContainer}>
@@ -46,48 +71,60 @@ const GeneralInformation = () => {
                     {/* BUILT IN YEAR */}
                     <Grid item xs={6} sm={6} md={3}>
                         <InputTextField
+                            value={year}
                             TextFieldId='1'
                             TextFieldPlaceHolder='BUILT IN YEAR'
-                            InputType='number'
+                            InputType='tel'
                             name='year'
                             outlined="outlined"
+                            callBack={HandleInputChange}
+                            maxlength={4}
                         />
                     </Grid>
                     {/* NO OF ROOMS*/}
                     <Grid item xs={6} sm={6} md={3}>
                         <InputTextField
+                            value={rooms}
                             TextFieldId='2'
                             TextFieldPlaceHolder='NO OF ROOMS'
-                            InputType='number'
-                            name='bedrooms'
+                            InputType='tel'
+                            name='rooms'
                             outlined="outlined"
+                            callBack={HandleInputChange}
+                            maxlength={4}
                         />
                     </Grid>
                     {/* TOTAL PARKING SPACE */}
                     <Grid item xs={6} sm={6} md={3}>
                         <InputTextField
-                            TextFieldId='4'
+                            value={parking}
+                            TextFieldId='3'
                             TextFieldPlaceHolder='TOTAL PARKING SPACE'
-                            InputType='number'
+                            InputType='tel'
                             name='parking'
                             outlined="outlined"
+                            callBack={HandleInputChange}
+                            maxlength={4}
                         />
                     </Grid>
                     {/* FLOORS */}
                     <Grid item xs={6} sm={6} md={3}>
                         <InputTextField
-                            TextFieldId='5'
+                            value={floors}
+                            TextFieldId='4'
                             TextFieldPlaceHolder='FLOORS'
-                            InputType='number'
+                            InputType='tel'
                             name='floors'
                             outlined="outlined"
+                            callBack={HandleInputChange}
+                            maxlength={2}
                         />
                     </Grid>
                     {/* FLOORING */}
                     <Grid item xs={6} sm={6} md={3}>
                         <Select
-                            // value={selectedCity}
-                            // onChange={HandleCitySelect}
+                            value={selectedFloor}
+                            onChange={HandleFloorSelect}
                             isSearchable={false}
                             options={flooring}
                             placeholder="FLOORING"
@@ -100,8 +137,8 @@ const GeneralInformation = () => {
                     {/* ELECTRICITY BACKUP */}
                     <Grid item xs={6} sm={6} md={3}>
                         <Select
-                            // value={selectedCity}
-                            // onChange={HandleCitySelect}
+                            value={selectedBackup}
+                            onChange={HandleBackupSelect}
                             isSearchable={false}
                             options={electricity_backup}
                             placeholder="ELECTRICTY BACKUP"

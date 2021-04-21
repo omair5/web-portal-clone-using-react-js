@@ -1,3 +1,4 @@
+import React from 'react';
 import Layout from '../../components/Layout/Layout';
 import GoToTop from '../../GoToTop';
 import Container from '@material-ui/core/Container';
@@ -8,6 +9,7 @@ import AddImages from '../../components/AddProperty/AddImages';
 import HomeFeatures from '../../components/AddProperty/HomeFeatures';
 import PlotFeatures from '../../components/AddProperty/PlotFeatures';
 import CommercialFeatures from '../../components/AddProperty/CommercialFeatures';
+import { useSelector } from 'react-redux'
 
 
 
@@ -38,6 +40,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 const AddProperty = () => {
     const classes = useStyles();
+    const propertyDetails = useSelector(state => state.PropertyDetails)
+
     return (
         <Layout FooterDisplay={true}>
 
@@ -45,13 +49,28 @@ const AddProperty = () => {
                 <PropertyTypeAndLocation />
                 <PropertyDetails />
                 <AddImages />
-                {/* <HomeFeatures /> */}
-                {/* <PlotFeatures /> */}
-                {/* <CommercialFeatures /> */}
+                {
+                    (() => {
+                        switch (propertyDetails.propertyType) {
+                            case 'Homes':
+                                return <HomeFeatures />
+
+                            case 'Plots':
+                                return <PlotFeatures />
+
+                            case 'Commercial':
+                                return <CommercialFeatures />
+
+                            default:
+                                break;
+                        }
+                    })()
+
+                }
                 <button className={classes.buttonContainer}>SUBMIT PROPERTY</button>
             </Container>
 
             <GoToTop />
         </Layout>);
 }
-export default AddProperty;
+export default React.memo(AddProperty);
