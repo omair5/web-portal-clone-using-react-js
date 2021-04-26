@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Layout from '../../components/Layout/Layout';
 import GoToTop from '../../GoToTop';
 import Container from '@material-ui/core/Container';
@@ -63,14 +63,95 @@ const useStyles = makeStyles((theme) => ({
 }));
 const AddProperty = () => {
     const classes = useStyles();
-    const propertyDetails = useSelector(state => state.PropertyDetails)
+    // property type & location
+    const property_purpose_type = useSelector(state => state.PropertyDetails)
+    const sub_property_type = useSelector(state => state.SubPropertyType)
+    const city = useSelector(state => state.AddProperty_Selected_City)
+    const location = useSelector(state => state.AddProperty_Selected_Location)
+    // property details
+    const property_title = useSelector(state => state.PropertyDetails_Title)
+    const property_description = useSelector(state => state.PropertyDetails_Description)
+    const price = useSelector(state => state.PropertyDetails_Price)
+    const land_area = useSelector(state => state.PropertyDetails_LandArea)
+    const area_unit_name = useSelector(state => state.PropertyDetails_AreaUnit)
+    // Images
+    const images = useSelector(state => state.AddImages_Images_List)
+    // home features
+    const home_general_info_inputs = useSelector(state => state.Home_General_Info_Inputs)
+    const Home_Flooring = useSelector(state => state.Home_Flooring)
+    const Home_Backup = useSelector(state => state.Home_Backup)
+    const home_main_features = useSelector(state => state.Home_Main_Features)
+    const home_business_and_communication = useSelector(state => state.Home_business_And_Communication)
+    // plot features
+    const plot_main_features = useSelector(state => state.Plot_Main_Features)
+    // commercial features
+    const commercial_general_info_inputs = useSelector(state => state.Commercial_General_Info_Inputs)
+    const commercial_flooring = useSelector(state => state.Commercial_Flooring)
+    const commercial_backup = useSelector(state => state.Commercial_Backup)
+    const commercial_main_features = useSelector(state => state.Commercial_Main_Features)
+    const commercial_business_and_communication = useSelector(state => state.Commercial_business_And_Communication)
 
-    const [check, setcheck] = useState(true)
-    setTimeout(() => {
-        setcheck(false)
-    }, 3000)
+    const utilities = useSelector(state => state.Home_utilities)
+    const facing = useSelector(state => state.Home_Facing)
 
-    console.log(check)
+
+
+
+    const SwitchController = (type) => {
+        switch (type) {
+            case 'Homes':
+                return [
+                    { general_information: home_general_info_inputs },
+                    { main_features: home_main_features },
+                    { business_and_communication: home_business_and_communication },
+                    { utilities: utilities },
+                    { facing: facing },
+                ]
+            case 'Plots':
+                return {
+                    main_features: plot_main_features,
+                    utilities: utilities,
+                    facing: facing,
+                }
+            case 'Commercial':
+                return {
+                    general_information: commercial_general_info_inputs,
+                    main_features: commercial_main_features,
+                    business_and_communication: commercial_business_and_communication,
+                    utilities: utilities,
+                    facing: facing,
+                }
+            default:
+                break;
+        }
+    }
+
+
+    // HANDLE SUBMIT PROPERTY
+
+    const HandleSubmitProperty = (e) => {
+        e.preventDefault()
+        const selected_features = SwitchController(property_purpose_type.propertyType)
+        const formData = {
+            purpose: property_purpose_type.purpose,
+            wanted_for: property_purpose_type.wantedType,
+            property_type: property_purpose_type.propertyType,
+            property_category: sub_property_type.value,
+            city_name: city.value,
+            location_name: location.value,
+            property_title,
+            property_description,
+            price,
+            land_area,
+            area_unit_name,
+            // bed,
+            // bathroom,
+            images,
+            features: selected_features
+        }
+        console.log('form data', formData)
+    }
+
 
     return (
         <Layout FooterDisplay={true}>
@@ -88,28 +169,30 @@ const AddProperty = () => {
 
             {/* ADD PROPERTY FORM */}
             <Container maxWidth="md" className={classes.mainContainer}>
-                <PropertyTypeAndLocation />
-                <PropertyDetails />
-                <AddImages />
-                {
-                    (() => {
-                        switch (propertyDetails.propertyType) {
-                            case 'Homes':
-                                return <HomeFeatures />
+                <form onSubmit={HandleSubmitProperty}>
+                    <PropertyTypeAndLocation />
+                    <PropertyDetails />
+                    <AddImages />
+                    {
+                        (() => {
+                            switch (property_purpose_type.propertyType) {
+                                case 'Homes':
+                                    return <HomeFeatures />
 
-                            case 'Plots':
-                                return <PlotFeatures />
+                                case 'Plots':
+                                    return <PlotFeatures />
 
-                            case 'Commercial':
-                                return <CommercialFeatures />
+                                case 'Commercial':
+                                    return <CommercialFeatures />
 
-                            default:
-                                break;
-                        }
-                    })()
+                                default:
+                                    break;
+                            }
+                        })()
 
-                }
-                <button className={classes.buttonContainer}>SUBMIT PROPERTY</button>
+                    }
+                    <button className={classes.buttonContainer}>SUBMIT PROPERTY</button>
+                </form>
             </Container>
 
             {/* GOTO TOP BUTTON */}

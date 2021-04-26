@@ -12,15 +12,15 @@ import { useSelector, useDispatch } from 'react-redux'
 import HomeGetLocations from '../../../Services/HomeGetLocations';
 import { UseStyles } from './mainStyles'
 
+
 const PropertyTypeAndLocation = () => {
-    console.log('property type and location')
     const classes = UseStyles();
     const dispatch = useDispatch()
     // GETTING STATES FROM REDUX STORE
     const cities_options_list = useSelector(state => state.Home_cities_Reducer)
     const propertyDetails = useSelector(state => state.PropertyDetails)
     const selectedCity = useSelector(state => state.AddProperty_Selected_City)
-    const SelectedLocation = useSelector(state => state.AddProperty_Selected_Country)
+    const SelectedLocation = useSelector(state => state.AddProperty_Selected_Location)
     // LOCAL STATES
     const [cityLocations, setcityLocations] = useState([])
 
@@ -49,7 +49,7 @@ const PropertyTypeAndLocation = () => {
 
     // HANDLING LOCATION CHANGE
     const HandleLocationSelect = (selectedOption) => {
-        dispatch({ type: 'add_property_selected_country', payload: selectedOption })
+        dispatch({ type: 'add_property_selected_location', payload: selectedOption })
     }
 
     // CLEARING WANTED TYPE IF WANTED IS NOT SELECTED
@@ -70,7 +70,7 @@ const PropertyTypeAndLocation = () => {
                         <RadioGroup aria-label="purpose" name="purpose" row onChange={HandleChange} >
                             <FormControlLabel
                                 value="sale"
-                                control={<Radio classes={{ root: classes.radio, checked: classes.checked }} />}
+                                control={<Radio classes={{ root: classes.radio, checked: classes.checked }} required={true} />}
                                 label="For Sale"
                                 classes={{
                                     label: classes.RadioLabel
@@ -78,7 +78,7 @@ const PropertyTypeAndLocation = () => {
 
                             <FormControlLabel
                                 value="rent"
-                                control={<Radio classes={{ root: classes.radio, checked: classes.checked }} />}
+                                control={<Radio classes={{ root: classes.radio, checked: classes.checked }} required={true} />}
                                 label="Rent"
                                 classes={{
                                     label: classes.RadioLabel
@@ -86,7 +86,7 @@ const PropertyTypeAndLocation = () => {
 
                             <FormControlLabel
                                 value="wanted"
-                                control={<Radio classes={{ root: classes.radio, checked: classes.checked }} />}
+                                control={<Radio classes={{ root: classes.radio, checked: classes.checked }} required={true} />}
                                 label="Wanted"
                                 classes={{
                                     label: classes.RadioLabel
@@ -101,7 +101,7 @@ const PropertyTypeAndLocation = () => {
                             <RadioGroup aria-label="purpose" name="wantedType" onChange={HandleChange} row >
                                 <FormControlLabel
                                     value="Buy"
-                                    control={<Radio classes={{ root: classes.radio, checked: classes.checked }} />}
+                                    control={<Radio classes={{ root: classes.radio, checked: classes.checked }} required={true} />}
                                     label="Buy"
                                     classes={{
                                         label: classes.RadioLabel
@@ -109,7 +109,7 @@ const PropertyTypeAndLocation = () => {
 
                                 <FormControlLabel
                                     value="Rent"
-                                    control={<Radio classes={{ root: classes.radio, checked: classes.checked }} />}
+                                    control={<Radio classes={{ root: classes.radio, checked: classes.checked }} required={true} />}
                                     label="Rent"
                                     classes={{
                                         label: classes.RadioLabel
@@ -122,10 +122,10 @@ const PropertyTypeAndLocation = () => {
                     {/* PROPERTY TYPE */}
                     <div className={classes.horizontalRow}>
                         <p>PROPERTY TYPE</p>
-                        <RadioGroup aria-label="PROPERTY TYPE" name="propertyType" row onChange={HandleChange}>
+                        <RadioGroup aria-label="PROPERTY TYPE" name="propertyType" row onChange={HandleChange} >
                             <FormControlLabel
                                 value="Homes"
-                                control={<Radio classes={{ root: classes.radio, checked: classes.checked }} />}
+                                control={<Radio classes={{ root: classes.radio, checked: classes.checked }} required={true} />}
                                 label="Homes"
                                 classes={{
                                     label: classes.RadioLabel
@@ -133,7 +133,7 @@ const PropertyTypeAndLocation = () => {
 
                             <FormControlLabel
                                 value="Plots"
-                                control={<Radio classes={{ root: classes.radio, checked: classes.checked }} />}
+                                control={<Radio classes={{ root: classes.radio, checked: classes.checked }} required={true} />}
                                 label="Plots"
                                 classes={{
                                     label: classes.RadioLabel
@@ -141,7 +141,7 @@ const PropertyTypeAndLocation = () => {
 
                             <FormControlLabel
                                 value="Commercial"
-                                control={<Radio classes={{ root: classes.radio, checked: classes.checked }} />}
+                                control={<Radio classes={{ root: classes.radio, checked: classes.checked }} required={true} />}
                                 label="Commercial"
                                 classes={{
                                     label: classes.RadioLabel
@@ -183,6 +183,7 @@ const PropertyTypeAndLocation = () => {
                             placeholder="Select City"
                             label='city'
                             styles={colourStyles}
+                            required
                             components={{
                                 IndicatorSeparator: () => null
                             }}

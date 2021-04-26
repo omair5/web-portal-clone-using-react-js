@@ -36,7 +36,7 @@ import Explore_Wanted_Not_Found_Message from './Explore_Wanted_Not_Found_Message
 import SubPropertyType from './AddProperty/SubPropertyType'
 import PropertyDetails from './AddProperty/PropertyDetails'
 import AddProperty_Selected_City from './AddProperty/AddProperty_Selected_City'
-import AddProperty_Selected_Country from './AddProperty/AddProperty_Selected_Country'
+import AddProperty_Selected_Location from './AddProperty/AddProperty_Selected_Location'
 import Home_General_Info_Inputs from './AddProperty/Home_General_Info_Inputs'
 import Home_Flooring from './AddProperty/Home_Flooring'
 import Home_Backup from './AddProperty/Home_Backup'
@@ -50,6 +50,12 @@ import Commercial_Flooring from './AddProperty/Commercial_Flooring'
 import Commercial_Backup from './AddProperty/Commercial_Backup'
 import Commercial_business_And_Communication from './AddProperty/Commercial_Bussiness_And_Communication'
 import Commercial_Main_Features from './AddProperty/Commercial_Main_Features'
+import AddImages_Images_List from './AddProperty/AddImages_Images_List'
+import PropertyDetails_Title from './AddProperty/PropertyDetails_Title'
+import PropertyDetails_Description from './AddProperty/PropertyDetails_Description'
+import PropertyDetails_Price from './AddProperty/PropertyDetails_Price'
+import PropertyDetails_LandArea from './AddProperty/PropertyDetails_LandArea'
+import PropertyDetails_AreaUnit from './AddProperty/PropertyDetails_AreaUnit'
 
 export default combineReducers({
     SearchShow: ExploreSearch,
@@ -89,7 +95,7 @@ export default combineReducers({
     SubPropertyType: SubPropertyType,
     PropertyDetails: PropertyDetails,
     AddProperty_Selected_City: AddProperty_Selected_City,
-    AddProperty_Selected_Country: AddProperty_Selected_Country,
+    AddProperty_Selected_Location: AddProperty_Selected_Location,
     Home_General_Info_Inputs: Home_General_Info_Inputs,
     Home_Flooring: Home_Flooring,
     Home_Backup: Home_Backup,
@@ -102,5 +108,11 @@ export default combineReducers({
     Commercial_Flooring: Commercial_Flooring,
     Commercial_Backup: Commercial_Backup,
     Commercial_business_And_Communication: Commercial_business_And_Communication,
-    Commercial_Main_Features: Commercial_Main_Features
+    Commercial_Main_Features: Commercial_Main_Features,
+    AddImages_Images_List: AddImages_Images_List,
+    PropertyDetails_Title: PropertyDetails_Title,
+    PropertyDetails_Description: PropertyDetails_Description,
+    PropertyDetails_Price: PropertyDetails_Price,
+    PropertyDetails_LandArea: PropertyDetails_LandArea,
+    PropertyDetails_AreaUnit: PropertyDetails_AreaUnit
 })

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import ImageUploading from 'react-images-uploading';
@@ -6,6 +6,7 @@ import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import CreateRoundedIcon from '@material-ui/icons/CreateRounded';
 import DeleteForeverRoundedIcon from '@material-ui/icons/DeleteForeverRounded';
 import { Alert, AlertTitle } from '@material-ui/lab';
+import { useSelector, useDispatch } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
     mainHeading: {
@@ -112,12 +113,13 @@ const useStyles = makeStyles((theme) => ({
 
 const AddImages = () => {
     const classes = useStyles();
-    const [images, setImages] = useState([]);
+    const dispatch = useDispatch()
+    // const [images, setImages] = useState([]);
+    const images = useSelector(state => state.AddImages_Images_List)
     const maxNumber = 50;
 
-    const onChange = (imageList, addUpdateIndex) => {
-        console.log(imageList, addUpdateIndex);
-        setImages(imageList);
+    const onChange = (imageList) => {
+        dispatch({ type: 'gallery_images_list', payload: imageList })
     }
     const check = () => {
         console.log('in progress')
