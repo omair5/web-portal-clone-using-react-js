@@ -32,7 +32,7 @@ export const colourStyles = {
         };
     },
     // THIS IS FOR VALUE
-    singleValue: styles => ({ ...styles, fontSize: '14px', fontWeight: 'bold', color: 'rgb(59, 70, 86)' }),
+    singleValue: styles => ({ ...styles, fontSize: '14px' }),
 
     // THIS IS VALUE CONTAINER
     valueContainer: (provided) => ({

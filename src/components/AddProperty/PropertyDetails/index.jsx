@@ -46,9 +46,13 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     inputStyles: {
-        color: "rgb(59, 70, 86)",
         fontSize: '15px',
-        fontWeight: 'bold',
+        padding: '13px 10px'
+    },
+    inputStylesForWording: {
+        color: 'gray',
+        fontWeight: 'bolder',
+        fontSize: '15px',
         padding: '13px 10px'
     },
     halfInputField: {
@@ -192,7 +196,7 @@ const PropertyDetails = () => {
                         classes={classesBase}
                         disabled={true}
                         inputProps={{
-                            className: classes.inputStyles,
+                            className: classes.inputStylesForWording,
                         }}
                     />
                 </div>

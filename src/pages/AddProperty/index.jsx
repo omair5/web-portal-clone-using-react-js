@@ -94,33 +94,30 @@ const AddProperty = () => {
     const utilities = useSelector(state => state.Home_utilities)
     const facing = useSelector(state => state.Home_Facing)
 
-
-
-
     const SwitchController = (type) => {
         switch (type) {
             case 'Homes':
                 return [
-                    { general_information: home_general_info_inputs },
+                    { general_information: { ...home_general_info_inputs, flooring: Home_Flooring.value, backup: Home_Backup.value } },
                     { main_features: home_main_features },
                     { business_and_communication: home_business_and_communication },
                     { utilities: utilities },
                     { facing: facing },
                 ]
             case 'Plots':
-                return {
-                    main_features: plot_main_features,
-                    utilities: utilities,
-                    facing: facing,
-                }
+                return [
+                    { main_features: plot_main_features },
+                    { utilities: utilities },
+                    { facing: facing },
+                ]
             case 'Commercial':
-                return {
-                    general_information: commercial_general_info_inputs,
-                    main_features: commercial_main_features,
-                    business_and_communication: commercial_business_and_communication,
-                    utilities: utilities,
-                    facing: facing,
-                }
+                return [
+                    { general_information: { ...commercial_general_info_inputs, flooring: commercial_flooring.value, backup: commercial_backup.value } },
+                    { main_features: commercial_main_features },
+                    { business_and_communication: commercial_business_and_communication },
+                    { utilities: utilities },
+                    { facing: facing },
+                ]
             default:
                 break;
         }
