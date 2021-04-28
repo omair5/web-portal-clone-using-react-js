@@ -70,7 +70,7 @@ const PropertyTypeAndLocation = () => {
                         <p>Purpose <span className='asterik'>*</span> {purpose_required && <span className='required'>This Field is Required!</span>}</p>
                         <RadioGroup aria-label="purpose" name="purpose" row onChange={HandleChange} >
                             <FormControlLabel
-                                value="sale"
+                                value="Sale"
                                 control={<Radio classes={{ root: classes.radio, checked: classes.checked }} />}
                                 label="For Sale"
                                 classes={{
@@ -78,7 +78,7 @@ const PropertyTypeAndLocation = () => {
                                 }} />
 
                             <FormControlLabel
-                                value="rent"
+                                value="Rent"
                                 control={<Radio classes={{ root: classes.radio, checked: classes.checked }} />}
                                 label="Rent"
                                 classes={{
@@ -86,7 +86,7 @@ const PropertyTypeAndLocation = () => {
                                 }} />
 
                             <FormControlLabel
-                                value="wanted"
+                                value="Wanted"
                                 control={<Radio classes={{ root: classes.radio, checked: classes.checked }} />}
                                 label="Wanted"
                                 classes={{

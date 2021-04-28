@@ -1,13 +1,13 @@
 import React, { Suspense, useEffect } from 'react';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import './App.css'
+import './App.css';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { useDispatch } from 'react-redux'
-import Loader from './Loader/Loader'
+import { useDispatch } from 'react-redux';
+import Loader from './Loader/Loader';
 import ProtectedRoutes from './PotectedRoutes';
-import HomeGetCities from './Services/HomeGetCities'
-import ExploreGetProperties from './Services/ExploreGetProperties'
+import HomeGetCities from './Services/HomeGetCities';
+import ExploreGetProperties from './Services/ExploreGetProperties';
 
 const Home = React.lazy(() => import('./pages/Home'));
 const Explore = React.lazy(() => import('./pages/Explore'));
@@ -137,18 +137,26 @@ function App() {
             <Route exact path='/partners' component={Partners} />
             <Route exact path='/contact' component={ContactUs} />
             <Route exact path='/about' component={AboutUs} />
+            {/* protected routes */}
             <Route exact path='/add-property'>
               <ProtectedRoutes Component={AddProperty} />
             </Route>
             <Route exact path='/reset/password' component={ResetPasswordDialogBox} />
-            <Route path='*' exact={true} component={PageNotFound} />
-
             {/* dashboard */}
             <Route exact path='/my-account' component={UserLogin} />
-            {/* listing of property , this page will be made from API */}
-            {/* <Route exact path='/listings' component={Listings} /> */}
+            <Route path='*' exact={true} component={PageNotFound} />
+
+
+
+
+
+
+
+
             {/* after clicking on any type of add property u will be directed to this page */}
             {/* <Route exact path='/packages' component={Packages} /> */}
+            {/* listing of property , this page will be made from API */}
+            {/* <Route exact path='/listings' component={Listings} /> */}
           </Switch>
         </Suspense>
       </Router>

@@ -97,7 +97,7 @@ const Buy = () => {
         dispatch({ type: 'clear_explore_buy_properties' })
         dispatch({ type: 'show_buy_properties_skeleton' })
         const search_data = {
-            purpose: 'Buy',
+            purpose: 'Sale',
             city_name: selectedCity.value,
             location_name: SelectedLocation.value,
             property_type: SelectedPropertyType.value,
