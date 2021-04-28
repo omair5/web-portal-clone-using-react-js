@@ -87,6 +87,7 @@ const PropertyDetails = () => {
     const price = useSelector(state => state.PropertyDetails_Price)
     const landArea = useSelector(state => state.PropertyDetails_LandArea)
     const areaUnit = useSelector(state => state.PropertyDetails_AreaUnit)
+    const { property_title_required, property_description_required, price_required, land_area_required, area_unit_name_required } = useSelector(state => state.RequiredFields)
     const [priceInWords, setpriceInWords] = useState('Price must contain numbers only')
     console.log(areaUnit)
 
@@ -133,7 +134,7 @@ const PropertyDetails = () => {
             <Container maxWidth="sm" className={classes.mainContainer}>
                 {/* PROPERTY TITLE */}
                 <div className={`${classes.wrapperContainer} ${classes.mb15}`}>
-                    <p>Property Title * </p>
+                    <p>Property Title <span className='asterik'>*</span> {property_title_required && <span className='required'>This Field is Required!</span>} </p>
                     <TextField
                         value={title}
                         onChange={HandleTitle}
@@ -150,7 +151,7 @@ const PropertyDetails = () => {
 
                 {/* PROPERTY Description */}
                 <div className={`${classes.wrapperContainer} ${classes.mb15}`}>
-                    <p>Description * </p>
+                    <p>Description <span className='asterik'>*</span> {property_description_required && <span className='required'>This Field is Required!</span>} </p>
                     <TextField
                         value={description}
                         onChange={HandleDescription}
@@ -169,7 +170,7 @@ const PropertyDetails = () => {
 
                 {/* All Inclusive Price: (PKR)  */}
                 <div className={classes.wrapperContainer}>
-                    <p>All Inclusive Price: (PKR) * </p>
+                    <p>All Inclusive Price: (PKR) <span className='asterik'>*</span> {price_required && <span className='required'>This Field is Required!</span>} </p>
                     <TextField
                         value={price}
                         onChange={HandlePrice}
@@ -205,7 +206,7 @@ const PropertyDetails = () => {
                     {/* Land Area  */}
                     <Grid item xs={12} md={6}>
                         <div className={classes.wrapperContainer}>
-                            <p>Land Area *</p>
+                            <p>Land Area <span className='asterik'>*</span> {land_area_required && <span className='required'>This Field is Required!</span>}</p>
                             <TextField
                                 value={landArea}
                                 onChange={HandleLandArea}
@@ -225,7 +226,7 @@ const PropertyDetails = () => {
                     <Grid item xs={12} md={6}>
                         {/* UNIT */}
                         <div className={classes.wrapperContainer}>
-                            <p>Unit *</p>
+                            <p>Unit <span className='asterik'>*</span> {area_unit_name_required && <span className='required'>This Field is Required!</span>}</p>
                             <select name="square-feet" id="square-feet" className={classes.landAreaContainer} onChange={HandleAreaUnit}>
                                 <option value='Square Feet'>Square Feet</option>
                                 <option value="Square Yards">Square Yards</option>

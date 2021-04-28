@@ -82,3 +82,25 @@ p {
   font-weight: bold;
   cursor: pointer;
 }
+
+.required {
+  color: red;
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: capitalize;
+  position: relative;
+  bottom: 3px;
+}
+
+.asterik {
+  font-size: 15px;
+  position: relative;
+  top: -8px;
+  left: -5px;
+  color: red;
+}
+
+.asterik-para {
+  font-size: 15px;
+  color: red;
+}

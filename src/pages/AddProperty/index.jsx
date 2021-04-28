@@ -9,9 +9,9 @@ import AddImages from '../../components/AddProperty/AddImages';
 import HomeFeatures from '../../components/AddProperty/HomeFeatures';
 import PlotFeatures from '../../components/AddProperty/PlotFeatures';
 import CommercialFeatures from '../../components/AddProperty/CommercialFeatures';
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import HouseIcon from '@material-ui/icons/House';
-
+import axios from 'axios';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -63,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const AddProperty = () => {
     const classes = useStyles();
+    const dispatch = useDispatch()
     // property type & location
     const property_purpose_type = useSelector(state => state.PropertyDetails)
     const sub_property_type = useSelector(state => state.SubPropertyType)
@@ -123,6 +124,49 @@ const AddProperty = () => {
         }
     }
 
+    const CheckEmptyFields = (formData) => {
+        if (property_purpose_type.purpose === '' || undefined) {
+            dispatch({ type: "set_required_field_error", payload: { name: 'purpose_required', value: true } })
+        }
+        if (property_purpose_type.wantedType === '' || undefined) {
+            dispatch({ type: "set_required_field_error", payload: { name: 'wantedType_required', value: true } })
+        }
+        if (property_purpose_type.propertyType === '' || undefined) {
+            dispatch({ type: "set_required_field_error", payload: { name: 'propertyType_required', value: true } })
+        }
+        if (sub_property_type.value === undefined) {
+            dispatch({ type: "set_required_field_error", payload: { name: 'property_category_required', value: true } })
+        }
+        if (city.value === undefined) {
+            dispatch({ type: "set_required_field_error", payload: { name: 'city_name_required', value: true } })
+        }
+        if (location.value === undefined) {
+            dispatch({ type: "set_required_field_error", payload: { name: 'location_name_required', value: true } })
+            console.log('location')
+        }
+        if (property_title === '' || undefined) {
+            dispatch({ type: "set_required_field_error", payload: { name: 'property_title_required', value: true } })
+        }
+        if (property_description === '' || undefined) {
+            dispatch({ type: "set_required_field_error", payload: { name: 'property_description_required', value: true } })
+        }
+        if (price === '' || undefined) {
+            dispatch({ type: "set_required_field_error", payload: { name: 'price_required', value: true } })
+        }
+        if (land_area === '' || undefined) {
+            dispatch({ type: "set_required_field_error", payload: { name: 'land_area_required', value: true } })
+        }
+        else {
+            console.log('form submitted')
+            console.log('submitted data', formData)
+            axios.post('http://localhost:3200/addproperty/uploaddata', formData,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('secretkey')}`
+                    }
+                }).then(res => console.log(res)).catch(err => console.log(err))
+        }
+    }
 
     // HANDLE SUBMIT PROPERTY
 
@@ -141,12 +185,12 @@ const AddProperty = () => {
             price,
             land_area,
             area_unit_name,
-            // bed,
-            // bathroom,
             images,
             features: selected_features
         }
-        console.log('form data', formData)
+        // this function will check empty fields and if all required fields are filled properly it will send data to the server
+        CheckEmptyFields(formData)
+
     }
 
 
@@ -163,7 +207,9 @@ const AddProperty = () => {
                     <h4>Enter your property details below to get it listed on our portal</h4>
                 </div>
             </Container>
-
+            <Container maxWidth="md" className={`${classes.mainContainer}`}>
+                <h5><span className='asterik-para'>*</span> Are Required Fields</h5>
+            </Container>
             {/* ADD PROPERTY FORM */}
             <Container maxWidth="md" className={classes.mainContainer}>
                 <form onSubmit={HandleSubmitProperty}>

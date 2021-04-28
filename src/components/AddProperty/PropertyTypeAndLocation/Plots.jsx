@@ -32,7 +32,7 @@ const Plots = () => {
                 onChange={HandlePlotSubType}
                 isSearchable={false}
                 options={data}
-                placeholder="Select SubType Of Plot"
+                placeholder="Select SubType Of Plot*"
                 styles={colourStyles}
                 components={{
                     IndicatorSeparator: () => null

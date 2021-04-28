@@ -33,7 +33,7 @@ const Commercial = () => {
                 onChange={HandleCommercialSubType}
                 isSearchable={false}
                 options={data}
-                placeholder="Select SubType Of Commercial"
+                placeholder="Select SubType Of Commercial*"
                 styles={colourStyles}
                 components={{
                     IndicatorSeparator: () => null

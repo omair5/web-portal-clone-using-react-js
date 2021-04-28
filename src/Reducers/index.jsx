@@ -56,6 +56,7 @@ import PropertyDetails_Description from './AddProperty/PropertyDetails_Descripti
 import PropertyDetails_Price from './AddProperty/PropertyDetails_Price'
 import PropertyDetails_LandArea from './AddProperty/PropertyDetails_LandArea'
 import PropertyDetails_AreaUnit from './AddProperty/PropertyDetails_AreaUnit'
+import RequiredFields from './AddProperty/Required_fields'
 
 export default combineReducers({
     SearchShow: ExploreSearch,
@@ -114,5 +115,6 @@ export default combineReducers({
     PropertyDetails_Description: PropertyDetails_Description,
     PropertyDetails_Price: PropertyDetails_Price,
     PropertyDetails_LandArea: PropertyDetails_LandArea,
-    PropertyDetails_AreaUnit: PropertyDetails_AreaUnit
+    PropertyDetails_AreaUnit: PropertyDetails_AreaUnit,
+    RequiredFields: RequiredFields
 })

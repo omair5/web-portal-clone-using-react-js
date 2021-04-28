@@ -34,7 +34,7 @@ const Homes = () => {
                 onChange={HandleHomeSubType}
                 isSearchable={false}
                 options={data}
-                placeholder="Select SubType Of Homes"
+                placeholder="Select SubType Of Homes*"
                 styles={colourStyles}
                 components={{
                     IndicatorSeparator: () => null

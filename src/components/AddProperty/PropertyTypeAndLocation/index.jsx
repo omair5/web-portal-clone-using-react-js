@@ -21,6 +21,7 @@ const PropertyTypeAndLocation = () => {
     const propertyDetails = useSelector(state => state.PropertyDetails)
     const selectedCity = useSelector(state => state.AddProperty_Selected_City)
     const SelectedLocation = useSelector(state => state.AddProperty_Selected_Location)
+    const { purpose_required, wantedType_required, propertyType_required, property_category_required, city_name_required, location_name_required } = useSelector(state => state.RequiredFields)
     // LOCAL STATES
     const [cityLocations, setcityLocations] = useState([])
 
@@ -66,11 +67,11 @@ const PropertyTypeAndLocation = () => {
                 <div>
                     {/* PURPOSE */}
                     <div className={classes.horizontalRow}>
-                        <p>Purpose</p>
+                        <p>Purpose <span className='asterik'>*</span> {purpose_required && <span className='required'>This Field is Required!</span>}</p>
                         <RadioGroup aria-label="purpose" name="purpose" row onChange={HandleChange} >
                             <FormControlLabel
                                 value="sale"
-                                control={<Radio classes={{ root: classes.radio, checked: classes.checked }} required={true} />}
+                                control={<Radio classes={{ root: classes.radio, checked: classes.checked }} />}
                                 label="For Sale"
                                 classes={{
                                     label: classes.RadioLabel
@@ -78,7 +79,7 @@ const PropertyTypeAndLocation = () => {
 
                             <FormControlLabel
                                 value="rent"
-                                control={<Radio classes={{ root: classes.radio, checked: classes.checked }} required={true} />}
+                                control={<Radio classes={{ root: classes.radio, checked: classes.checked }} />}
                                 label="Rent"
                                 classes={{
                                     label: classes.RadioLabel
@@ -86,7 +87,7 @@ const PropertyTypeAndLocation = () => {
 
                             <FormControlLabel
                                 value="wanted"
-                                control={<Radio classes={{ root: classes.radio, checked: classes.checked }} required={true} />}
+                                control={<Radio classes={{ root: classes.radio, checked: classes.checked }} />}
                                 label="Wanted"
                                 classes={{
                                     label: classes.RadioLabel
@@ -97,11 +98,11 @@ const PropertyTypeAndLocation = () => {
                     {/* WANTED FOR */}
                     {propertyDetails.purpose === 'wanted' ?
                         <div className={classes.horizontalRow}>
-                            <p>Wanted For</p>
+                            <p>Wanted For <span className='asterik'>*</span> {wantedType_required && <span className='required'>This Field is Required!</span>}</p>
                             <RadioGroup aria-label="purpose" name="wantedType" onChange={HandleChange} row >
                                 <FormControlLabel
                                     value="Buy"
-                                    control={<Radio classes={{ root: classes.radio, checked: classes.checked }} required={true} />}
+                                    control={<Radio classes={{ root: classes.radio, checked: classes.checked }} />}
                                     label="Buy"
                                     classes={{
                                         label: classes.RadioLabel
@@ -109,7 +110,7 @@ const PropertyTypeAndLocation = () => {
 
                                 <FormControlLabel
                                     value="Rent"
-                                    control={<Radio classes={{ root: classes.radio, checked: classes.checked }} required={true} />}
+                                    control={<Radio classes={{ root: classes.radio, checked: classes.checked }} />}
                                     label="Rent"
                                     classes={{
                                         label: classes.RadioLabel
@@ -121,11 +122,11 @@ const PropertyTypeAndLocation = () => {
 
                     {/* PROPERTY TYPE */}
                     <div className={classes.horizontalRow}>
-                        <p>PROPERTY TYPE</p>
+                        <p>PROPERTY TYPE <span className='asterik'>*</span> {propertyType_required && <span className='required'>This Field is Required!</span>}</p>
                         <RadioGroup aria-label="PROPERTY TYPE" name="propertyType" row onChange={HandleChange} >
                             <FormControlLabel
                                 value="Homes"
-                                control={<Radio classes={{ root: classes.radio, checked: classes.checked }} required={true} />}
+                                control={<Radio classes={{ root: classes.radio, checked: classes.checked }} />}
                                 label="Homes"
                                 classes={{
                                     label: classes.RadioLabel
@@ -133,7 +134,7 @@ const PropertyTypeAndLocation = () => {
 
                             <FormControlLabel
                                 value="Plots"
-                                control={<Radio classes={{ root: classes.radio, checked: classes.checked }} required={true} />}
+                                control={<Radio classes={{ root: classes.radio, checked: classes.checked }} />}
                                 label="Plots"
                                 classes={{
                                     label: classes.RadioLabel
@@ -141,7 +142,7 @@ const PropertyTypeAndLocation = () => {
 
                             <FormControlLabel
                                 value="Commercial"
-                                control={<Radio classes={{ root: classes.radio, checked: classes.checked }} required={true} />}
+                                control={<Radio classes={{ root: classes.radio, checked: classes.checked }} />}
                                 label="Commercial"
                                 classes={{
                                     label: classes.RadioLabel
@@ -152,6 +153,7 @@ const PropertyTypeAndLocation = () => {
                     {/* HOMES */}
                     {propertyDetails.propertyType === 'Homes' ?
                         <div className={classes.horizontalRow}>
+                            {property_category_required && <span className='required'>This Field is Required!</span>}
                             <Homes />
                         </div> : null
                     }
@@ -160,6 +162,7 @@ const PropertyTypeAndLocation = () => {
                     {/* PLOTS */}
                     {propertyDetails.propertyType === 'Plots' ?
                         <div className={classes.horizontalRow}>
+                            {property_category_required && <span className='required'>This Field is Required!</span>}
                             <Plots />
                         </div> : null
                     }
@@ -167,13 +170,14 @@ const PropertyTypeAndLocation = () => {
                     {/* COMMERCIAL */}
                     {propertyDetails.propertyType === 'Commercial' ?
                         <div className={classes.horizontalRow}>
+                            {property_category_required && <span className='required'>This Field is Required!</span>}
                             <Commercial />
                         </div> : null
                     }
 
                     {/* SELECT CITY */}
                     <div className={classes.cityAndLocation}>
-                        <p>CITY </p>
+                        <p>CITY <span className='asterik'>*</span> {city_name_required && <span className='required'>This Field is Required!</span>}</p>
                         <Select
                             value={selectedCity}
                             onChange={HandleCitySelect}
@@ -192,7 +196,7 @@ const PropertyTypeAndLocation = () => {
 
                     {/* SELECT LOCATION */}
                     <div className={classes.cityAndLocation}>
-                        <p>LOCATION </p>
+                        <p>LOCATION <span className='asterik'>*</span> {location_name_required && <span className='required'>This Field is Required!</span>}</p>
                         <Select
                             value={SelectedLocation}
                             onChange={HandleLocationSelect}
