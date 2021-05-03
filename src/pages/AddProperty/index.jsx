@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import HouseIcon from '@material-ui/icons/House';
 import axios from 'axios';
 
-
 const useStyles = makeStyles((theme) => ({
     mainContainer: {
         margin: '15px auto'
@@ -95,6 +94,8 @@ const AddProperty = () => {
     const utilities = useSelector(state => state.Home_utilities)
     const facing = useSelector(state => state.Home_Facing)
 
+
+
     const SwitchController = (type) => {
         switch (type) {
             case 'Homes':
@@ -124,56 +125,61 @@ const AddProperty = () => {
         }
     }
 
-    const CheckEmptyFields = (formData) => {
-        if (property_purpose_type.purpose === '' || undefined) {
-            dispatch({ type: "set_required_field_error", payload: { name: 'purpose_required', value: true } })
-        }
-        if (property_purpose_type.wantedType === '' || undefined) {
-            dispatch({ type: "set_required_field_error", payload: { name: 'wantedType_required', value: true } })
-        }
-        if (property_purpose_type.propertyType === '' || undefined) {
-            dispatch({ type: "set_required_field_error", payload: { name: 'propertyType_required', value: true } })
-        }
-        if (sub_property_type.value === undefined) {
-            dispatch({ type: "set_required_field_error", payload: { name: 'property_category_required', value: true } })
-        }
-        if (city.value === undefined) {
-            dispatch({ type: "set_required_field_error", payload: { name: 'city_name_required', value: true } })
-        }
-        if (location.value === undefined) {
-            dispatch({ type: "set_required_field_error", payload: { name: 'location_name_required', value: true } })
-            console.log('location')
-        }
-        if (property_title === '' || undefined) {
-            dispatch({ type: "set_required_field_error", payload: { name: 'property_title_required', value: true } })
-        }
-        if (property_description === '' || undefined) {
-            dispatch({ type: "set_required_field_error", payload: { name: 'property_description_required', value: true } })
-        }
-        if (price === '' || undefined) {
-            dispatch({ type: "set_required_field_error", payload: { name: 'price_required', value: true } })
-        }
-        if (land_area === '' || undefined) {
-            dispatch({ type: "set_required_field_error", payload: { name: 'land_area_required', value: true } })
-        }
-        else {
-            console.log('form submitted')
-            console.log('submitted data', formData)
-            axios.post('http://localhost:3200/addproperty/uploaddata', formData,
-                {
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('secretkey')}`
-                    }
-                }).then(res => console.log(res)).catch(err => console.log(err))
-        }
-    }
+    // const CheckEmptyFields = (Add_Property_Form_Data, images) => {
+    //     if (property_purpose_type.purpose === '' || undefined) {
+    //         dispatch({ type: "set_required_field_error", payload: { name: 'purpose_required', value: true } })
+    //     }
+    //     if (property_purpose_type.wantedType === '' || undefined) {
+    //         dispatch({ type: "set_required_field_error", payload: { name: 'wantedType_required', value: true } })
+    //     }
+    //     if (property_purpose_type.propertyType === '' || undefined) {
+    //         dispatch({ type: "set_required_field_error", payload: { name: 'propertyType_required', value: true } })
+    //     }
+    //     if (sub_property_type.value === undefined) {
+    //         dispatch({ type: "set_required_field_error", payload: { name: 'property_category_required', value: true } })
+    //     }
+    //     if (city.value === undefined) {
+    //         dispatch({ type: "set_required_field_error", payload: { name: 'city_name_required', value: true } })
+    //     }
+    //     if (location.value === undefined) {
+    //         dispatch({ type: "set_required_field_error", payload: { name: 'location_name_required', value: true } })
+    //         console.log('location')
+    //     }
+    //     if (property_title === '' || undefined) {
+    //         dispatch({ type: "set_required_field_error", payload: { name: 'property_title_required', value: true } })
+    //     }
+    //     if (property_description === '' || undefined) {
+    //         dispatch({ type: "set_required_field_error", payload: { name: 'property_description_required', value: true } })
+    //     }
+    //     if (price === '' || undefined) {
+    //         dispatch({ type: "set_required_field_error", payload: { name: 'price_required', value: true } })
+    //     }
+    //     if (land_area === '' || undefined) {
+    //         dispatch({ type: "set_required_field_error", payload: { name: 'land_area_required', value: true } })
+    //     }
+    //     else {
+    //         const formData = new FormData();
+    //         axios.post('http://localhost:3200/addproperty/uploaddata', formData,
+    //             {
+    //                 headers: {
+    //                     'Authorization': `Bearer ${localStorage.getItem('secretkey')}`,
+    //                     'content-type': 'multipart/form-data'
+    //                 }
+    //             }).then(res => console.log('this is response', res)).catch(err => console.log(err))
+    //     }
+    // }
+
+
+
 
     // HANDLE SUBMIT PROPERTY
+
 
     const HandleSubmitProperty = (e) => {
         e.preventDefault()
         const selected_features = SwitchController(property_purpose_type.propertyType)
-        const formData = {
+        // let formdata = new FormData()
+        const Add_Property_Form_Data = {
             purpose: property_purpose_type.purpose,
             wanted_for: property_purpose_type.wantedType,
             property_type: property_purpose_type.propertyType,
@@ -185,18 +191,49 @@ const AddProperty = () => {
             price,
             land_area,
             area_unit_name,
-            images,
-            features: selected_features
+            features: selected_features,
         }
+        // for (var data of Object.entries(Add_Property_Form_Data)) {
+        //     formdata.append(data[0], data[1])
+        // }
+        // formdata.append('image', [{ "filename": images[0].data_url }])
+        // for (var data of formdata.entries()) {
+        //     console.log(data[0], data[1])
+        // }
+
+        // axios.post('http://localhost:3200/addproperty/uploaddata', formdata,
+        //     {
+        //         headers: {
+        //             'Authorization': `Bearer ${localStorage.getItem('secretkey')}`,
+        //             'content-type': 'multipart/form-data'
+        //         }
+        //     }).then(res => console.log('this is response', res)).catch(err => console.log(err))
+
+
         // this function will check empty fields and if all required fields are filled properly it will send data to the server
-        CheckEmptyFields(formData)
+        // CheckEmptyFields(Add_Property_Form_Data, images)
+
+
+
+    }
+
+    const handletest = (e) => {
+        // console.log(e.target.files)
+        // let formdata = new FormData()
+        // formdata.append('image', e.target.files[0])
+        // axios.post('http://localhost:3200/addproperty/uploaddata', formdata,
+        //     {
+        //         headers: {
+        //             'Authorization': `Bearer ${localStorage.getItem('secretkey')}`,
+        //             'content-type': 'multipart/form-data'
+        //         }
+        //     }).then(res => console.log('this is response', res)).catch(err => console.log(err))
 
     }
 
 
     return (
         <Layout FooterDisplay={true}>
-
             {/* BANNER */}
             <Container maxWidth="md" className={`${classes.mainContainer} ${classes.banner}`}>
                 <div className={classes.iconContainer}>
@@ -212,30 +249,30 @@ const AddProperty = () => {
             </Container>
             {/* ADD PROPERTY FORM */}
             <Container maxWidth="md" className={classes.mainContainer}>
-                <form onSubmit={HandleSubmitProperty}>
-                    <PropertyTypeAndLocation />
-                    <PropertyDetails />
-                    <AddImages />
-                    {
-                        (() => {
-                            switch (property_purpose_type.propertyType) {
-                                case 'Homes':
-                                    return <HomeFeatures />
+                {/* <form onSubmit={HandleSubmitProperty}> */}
+                <PropertyTypeAndLocation />
+                <PropertyDetails />
+                <AddImages />
+                {
+                    (() => {
+                        switch (property_purpose_type.propertyType) {
+                            case 'Homes':
+                                return <HomeFeatures />
 
-                                case 'Plots':
-                                    return <PlotFeatures />
+                            case 'Plots':
+                                return <PlotFeatures />
 
-                                case 'Commercial':
-                                    return <CommercialFeatures />
+                            case 'Commercial':
+                                return <CommercialFeatures />
 
-                                default:
-                                    break;
-                            }
-                        })()
+                            default:
+                                break;
+                        }
+                    })()
 
-                    }
-                    <button className={classes.buttonContainer}>SUBMIT PROPERTY</button>
-                </form>
+                }
+                <button className={classes.buttonContainer} onClick={HandleSubmitProperty}>SUBMIT PROPERTY</button>
+                {/* </form> */}
             </Container>
 
             {/* GOTO TOP BUTTON */}

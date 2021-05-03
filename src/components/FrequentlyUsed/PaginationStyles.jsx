@@ -18,6 +18,10 @@ export const useStyles = makeStyles((theme) => ({
     progressBarContainer: {
         display: 'flex',
         justifyContent: 'center'
+    },
+    link: {
+        listStyle: 'none',
+        textDecoration: 'none'
     }
 }));
 

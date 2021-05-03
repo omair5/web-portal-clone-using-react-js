@@ -20,6 +20,7 @@ const ContactUs = React.lazy(() => import('./pages/ContactUs'));
 const AboutUs = React.lazy(() => import('./pages/AboutUs'));
 const AddProperty = React.lazy(() => import('./pages/AddProperty'))
 const UserLogin = React.lazy(() => import('./pages/UserLogIn'));
+const Property = React.lazy(() => import('./pages/Property'));
 const PageNotFound = React.lazy(() => import('./pages/PageNotFound'));
 const ResetPasswordDialogBox = React.lazy(() => import('./components/FrequentlyUsed/ResetPasswordDialogBox'));
 // const Listings = React.lazy(() => import('./pages/Listings'));
@@ -55,6 +56,7 @@ function App() {
     async function GetPropertiesExplore() {
       if (mounted) {
         const buy_response = await ExploreGetProperties('Buy')
+        console.log('checking data', buy_response)
         if (buy_response.length !== 0) {
           dispatch({ type: 'hide_buy_properties_skeleton' })
           dispatch({ type: 'explore_buy_properties', payload: buy_response })
@@ -137,6 +139,7 @@ function App() {
             <Route exact path='/partners' component={Partners} />
             <Route exact path='/contact' component={ContactUs} />
             <Route exact path='/about' component={AboutUs} />
+            <Route exact path='/property/:propertyId' component={Property} />
             {/* protected routes */}
             <Route exact path='/add-property'>
               <ProtectedRoutes Component={AddProperty} />
