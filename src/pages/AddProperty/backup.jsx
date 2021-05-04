@@ -128,166 +128,200 @@ const AddProperty = () => {
     const CheckEmptyFields = (Add_Property_Form_Data, images) => {
         if (property_purpose_type.purpose === '' || undefined) {
             dispatch({ type: "set_required_field_error", payload: { name: 'purpose_required', value: true } })
+            console.log('1')
         }
         if (property_purpose_type.wantedType === '' || undefined) {
             dispatch({ type: "set_required_field_error", payload: { name: 'wantedType_required', value: true } })
+            console.log('2')
+
         }
         if (property_purpose_type.propertyType === '' || undefined) {
             dispatch({ type: "set_required_field_error", payload: { name: 'propertyType_required', value: true } })
+            console.log('3')
+
         }
         if (sub_property_type.value === undefined) {
             dispatch({ type: "set_required_field_error", payload: { name: 'property_category_required', value: true } })
+            console.log('4')
+
         }
         // if (city.value === undefined) {
         //     dispatch({ type: "set_required_field_error", payload: { name: 'city_name_required', value: true } })
         // }
         // if (location.value === undefined) {
         //     dispatch({ type: "set_required_field_error", payload: { name: 'location_name_required', value: true } })
-        //     console.log('location')
         // }
         if (property_title === '' || undefined) {
             dispatch({ type: "set_required_field_error", payload: { name: 'property_title_required', value: true } })
+            console.log('5')
+
         }
         if (property_description === '' || undefined) {
             dispatch({ type: "set_required_field_error", payload: { name: 'property_description_required', value: true } })
+            console.log('6')
+
         }
         if (price === '' || undefined) {
             dispatch({ type: "set_required_field_error", payload: { name: 'price_required', value: true } })
+            console.log('7')
+
         }
         if (land_area === '' || undefined) {
             dispatch({ type: "set_required_field_error", payload: { name: 'land_area_required', value: true } })
+            console.log('8')
+
         }
-        // if (images.length < 3) {
-        //     dispatch({ type: "set_required_field_error", payload: { name: 'min_3_images_required', value: true } })
+        if (images.length < 3) {
+            dispatch({ type: "set_required_field_error", payload: { name: 'min_3_images_required', value: true } })
+            console.log('9')
+
+        }
+        // if (property_purpose_type.propertyType === 'Homes') {
+        //     if (home_general_info_inputs.bedrooms === '') {
+        //         dispatch({ type: "set_required_field_error", payload: { name: 'home_bedrooms_required', value: true } })
+        //     }
+        //     if (home_general_info_inputs.bathrooms === '') {
+        //         dispatch({ type: "set_required_field_error", payload: { name: 'home_bathrooms_required', value: true } })
+        //     }
         // }
-        else {
-            // axios.post('http://localhost:3200/addproperty/uploaddata', formdata,
-            //     {
-            //         headers: {
-            //             'Authorization': `Bearer ${localStorage.getItem('secretkey')}`,
-            //             'content-type': 'multipart/form-data'
-            //         }
-            //     }).then(res => {
-            //         console.log('this is response', res)
-            // CLEARING FORM FIELDS
-            console.log('this is else')
-            ClearFormFields()
-            // }).catch(err => console.log(err))
-        }
+        // if (property_purpose_type.propertyType === 'Commercial') {
+        //     if (commercial_general_info_inputs.rooms === '') {
+        //         dispatch({ type: "set_required_field_error", payload: { name: 'commercial_rooms_required', value: true } })
+        //     }
+        // }
+
+        // else {
+        //     // axios.post('http://localhost:3200/addproperty/uploaddata', formdata,
+        //     //     {
+        //     //         headers: {
+        //     //             'Authorization': `Bearer ${localStorage.getItem('secretkey')}`,
+        //     //             'content-type': 'multipart/form-data'
+        //     //         }
+        //     //     }).then(res => {
+        //     //         console.log('this is response', res)
+        //     // CLEARING FORM FIELDS
+        //     console.log('this is else statmenet')
+        //     ClearFormFields()
+        //     // }).catch(err => console.log(err))
+        // }
+
+    // }
+}
+
+const ClearFormFields = () => {
+    // CLEAR PROPERTY TYPE AND LOCATION
+    dispatch({ type: 'clear_property_details' })
+    dispatch({ type: 'clear_property_sub_type' })
+    dispatch({ type: 'add_property_clear_selected_city' })
+    dispatch({ type: 'add_property_clear_selected_location' })
+    // PROPERTY DETAILS
+    dispatch({ type: 'clear_property_details_title' })
+    dispatch({ type: 'clear_property_details_description' })
+    dispatch({ type: 'clear_property_details_price' })
+    dispatch({ type: 'clear_property_details_land_area' })
+    dispatch({ type: 'clear_property_details_area_unit' })
+    dispatch({ type: 'clear_property_details_Price_In_Words' });
+    // IMAGES 
+    dispatch({ type: 'clear_gallery_images_list' })
+    // HOME FEATURES
+    dispatch({ type: 'clear_home_general_info_inputs' })
+    dispatch({ type: 'clear_home_flooring' })
+    dispatch({ type: 'clear_home_backup' })
+    dispatch({ type: 'clear_home_main_features' })
+    dispatch({ type: 'clear_home_business_and_communication' })
+    dispatch({ type: 'clear_Home_utilities' })
+    dispatch({ type: 'clear_home_facing' })
+    // PLOT FEATURES
+    dispatch({ type: 'clear_plot_main_features' })
+    // COMMERCIAL FEATURES
+    dispatch({ type: 'clear_commercial_general_info_inputs' })
+    dispatch({ type: 'clear_commercial_main_features' })
+    dispatch({ type: 'clear_commercial_flooring' })
+    dispatch({ type: 'clear_commercial_backup' })
+    dispatch({ type: 'clear_commercial_business_and_communication' })
+}
+
+// HANDLE SUBMIT PROPERTY
+const HandleSubmitProperty = (e) => {
+    e.preventDefault()
+    const selected_features = SwitchController(property_purpose_type.propertyType)
+    // const { general_information, main_features, business_and_communication, utilities, facing } = selected_features
+    const Add_Property_Form_Data = {
+        purpose: property_purpose_type.purpose,
+        wanted_for: property_purpose_type.wantedType,
+        property_type: property_purpose_type.propertyType,
+        property_category: sub_property_type.value,
+        city_name: city.value,
+        location_name: location.value,
+        property_title,
+        property_description,
+        price,
+        land_area,
+        area_unit_name,
+        features: selected_features,
     }
 
-    const ClearFormFields = () => {
-        // CLEAR PROPERTY TYPE AND LOCATION
-        dispatch({ type: 'clear_property_details' })
-        dispatch({ type: 'clear_property_sub_type' })
-        dispatch({ type: 'add_property_clear_selected_city' })
-        dispatch({ type: 'add_property_clear_selected_location' })
-        // PROPERTY DETAILS
-        dispatch({ type: 'clear_property_details_title' })
-        dispatch({ type: 'clear_property_details_description' })
-        dispatch({ type: 'clear_property_details_price' })
-        dispatch({ type: 'clear_property_details_land_area' })
-        dispatch({ type: 'clear_property_details_area_unit' })
-        // IMAGES 
-        dispatch({ type: 'clear_gallery_images_list' })
-        // HOME FEATURES
-        dispatch({ type: 'clear_home_general_info_inputs' })
-        dispatch({ type: 'clear_home_flooring' })
-        dispatch({ type: 'clear_home_backup' })
-        dispatch({ type: 'clear_home_main_features' })
-        dispatch({ type: 'clear_home_business_and_communication' })
-        dispatch({ type: 'clear_Home_utilities' })
-        dispatch({ type: 'clear_home_facing' })
-        // PLOT FEATURES
-        dispatch({ type: 'clear_plot_main_features' })
-        // COMMERCIAL FEATURES
-        dispatch({ type: 'clear_commercial_general_info_inputs' })
-        dispatch({ type: 'clear_commercial_main_features' })
-        dispatch({ type: 'clear_commercial_flooring' })
-        dispatch({ type: 'clear_commercial_backup' })
-        dispatch({ type: 'clear_commercial_business_and_communication' })
+    for (var data of Object.entries(Add_Property_Form_Data)) {
+        if (data[0] === 'features') {
+            formdata.append(data[0], JSON.stringify(data[1]))
+        }
+        formdata.append(data[0], data[1])
     }
 
-    // HANDLE SUBMIT PROPERTY
-    const HandleSubmitProperty = (e) => {
-        e.preventDefault()
-        const selected_features = SwitchController(property_purpose_type.propertyType)
-        const Add_Property_Form_Data = {
-            purpose: property_purpose_type.purpose,
-            wanted_for: property_purpose_type.wantedType,
-            property_type: property_purpose_type.propertyType,
-            property_category: sub_property_type.value,
-            city_name: city.value,
-            location_name: location.value,
-            property_title,
-            property_description,
-            price,
-            land_area,
-            area_unit_name,
-            features: selected_features,
-        }
+    for (var x in images) {
+        formdata.append('image', images[x].file)
+    }
 
-        for (var data of Object.entries(Add_Property_Form_Data)) {
-            if (data[0] === 'features') {
-                formdata.append(data[0], JSON.stringify(data[1]))
+    // this function will check empty fields and if all required fields 
+    // are filled properly it will send data to the server
+    CheckEmptyFields(Add_Property_Form_Data, images)
+}
+
+return (
+    <Layout FooterDisplay={true}>
+        {/* BANNER */}
+        <Container maxWidth="md" className={`${classes.mainContainer} ${classes.banner}`}>
+            <div className={classes.iconContainer}>
+                <HouseIcon style={{ fontSize: "55px" }} />
+            </div>
+            <div className={classes.textContainer}>
+                <h2>ADD YOUR PROPERTY</h2>
+                <h4>Enter your property details below to get it listed on our portal</h4>
+            </div>
+        </Container>
+        <Container maxWidth="md" className={`${classes.mainContainer}`}>
+            <h5><span className='asterik-para'>*</span> Are Required Fields</h5>
+        </Container>
+        {/* ADD PROPERTY FORM */}
+        <Container maxWidth="md" className={classes.mainContainer}>
+            {/* <form onSubmit={HandleSubmitProperty}> */}
+            <PropertyTypeAndLocation />
+            <PropertyDetails />
+            <AddImages />
+            {
+                (() => {
+                    switch (property_purpose_type.propertyType) {
+                        case 'Homes':
+                            return <HomeFeatures />
+
+                        case 'Plots':
+                            return <PlotFeatures />
+
+                        case 'Commercial':
+                            return <CommercialFeatures />
+
+                        default:
+                            break;
+                    }
+                })()
+
             }
-            formdata.append(data[0], data[1])
-        }
+            <button className={classes.buttonContainer} onClick={HandleSubmitProperty}>SUBMIT PROPERTY</button>
+            {/* </form> */}
+        </Container>
 
-        for (var x in images) {
-            formdata.append('image', images[x].file)
-        }
-
-        // this function will check empty fields and if all required fields 
-        // are filled properly it will send data to the server
-        CheckEmptyFields(Add_Property_Form_Data, images)
-    }
-
-    return (
-        <Layout FooterDisplay={true}>
-            {/* BANNER */}
-            <Container maxWidth="md" className={`${classes.mainContainer} ${classes.banner}`}>
-                <div className={classes.iconContainer}>
-                    <HouseIcon style={{ fontSize: "55px" }} />
-                </div>
-                <div className={classes.textContainer}>
-                    <h2>ADD YOUR PROPERTY</h2>
-                    <h4>Enter your property details below to get it listed on our portal</h4>
-                </div>
-            </Container>
-            <Container maxWidth="md" className={`${classes.mainContainer}`}>
-                <h5><span className='asterik-para'>*</span> Are Required Fields</h5>
-            </Container>
-            {/* ADD PROPERTY FORM */}
-            <Container maxWidth="md" className={classes.mainContainer}>
-                {/* <form onSubmit={HandleSubmitProperty}> */}
-                <PropertyTypeAndLocation />
-                <PropertyDetails />
-                <AddImages />
-                {
-                    (() => {
-                        switch (property_purpose_type.propertyType) {
-                            case 'Homes':
-                                return <HomeFeatures />
-
-                            case 'Plots':
-                                return <PlotFeatures />
-
-                            case 'Commercial':
-                                return <CommercialFeatures />
-
-                            default:
-                                break;
-                        }
-                    })()
-
-                }
-                <button className={classes.buttonContainer} onClick={HandleSubmitProperty}>SUBMIT PROPERTY</button>
-                {/* </form> */}
-            </Container>
-
-            {/* GOTO TOP BUTTON */}
-            <GoToTop />
-        </Layout>);
+        {/* GOTO TOP BUTTON */}
+        <GoToTop />
+    </Layout>);
 }
 export default React.memo(AddProperty);

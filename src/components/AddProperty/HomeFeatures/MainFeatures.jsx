@@ -32,7 +32,6 @@ const MainFeatures = () => {
     const handleChange = (event) => {
         dispatch({ type: 'set_home_main_features', payload: { name: event.target.name, checked: event.target.checked } })
     };
-    console.log(features)
     return (
         <>
             <div className={classes.MainContainer}>

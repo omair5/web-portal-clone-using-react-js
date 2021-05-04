@@ -32,7 +32,6 @@ const BusinessAndCommunication = () => {
     const handleChange = (event) => {
         dispatch({ type: 'set_home_business_and_communication', payload: { name: event.target.name, checked: event.target.checked } })
     };
-    console.log(features)
     return (
         <>
             <div className={classes.MainContainer}>

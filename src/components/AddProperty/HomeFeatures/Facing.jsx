@@ -31,7 +31,6 @@ const FACING = () => {
     const handleChange = (event) => {
         dispatch({ type: 'set_home_facing', payload: { name: event.target.name, checked: event.target.checked } })
     };
-    console.log(features)
     return (
         <>
             <div className={classes.MainContainer}>

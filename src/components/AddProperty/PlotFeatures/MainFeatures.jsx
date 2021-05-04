@@ -32,7 +32,6 @@ const MainFeatures = () => {
     const handleChange = (event) => {
         dispatch({ type: 'set_plot_main_features', payload: { name: event.target.name, checked: event.target.checked } })
     };
-    console.log('from plot', features)
     return (
         <>
             <div className={classes.MainContainer}>

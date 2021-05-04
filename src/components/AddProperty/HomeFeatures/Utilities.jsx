@@ -32,7 +32,6 @@ const Utilities = () => {
     const handleChange = (event) => {
         dispatch({ type: 'set_Home_utilities', payload: { name: event.target.name, checked: event.target.checked } })
     };
-    console.log(features)
     return (
         <>
             <div className={classes.MainContainer}>

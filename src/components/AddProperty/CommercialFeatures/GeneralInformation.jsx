@@ -42,9 +42,9 @@ const GeneralInformation = () => {
     const dispatch = useDispatch()
     const generalInfoInputs = useSelector(state => state.Commercial_General_Info_Inputs)
     const { year, rooms, parking, floors } = generalInfoInputs
-    console.log(generalInfoInputs)
     const selectedFloor = useSelector(state => state.Commercial_Flooring)
     const selectedBackup = useSelector(state => state.Commercial_Backup)
+    const { commercial_rooms_required } = useSelector(state => state.RequiredFields)
 
     // HANDLE CALLBACKS
     const HandleInputChange = (e) => {
@@ -86,13 +86,15 @@ const GeneralInformation = () => {
                         <InputTextField
                             value={rooms}
                             TextFieldId='2'
-                            TextFieldPlaceHolder='NO OF ROOMS'
+                            TextFieldPlaceHolder='NO OF ROOMS*'
                             InputType='tel'
                             name='rooms'
                             outlined="outlined"
                             callBack={HandleInputChange}
                             maxlength={4}
                         />
+                        {commercial_rooms_required && <span className='required'>This Field is Required!</span>}
+
                     </Grid>
                     {/* TOTAL PARKING SPACE */}
                     <Grid item xs={6} sm={6} md={3}>

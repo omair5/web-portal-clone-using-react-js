@@ -45,6 +45,7 @@ const GeneralInformation = () => {
     const { year, bedrooms, bathrooms, parking, floors } = generalInfoInputs
     const selectedFloor = useSelector(state => state.Home_Flooring)
     const selectedBackup = useSelector(state => state.Home_Backup)
+    const { home_bedrooms_required, home_bathrooms_required } = useSelector(state => state.RequiredFields)
 
 
     // HANDLE CALLBACKS
@@ -87,26 +88,29 @@ const GeneralInformation = () => {
                         <InputTextField
                             value={bedrooms}
                             TextFieldId='2'
-                            TextFieldPlaceHolder='NO OF BEDROOMS'
+                            TextFieldPlaceHolder='NO OF BEDROOMS*'
                             InputType='tel'
                             name='bedrooms'
                             outlined="outlined"
                             callBack={HandleInputChange}
                             maxlength={4}
                         />
+                        {home_bedrooms_required && <span className='required'>This Field is Required!</span>}
                     </Grid>
                     {/* NO OF BATHROOMS */}
                     <Grid item xs={6} sm={6} md={3}>
                         <InputTextField
                             value={bathrooms}
                             TextFieldId='3'
-                            TextFieldPlaceHolder='NO OF BATHROOMS'
+                            TextFieldPlaceHolder='NO OF BATHROOMS*'
                             InputType='tel'
                             name='bathrooms'
                             outlined="outlined"
                             callBack={HandleInputChange}
                             maxlength={4}
                         />
+                        {home_bathrooms_required && <span className='required'>This Field is Required!</span>}
+
                     </Grid>
                     {/* TOTAL PARKING SPACE */}
                     <Grid item xs={6} sm={6} md={3}>

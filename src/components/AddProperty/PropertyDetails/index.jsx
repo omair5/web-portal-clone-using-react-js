@@ -87,8 +87,8 @@ const PropertyDetails = () => {
     const price = useSelector(state => state.PropertyDetails_Price)
     const landArea = useSelector(state => state.PropertyDetails_LandArea)
     const areaUnit = useSelector(state => state.PropertyDetails_AreaUnit)
+    const priceInWords = useSelector(state => state.PropertyDetails_Price_In_Words)
     const { property_title_required, property_description_required, price_required, land_area_required, area_unit_name_required } = useSelector(state => state.RequiredFields)
-    const [priceInWords, setpriceInWords] = useState('Price must contain numbers only')
     console.log(areaUnit)
 
     // -------------------- HANDLE CALLBACKS
@@ -108,10 +108,10 @@ const PropertyDetails = () => {
         else {
             dispatch({ type: 'set_property_details_price', payload: e.target.value })
             if (isFinite(1000 / e.target.value)) {
-                setpriceInWords(converter.toWords(e.target.value));
+                dispatch({ type: 'set_property_details_Price_In_Words', payload: converter.toWords(e.target.value) });
             }
             else {
-                setpriceInWords('Price must contain numbers only');
+                dispatch({ type: 'clear_property_details_Price_In_Words' });
             }
         }
     }
