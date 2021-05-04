@@ -109,42 +109,6 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 'bolder',
         padding: '8px 0px'
     },
-    label: {
-        display: 'inline-block',
-        position: 'relative',
-        height: '100px',
-        width: '400px',
-    },
-    test: {
-        position: 'absolute',
-        top: '0',
-        bottom: '0',
-        width: '75%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: 'white',
-        border: '2px dashed silver',
-        borderRadius: '5px',
-        zIndex: 10,
-        cursor: 'pointer',
-        padding: '20px',
-        "&:hover": {
-            backgroundColor: '#ededed',
-        },
-        "& p": {
-            fontWeight: 'bolder',
-            color: 'rgb(76, 84, 85)',
-            textAlign: 'center'
-        },
-        "& span": {
-            color: 'gray',
-            fontSize: '10px',
-            textAlign: 'center'
-        }
-    }
-
 }));
 
 const AddImages = () => {
@@ -152,14 +116,11 @@ const AddImages = () => {
     const dispatch = useDispatch()
     // const [images, setImages] = useState([]);
     const images = useSelector(state => state.AddImages_Images_List)
+    const { min_3_images_required } = useSelector(state => state.RequiredFields)
     const maxNumber = 50;
 
     const onChange = (imageList) => {
         dispatch({ type: 'gallery_images_list', payload: imageList })
-    }
-
-    const HandleAddImages = (e) => {
-        console.log(e.target.files)
     }
 
     return (
@@ -197,8 +158,6 @@ const AddImages = () => {
                         <div className="upload__image-wrapper">
                             <div className={classes.buttonContainer}>
                                 {/* ADD IMAGES */}
-
-
                                 <button
                                     style={isDragging ? { backgroundColor: 'rgb(59, 70, 86)' } : undefined}
                                     onClick={onImageUpload}
@@ -208,16 +167,6 @@ const AddImages = () => {
                                     <AddAPhotoIcon style={{ fontSize: '35px', marginRight: '10px' }} />
                                     <p>Upload Images <br /> <span>OR Drag Them In</span> <br /> <span>(Max FileSize 5MB, accepts .jpg, .png)</span></p>
                                 </button>
-
-                                {/* <input type='file' id='file-upload' multiple /> */}
-                                {/* <label htmlFor="test" className={classes.label}>
-                                    <div className={classes.test}>
-                                        <AddAPhotoIcon style={{ fontSize: '35px', marginRight: '10px' }} />
-                                        <p>Upload Images <br /> <span>OR Drag Them In</span> <br /> <span>(Max FileSize 5MB, accepts .jpg, .png)</span></p>
-                                    </div>
-                                    <input type="file" id="test" />
-                                </label> */}
-
 
                                 {/* REMOVE ALL IMAGES */}
                                 {imageList.length !== 0 ?
@@ -285,6 +234,7 @@ const AddImages = () => {
                                     </div>
                                 ))}
                             </div>
+                            {min_3_images_required && <span className='required'>Minimum 3 Property Images Should Be Uploaded</span>}
                         </div>
                     )}
                 </ImageUploading>

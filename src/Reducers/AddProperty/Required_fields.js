@@ -10,6 +10,7 @@ const initialstate = {
     price_required: false,
     land_area_required: false,
     area_unit_name_required: false,
+    min_3_images_required: false
 }
 
 const RequiredFields = (state = initialstate, action) => {
@@ -29,6 +30,7 @@ const RequiredFields = (state = initialstate, action) => {
                 price_required: false,
                 land_area_required: false,
                 area_unit_name_required: false,
+                min_3_images_required: false
             }
         default:
             return state
