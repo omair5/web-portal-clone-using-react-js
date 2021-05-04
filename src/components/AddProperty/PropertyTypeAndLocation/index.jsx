@@ -24,6 +24,7 @@ const PropertyTypeAndLocation = () => {
     const { purpose_required, wantedType_required, propertyType_required, property_category_required, city_name_required, location_name_required } = useSelector(state => state.RequiredFields)
     // LOCAL STATES
     const [cityLocations, setcityLocations] = useState([])
+    console.log('checkinnsjfbdbfhdhvfhiuodlfodfv', propertyDetails)
 
 
     // HANDLING PURPOSE ,PROPERTY TYPE & WANTED TYPE

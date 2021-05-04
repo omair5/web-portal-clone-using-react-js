@@ -170,7 +170,7 @@ const AddProperty = () => {
                 }).then(res => {
                     console.log('this is response', res)
                     // CLEARING FORM FIELDS
-                    // ClearFormFields()
+                    ClearFormFields()
                 }).catch(err => console.log(err))
         }
     }
@@ -190,7 +190,7 @@ const AddProperty = () => {
         // IMAGES 
         dispatch({ type: 'clear_gallery_images_list' })
         // HOME FEATURES
-        dispatch({ type: 'clear_home_main_features' })
+        dispatch({ type: 'clear_home_general_info_inputs' })
         dispatch({ type: 'clear_home_flooring' })
         dispatch({ type: 'clear_home_backup' })
         dispatch({ type: 'clear_home_main_features' })
@@ -234,7 +234,6 @@ const AddProperty = () => {
             formdata.append(data[0], data[1])
             console.log(data[0], data[1])
         }
-
 
         for (var x in images) {
             formdata.append('image', images[x].file)
