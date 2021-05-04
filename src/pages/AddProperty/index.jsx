@@ -211,6 +211,7 @@ const AddProperty = () => {
     const HandleSubmitProperty = (e) => {
         e.preventDefault()
         const selected_features = SwitchController(property_purpose_type.propertyType)
+        // const { general_information, main_features, business_and_communication, utilities, facing } = selected_features
         const Add_Property_Form_Data = {
             purpose: property_purpose_type.purpose,
             wanted_for: property_purpose_type.wantedType,
@@ -227,6 +228,9 @@ const AddProperty = () => {
         }
 
         for (var data of Object.entries(Add_Property_Form_Data)) {
+            if (data[0] === 'features') {
+                formdata.append(data[0], JSON.stringify(data[1]))
+            }
             formdata.append(data[0], data[1])
             console.log(data[0], data[1])
         }
