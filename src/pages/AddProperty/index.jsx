@@ -94,8 +94,6 @@ const AddProperty = () => {
     const utilities = useSelector(state => state.Home_utilities)
     const facing = useSelector(state => state.Home_Facing)
 
-
-
     const SwitchController = (type) => {
         switch (type) {
             case 'Homes':
@@ -178,7 +176,7 @@ const AddProperty = () => {
     const HandleSubmitProperty = (e) => {
         e.preventDefault()
         const selected_features = SwitchController(property_purpose_type.propertyType)
-        // let formdata = new FormData()
+        let formdata = new FormData()
         const Add_Property_Form_Data = {
             purpose: property_purpose_type.purpose,
             wanted_for: property_purpose_type.wantedType,
@@ -193,22 +191,12 @@ const AddProperty = () => {
             area_unit_name,
             features: selected_features,
         }
-        // for (var data of Object.entries(Add_Property_Form_Data)) {
-        //     formdata.append(data[0], data[1])
-        // }
-        // formdata.append('image', [{ "filename": images[0].data_url }])
-        // for (var data of formdata.entries()) {
-        //     console.log(data[0], data[1])
-        // }
-
-        // axios.post('http://localhost:3200/addproperty/uploaddata', formdata,
-        //     {
-        //         headers: {
-        //             'Authorization': `Bearer ${localStorage.getItem('secretkey')}`,
-        //             'content-type': 'multipart/form-data'
-        //         }
-        //     }).then(res => console.log('this is response', res)).catch(err => console.log(err))
-
+        for (var x in images) {
+            formdata.append('image', images[x].file)
+        }
+       for (var data of formdata.entries()){
+           console.log(data[0],data[1])
+       }
 
         // this function will check empty fields and if all required fields are filled properly it will send data to the server
         // CheckEmptyFields(Add_Property_Form_Data, images)
@@ -217,23 +205,25 @@ const AddProperty = () => {
 
     }
 
-    const handletest = (e) => {
-        // console.log(e.target.files)
-        // let formdata = new FormData()
-        // formdata.append('image', e.target.files[0])
-        // axios.post('http://localhost:3200/addproperty/uploaddata', formdata,
-        //     {
-        //         headers: {
-        //             'Authorization': `Bearer ${localStorage.getItem('secretkey')}`,
-        //             'content-type': 'multipart/form-data'
-        //         }
-        //     }).then(res => console.log('this is response', res)).catch(err => console.log(err))
-
-    }
+    // const handletest = (e) => {
+    //     console.log(e.target.files[0])
+    //     let formdata = new FormData()
+    //     formdata.append('image', e.target.files[0])
+    //     axios.post('http://localhost:3200/addproperty/uploaddata', formdata,
+    //         {
+    //             headers: {
+    //                 'Authorization': `Bearer ${localStorage.getItem('secretkey')}`,
+    //                 'content-type': 'multipart/form-data'
+    //             }
+    //         }).then(res => console.log('this is response', res)).catch(err => console.log(err))
+    // }
 
 
     return (
         <Layout FooterDisplay={true}>
+            {/* <input type="file"  onChange={handletest} /> */}
+
+
             {/* BANNER */}
             <Container maxWidth="md" className={`${classes.mainContainer} ${classes.banner}`}>
                 <div className={classes.iconContainer}>

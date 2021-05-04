@@ -37,29 +37,29 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '20px',
         marginBottom: '20px',
     },
-    // addButton: {
-    //     display: 'flex',
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //     borderRadius: '5px',
-    //     padding: '20px',
-    //     border: '2px dashed silver',
-    //     marginRight: '10px',
-    //     backgroundColor: 'white',
-    //     cursor: 'pointer',
-    //     outline: 'none',
-    //     "&:hover": {
-    //         backgroundColor: '#ededed',
-    //     },
-    //     "& p": {
-    //         fontWeight: 'bolder',
-    //         color: 'rgb(76, 84, 85)'
-    //     },
-    //     "& span": {
-    //         color: 'gray',
-    //         fontSize: '10px'
-    //     }
-    // },
+    addButton: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: '5px',
+        padding: '20px',
+        border: '2px dashed silver',
+        marginRight: '10px',
+        backgroundColor: 'white',
+        cursor: 'pointer',
+        outline: 'none',
+        "&:hover": {
+            backgroundColor: '#ededed',
+        },
+        "& p": {
+            fontWeight: 'bolder',
+            color: 'rgb(76, 84, 85)'
+        },
+        "& span": {
+            color: 'gray',
+            fontSize: '10px'
+        }
+    },
     imageContainer: {
         marginTop: '20px',
         display: 'flex',
@@ -199,7 +199,7 @@ const AddImages = () => {
                                 {/* ADD IMAGES */}
 
 
-                                {/* <button
+                                <button
                                     style={isDragging ? { backgroundColor: 'rgb(59, 70, 86)' } : undefined}
                                     onClick={onImageUpload}
                                     {...dragProps}
@@ -207,16 +207,16 @@ const AddImages = () => {
                                 >
                                     <AddAPhotoIcon style={{ fontSize: '35px', marginRight: '10px' }} />
                                     <p>Upload Images <br /> <span>OR Drag Them In</span> <br /> <span>(Max FileSize 5MB, accepts .jpg, .png)</span></p>
-                                </button> */}
+                                </button>
 
                                 {/* <input type='file' id='file-upload' multiple /> */}
-                                <label htmlFor="test" className={classes.label}>
+                                {/* <label htmlFor="test" className={classes.label}>
                                     <div className={classes.test}>
                                         <AddAPhotoIcon style={{ fontSize: '35px', marginRight: '10px' }} />
                                         <p>Upload Images <br /> <span>OR Drag Them In</span> <br /> <span>(Max FileSize 5MB, accepts .jpg, .png)</span></p>
                                     </div>
                                     <input type="file" id="test" />
-                                </label>
+                                </label> */}
 
 
                                 {/* REMOVE ALL IMAGES */}

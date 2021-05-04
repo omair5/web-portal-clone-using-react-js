@@ -141,9 +141,11 @@ function App() {
             <Route exact path='/about' component={AboutUs} />
             <Route exact path='/property/:propertyId' component={Property} />
             {/* protected routes */}
-            <Route exact path='/add-property'>
+            {/* <Route exact path='/add-property'>
               <ProtectedRoutes Component={AddProperty} />
-            </Route>
+            </Route> */}
+                        <Route exact path='/add-property' component={AddProperty} />
+
             <Route exact path='/reset/password' component={ResetPasswordDialogBox} />
             {/* dashboard */}
             <Route exact path='/my-account' component={UserLogin} />
