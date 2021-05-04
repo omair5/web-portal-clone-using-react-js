@@ -99,27 +99,27 @@ const AddProperty = () => {
     const SwitchController = (type) => {
         switch (type) {
             case 'Homes':
-                return [
-                    { general_information: { ...home_general_info_inputs, flooring: Home_Flooring.value, backup: Home_Backup.value } },
-                    { main_features: home_main_features },
-                    { business_and_communication: home_business_and_communication },
-                    { utilities: utilities },
-                    { facing: facing },
-                ]
+                return {
+                    general_information: { ...home_general_info_inputs, flooring: Home_Flooring.value, backup: Home_Backup.value },
+                    main_features: home_main_features,
+                    business_and_communication: home_business_and_communication,
+                    utilities: utilities,
+                    facing: facing,
+                }
             case 'Plots':
-                return [
-                    { main_features: plot_main_features },
-                    { utilities: utilities },
-                    { facing: facing },
-                ]
+                return {
+                    main_features: plot_main_features,
+                    utilities: utilities,
+                    facing: facing,
+                }
             case 'Commercial':
-                return [
-                    { general_information: { ...commercial_general_info_inputs, flooring: commercial_flooring.value, backup: commercial_backup.value } },
-                    { main_features: commercial_main_features },
-                    { business_and_communication: commercial_business_and_communication },
-                    { utilities: utilities },
-                    { facing: facing },
-                ]
+                return {
+                    general_information: { ...commercial_general_info_inputs, flooring: commercial_flooring.value, backup: commercial_backup.value },
+                    main_features: commercial_main_features,
+                    business_and_communication: commercial_business_and_communication,
+                    utilities: utilities,
+                    facing: facing,
+                }
             default:
                 break;
         }
@@ -167,8 +167,44 @@ const AddProperty = () => {
                         'Authorization': `Bearer ${localStorage.getItem('secretkey')}`,
                         'content-type': 'multipart/form-data'
                     }
-                }).then(res => console.log('this is response', res)).catch(err => console.log(err))
+                }).then(res => {
+                    console.log('this is response', res)
+                    // CLEARING FORM FIELDS
+                    // ClearFormFields()
+                }).catch(err => console.log(err))
         }
+    }
+
+    const ClearFormFields = () => {
+        // CLEAR PROPERTY TYPE AND LOCATION
+        dispatch({ type: 'clear_property_details' })
+        dispatch({ type: 'clear_property_sub_type' })
+        dispatch({ type: 'add_property_clear_selected_city' })
+        dispatch({ type: 'add_property_clear_selected_location' })
+        // PROPERTY DETAILS
+        dispatch({ type: 'clear_property_details_title' })
+        dispatch({ type: 'clear_property_details_description' })
+        dispatch({ type: 'clear_property_details_price' })
+        dispatch({ type: 'clear_property_details_land_area' })
+        dispatch({ type: 'clear_property_details_area_unit' })
+        // IMAGES 
+        dispatch({ type: 'clear_gallery_images_list' })
+        // HOME FEATURES
+        dispatch({ type: 'clear_home_main_features' })
+        dispatch({ type: 'clear_home_flooring' })
+        dispatch({ type: 'clear_home_backup' })
+        dispatch({ type: 'clear_home_main_features' })
+        dispatch({ type: 'clear_home_business_and_communication' })
+        dispatch({ type: 'clear_Home_utilities' })
+        dispatch({ type: 'clear_home_facing' })
+        // PLOT FEATURES
+        dispatch({ type: 'clear_plot_main_features' })
+        // COMMERCIAL FEATURES
+        dispatch({ type: 'clear_commercial_general_info_inputs' })
+        dispatch({ type: 'clear_commercial_main_features' })
+        dispatch({ type: 'clear_commercial_flooring' })
+        dispatch({ type: 'clear_commercial_backup' })
+        dispatch({ type: 'clear_commercial_business_and_communication' })
     }
 
     // HANDLE SUBMIT PROPERTY
@@ -192,13 +228,16 @@ const AddProperty = () => {
 
         for (var data of Object.entries(Add_Property_Form_Data)) {
             formdata.append(data[0], data[1])
+            console.log(data[0], data[1])
         }
+
 
         for (var x in images) {
             formdata.append('image', images[x].file)
         }
 
-        // this function will check empty fields and if all required fields are filled properly it will send data to the server
+        // this function will check empty fields and if all required fields 
+        // are filled properly it will send data to the server
         CheckEmptyFields(Add_Property_Form_Data, images)
     }
 
