@@ -21,6 +21,20 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '15px',
         fontWeight: 'bold',
     },
+    container: {
+        // backgroundColor: 'pink',
+        margin: '10px 0px'
+    },
+    test: {
+        backgroundColor: 'red',
+        width: '700px',
+        fontSize: '60px',
+        color: 'green'
+    },
+    try: {
+        width: '100%',
+        backgroundColor: 'red'
+    }
 }));
 
 const ContactForm = () => {
@@ -65,8 +79,9 @@ const ContactForm = () => {
             />
 
             <PhoneInput
-                country={'us'}
-                containerClass='country-code-container'
+                country={'pk'}
+                containerClass={classes.container}
+
             />
 
 

@@ -341,11 +341,13 @@ const AddProperty = () => {
             formdata.append('image', images[x].file)
         }
 
+
         // this function will check empty fields which are required
         CheckEmptyFields(Add_Property_Form_Data, images)
 
         if (Object.values(check_required_field_status).every(value => value === false)) {
             setloader(true)
+
             axios.post('http://localhost:3200/addproperty/uploaddata', formdata,
                 {
                     headers: {
