@@ -54,7 +54,7 @@ const PropertyTypeAndLocation = () => {
 
     // CLEARING WANTED TYPE IF WANTED IS NOT SELECTED
     useEffect(() => {
-        if (propertyDetails.propertyType !== 'wanted') {
+        if (propertyDetails.purpose !== 'Wanted') {
             propertyDetails.wantedType = ''
         }
     }, [propertyDetails])
@@ -101,7 +101,7 @@ const PropertyTypeAndLocation = () => {
                             <RadioGroup name="wantedType" onChange={HandleChange} row >
                                 <FormControlLabel
                                     value="Buy"
-                                    control={<Radio classes={{ root: classes.radio, checked: classes.checked }} />}
+                                    control={<Radio checked={propertyDetails.wantedType === "Buy" ? true : false} classes={{ root: classes.radio, checked: classes.checked }} />}
                                     label="Buy"
                                     classes={{
                                         label: classes.RadioLabel
@@ -109,7 +109,7 @@ const PropertyTypeAndLocation = () => {
 
                                 <FormControlLabel
                                     value="Rent"
-                                    control={<Radio classes={{ root: classes.radio, checked: classes.checked }} />}
+                                    control={<Radio checked={propertyDetails.wantedType === "Rent" ? true : false} classes={{ root: classes.radio, checked: classes.checked }} />}
                                     label="Rent"
                                     classes={{
                                         label: classes.RadioLabel

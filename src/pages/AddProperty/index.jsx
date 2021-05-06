@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Layout from '../../components/Layout/Layout';
 import GoToTop from '../../GoToTop';
 import Container from '@material-ui/core/Container';
@@ -11,6 +11,7 @@ import PlotFeatures from '../../components/AddProperty/PlotFeatures';
 import CommercialFeatures from '../../components/AddProperty/CommercialFeatures';
 import { useSelector, useDispatch } from 'react-redux'
 import HouseIcon from '@material-ui/icons/House';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
@@ -58,6 +59,10 @@ const useStyles = makeStyles((theme) => ({
         "& h4": {
             color: '#c9c9c9'
         }
+    },
+    error: {
+        textAlign: 'center',
+        fontSize: '20px'
     }
 }));
 
@@ -65,6 +70,8 @@ const AddProperty = () => {
     const classes = useStyles();
     const dispatch = useDispatch()
     let formdata = new FormData()
+    const [error, setError] = useState(false)
+    const [loader, setloader] = useState(false)
     // property type & location
     const property_purpose_type = useSelector(state => state.PropertyDetails)
     const sub_property_type = useSelector(state => state.SubPropertyType)
@@ -92,9 +99,26 @@ const AddProperty = () => {
     const commercial_backup = useSelector(state => state.Commercial_Backup)
     const commercial_main_features = useSelector(state => state.Commercial_Main_Features)
     const commercial_business_and_communication = useSelector(state => state.Commercial_business_And_Communication)
-
+    // general
     const utilities = useSelector(state => state.Home_utilities)
     const facing = useSelector(state => state.Home_Facing)
+    // flags for required fields
+    let check_required_field_status = {
+        purpose_required_flag: true,
+        wantedType_required_flag: true,
+        propertyType_required_flag: true,
+        property_category_required_flag: true,
+        city_name_required_flag: true,
+        location_name_required_flag: true,
+        property_title_required_flag: true,
+        property_description_required_flag: true,
+        price_required_flag: true,
+        land_area_required_flag: true,
+        min_3_images_required_flag: true,
+        home_bedrooms_required_flag: true,
+        home_bathrooms_required_flag: true,
+        commercial_rooms_required_flag: true
+    }
 
     const SwitchController = (type) => {
         switch (type) {
@@ -129,50 +153,128 @@ const AddProperty = () => {
         if (property_purpose_type.purpose === '' || undefined) {
             dispatch({ type: "set_required_field_error", payload: { name: 'purpose_required', value: true } })
         }
-        if (property_purpose_type.wantedType === '' || undefined) {
-            dispatch({ type: "set_required_field_error", payload: { name: 'wantedType_required', value: true } })
+        else {
+            dispatch({ type: "set_required_field_error", payload: { name: 'purpose_required', value: false } })
+            check_required_field_status.purpose_required_flag = false
         }
+
+        if (property_purpose_type.purpose === 'Wanted') {
+            if (property_purpose_type.wantedType) {
+                dispatch({ type: "set_required_field_error", payload: { name: 'wantedType_required', value: false } })
+                check_required_field_status.wantedType_required_flag = false
+            }
+            else {
+                dispatch({ type: "set_required_field_error", payload: { name: 'wantedType_required', value: true } })
+            }
+        }
+        else {
+            check_required_field_status.wantedType_required_flag = false
+        }
+
         if (property_purpose_type.propertyType === '' || undefined) {
             dispatch({ type: "set_required_field_error", payload: { name: 'propertyType_required', value: true } })
         }
+        else {
+            dispatch({ type: "set_required_field_error", payload: { name: 'propertyType_required', value: false } })
+            check_required_field_status.propertyType_required_flag = false
+        }
+
         if (sub_property_type.value === undefined) {
             dispatch({ type: "set_required_field_error", payload: { name: 'property_category_required', value: true } })
         }
-        // if (city.value === undefined) {
-        //     dispatch({ type: "set_required_field_error", payload: { name: 'city_name_required', value: true } })
-        // }
-        // if (location.value === undefined) {
-        //     dispatch({ type: "set_required_field_error", payload: { name: 'location_name_required', value: true } })
-        //     console.log('location')
-        // }
+        else {
+            dispatch({ type: "set_required_field_error", payload: { name: 'property_category_required', value: false } })
+            check_required_field_status.property_category_required_flag = false
+        }
+
+        if (city.value === undefined) {
+            dispatch({ type: "set_required_field_error", payload: { name: 'city_name_required', value: true } })
+        }
+        else {
+            dispatch({ type: "set_required_field_error", payload: { name: 'city_name_required', value: false } })
+            check_required_field_status.city_name_required_flag = false
+        }
+        if (location.value === undefined) {
+            dispatch({ type: "set_required_field_error", payload: { name: 'location_name_required', value: true } })
+        }
+        else {
+            dispatch({ type: "set_required_field_error", payload: { name: 'location_name_required', value: false } })
+            check_required_field_status.location_name_required_flag = false
+        }
+
         if (property_title === '' || undefined) {
             dispatch({ type: "set_required_field_error", payload: { name: 'property_title_required', value: true } })
         }
+        else {
+            dispatch({ type: "set_required_field_error", payload: { name: 'property_title_required', value: false } })
+            check_required_field_status.property_title_required_flag = false
+        }
+
         if (property_description === '' || undefined) {
             dispatch({ type: "set_required_field_error", payload: { name: 'property_description_required', value: true } })
         }
+        else {
+            dispatch({ type: "set_required_field_error", payload: { name: 'property_description_required', value: false } })
+            check_required_field_status.property_description_required_flag = false
+        }
+
         if (price === '' || undefined) {
             dispatch({ type: "set_required_field_error", payload: { name: 'price_required', value: true } })
         }
+        else {
+            dispatch({ type: "set_required_field_error", payload: { name: 'price_required', value: false } })
+            check_required_field_status.price_required_flag = false
+        }
+
         if (land_area === '' || undefined) {
             dispatch({ type: "set_required_field_error", payload: { name: 'land_area_required', value: true } })
         }
-        // if (images.length < 3) {
-        //     dispatch({ type: "set_required_field_error", payload: { name: 'min_3_images_required', value: true } })
-        // }
         else {
-            // axios.post('http://localhost:3200/addproperty/uploaddata', formdata,
-            //     {
-            //         headers: {
-            //             'Authorization': `Bearer ${localStorage.getItem('secretkey')}`,
-            //             'content-type': 'multipart/form-data'
-            //         }
-            //     }).then(res => {
-            //         console.log('this is response', res)
-            // CLEARING FORM FIELDS
-            console.log('this is else')
-            ClearFormFields()
-            // }).catch(err => console.log(err))
+            dispatch({ type: "set_required_field_error", payload: { name: 'land_area_required', value: false } })
+            check_required_field_status.land_area_required_flag = false
+        }
+
+        if (images.length < 3) {
+            dispatch({ type: "set_required_field_error", payload: { name: 'min_3_images_required', value: true } })
+        }
+        else {
+            dispatch({ type: "set_required_field_error", payload: { name: 'min_3_images_required', value: false } })
+            check_required_field_status.min_3_images_required_flag = false
+        }
+
+        if (property_purpose_type.propertyType === 'Homes') {
+            if (home_general_info_inputs.bedrooms === '') {
+                dispatch({ type: "set_required_field_error", payload: { name: 'home_bedrooms_required', value: true } })
+            }
+            else {
+                dispatch({ type: "set_required_field_error", payload: { name: 'home_bedrooms_required', value: false } })
+                check_required_field_status.home_bedrooms_required_flag = false
+            }
+
+            if (home_general_info_inputs.bathrooms === '') {
+                dispatch({ type: "set_required_field_error", payload: { name: 'home_bathrooms_required', value: true } })
+            }
+            else {
+                dispatch({ type: "set_required_field_error", payload: { name: 'home_bathrooms_required', value: false } })
+                check_required_field_status.home_bathrooms_required_flag = false
+            }
+        }
+        else {
+            check_required_field_status.home_bedrooms_required_flag = false
+            check_required_field_status.home_bathrooms_required_flag = false
+        }
+
+        if (property_purpose_type.propertyType === 'Commercial') {
+            if (commercial_general_info_inputs.rooms === '') {
+                dispatch({ type: "set_required_field_error", payload: { name: 'commercial_rooms_required', value: true } })
+            }
+            else {
+                dispatch({ type: "set_required_field_error", payload: { name: 'commercial_rooms_required', value: false } })
+                check_required_field_status.commercial_rooms_required_flag = false
+            }
+        }
+        else {
+            check_required_field_status.commercial_rooms_required_flag = false
         }
     }
 
@@ -206,6 +308,7 @@ const AddProperty = () => {
         dispatch({ type: 'clear_commercial_flooring' })
         dispatch({ type: 'clear_commercial_backup' })
         dispatch({ type: 'clear_commercial_business_and_communication' })
+        setError(false)
     }
 
     // HANDLE SUBMIT PROPERTY
@@ -238,9 +341,27 @@ const AddProperty = () => {
             formdata.append('image', images[x].file)
         }
 
-        // this function will check empty fields and if all required fields 
-        // are filled properly it will send data to the server
+        // this function will check empty fields which are required
         CheckEmptyFields(Add_Property_Form_Data, images)
+
+        if (Object.values(check_required_field_status).every(value => value === false)) {
+            setloader(true)
+            axios.post('http://localhost:3200/addproperty/uploaddata', formdata,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('secretkey')}`,
+                        'content-type': 'multipart/form-data'
+                    }
+                }).then(res => {
+                    console.log('this is response', res)
+                    // CLEARING FORM FIELDS
+                    ClearFormFields()
+                    setloader(false)
+                }).catch(err => console.log(err))
+        }
+        else {
+            setError(true)
+        }
     }
 
     return (
@@ -260,7 +381,6 @@ const AddProperty = () => {
             </Container>
             {/* ADD PROPERTY FORM */}
             <Container maxWidth="md" className={classes.mainContainer}>
-                {/* <form onSubmit={HandleSubmitProperty}> */}
                 <PropertyTypeAndLocation />
                 <PropertyDetails />
                 <AddImages />
@@ -282,10 +402,13 @@ const AddProperty = () => {
                     })()
 
                 }
-                <button className={classes.buttonContainer} onClick={HandleSubmitProperty}>SUBMIT PROPERTY</button>
-                {/* </form> */}
+                <button className={classes.buttonContainer} onClick={HandleSubmitProperty}>
+                    {loader ? <CircularProgress style={{ width: '13px', height: '13px' }} /> : 'SUBMIT PROPERTY'}
+                </button>
+                <div className={classes.error}>
+                    {error && <span className='required'>All * Required Fields Should Be Filled Properly!</span>}
+                </div>
             </Container>
-
             {/* GOTO TOP BUTTON */}
             <GoToTop />
         </Layout>);
