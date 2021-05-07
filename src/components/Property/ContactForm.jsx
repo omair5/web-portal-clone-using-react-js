@@ -50,6 +50,8 @@ const ContactForm = () => {
             >
                 click me to chat on whatsapp
             </a>
+            <a href="tel:+1-555-555-1212">555-555-1212</a>
+
 
             <h5>Name*</h5>
             <InputTextField

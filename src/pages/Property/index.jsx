@@ -6,6 +6,8 @@ import Container from '@material-ui/core/Container';
 import PropertyImageGallery from '../../components/Property/ImageGallery';
 import ContactForm from '../../components/Property/ContactForm';
 import { makeStyles } from '@material-ui/core/styles';
+import DetailsColumn1 from '../../components/Property/DetailsColumn1';
+import DetailsColumn2 from '../../components/Property/DetailsColumn2';
 
 const useStyles = makeStyles({
     mainContainer: {
@@ -22,12 +24,26 @@ const Property = () => {
             <Layout FooterDisplay={true}>
                 <Container maxWidth="lg" className={classes.mainContainer}>
                     <Grid container spacing={3}>
+
+                        {/* MAIN LONG VERTICAL GRID 1 */}
                         <Grid item xs={12} md={8} style={{ backgroundColor: 'red' }}>
                             <PropertyImageGallery />
+                            <h1>ABOUT THIS PROPERTY</h1>
+                            {/* DETAILS MAIN GRID */}
+                            <Grid container spacing={1}>
+                                <Grid item xs={12} md={6} style={{ backgroundColor: 'pink' }}>
+                                    <DetailsColumn1 />
+                                </Grid>
+                                <Grid item xs={12} md={6} style={{ backgroundColor: '#fcb812' }}>
+                                    <DetailsColumn2 />
+                                </Grid>
+                            </Grid>
                         </Grid>
+
                         <Grid item xs={12} md={4} style={{ backgroundColor: 'green' }}>
                             <ContactForm />
                         </Grid>
+
                     </Grid>
                 </Container>
             </Layout>
