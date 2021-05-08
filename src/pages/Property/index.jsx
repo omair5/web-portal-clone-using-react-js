@@ -8,6 +8,7 @@ import ContactForm from '../../components/Property/ContactForm';
 import { makeStyles } from '@material-ui/core/styles';
 import DetailsColumn1 from '../../components/Property/DetailsColumn1';
 import DetailsColumn2 from '../../components/Property/DetailsColumn2';
+import PropertyDescription from '../../components/Property/PropertyDescription';
 
 const useStyles = makeStyles({
     mainContainer: {
@@ -38,6 +39,9 @@ const Property = () => {
                                     <DetailsColumn2 />
                                 </Grid>
                             </Grid>
+                            {/* DESCRIPTION */}
+                            <h2>DESCRIPTION</h2>
+                            <PropertyDescription />
                         </Grid>
 
                         <Grid item xs={12} md={4} style={{ backgroundColor: 'green' }}>

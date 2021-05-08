@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux'
+import { Editor } from "react-draft-wysiwyg";
+import { EditorState, convertToRaw } from 'draft-js';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import draftToHtml from 'draftjs-to-html';
 var converter = require('number-to-words');
 
 
@@ -73,6 +77,16 @@ const useStyles = makeStyles((theme) => ({
     },
     mb15: {
         marginBottom: '15px'
+    },
+    wrapperClassName: {
+        border: '1px solid #d1d1d1',
+        borderRadius: '5px'
+    },
+    editorClassName: {
+        height: '120px',
+        fontSize: '15px',
+        padding: '2px 5px',
+        lineHeight: '7px'
     }
 }));
 
@@ -80,6 +94,7 @@ const PropertyDetails = () => {
     const classes = useStyles();
     const classesBase = useStylesBase();
     const dispatch = useDispatch()
+    const [editorState, seteditorState] = useState(EditorState.createEmpty())
 
     // -------------------- STATES
     const title = useSelector(state => state.PropertyDetails_Title)
@@ -97,9 +112,16 @@ const PropertyDetails = () => {
         dispatch({ type: 'set_property_details_title', payload: e.target.value })
     }
     // HandleDescription
-    const HandleDescription = (e) => {
-        dispatch({ type: 'set_property_details_description', payload: e.target.value })
+    // const HandleDescription = (e) => {
+    //     console.log(e)
+    //     // dispatch({ type: 'set_property_details_description', payload: e.target.value })
+    // }
+
+    const onEditorStateChange = (editorState) => {
+        seteditorState(editorState)
+        console.log(draftToHtml(convertToRaw(editorState.getCurrentContent())))
     }
+
     // HandlePrice
     const HandlePrice = (e) => {
         if (isNaN(e.target.value)) {
@@ -152,7 +174,26 @@ const PropertyDetails = () => {
                 {/* PROPERTY Description */}
                 <div className={`${classes.wrapperContainer} ${classes.mb15}`}>
                     <p>Description <span className='asterik'>*</span> {property_description_required && <span className='required'>This Field is Required!</span>} </p>
-                    <TextField
+                    <Editor
+                        editorState={editorState}
+                        onEditorStateChange={onEditorStateChange}
+                        toolbarClassName="toolbarClassName"
+                        wrapperClassName={classes.wrapperClassName}
+                        editorClassName={`${classes.editorClassName} custom-scroll`}
+                        placeholder='Write Your Property Description Here ...'
+                        toolbar={{
+                            options: ['inline', 'list'],
+                            inline: {
+                                options: ['bold', 'underline'],
+                            },
+                            list: {
+                                options: ['unordered', 'ordered'],
+                            },
+                        }}
+                    />
+
+
+                    {/* <TextField
                         value={description}
                         onChange={HandleDescription}
                         variant="outlined"
@@ -165,7 +206,7 @@ const PropertyDetails = () => {
                         classes={{
                             root: classes.root
                         }}
-                    />
+                    /> */}
                 </div>
 
                 {/* All Inclusive Price: (PKR)  */}

@@ -32,8 +32,12 @@ const useStyles = makeStyles((theme) => ({
         color: 'green'
     },
     try: {
-        width: '100%',
+        width: '100% !important',
         backgroundColor: 'red'
+    },
+    dropdwon: {
+        backgroundColor: 'red',
+        minWidth: '100%'
     }
 }));
 
@@ -50,8 +54,6 @@ const ContactForm = () => {
             >
                 click me to chat on whatsapp
             </a>
-            <a href="tel:+1-555-555-1212">555-555-1212</a>
-
 
             <h5>Name*</h5>
             <InputTextField
@@ -83,12 +85,15 @@ const ContactForm = () => {
             <PhoneInput
                 country={'pk'}
                 containerClass={classes.container}
+                // buttonClass={classes.try}
 
+                inputClass={classes.try}
+
+                dropdownClass={classes.dropdwon}
+            // searchClass={classes.try}
             />
-
 
         </Paper>
     );
 }
-
 export default ContactForm;
