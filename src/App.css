@@ -105,46 +105,27 @@ p {
   color: red;
 }
 
-/* .check {
-  height: 100%;
-  width: 100%;
-} */
+/* FOR REACT IMAGE GALLERY */
 
-/* .image-gallery {
+.image-gallery {
   width: 100%;
   height: auto;
-} */
+}
 
-/* 
-.image-gallery-slide img { */
-
-/* object-fit: cover;
-  width: 50%;
-  height: 400px; */
-
-/* } */
-
-/* .image-gallery {
+.image-gallery-slide .image-gallery-image {
   width: 100%;
-  height: 400px;
-  background-color: red;
+  object-fit: fill !important;
 }
 
 .image-gallery-slide img {
   width: 100%;
-  height: 400px;
-  max-height: 80vh;
-  object-fit: cover;
+  height: 65vh;
+  /* object-fit: cover;
   overflow: hidden;
-  object-position: center center;
-} */
+  object-position: center center; */
+}
 
-/* .image {
-  width: 30vw;
-  height: 30vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 20px;
-  margin: auto;
-} */
+.fullscreen .image-gallery-slide img {
+  height: 85vh;
+  object-fit: contain !important;
+}

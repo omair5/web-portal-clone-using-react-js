@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux'
 import { Editor } from "react-draft-wysiwyg";
-import { EditorState, convertToRaw } from 'draft-js';
+import { convertToRaw } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import draftToHtml from 'draftjs-to-html';
 var converter = require('number-to-words');
@@ -93,12 +93,12 @@ const useStyles = makeStyles((theme) => ({
 const PropertyDetails = () => {
     const classes = useStyles();
     const classesBase = useStylesBase();
-    const [editorState, seteditorState] = useState(EditorState.createEmpty())
+    // const [editorState, seteditorState] = useState(EditorState.createEmpty())
     const dispatch = useDispatch()
 
     // -------------------- STATES
     const title = useSelector(state => state.PropertyDetails_Title)
-    const description = useSelector(state => state.PropertyDetails_Description)
+    const editorState = useSelector(state => state.PropertyDetails_EditorState)
     const price = useSelector(state => state.PropertyDetails_Price)
     const landArea = useSelector(state => state.PropertyDetails_LandArea)
     const areaUnit = useSelector(state => state.PropertyDetails_AreaUnit)
@@ -114,9 +114,8 @@ const PropertyDetails = () => {
 
     // Handle Property Description
     const onEditorStateChange = (editorState) => {
-        seteditorState(editorState)
+        dispatch({ type: 'set_property_details_editor_state', payload: editorState })
         dispatch({ type: 'set_property_details_description', payload: draftToHtml(convertToRaw(editorState.getCurrentContent())) })
-        // console.log(draftToHtml(convertToRaw(editorState.getCurrentContent())))
     }
 
     // HandlePrice

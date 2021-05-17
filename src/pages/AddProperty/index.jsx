@@ -310,6 +310,7 @@ const AddProperty = () => {
         dispatch({ type: 'clear_commercial_backup' })
         dispatch({ type: 'clear_commercial_business_and_communication' })
         setError(false)
+        dispatch({ type: 'clear_property_details_editor_state' })
     }
 
     // HANDLE SUBMIT PROPERTY
@@ -332,17 +333,17 @@ const AddProperty = () => {
         }
 
         for (var data of Object.entries(Add_Property_Form_Data)) {
-            console.log(data[0], data[1])
             if (data[0] === 'features') {
                 formdata.append(data[0], JSON.stringify(data[1]))
             }
-            formdata.append(data[0], data[1])
+            else {
+                formdata.append(data[0], data[1])
+            }
         }
 
         for (var x in images) {
             formdata.append('image', images[x].file)
         }
-
 
         // this function will check empty fields which are required
         CheckEmptyFields(Add_Property_Form_Data, images)
