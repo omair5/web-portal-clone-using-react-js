@@ -13,6 +13,8 @@ import RegisterCountryApi from '../../Services/RegisterCountryApi'
 import RegisterGetCities from '../../Services/RegisterGetCities';
 import ConfirmationEmailDialog from './ConfirmationEmailDialog';
 import SocialMediaSignInSignUp from './SocialMediaSignInSignUp';
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 
 const useStyles = makeStyles({
     mainContainer: {
@@ -65,7 +67,24 @@ const useStyles = makeStyles({
     AlreadyExist: {
         color: 'red',
         textAlign: 'center',
-    }
+    },
+    phone: {
+        color: "#fcb812",
+        fontWeight: 'bold',
+        fontSize: '12px',
+        margin: '12px 0px',
+        marginTop: '20px'
+    },
+    container: {
+        marginBottom: '10px'
+    },
+    input: {
+        width: '100% !important',
+        height: '40px !important'
+    },
+    dropdown: {
+        width: '334px !important',
+    },
 });
 
 const RegisterDialogBox = () => {
@@ -77,7 +96,7 @@ const RegisterDialogBox = () => {
     const RegisterDialogStatus = useSelector(state => state.RegisterDialogStatus)
     const dispatch = useDispatch()
     // FORM FIELDS 
-    const [formFields, setformFields] = useState({ fname: '', lname: '', email: '', password: '', cpassword: '', number: '' })
+    const [formFields, setformFields] = useState({ fname: '', lname: '', email: '', password: '', cpassword: '', phone: '' })
     // FOR CHECKING PASSWORD MATCH
     const [passwordMatchingError, setpasswordMatchingError] = useState(false)
     // FOR COUNTRIES
@@ -118,8 +137,10 @@ const RegisterDialogBox = () => {
     }
     // THIS FUNCTION HANDLES FORM INPUT
     const HandleChange = (e) => {
-        setformFields({ ...formFields, [e.target.name]: e.target.value })
+        console.log(e)
+        // setformFields({ ...formFields, [e.target.name]: e.target.value })
     }
+    console.log(formFields)
     // THIS FUNCTION HANDLES DROPDOWN VALUES
     const HandleDropDownValue = (event, newValue) => {
         const key = event.target.id.split('-')[0]
@@ -286,7 +307,7 @@ const RegisterDialogBox = () => {
                             />
 
                             {/* FOR PHONE NUMBER */}
-                            <InputTextField
+                            {/* <InputTextField
                                 TextFieldId='6'
                                 TextFieldPlaceHolder='xxxx-xxxxxxx'
                                 InputType='tel'
@@ -301,6 +322,19 @@ const RegisterDialogBox = () => {
                                 value={formFields.number}
                                 name='number'
                                 passwordVisibility={false}
+                            /> */}
+                            <p className={classes.phone}>PHONE NUMBER</p>
+                            <PhoneInput
+                                country={'pk'}
+                                containerClass={classes.container}
+                                inputClass={classes.input}
+                                dropdownClass={classes.dropdown}
+                                value={formFields.number}
+                                onChange={HandleChange}
+                                inputProps={{
+                                    name: 'phone',
+                                    required: true,
+                                }}
                             />
 
                             {emailAlreadyExist && <p className={classes.AlreadyExist}>The Email You Are Using To Sign Up Already Exist</p>}

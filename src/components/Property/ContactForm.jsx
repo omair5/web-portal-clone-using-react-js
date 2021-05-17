@@ -22,23 +22,15 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 'bold',
     },
     container: {
-        // backgroundColor: 'pink',
-        margin: '10px 0px'
+        margin: '10px 0px',
     },
-    test: {
-        backgroundColor: 'red',
-        width: '700px',
-        fontSize: '60px',
-        color: 'green'
+    input: {
+        // width: '100% !important',
+        height: '50px !important'
     },
-    try: {
-        width: '100% !important',
-        backgroundColor: 'red'
-    },
-    dropdwon: {
-        backgroundColor: 'red',
-        minWidth: '100%'
-    }
+    // dropdown: {
+    //     width: '360px !important',
+    // },
 }));
 
 const ContactForm = () => {
@@ -85,12 +77,8 @@ const ContactForm = () => {
             <PhoneInput
                 country={'pk'}
                 containerClass={classes.container}
-                // buttonClass={classes.try}
-
-                inputClass={classes.try}
-
-                dropdownClass={classes.dropdwon}
-            // searchClass={classes.try}
+                inputClass={classes.input}
+                dropdownClass={classes.dropdown}
             />
 
         </Paper>
