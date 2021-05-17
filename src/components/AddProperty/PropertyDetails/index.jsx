@@ -93,8 +93,8 @@ const useStyles = makeStyles((theme) => ({
 const PropertyDetails = () => {
     const classes = useStyles();
     const classesBase = useStylesBase();
-    const dispatch = useDispatch()
     const [editorState, seteditorState] = useState(EditorState.createEmpty())
+    const dispatch = useDispatch()
 
     // -------------------- STATES
     const title = useSelector(state => state.PropertyDetails_Title)
@@ -111,15 +111,12 @@ const PropertyDetails = () => {
     const HandleTitle = (e) => {
         dispatch({ type: 'set_property_details_title', payload: e.target.value })
     }
-    // HandleDescription
-    // const HandleDescription = (e) => {
-    //     console.log(e)
-    //     // dispatch({ type: 'set_property_details_description', payload: e.target.value })
-    // }
 
+    // Handle Property Description
     const onEditorStateChange = (editorState) => {
         seteditorState(editorState)
-        console.log(draftToHtml(convertToRaw(editorState.getCurrentContent())))
+        dispatch({ type: 'set_property_details_description', payload: draftToHtml(convertToRaw(editorState.getCurrentContent())) })
+        // console.log(draftToHtml(convertToRaw(editorState.getCurrentContent())))
     }
 
     // HandlePrice
@@ -191,22 +188,6 @@ const PropertyDetails = () => {
                             },
                         }}
                     />
-
-
-                    {/* <TextField
-                        value={description}
-                        onChange={HandleDescription}
-                        variant="outlined"
-                        multiline
-                        rows={5}
-                        className={classes.inputfield}
-                        InputProps={{
-                            className: classes.inputStyles,
-                        }}
-                        classes={{
-                            root: classes.root
-                        }}
-                    /> */}
                 </div>
 
                 {/* All Inclusive Price: (PKR)  */}

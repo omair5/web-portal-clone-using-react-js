@@ -102,6 +102,7 @@ const AddProperty = () => {
     // general
     const utilities = useSelector(state => state.Home_utilities)
     const facing = useSelector(state => state.Home_Facing)
+
     // flags for required fields
     let check_required_field_status = {
         purpose_required_flag: true,
@@ -331,6 +332,7 @@ const AddProperty = () => {
         }
 
         for (var data of Object.entries(Add_Property_Form_Data)) {
+            console.log(data[0], data[1])
             if (data[0] === 'features') {
                 formdata.append(data[0], JSON.stringify(data[1]))
             }
