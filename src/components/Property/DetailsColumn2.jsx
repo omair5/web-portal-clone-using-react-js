@@ -4,7 +4,6 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
@@ -15,6 +14,7 @@ const StyledTableCell = withStyles((theme) => ({
     },
     body: {
         fontSize: 14,
+        textTransform: 'capitalize'
     },
 }))(TableCell);
 
@@ -42,21 +42,10 @@ const DetailsColumn2 = () => {
     return (
         <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="customized table">
-                {/* <TableHead>
-                    <TableRow>
-                        DETAILS
-                    </TableRow>
-                </TableHead> */}
-                <TableBody >
-
+                <TableBody>
                     <StyledTableRow >
-                        <StyledTableCell component="th" scope="row" className={classes.tableHeading}>Bath(s) </StyledTableCell>
-                        <StyledTableCell align="left" >4</StyledTableCell>
-                    </StyledTableRow>
-
-                    <StyledTableRow >
-                        <StyledTableCell component="th" scope="row" className={classes.tableHeading}>Area </StyledTableCell>
-                        <StyledTableCell align="left">125 Sq. Yd.</StyledTableCell>
+                        <StyledTableCell component="th" scope="row" className={classes.tableHeading} >Bath(s) </StyledTableCell>
+                        <StyledTableCell align="left">3</StyledTableCell>
                     </StyledTableRow>
 
                     <StyledTableRow >
@@ -65,10 +54,14 @@ const DetailsColumn2 = () => {
                     </StyledTableRow>
 
                     <StyledTableRow >
-                        <StyledTableCell component="th" scope="row" className={classes.tableHeading}>Posted at </StyledTableCell>
-                        <StyledTableCell align="left">May 7, 2021</StyledTableCell>
+                        <StyledTableCell component="th" scope="row" className={classes.tableHeading}>Area </StyledTableCell>
+                        <StyledTableCell align="left">235 Sq. Yd.</StyledTableCell>
                     </StyledTableRow>
 
+                    <StyledTableRow >
+                        <StyledTableCell component="th" scope="row" className={classes.tableHeading}>Posted at </StyledTableCell>
+                        <StyledTableCell align="left">May 17, 2021</StyledTableCell>
+                    </StyledTableRow>
                 </TableBody>
             </Table>
         </TableContainer >

@@ -1,18 +1,10 @@
 import React from 'react';
 import ImageGallery from 'react-image-gallery';
-import { makeStyles } from '@material-ui/core/styles';
 import "react-image-gallery/styles/css/image-gallery.css";
 import Ad1 from './Ad1.jpg'
 import Ad2 from './Ad2.jpg'
 import Ad3 from './Ad3.jpg'
 import Ad4 from './Ad4.png'
-
-
-const useStyles = makeStyles((theme) => ({
-    mainContainer: {
-        backgroundColor: 'pink',
-    }
-}));
 
 const images = [
     {
@@ -46,16 +38,13 @@ const images = [
 ];
 
 const PropertyImageGallery = () => {
-    const classes = useStyles();
     return (
         <>
-            <div className={classes.mainContainer}>
-                <ImageGallery
-                    items={images}
-                    lazyLoad={true}
-                    showIndex={true}
-                />
-            </div>
+            <ImageGallery
+                items={images}
+                lazyLoad={true}
+                showIndex={true}
+            />
         </>
     );
 }
