@@ -11,6 +11,8 @@ import { colourStyles } from './ColourStyles'
 import { useSelector, useDispatch } from 'react-redux'
 import HomeGetLocations from '../../../Services/HomeGetLocations';
 import { UseStyles } from './mainStyles'
+import GoogleMapForLocation from './GoogleMapForLocation';
+import GoogleAutoCompleteSearch from './GoogleAutoCompleteSearch';
 
 
 const PropertyTypeAndLocation = () => {
@@ -210,6 +212,10 @@ const PropertyTypeAndLocation = () => {
                             }}
                         />
                     </div>
+
+                    {/* GOOGLE MAPS */}
+                    {/* <GoogleMapForLocation /> */}
+                    <GoogleAutoCompleteSearch />
                 </div>
             </Container>
         </>
