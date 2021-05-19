@@ -12,7 +12,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import HomeGetLocations from '../../../Services/HomeGetLocations';
 import { UseStyles } from './mainStyles'
 import GoogleMapForLocation from './GoogleMapForLocation';
-import GoogleAutoCompleteSearch from './GoogleAutoCompleteSearch';
+import Geocode from "react-geocode";
+// import GoogleAutoCompleteSearch from './GoogleAutoCompleteSearch';
 
 
 const PropertyTypeAndLocation = () => {
@@ -52,6 +53,16 @@ const PropertyTypeAndLocation = () => {
     // HANDLING LOCATION CHANGE
     const HandleLocationSelect = (selectedOption) => {
         dispatch({ type: 'add_property_selected_location', payload: selectedOption })
+        Geocode.setApiKey("AIzaSyADpeUt7PnT9sDT6uFlY6Z_35ol_JGFyJs");
+        Geocode.fromAddress(selectedOption.value).then(
+            (response) => {
+                const { lat, lng } = response.results[0].geometry.location;
+                console.log(lat, lng);
+            },
+            (error) => {
+                console.error(error);
+            }
+        );
     }
 
     // CLEARING WANTED TYPE IF WANTED IS NOT SELECTED
@@ -214,8 +225,9 @@ const PropertyTypeAndLocation = () => {
                     </div>
 
                     {/* GOOGLE MAPS */}
-                    {/* <GoogleMapForLocation /> */}
-                    <GoogleAutoCompleteSearch />
+                    {SelectedLocation.value ? <GoogleMapForLocation /> : null}
+
+                    {/* <GoogleAutoCompleteSearch /> */}
                 </div>
             </Container>
         </>

@@ -55,8 +55,8 @@ function App() {
     let mounted = true
     async function GetPropertiesExplore() {
       if (mounted) {
-        const buy_response = await ExploreGetProperties('Buy')
-        console.log('checking data', buy_response)
+        const buy_response = await ExploreGetProperties('Sale')
+        console.log('looking skndbjhcvbcvs dhgbdc ngjadnc jb c,vhn vchli', buy_response)
         if (buy_response.length !== 0) {
           dispatch({ type: 'hide_buy_properties_skeleton' })
           dispatch({ type: 'explore_buy_properties', payload: buy_response })
@@ -141,10 +141,10 @@ function App() {
             <Route exact path='/about' component={AboutUs} />
             <Route exact path='/property/:propertyId' component={Property} />
             {/* protected routes */}
-            {/* <Route exact path='/add-property'>
+            <Route exact path='/add-property'>
               <ProtectedRoutes Component={AddProperty} />
-            </Route> */}
-            <Route exact path='/add-property' component={AddProperty} />
+            </Route>
+            {/* <Route exact path='/add-property' component={AddProperty} /> */}
 
             <Route exact path='/reset/password' component={ResetPasswordDialogBox} />
             {/* dashboard */}
