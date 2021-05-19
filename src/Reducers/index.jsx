@@ -59,6 +59,7 @@ import PropertyDetails_AreaUnit from './AddProperty/PropertyDetails_AreaUnit'
 import RequiredFields from './AddProperty/Required_fields'
 import PropertyDetails_Price_In_Words from './AddProperty/PropertyDetails_Price_In_Words'
 import PropertyDetails_EditorState from './AddProperty/PropertyDetails_EditorState'
+import Google_Maps_Latitude_Longitude from './AddProperty/Google_Maps_Latitude_Longitude'
 
 export default combineReducers({
     SearchShow: ExploreSearch,
@@ -120,5 +121,6 @@ export default combineReducers({
     PropertyDetails_AreaUnit: PropertyDetails_AreaUnit,
     RequiredFields: RequiredFields,
     PropertyDetails_Price_In_Words: PropertyDetails_Price_In_Words,
-    PropertyDetails_EditorState: PropertyDetails_EditorState
+    PropertyDetails_EditorState: PropertyDetails_EditorState,
+    Google_Maps_Latitude_Longitude: Google_Maps_Latitude_Longitude
 })

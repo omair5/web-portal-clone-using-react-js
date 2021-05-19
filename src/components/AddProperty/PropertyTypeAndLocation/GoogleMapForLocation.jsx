@@ -1,11 +1,11 @@
 import React from 'react'
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { useDispatch, useSelector } from 'react-redux'
+import SkeletonForMap from '../../SkeletonForMap';
 
 const containerStyle = {
     width: '100%',
     height: '40vh',
-    margin: 'auto'
 };
 
 const position = {
@@ -37,6 +37,6 @@ function GoogleMapForLocation() {
                 />
             </>
         </GoogleMap>
-    ) : 'jbscjshcbochdvbdovch'
+    ) : <SkeletonForMap />
 }
 export default React.memo(GoogleMapForLocation)

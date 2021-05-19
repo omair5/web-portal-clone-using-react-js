@@ -226,7 +226,6 @@ const PropertyTypeAndLocation = () => {
 
                     {/* GOOGLE MAPS */}
                     {SelectedLocation.value ? <GoogleMapForLocation /> : null}
-
                     {/* <GoogleAutoCompleteSearch /> */}
                 </div>
             </Container>
