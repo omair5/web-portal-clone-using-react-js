@@ -47,6 +47,7 @@ const BuyTab = () => {
                                         areaSize={value.area_size}
                                         areaUnit={value.area_unit}
                                         beds={value.beds}
+                                        baths={value.bathrooms}
                                         price={value.price}
                                         cover_image={value.cover_image}
                                         MainBox={{ maxWidth: '95%' }}

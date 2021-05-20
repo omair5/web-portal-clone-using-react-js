@@ -140,7 +140,6 @@ const RegisterDialogBox = () => {
         // console.log(e)
         setformFields({ ...formFields, [e.target.name]: e.target.value })
     }
-    console.log(formFields)
     // THIS FUNCTION HANDLES DROPDOWN VALUES
     const HandleDropDownValue = (event, newValue) => {
         const key = event.target.id.split('-')[0]

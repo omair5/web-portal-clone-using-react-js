@@ -18,7 +18,7 @@ const AreaGuide = React.lazy(() => import('./pages/AreaGuide'));
 const Partners = React.lazy(() => import('./pages/Partners'));
 const ContactUs = React.lazy(() => import('./pages/ContactUs'));
 const AboutUs = React.lazy(() => import('./pages/AboutUs'));
-const AddProperty = React.lazy(() => import('./pages/AddProperty'))
+const AddProperty = React.lazy(() => import('./pages/AddProperty'));
 const UserLogin = React.lazy(() => import('./pages/UserLogIn'));
 const Property = React.lazy(() => import('./pages/Property'));
 const PageNotFound = React.lazy(() => import('./pages/PageNotFound'));
@@ -56,7 +56,6 @@ function App() {
     async function GetPropertiesExplore() {
       if (mounted) {
         const buy_response = await ExploreGetProperties('Sale')
-        console.log('looking skndbjhcvbcvs dhgbdc ngjadnc jb c,vhn vchli', buy_response)
         if (buy_response.length !== 0) {
           dispatch({ type: 'hide_buy_properties_skeleton' })
           dispatch({ type: 'explore_buy_properties', payload: buy_response })

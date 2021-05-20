@@ -9,7 +9,7 @@ import AddImages from '../../components/AddProperty/AddImages';
 import HomeFeatures from '../../components/AddProperty/HomeFeatures';
 import PlotFeatures from '../../components/AddProperty/PlotFeatures';
 import CommercialFeatures from '../../components/AddProperty/CommercialFeatures';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import HouseIcon from '@material-ui/icons/House';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from 'axios';
@@ -102,6 +102,7 @@ const AddProperty = () => {
     // general
     const utilities = useSelector(state => state.Home_utilities)
     const facing = useSelector(state => state.Home_Facing)
+    const position = useSelector(state => state.Google_Maps_Latitude_Longitude)
 
     // flags for required fields
     let check_required_field_status = {
@@ -324,6 +325,8 @@ const AddProperty = () => {
             property_category: sub_property_type.value,
             city_name: city.value,
             location_name: location.value,
+            latitude: position.lat,
+            longitude: position.lng,
             property_title,
             property_description,
             price,

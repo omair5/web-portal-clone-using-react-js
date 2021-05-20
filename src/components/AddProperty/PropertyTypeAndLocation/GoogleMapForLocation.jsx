@@ -8,17 +8,20 @@ const containerStyle = {
     height: '40vh',
 };
 
-const position = {
-    lat: 24.871641,
-    lng: 67.059906
-}
-
-const onDrageEnd = e => {
-    console.log('drag end here: ', e.latLng.lat(), e.latLng.lng())
-}
-
+// const position = {
+//     lat: 24.871641,
+//     lng: 67.059906
+// }
 
 function GoogleMapForLocation() {
+    const dispatch = useDispatch()
+    const position = useSelector(state => state.Google_Maps_Latitude_Longitude)
+
+    const onDrageEnd = e => {
+        // console.log('drag end here: ', e.latLng.lat(), e.latLng.lng())
+        dispatch({ type: 'set_Google_Maps_Latitude_Longitude', payload: { lat: e.latLng.lat(), lng: e.latLng.lng() } })
+    }
+
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: "AIzaSyADpeUt7PnT9sDT6uFlY6Z_35ol_JGFyJs"
     })

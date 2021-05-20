@@ -57,7 +57,7 @@ const PropertyTypeAndLocation = () => {
         Geocode.fromAddress(selectedOption.value).then(
             (response) => {
                 const { lat, lng } = response.results[0].geometry.location;
-                console.log(lat, lng);
+                dispatch({ type: 'set_Google_Maps_Latitude_Longitude', payload: { lat: lat, lng: lng } })
             },
             (error) => {
                 console.error(error);

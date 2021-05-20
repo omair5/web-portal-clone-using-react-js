@@ -9,6 +9,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 // import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import Divider from '@material-ui/core/Divider';
 import SingleBedIcon from '@material-ui/icons/SingleBed';
+import BathtubOutlinedIcon from '@material-ui/icons/BathtubOutlined';
 import AspectRatioIcon from '@material-ui/icons/AspectRatio';
 import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
 import Default from './default.jpg'
@@ -106,8 +107,9 @@ const useStyles = makeStyles({
 
 const AbaadeeCards = (props) => {
     const classes = useStyles();
-    const { buildingName, location, areaSize, areaUnit, beds, price, cover_image, MainBox } = props
-
+    const { buildingName, location, areaSize, areaUnit, beds, baths, price, cover_image, MainBox } = props
+    console.log('this is bed', beds)
+    console.log('this is bath', baths)
     return (
         <>
             <Card className={classes.root} style={MainBox}>
@@ -139,10 +141,13 @@ const AbaadeeCards = (props) => {
                                 <AspectRatioIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '6px' }} />
                                 <h4>{areaSize} {areaUnit} </h4>
                             </div>
-                            <div className={classes.alignIconNinfo}>
-                                <SingleBedIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '4px' }} />
-                                <h4>{beds} BED</h4>
-                            </div>
+                            {beds !== 0 ?
+                                <div className={classes.alignIconNinfo}>
+                                    <SingleBedIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '4px' }} />
+                                    <h4>{beds} Bedroom</h4>
+                                </div>
+                                : null
+                            }
                         </div>
 
                         <Divider />
@@ -152,7 +157,14 @@ const AbaadeeCards = (props) => {
                                 <LocalOfferOutlinedIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '4px' }} />
                                 <h3 style={{ fontWeight: 'bolder' }}><span style={{ fontSize: '14px' }}>PKR</span> {price} </h3>
                             </div>
-                            <img src={cover_image} className={classes.dealer} alt={'dealer logo'} />
+                            {/* <img src={cover_image} className={classes.dealer} alt={'dealer logo'} /> */}
+                            {baths !== 0 ?
+                                <div className={classes.alignIconNinfo}>
+                                    <BathtubOutlinedIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '4px' }} />
+                                    <h4>{baths} Bathroom</h4>
+                                </div>
+                                : null
+                            }
                         </div>
                     </CardContent>
 
