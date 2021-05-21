@@ -94,7 +94,7 @@ const ExploreSearchs = () => {
         dispatch({ type: 'clear_explore_buy_properties' })
         dispatch({ type: 'show_buy_properties_skeleton' })
         const search_data = {
-            purpose: 'Buy',
+            purpose: 'Sale',
             city_name: selectedCity.value,
             location_name: SelectedLocation.value,
             property_type: SelectedPropertyType.value,
@@ -104,8 +104,9 @@ const ExploreSearchs = () => {
             max_area: maxArea,
             beds: SelectedBed.value
         }
-        console.log(search_data)
+        console.log('checking explore search data', search_data)
         axios.post('http://localhost:3200/addproperty/getpropertydata', search_data).then(response => {
+            console.log('checking explore response', response)
             if (response.data.length !== 0) {
                 const buy_properties_data = response.data.map((value) => {
                     return {
@@ -114,7 +115,8 @@ const ExploreSearchs = () => {
                         location: value.Location.location_name,
                         area_size: value.land_area,
                         area_unit: value.area_unit.area_name,
-                        beds: value.bed.beds_quantity,
+                        beds: `${value.general_info.length !== 0 ? value.general_info[0].bedrooms : 'donotshow'}`,
+                        bathrooms: `${value.general_info.length !== 0 ? value.general_info[0].bathrooms : 'donotshow'}`,
                         price: value.price,
                         cover_image: value.title_image,
                     }

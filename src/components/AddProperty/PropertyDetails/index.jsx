@@ -126,7 +126,11 @@ const PropertyDetails = () => {
         else {
             dispatch({ type: 'set_property_details_price', payload: e.target.value })
             if (isFinite(1000 / e.target.value)) {
-                dispatch({ type: 'set_property_details_Price_In_Words', payload: converter.toWords(e.target.value) });
+                try {
+                    dispatch({ type: 'set_property_details_Price_In_Words', payload: converter.toWords(e.target.value) });
+                } catch (error) {
+                    console.log('Dear user input length is too large')
+                }
             }
             else {
                 dispatch({ type: 'clear_property_details_Price_In_Words' });
@@ -158,6 +162,7 @@ const PropertyDetails = () => {
                         onChange={HandleTitle}
                         id="property-title"
                         variant="outlined"
+                        placeholder='e.g: Home For Rent'
                         fullWidth={true}
                         className={classes.inputfield}
                         classes={classesBase}
@@ -202,6 +207,7 @@ const PropertyDetails = () => {
                         classes={classesBase}
                         autoComplete='off'
                         inputProps={{
+                            maxLength: 18,
                             className: classes.inputStyles,
                         }}
                     />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Layout from '../../components/Layout/Layout';
 import { useParams } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid';
@@ -10,6 +10,7 @@ import DetailsColumn1 from '../../components/Property/DetailsColumn1';
 import DetailsColumn2 from '../../components/Property/DetailsColumn2';
 import PropertyDescription from '../../components/Property/PropertyDescription';
 import Amenities from '../../components/Property/Amenities';
+import GetPropertyData from '../../Services/GetPropertyData'
 
 const useStyles = makeStyles({
     mainContainer: {
@@ -24,7 +25,20 @@ const useStyles = makeStyles({
 const Property = () => {
     const classes = useStyles();
     const { propertyId } = useParams()
-    console.log(propertyId)
+    useEffect(() => {
+        async function PropertyData() {
+            const [check] = await GetPropertyData(propertyId)
+            console.log(check)
+
+            // AMENITIES
+            // const main_features = amenities.filter(value => value.Category_name === "main_feature").map(value => value.feature_name)
+            // const utilities = amenities.filter(value => value.Category_name === "utilities").map(value => value.feature_name)
+            // const facing = amenities.filter(value => value.Category_name === "facing").map(value => value.feature_name)
+            // const business_and_communication = amenities.filter(value => value.Category_name === "business_and_communication").map(value => value.feature_name)
+
+        }
+        PropertyData()
+    }, [propertyId])
     return (
         <>
             <Layout FooterDisplay={true}>

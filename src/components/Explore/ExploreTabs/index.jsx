@@ -83,7 +83,6 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-
 const SimpleTabs = () => {
     const classes = useStyles();
     const current_tab = useSelector((state) => state.Explore_Listings_Tabs)
@@ -124,7 +123,7 @@ const SimpleTabs = () => {
                         <Tab label="PROJECT" {...a11yProps(3)} className={classes.tabButtons} style={{ color: current_tab === 3 ? "rgb(252, 184, 22)" : "" }} />
                     </Tabs>
                 </AppBar>
-               
+
                 {/* TABS */}
                 <TabPanel value={current_tab} index={0} className={classes.tabPanels}>
                     <BuyTab />

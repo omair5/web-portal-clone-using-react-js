@@ -108,8 +108,6 @@ const useStyles = makeStyles({
 const AbaadeeCards = (props) => {
     const classes = useStyles();
     const { buildingName, location, areaSize, areaUnit, beds, baths, price, cover_image, MainBox } = props
-    console.log('this is bed', beds)
-    console.log('this is bath', baths)
     return (
         <>
             <Card className={classes.root} style={MainBox}>
@@ -127,7 +125,7 @@ const AbaadeeCards = (props) => {
                             </Tooltip> */}
                         </div>
                         <div className={classes.location}>
-                            <h4>PROJECT : {buildingName}</h4>
+                            <h4>TITLE : {buildingName}</h4>
                             <div className={classes.address}>
                                 <LocationOnIcon className={classes.locationIcon} />
                                 <h5 style={{ alignSelf: 'center' }}>{location}</h5>
@@ -141,13 +139,15 @@ const AbaadeeCards = (props) => {
                                 <AspectRatioIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '6px' }} />
                                 <h4>{areaSize} {areaUnit} </h4>
                             </div>
-                            {beds !== 0 ?
-                                <div className={classes.alignIconNinfo}>
-                                    <SingleBedIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '4px' }} />
-                                    <h4>{beds} Bedroom</h4>
-                                </div>
-                                : null
-                            }
+
+                            <div className={classes.alignIconNinfo}>
+                                <SingleBedIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '4px' }} />
+                                {
+                                    beds === 'donotshow' ? <h4>-</h4> : <h4>{beds} Bedroom</h4>
+                                }
+
+                            </div>
+
                         </div>
 
                         <Divider />
@@ -158,24 +158,23 @@ const AbaadeeCards = (props) => {
                                 <h3 style={{ fontWeight: 'bolder' }}><span style={{ fontSize: '14px' }}>PKR</span> {price} </h3>
                             </div>
                             {/* <img src={cover_image} className={classes.dealer} alt={'dealer logo'} /> */}
-                            {baths !== 0 ?
-                                <div className={classes.alignIconNinfo}>
-                                    <BathtubOutlinedIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '4px' }} />
-                                    <h4>{baths} Bathroom</h4>
-                                </div>
-                                : null
-                            }
+
+                            <div className={classes.alignIconNinfo}>
+                                <BathtubOutlinedIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '4px' }} />
+                                {
+                                    (baths === 'donotshow') || (baths === undefined) ? <h4>-</h4> : <h4>{baths} Bathroom</h4>
+                                }
+
+                            </div>
                         </div>
                     </CardContent>
 
                     <p className={classes.viewMoreButton}>
                         View More Details
                     </p>
-
                 </CardActionArea>
             </Card>
         </>
     )
 }
-
 export default React.memo(AbaadeeCards);

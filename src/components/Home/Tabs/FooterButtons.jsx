@@ -33,7 +33,7 @@ const FooterButtons = () => {
     return (
         <div className={classes.footer} >
             <span onClick={HandleOpenPopUp}>Change Area Unit</span>
-            <span>Reset Search</span>
+            {/* <span>Reset Search</span> */}
             <ChangeAreaUnitPopUp />
         </div>
     )

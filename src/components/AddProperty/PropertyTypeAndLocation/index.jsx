@@ -225,7 +225,12 @@ const PropertyTypeAndLocation = () => {
                     </div>
 
                     {/* GOOGLE MAPS */}
-                    {SelectedLocation.value ? <GoogleMapForLocation /> : null}
+                    {SelectedLocation.value ?
+                        <div className={classes.mapRow}>
+                            <p>Please Pin Point Exact Location Of Your Property</p>
+                            <GoogleMapForLocation />
+                        </div>
+                        : null}
                     {/* <GoogleAutoCompleteSearch /> */}
                 </div>
             </Container>

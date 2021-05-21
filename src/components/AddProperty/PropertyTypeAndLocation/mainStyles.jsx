@@ -45,5 +45,16 @@ export const UseStyles = makeStyles((theme) => ({
             paddingBottom: '10px',
             letterSpacing: '1px'
         }
-    }
+    },
+    mapRow: {
+        margin: '15px 0px',
+        "& p": {
+            color: 'rgb(76, 84, 85)',
+            fontWeight: 'bolder',
+            fontSize: '10px',
+            textTransform: 'uppercase',
+            letterSpacing: '1px',
+            marginBottom: '10px'
+        }
+    },
 }));

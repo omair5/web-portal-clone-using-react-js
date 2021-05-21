@@ -94,7 +94,7 @@ const ExploreSearchRent = () => {
 
     const HandleSubmit = () => {
         dispatch({ type: 'clear_explore_Rent_properties' })
-        dispatch({ type: 'show_buy_properties_skeleton' })
+        dispatch({ type: 'show_rent_properties_skeleton' })
         const search_data = {
             purpose: 'Rent',
             city_name: selectedCity.value,
@@ -116,7 +116,8 @@ const ExploreSearchRent = () => {
                         location: value.Location.location_name,
                         area_size: value.land_area,
                         area_unit: value.area_unit.area_name,
-                        beds: value.bed.beds_quantity,
+                        beds: `${value.general_info.length !== 0 ? value.general_info[0].bedrooms : 'donotshow'}`,
+                        bathrooms: `${value.general_info.length !== 0 ? value.general_info[0].bathrooms : 'donotshow'}`,
                         price: value.price,
                         cover_image: value.title_image,
                     }
