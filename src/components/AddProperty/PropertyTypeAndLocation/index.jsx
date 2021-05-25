@@ -54,7 +54,7 @@ const PropertyTypeAndLocation = () => {
     const HandleLocationSelect = (selectedOption) => {
         dispatch({ type: 'add_property_selected_location', payload: selectedOption })
         Geocode.setApiKey("AIzaSyADpeUt7PnT9sDT6uFlY6Z_35ol_JGFyJs");
-        Geocode.fromAddress(selectedOption.value).then(
+        Geocode.fromAddress(`${selectedOption.value},${selectedCity.value}`).then(
             (response) => {
                 const { lat, lng } = response.results[0].geometry.location;
                 dispatch({ type: 'set_Google_Maps_Latitude_Longitude', payload: { lat: lat, lng: lng } })

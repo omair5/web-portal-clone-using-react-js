@@ -38,7 +38,7 @@ const BuyTab = () => {
             {BuyPropertyList.length !== 0 &&
                 <Grid container spacing={3}>
                     {
-                        BuyPropertyList.map(value => (
+                        BuyPropertyList.reverse().map(value => (
                             <Grid item xs={12} md={6} key={uuidv4()}>
                                 <Link to={`/property/${value.propertyId}`} className={classes.link}>
                                     <AbaadeeCards

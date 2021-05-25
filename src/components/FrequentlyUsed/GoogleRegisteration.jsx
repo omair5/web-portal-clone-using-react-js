@@ -1,10 +1,12 @@
 import React from 'react';
-import SignInAndRegisterButton from '../FrequentlyUsed/SignInAndRegisterButton';
+import SignInAndRegisterButton from './SignInAndRegisterButton';
 import { faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
 import { makeStyles } from '@material-ui/core/styles';
-import { Email } from '@material-ui/icons';
+import axios from 'axios';
+
+
 
 
 const useStyles = makeStyles({
@@ -24,29 +26,24 @@ const useStyles = makeStyles({
 });
 
 
-
-const SocialMediaSignInSignUp = () => {
+const GoogleRegisteration = () => {
     const classes = useStyles();
-
-    // localhost:3200/auth/socialsignup
-    // username
-    // email
-    // imageurl
-
 
     const onGmailSuccess = (res) => {
         console.log(res)
-
+        const google_login_data = {
+            username: res.Ft.Ve,
+            email: res.Ft.pu,
+            imageurl: res.profileObj.imageUrl,
+        }
+        axios.post('http://localhost:3200auth/socialsignup', google_login_data).then((res) => {
+            console.log(res)
+        }).catch((err) => console.log(err))
     }
 
     const onGmailFaiure = (res) => {
         console.log(res)
     }
-
-    const responseFacebook = (response) => {
-        console.log(response)
-    }
-
     return (
         <>
             {/* SIGN IN WITH GOOGLE */}
@@ -59,29 +56,7 @@ const SocialMediaSignInSignUp = () => {
                     cookiePolicy={'single_host_origin'}
                 />
             </div>
-
-            {/* SIGN IN WITH FACEBOOK */}
-            <div>
-                <FacebookLogin
-                    appId="2979764298937344"
-                    fields="name,email,picture"
-                    callback={responseFacebook}
-                    cssClass="my-facebook-button-class"
-                // icon={<TiSocialFacebookCircular />}
-                />
-            </div>
-
-
-
-
-            {/* <SignInAndRegisterButton
-                ButtonIcon={faFacebookF}
-                ButtonText='Register with Facebook'
-                bgColor={{ backgroundColor: '#3b5998' }} */}
-            {/* // onClick={HandleFacebookSignIn}
-
-            /> */}
         </>
     );
 }
-export default SocialMediaSignInSignUp;
+export default React.memo(GoogleRegisteration);

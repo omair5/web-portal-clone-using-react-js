@@ -130,3 +130,13 @@ p {
 .image-gallery-thumbnail .image-gallery-thumbnail-image {
   height: 70px !important;
 }
+
+/* FOR POP UP MESSAGE */
+
+.green {
+  color: #289947
+}
+
+.red {
+  color: red !important
+}

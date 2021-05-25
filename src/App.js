@@ -14,7 +14,7 @@ const Explore = React.lazy(() => import('./pages/Explore'));
 const Developers = React.lazy(() => import('./pages/Developers'));
 const Agents = React.lazy(() => import('./pages/Agents'));
 const Blogs = React.lazy(() => import('./pages/Blogs'));
-const AreaGuide = React.lazy(() => import('./pages/AreaGuide'));
+// const AreaGuide = React.lazy(() => import('./pages/AreaGuide'));
 const Partners = React.lazy(() => import('./pages/Partners'));
 const ContactUs = React.lazy(() => import('./pages/ContactUs'));
 const AboutUs = React.lazy(() => import('./pages/AboutUs'));
@@ -23,6 +23,7 @@ const UserLogin = React.lazy(() => import('./pages/UserLogIn'));
 const Property = React.lazy(() => import('./pages/Property'));
 const PageNotFound = React.lazy(() => import('./pages/PageNotFound'));
 const ResetPasswordDialogBox = React.lazy(() => import('./components/FrequentlyUsed/ResetPasswordDialogBox'));
+const Skeleton = React.lazy(() => import('./components/SkeletonForPropertyDetail.jsx'));
 // const Listings = React.lazy(() => import('./pages/Listings'));
 // const Packages = React.lazy(() => import('./pages/packages'));
 
@@ -134,7 +135,7 @@ function App() {
             <Route exact path='/developers' component={Developers} />
             <Route exact path='/agents' component={Agents} />
             <Route exact path='/blogs' component={Blogs} />
-            <Route exact path='/areaguide' component={AreaGuide} />
+            {/* <Route exact path='/areaguide' component={AreaGuide} /> */}
             <Route exact path='/partners' component={Partners} />
             <Route exact path='/contact' component={ContactUs} />
             <Route exact path='/about' component={AboutUs} />
@@ -148,6 +149,9 @@ function App() {
             <Route exact path='/reset/password' component={ResetPasswordDialogBox} />
             {/* dashboard */}
             <Route exact path='/my-account' component={UserLogin} />
+
+            <Route exact path='/skeleton' component={Skeleton} />
+
             <Route path='*' exact={true} component={PageNotFound} />
 
 

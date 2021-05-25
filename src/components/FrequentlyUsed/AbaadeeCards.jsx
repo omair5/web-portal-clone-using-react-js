@@ -108,6 +108,18 @@ const useStyles = makeStyles({
 const AbaadeeCards = (props) => {
     const classes = useStyles();
     const { buildingName, location, areaSize, areaUnit, beds, baths, price, cover_image, MainBox } = props
+    console.log('props of card', buildingName, location, areaSize, areaUnit, beds, baths, price, cover_image, MainBox)
+
+    // TO CONVERT PRICE IN TO PKR
+    function numDifferentiation(val) {
+        if (val >= 10000000) {
+            val = (val / 10000000).toFixed(2) + ' Crore';
+        } else if (val >= 100000) {
+            val = (val / 100000).toFixed(2) + ' Lakh';
+        }
+        else if (val >= 1000) val = (val / 1000).toFixed(0) + ' Thousand';
+        return val;
+    }
     return (
         <>
             <Card className={classes.root} style={MainBox}>
@@ -143,7 +155,7 @@ const AbaadeeCards = (props) => {
                             <div className={classes.alignIconNinfo}>
                                 <SingleBedIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '4px' }} />
                                 {
-                                    beds === 'donotshow' ? <h4>-</h4> : <h4>{beds} Bedroom</h4>
+                                    beds === 'donotshowbeds' ? <h4>-</h4> : <h4>{beds} Bedroom</h4>
                                 }
 
                             </div>
@@ -155,14 +167,14 @@ const AbaadeeCards = (props) => {
                         <div className={classes.contentDisplay}>
                             <div className={classes.alignIconNinfo} style={{ marginTop: '10px' }}>
                                 <LocalOfferOutlinedIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '4px' }} />
-                                <h3 style={{ fontWeight: 'bolder' }}><span style={{ fontSize: '14px' }}>PKR</span> {price} </h3>
+                                <h3 style={{ fontWeight: 'bolder' }}><span style={{ fontSize: '14px' }}>PKR</span> {numDifferentiation(price)} </h3>
                             </div>
                             {/* <img src={cover_image} className={classes.dealer} alt={'dealer logo'} /> */}
 
                             <div className={classes.alignIconNinfo}>
                                 <BathtubOutlinedIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '4px' }} />
                                 {
-                                    (baths === 'donotshow') || (baths === undefined) ? <h4>-</h4> : <h4>{baths} Bathroom</h4>
+                                    (baths === 'donotshowbaths') || (baths === undefined) || (baths === 'null') ? <h4>-</h4> : <h4>{baths} Bathroom</h4>
                                 }
 
                             </div>

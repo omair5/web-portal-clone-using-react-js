@@ -60,19 +60,25 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: 'none',
         textAlign: 'center',
         cursor: 'pointer',
-        transition:'0.5s',
+        transition: '0.5s',
         "&:hover": {
             transform: 'scale(1.03)'
         }
+    },
+    price: {
+        textAlign: 'center',
+        fontSize: '32px',
+        color: 'black',
+        fontWeight: 'bolder'
     }
 }));
 
-const ContactForm = () => {
+const ContactForm = ({ price }) => {
     const classes = useStyles();
 
     return (
         <Paper className={classes.paper}>
-
+            <h2 className={classes.price}>PKR {price}</h2>
             {/* FOR WHATSAPP CHAT */}
             {/* <a
                 href="https://wa.me/2348100000000"

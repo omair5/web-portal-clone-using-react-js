@@ -90,9 +90,9 @@ function Navbar() {
                         <Link to='/blogs' className='nav-links' onClick={closeMobileMenu} > Blogs </Link>
                     </li>
 
-                    <li className='nav-item'>
+                    {/* <li className='nav-item'>
                         <Link to='/areaguide' className='nav-links' onClick={closeMobileMenu} > AreaGuide </Link>
-                    </li>
+                    </li> */}
                     <li className='nav-item'>
                         <Link to='/partners' className='nav-links' onClick={closeMobileMenu} > Partners </Link>
                     </li>

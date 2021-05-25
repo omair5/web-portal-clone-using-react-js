@@ -36,7 +36,7 @@ const useStyles = makeStyles({
     }
 });
 
-const DetailsColumn2 = () => {
+const DetailsColumn2 = ({ bathrooms, purpose, area, areaUnit, postedAt }) => {
     const classes = useStyles();
 
     return (
@@ -45,22 +45,22 @@ const DetailsColumn2 = () => {
                 <TableBody>
                     <StyledTableRow >
                         <StyledTableCell component="th" scope="row" className={classes.tableHeading} >Bath(s) </StyledTableCell>
-                        <StyledTableCell align="left">3</StyledTableCell>
+                        <StyledTableCell align="left">{(bathrooms === 'donotshowbaths') || (bathrooms === 'null') ? '-' : bathrooms}</StyledTableCell>
                     </StyledTableRow>
 
                     <StyledTableRow >
                         <StyledTableCell component="th" scope="row" className={classes.tableHeading}>Purpose </StyledTableCell>
-                        <StyledTableCell align="left">For Sale</StyledTableCell>
+                        <StyledTableCell align="left">{purpose}</StyledTableCell>
                     </StyledTableRow>
 
                     <StyledTableRow >
                         <StyledTableCell component="th" scope="row" className={classes.tableHeading}>Area </StyledTableCell>
-                        <StyledTableCell align="left">235 Sq. Yd.</StyledTableCell>
+                        <StyledTableCell align="left">{area} {areaUnit}</StyledTableCell>
                     </StyledTableRow>
 
                     <StyledTableRow >
                         <StyledTableCell component="th" scope="row" className={classes.tableHeading}>Posted at </StyledTableCell>
-                        <StyledTableCell align="left">May 17, 2021</StyledTableCell>
+                        <StyledTableCell align="left">{postedAt}</StyledTableCell>
                     </StyledTableRow>
                 </TableBody>
             </Table>

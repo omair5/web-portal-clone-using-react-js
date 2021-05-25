@@ -41,13 +41,14 @@ const GeneralInformation = () => {
     const classes = useStyles();
     const dispatch = useDispatch()
     const generalInfoInputs = useSelector(state => state.Commercial_General_Info_Inputs)
-    const { year, rooms, parking, floors } = generalInfoInputs
+    const { year, bedrooms, parking, floors } = generalInfoInputs
     const selectedFloor = useSelector(state => state.Commercial_Flooring)
     const selectedBackup = useSelector(state => state.Commercial_Backup)
     const { commercial_rooms_required } = useSelector(state => state.RequiredFields)
 
     // HANDLE CALLBACKS
     const HandleInputChange = (e) => {
+
         if (isNaN(e.target.value)) {
             return
         }
@@ -84,11 +85,11 @@ const GeneralInformation = () => {
                     {/* NO OF ROOMS*/}
                     <Grid item xs={6} sm={6} md={3}>
                         <InputTextField
-                            value={rooms}
+                            value={bedrooms}
                             TextFieldId='2'
                             TextFieldPlaceHolder='NO OF ROOMS*'
                             InputType='tel'
-                            name='rooms'
+                            name='bedrooms'
                             outlined="outlined"
                             callBack={HandleInputChange}
                             maxlength={4}

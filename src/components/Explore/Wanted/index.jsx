@@ -7,6 +7,8 @@ import { v4 as uuidv4 } from 'uuid';
 import SkeletonForCards from '../../SkeletonForCards';
 import { useSelector } from 'react-redux';
 import NoPropertyFound from '../../FrequentlyUsed/NoPropertyFound'
+import { Link } from 'react-router-dom'
+
 
 const WantedTab = () => {
     const classes = useStyles();
@@ -37,17 +39,21 @@ const WantedTab = () => {
             {WantedPropertyList.length !== 0 &&
                 <Grid container spacing={3}>
                     {
-                        WantedPropertyList.map(value => (
+                        WantedPropertyList.reverse().map(value => (
                             <Grid item xs={12} md={6} key={uuidv4()}>
-                                <AbaadeeCards
-                                    buildingName={value.building_name}
-                                    location={`${value.location}, ${value.city}`}
-                                    areaSize={value.area_size}
-                                    areaUnit={value.area_unit}
-                                    beds={value.beds}
-                                    price={value.price}
-                                    cover_image={value.cover_image}
-                                    MainBox={{ maxWidth: '95%' }} />
+                                <Link to={`/property/${value.propertyId}`} className={classes.link}>
+                                    <AbaadeeCards
+                                        buildingName={value.building_name}
+                                        location={`${value.location}, ${value.city}`}
+                                        areaSize={value.area_size}
+                                        areaUnit={value.area_unit}
+                                        beds={value.beds}
+                                        baths={value.bathrooms}
+                                        price={value.price}
+                                        cover_image={value.cover_image}
+                                        MainBox={{ maxWidth: '95%' }}
+                                    />
+                                </Link>
                             </Grid>
                         ))
                     }

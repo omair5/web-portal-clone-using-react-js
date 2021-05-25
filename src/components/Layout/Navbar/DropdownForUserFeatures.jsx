@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './Dropdown.css';
-import { useHistory } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 function DropdownForUserFeatures() {
-  const history = useHistory()
+  // const history = useHistory()
   const dispatch = useDispatch()
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
@@ -12,7 +12,8 @@ function DropdownForUserFeatures() {
   const HandleLogout = () => {
     setClick(false)
     localStorage.clear()
-    history.push('/')
+    // history.push('/')
+    window.location.href = "/";
     dispatch({ type: 'remove_authorized_user_name' })
     dispatch({ type: 'clear_authorized_user' })
   }

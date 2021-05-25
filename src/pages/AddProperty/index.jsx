@@ -13,6 +13,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import HouseIcon from '@material-ui/icons/House';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from 'axios';
+import PopUpMessage from '../../components/FrequentlyUsed/PopUpMessage';
+import FailurePopUpMessage from '../../components/FrequentlyUsed/FailurePopUpMessage';
 
 const useStyles = makeStyles((theme) => ({
     mainContainer: {
@@ -312,6 +314,8 @@ const AddProperty = () => {
         dispatch({ type: 'clear_commercial_business_and_communication' })
         setError(false)
         dispatch({ type: 'clear_property_details_editor_state' })
+        // CLEAR MAP LATITUDE AND LONGITUDE
+        dispatch({ type: 'clear_Google_Maps_Latitude_Longitude' })
     }
 
     // HANDLE SUBMIT PROPERTY
@@ -362,6 +366,12 @@ const AddProperty = () => {
                     }
                 }).then(res => {
                     console.log('this is response', res)
+                    if (res.data.status === 200) {
+                        dispatch({ type: 'open_FrequentlyUsed_PopUpMessage' })
+                    }
+                    else {
+                        dispatch({ type: 'open_FrequentlyUsed_Failure_PopUpMessage' })
+                    }
                     // CLEARING FORM FIELDS
                     ClearFormFields()
                     setloader(false)
@@ -417,6 +427,18 @@ const AddProperty = () => {
                     {error && <span className='required'>All * Required Fields Should Be Filled Properly!</span>}
                 </div>
             </Container>
+            {/* SUCCESS MESSAGE */}
+            < PopUpMessage
+                heading={'ThankYou For Your Trust On Abaadee.com!'}
+                color={'green'}
+                message={'Dear User, Team Abaadee Will Review Your Property For Approval And Will Get back To You With In 24 Hours'}
+            />
+            {/* FAILURE MESSAGE */}
+            <FailurePopUpMessage
+                heading={'OOPS! SORRY SOMETHING WENT WRONG'}
+                color={'red'}
+                message={'Dear User, We Apoligize For The inconvenience! Servers Are Not Responding At This Moment Please Try Later'}
+            />
             {/* GOTO TOP BUTTON */}
             <GoToTop />
         </Layout>);

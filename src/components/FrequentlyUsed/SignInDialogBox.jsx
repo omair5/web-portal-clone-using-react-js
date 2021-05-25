@@ -12,7 +12,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import axios from 'axios';
 import ForgetPasswordDialogBox from './ForgetPasswordDialogBox';
+import GoogleRegisteration from './GoogleRegisteration'
 import SocialMediaSignInSignUp from './SocialMediaSignInSignUp';
+
 
 
 // const useStylesCheckBox = makeStyles(theme => ({
@@ -31,7 +33,7 @@ const useStyles = makeStyles({
     mainContainer: {
         backgroundColor: "white",
         minHeight: '500px',
-        maxWidth: '400px',
+        minWidth: '400px',
         overflow: "auto",
     },
     createAccount: {
@@ -193,11 +195,7 @@ const SignInDialogBox = () => {
                         <p className={classes.connectWith}>Or connect with</p>
 
                         {/* SIGN IN WITH GOOGLE */}
-                        {/* <SignInAndRegisterButton
-                            ButtonIcon={faGoogle}
-                            ButtonText='Sign in with Google'
-                            bgColor={{ backgroundColor: '#c71610' }}
-                        /> */}
+                        <GoogleRegisteration />
 
                         {/* SIGN IN WITH FACEBOOK */}
                         {/* <SignInAndRegisterButton
@@ -205,7 +203,7 @@ const SignInDialogBox = () => {
                             ButtonText='Login with Facebook'
                             bgColor={{ backgroundColor: '#3b5998' }}
                         /> */}
-                        <SocialMediaSignInSignUp />
+                        {/* <SocialMediaSignInSignUp /> */}
 
                         {/* FOOTER */}
                         <div className={`${classes.IconWithText} ${classes.footer}`}>

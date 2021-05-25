@@ -36,7 +36,7 @@ const useStyles = makeStyles({
     }
 });
 
-const DetailsColumn1 = () => {
+const DetailsColumn1 = ({ type, price, location, city, bedrooms }) => {
     const classes = useStyles();
 
     return (
@@ -45,22 +45,22 @@ const DetailsColumn1 = () => {
                 <TableBody>
                     <StyledTableRow >
                         <StyledTableCell component="th" scope="row" className={classes.tableHeading} >Type </StyledTableCell>
-                        <StyledTableCell align="left">HOUSE</StyledTableCell>
+                        <StyledTableCell align="left">{type}</StyledTableCell>
                     </StyledTableRow>
 
                     <StyledTableRow >
                         <StyledTableCell component="th" scope="row" className={classes.tableHeading}>Price </StyledTableCell>
-                        <StyledTableCell align="left">PKR1.35 Crore</StyledTableCell>
+                        <StyledTableCell align="left">PKR {price}</StyledTableCell>
                     </StyledTableRow>
 
                     <StyledTableRow >
                         <StyledTableCell component="th" scope="row" className={classes.tableHeading}>Location </StyledTableCell>
-                        <StyledTableCell align="left">bahria Town Karachi, Karachi</StyledTableCell>
+                        <StyledTableCell align="left">{location}, {city}</StyledTableCell>
                     </StyledTableRow>
 
                     <StyledTableRow >
                         <StyledTableCell component="th" scope="row" className={classes.tableHeading}>Bedroom(s) </StyledTableCell>
-                        <StyledTableCell align="left">4</StyledTableCell>
+                        <StyledTableCell align="left">{bedrooms === 'donotshowbeds' ? '-' : bedrooms}</StyledTableCell>
                     </StyledTableRow>
                 </TableBody>
             </Table>
