@@ -38,6 +38,10 @@ const Developers = () => {
     const classes = useStyles();
     const DeveloperSearchShow = useSelector(state => state.DeveloperSearchShow)
     const DeveloperCardShow = useSelector(state => state.DeveloperCardShow)
+
+    console.log('Developer Search Show', DeveloperSearchShow)
+    console.log('Developer Card Show', DeveloperCardShow)
+
     return (
         <Layout FooterDisplay={false}>
             <Advertisement

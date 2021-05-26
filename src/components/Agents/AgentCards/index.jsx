@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import propertyImage from './images/property.jpeg'
-import AgentCard from '../../FrequentlyUsed/DeveloperCard';
+import AgentCard from '../../FrequentlyUsed/DeveloperAndAgentCard';
 const AgentCards = () => {
     return (
         <>

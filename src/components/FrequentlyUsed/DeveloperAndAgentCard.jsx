@@ -4,11 +4,12 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Tooltip from '@material-ui/core/Tooltip';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+// import Tooltip from '@material-ui/core/Tooltip';
+// import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ApartmentIcon from '@material-ui/icons/Apartment';
 import PhoneIcon from '@material-ui/icons/Phone';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 370,
@@ -55,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     CardFooter: {
-        margin: '120px 20px',
+        margin: '100px 20px',
         display: 'flex'
     },
     locationIcon: {
@@ -64,7 +65,8 @@ const useStyles = makeStyles((theme) => ({
         marginRight: '4px',
     },
     address: {
-        display: 'flex'
+        display: 'flex',
+        marginTop: '5px'
     },
     contentDisplay: {
         display: 'flex',
@@ -99,7 +101,11 @@ const useStyles = makeStyles((theme) => ({
                 fontSize: '10px'
             }
         },
-    }
+    },
+    //     developerName: {
+    // fontWeight:'bolder',
+    // fontSi
+    //     }
 }));
 
 const DeveloperCard = (props) => {
@@ -117,9 +123,9 @@ const DeveloperCard = (props) => {
                     <div className={classes.overlay}>
                         <div className={classes.mainContainer}>
                             <span className={classes.featured}>FEATURED</span>
-                            <Tooltip title={<h6>Bookmark</h6>}>
+                            {/* <Tooltip title={<h6>Bookmark</h6>}>
                                 <FavoriteBorderIcon className={classes.bookmarkIcon} />
-                            </Tooltip>
+                            </Tooltip> */}
                         </div>
 
                         <div className={classes.CardFooter}>
@@ -129,10 +135,10 @@ const DeveloperCard = (props) => {
                             </div>
                             {/* FOR DEVELOPER NAME AND ADDRESS */}
                             <div>
-                                <h5>{DeveloperName}</h5>
+                                <h4 className={classes.developerName}>{DeveloperName}</h4>
                                 <div className={classes.address}>
                                     <LocationOnIcon className={classes.locationIcon} />
-                                    <h5 style={{ alignSelf: 'center' }}>{Address}</h5>
+                                    <h5 style={{ alignSelf: 'center', fontWeight: 'light' }}>{Address}</h5>
                                 </div>
                             </div>
                         </div>

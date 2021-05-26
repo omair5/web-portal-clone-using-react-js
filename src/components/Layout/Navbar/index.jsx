@@ -130,8 +130,10 @@ function Navbar() {
                     <ClickAwayListener onClickAway={handleClickAway}>
                         <div className='userContainer' onClick={HandleClickUser}>
                             <AccountCircleIcon style={{ fontSize: '25px', marginRight: '5px', color: 'rgb(76, 84, 85)' }} />
-                            <p>{AuthorizedUserName}</p>
-                            <ArrowDropDownIcon style={{ marginLeft: '2px', color: 'white' }} />
+                            <div className='usernameContainer'>
+                                <p>{AuthorizedUserName}</p>
+                                <ArrowDropDownIcon style={{ marginLeft: '2px', color: 'white' }} />
+                            </div>
                             {dropdownUser && <DropdownForUserFeatures />}
                         </div>
                     </ClickAwayListener>

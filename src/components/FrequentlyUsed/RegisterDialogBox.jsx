@@ -12,16 +12,20 @@ import axios from 'axios';
 import RegisterCountryApi from '../../Services/RegisterCountryApi'
 import RegisterGetCities from '../../Services/RegisterGetCities';
 import ConfirmationEmailDialog from './ConfirmationEmailDialog';
-import SocialMediaSignInSignUp from './SocialMediaSignInSignUp';
+import GoogleRegisteration from './GoogleRegisteration'
+import FacebookRegisteration from './FacebookRegisteration'
 // import PhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
+// import 'react-phone-input-2/lib/style.css'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     mainContainer: {
         backgroundColor: "white",
         minHeight: '750px',
-        maxWidth: '400px',
+        minWidth: '400px',
         overflow: "hidden",
+        [theme.breakpoints.down('md')]: {
+            minWidth: '285px',
+        },
         "& h4": {
             textAlign: 'center',
             padding: '10px 0px',
@@ -85,7 +89,7 @@ const useStyles = makeStyles({
     dropdown: {
         width: '334px !important',
     },
-});
+}));
 
 const RegisterDialogBox = () => {
     const classes = useStyles();
@@ -351,20 +355,10 @@ const RegisterDialogBox = () => {
                         <p className={classes.connectWith}>Or connect with</p>
 
                         {/* SIGN IN WITH GOOGLE */}
-                        {/* <SignInAndRegisterButton
-                            ButtonIcon={faGoogle}
-                            ButtonText='Register with Google'
-                            bgColor={{ backgroundColor: '#c71610' }}
-                        /> */}
+                        <GoogleRegisteration />
 
                         {/* SIGN IN WITH FACEBOOK */}
-                        {/* <SignInAndRegisterButton
-                            ButtonIcon={faFacebookF}
-                            ButtonText='Register with Facebook'
-                            bgColor={{ backgroundColor: '#3b5998' }}
-                        /> */}
-
-                        <SocialMediaSignInSignUp />
+                        <FacebookRegisteration />
 
                         <p className={classes.AlreadyRegistered} onClick={HandleSignIn}>Already Registered?</p>
                     </DialogContent>

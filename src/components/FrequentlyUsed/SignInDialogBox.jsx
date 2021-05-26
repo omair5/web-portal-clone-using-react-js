@@ -13,8 +13,7 @@ import { useHistory } from 'react-router-dom'
 import axios from 'axios';
 import ForgetPasswordDialogBox from './ForgetPasswordDialogBox';
 import GoogleRegisteration from './GoogleRegisteration'
-import SocialMediaSignInSignUp from './SocialMediaSignInSignUp';
-
+import FacebookRegisteration from './FacebookRegisteration'
 
 
 // const useStylesCheckBox = makeStyles(theme => ({
@@ -29,12 +28,15 @@ import SocialMediaSignInSignUp from './SocialMediaSignInSignUp';
 //     },
 // }));
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     mainContainer: {
         backgroundColor: "white",
-        minHeight: '500px',
-        minWidth: '400px',
+        minHeight: 'auto',
+        minWidth: '380px',
         overflow: "auto",
+        [theme.breakpoints.down('md')]: {
+            minWidth: '285px',
+        },
     },
     createAccount: {
         marginLeft: '5px',
@@ -66,7 +68,7 @@ const useStyles = makeStyles({
         color: "#fcb812",
         fontSize: '20px'
     }
-});
+}));
 
 const SignInDialogBox = () => {
     // const classesCheckBox = useStylesCheckBox();
@@ -198,12 +200,7 @@ const SignInDialogBox = () => {
                         <GoogleRegisteration />
 
                         {/* SIGN IN WITH FACEBOOK */}
-                        {/* <SignInAndRegisterButton
-                            ButtonIcon={faFacebookF}
-                            ButtonText='Login with Facebook'
-                            bgColor={{ backgroundColor: '#3b5998' }}
-                        /> */}
-                        {/* <SocialMediaSignInSignUp /> */}
+                        <FacebookRegisteration />
 
                         {/* FOOTER */}
                         <div className={`${classes.IconWithText} ${classes.footer}`}>
