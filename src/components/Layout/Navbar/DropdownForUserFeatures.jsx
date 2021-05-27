@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import './Dropdown.css';
 // import { useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import Divider from '@material-ui/core/Divider';
+
 
 function DropdownForUserFeatures() {
   // const history = useHistory()
   const dispatch = useDispatch()
+  const AuthorizedUserName = useSelector(state => state.AuthorizedUserNameReducer)
+
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
 
@@ -21,6 +25,10 @@ function DropdownForUserFeatures() {
   return (
     <>
       <ul onClick={handleClick} className={click ? 'dropdown-menu clicked' : 'dropdown-menu positionForUserContainer'}>
+        <div className='usernameInDropDown'>
+          <h5 className='dropdown-link'>{AuthorizedUserName}</h5>
+          <Divider variant="middle" />
+        </div>
         <li className='dropdown-link' onClick={HandleLogout}> Logout </li>
       </ul>
     </>

@@ -8,13 +8,29 @@ import SkeletonForCards from '../../SkeletonForCards';
 import { useSelector } from 'react-redux';
 import NoPropertyFound from '../../FrequentlyUsed/NoPropertyFound'
 import { Link } from 'react-router-dom'
+import axios from 'axios';
+
 
 const BuyTab = () => {
     const classes = useStyles();
     const classesBase = useStylesBase();
-    const BuyPropertyList = useSelector(state => state.Explore_Buy_Properties)
+    const { buy_response: BuyPropertyList, links, meta } = useSelector(state => state.Explore_Buy_Properties)
     const BuyPropertySkeleton = useSelector(state => state.Explore_Buy_Skeleton)
     const ShowMessage = useSelector(state => state.Explore_Buy_Not_Found_Message)
+    console.log(BuyPropertyList)
+    console.log(links)
+    console.log(meta)
+    const HandlePageChange = (e, value) => {
+        console.log(value)
+        const paginated_data = axios.get('http://localhost:3200/addproperty/getpropertydata?page=2&limit=3'
+            // {
+            //     params: {
+            //       foo: 'bar'
+            //     }
+            //   }
+        );
+        console.log('paginated data', paginated_data)
+    }
 
     return (
         <>
@@ -69,6 +85,7 @@ const BuyTab = () => {
                 className={classes.paginationContainer}
                 classes={classesBase}
                 size="large"
+                onChange={HandlePageChange}
             />
         </>
     );

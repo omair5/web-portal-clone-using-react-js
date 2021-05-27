@@ -1,4 +1,4 @@
-let initialState = []
+let initialState = { buy_response: [], links: {}, meta: {} }
 const Explore_Buy_Properties = (state = initialState, action) => {
     switch (action.type) {
         case 'explore_buy_properties':

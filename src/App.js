@@ -56,15 +56,15 @@ function App() {
     let mounted = true
     async function GetPropertiesExplore() {
       if (mounted) {
-        const buy_response = await ExploreGetProperties('Sale')
-        if (buy_response.length !== 0) {
+        const response = await ExploreGetProperties('Sale')
+        if (response.buy_response.length !== 0) {
           dispatch({ type: 'hide_buy_properties_skeleton' })
-          dispatch({ type: 'explore_buy_properties', payload: buy_response })
+          dispatch({ type: 'explore_buy_properties', payload: response })
 
         }
         else {
           dispatch({ type: 'hide_buy_properties_skeleton' })
-          dispatch({ type: 'explore_buy_properties', payload: buy_response })
+          dispatch({ type: 'explore_buy_properties', payload: response })
           dispatch({ type: 'no_buy_listings_are_found_show_message' })
         }
       }
