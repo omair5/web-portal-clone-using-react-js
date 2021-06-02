@@ -42,7 +42,6 @@ async function GetPropertyData(Property_Id) {
             latitude: value.latitude,
             longitude: value.longitude,
             property_id: value.id,
-            user: value.userid
         }
     ))
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Paper from '@material-ui/core/Paper';
 import InputTextField from '../../components/FrequentlyUsed/InputTextField'
 import { makeStyles } from '@material-ui/core/styles';
@@ -6,6 +6,8 @@ import TextField from '@material-ui/core/TextField';
 import PhoneInput from 'react-phone-input-2'
 import PhoneRoundedIcon from '@material-ui/icons/PhoneRounded';
 import 'react-phone-input-2/lib/style.css'
+import axios from 'axios';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -73,17 +75,41 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const ContactForm = ({ price, propertyId, user }) => {
+const ContactForm = ({ price, propertyId }) => {
     const classes = useStyles();
-    const HandleForm = () => {
+    const [formFields, setformFields] = useState({ name: '', email: '', message: '' })
+    const [phone, setphone] = useState('')
 
+    const HandleForm = (e) => {
+        setformFields({ ...formFields, [e.target.name]: e.target.value })
     }
 
+    const HandlePhone = (value) => {
+        setphone(value)
+    }
+
+    const HandleSubmit = (e) => {
+        e.preventDefault()
+        const formData = {
+            p_id: propertyId,
+            name: formFields.name,
+            p_number: phone,
+            email: formFields.email,
+            message: formFields.message
+        }
+        console.log(formData)
+        axios.post('localhost:3200/addproperty/property_contact', formData)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+    }
+
+
     return (
-        <Paper className={classes.paper}>
-            <h2 className={classes.price}>PKR {price}</h2>
-            {/* FOR WHATSAPP CHAT */}
-            {/* <a
+        <Paper className={classes.paper} >
+            <form onSubmit={HandleSubmit}>
+                <h2 className={classes.price}>PKR {price}</h2>
+                {/* FOR WHATSAPP CHAT */}
+                {/* <a
                 href="https://wa.me/2348100000000"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -91,55 +117,63 @@ const ContactForm = ({ price, propertyId, user }) => {
                 click me to chat on whatsapp
             </a> */}
 
-            {/* FOR CALL */}
-            <a href="tel:+15555551212" className={classes.callButton}>
-                <div className={classes.callIconBox}>
-                    <PhoneRoundedIcon style={{ fontSize: '20px', marginRight: '5px' }} />
-                    <p>CALL</p>
-                </div>
-            </a>
+                {/* FOR CALL */}
+                <a href="tel:+15555551212" className={classes.callButton}>
+                    <div className={classes.callIconBox}>
+                        <PhoneRoundedIcon style={{ fontSize: '20px', marginRight: '5px' }} />
+                        <p>CALL</p>
+                    </div>
+                </a>
 
-            <h5>Name*</h5>
-            <InputTextField
-                TextFieldId='1'
-                InputType='text'
-                required={true}
-                name='name'
-                onChange={HandleForm}
-                outlined='outlined'
-            />
+                <h5>Name*</h5>
+                <InputTextField
+                    TextFieldId='1'
+                    InputType='text'
+                    required={true}
+                    value={formFields.name}
+                    name='name'
+                    callBack={HandleForm}
+                    outlined='outlined'
+                />
 
-            <h5>Email*</h5>
-            <InputTextField
-                TextFieldId='2'
-                InputType='email'
-                required={true}
-                name='email'
-                onChange={HandleForm}
-                outlined='outlined'
-            />
+                <h5>Email*</h5>
+                <InputTextField
+                    TextFieldId='2'
+                    InputType='email'
+                    required={true}
+                    value={formFields.email}
+                    name='email'
+                    callBack={HandleForm}
+                    outlined='outlined'
+                />
 
-            <h5 style={{ marginBottom: '7px' }}>Message* </h5>
-            <TextField
-                variant="outlined"
-                multiline
-                name='message'
-                onChange={HandleForm}
-                fullWidth={true}
-                rows={5}
-                InputProps={{
-                    className: classes.inputStyles,
-                }}
-            />
+                <h5 style={{ marginBottom: '7px' }}>Message* </h5>
+                <TextField
+                    variant="outlined"
+                    multiline
+                    value={formFields.message}
+                    name='message'
+                    onChange={HandleForm}
+                    fullWidth={true}
+                    rows={5}
+                    InputProps={{
+                        className: classes.inputStyles,
+                    }}
+                />
 
-            <PhoneInput
-                country={'pk'}
-                containerClass={classes.container}
-                inputClass={classes.input}
-                dropdownClass={classes.dropdown}
-                onChange={HandleForm}
-            />
-            <button className={classes.requestButton}>REQUEST INFO</button>
+                <PhoneInput
+                    country={'pk'}
+                    containerClass={classes.container}
+                    inputClass={classes.input}
+                    dropdownClass={classes.dropdown}
+                    value={phone}
+                    onChange={HandlePhone}
+                    inputProps={{
+                        required: true,
+                    }}
+                />
+                <button className={classes.requestButton} type='submit'>REQUEST INFO</button>
+            </form>
         </Paper>
     );
 }
