@@ -96,10 +96,10 @@ const FindUsAt = () => {
                     <div className={classes.FindUs}>
                         <h1>YOU CAN FIND US AT</h1>
                         <div style={{ textAlign: 'center' }}>
-                            <span className={`${classes.SocialMediaIcons} ${classes.fb}`} ><FontAwesomeIcon icon={faFacebookF} /></span>
-                            <span className={`${classes.SocialMediaIcons} ${classes.twitter}`} ><FontAwesomeIcon icon={faTwitter} /></span>
-                            <span className={`${classes.SocialMediaIcons} ${classes.youtube}`} ><FontAwesomeIcon icon={faYoutube} /></span>
-                            <span className={`${classes.SocialMediaIcons} ${classes.insta}`} ><FontAwesomeIcon icon={faInstagram} /></span>
+                            <a className='link' href={'https://www.facebook.com/abaadeepk/'} target='_blank' rel="noreferrer"> <span className={`${classes.SocialMediaIcons} ${classes.fb}`} ><FontAwesomeIcon icon={faFacebookF} /></span></a>
+                            <a className='link' href={'https://twitter.com/abaadeepk?lang=en'} target='_blank' rel="noreferrer"> <span className={`${classes.SocialMediaIcons} ${classes.twitter}`} ><FontAwesomeIcon icon={faTwitter} /></span></a>
+                            <a className='link' href={'https://www.youtube.com/channel/UCYwDTTwUG6FvTCO6gqCLUxQ/videos'} target='_blank' rel="noreferrer"> <span className={`${classes.SocialMediaIcons} ${classes.youtube}`} ><FontAwesomeIcon icon={faYoutube} /></span></a>
+                            <a className='link' href={'https://www.instagram.com/abaadeepk/?hl=en'} target='_blank' rel="noreferrer"><span className={`${classes.SocialMediaIcons} ${classes.insta}`} ><FontAwesomeIcon icon={faInstagram} /></span></a>
                         </div>
                     </div>
                 </Grid>

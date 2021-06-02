@@ -9,8 +9,6 @@ import 'react-phone-input-2/lib/style.css'
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 
-
-
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -100,8 +98,8 @@ const ContactForm = ({ price, propertyId }) => {
             email: formFields.email,
             message: formFields.message
         }
-        console.log(formData)
-        axios.post('http://localhost:3200/addproperty/property_contact', formData)
+
+        axios.post('http://localhost:3200/auth/property_contact', formData)
             .then(res => {
                 if (res.status === 201) {
                     setformFields({ name: '', email: '', message: '' })
