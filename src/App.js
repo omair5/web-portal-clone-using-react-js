@@ -23,7 +23,11 @@ const UserLogin = React.lazy(() => import('./pages/UserLogIn'));
 const Property = React.lazy(() => import('./pages/Property'));
 const PageNotFound = React.lazy(() => import('./pages/PageNotFound'));
 const ResetPasswordDialogBox = React.lazy(() => import('./components/FrequentlyUsed/ResetPasswordDialogBox'));
-const Skeleton = React.lazy(() => import('./components/SkeletonForPropertyDetail.jsx'));
+const Project = React.lazy(() => import('./pages/Project'));
+const AgentDetail = React.lazy(() => import('./pages/AgentDetails'));
+const DeveloperDetail = React.lazy(() => import('./pages/DeveloperDetail'));
+
+
 // const Listings = React.lazy(() => import('./pages/Listings'));
 // const Packages = React.lazy(() => import('./pages/packages'));
 
@@ -56,15 +60,15 @@ function App() {
     let mounted = true
     async function GetPropertiesExplore() {
       if (mounted) {
-        const response = await ExploreGetProperties('Sale')
-        if (response.buy_response.length !== 0) {
+        const buy_response = await ExploreGetProperties('Sale')
+        if (buy_response.length !== 0) {
           dispatch({ type: 'hide_buy_properties_skeleton' })
-          dispatch({ type: 'explore_buy_properties', payload: response })
+          dispatch({ type: 'explore_buy_properties', payload: buy_response })
 
         }
         else {
           dispatch({ type: 'hide_buy_properties_skeleton' })
-          dispatch({ type: 'explore_buy_properties', payload: response })
+          dispatch({ type: 'explore_buy_properties', payload: buy_response })
           dispatch({ type: 'no_buy_listings_are_found_show_message' })
         }
       }
@@ -145,20 +149,15 @@ function App() {
               <ProtectedRoutes Component={AddProperty} />
             </Route>
             {/* <Route exact path='/add-property' component={AddProperty} /> */}
-
             <Route exact path='/reset/password' component={ResetPasswordDialogBox} />
+            <Route exact path='/project' component={Project} />
+            <Route exact path='/agent/detail' component={AgentDetail} />
+            <Route exact path='/developer/detail' component={DeveloperDetail} />
+
+
             {/* dashboard */}
             <Route exact path='/my-account' component={UserLogin} />
-
-            <Route exact path='/skeleton' component={Skeleton} />
-
             <Route path='*' exact={true} component={PageNotFound} />
-
-
-
-
-
-
 
 
             {/* after clicking on any type of add property u will be directed to this page */}

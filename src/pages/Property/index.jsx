@@ -17,6 +17,8 @@ import Facing from '../../components/Property/Facing';
 import BusinessAndCommunication from '../../components/Property/BusinessAndCommunication';
 import PropertyLocation from '../../components/Property/PropertyLocation';
 import SkeletonForPropertyDetail from '../../components/SkeletonForPropertyDetail.jsx';
+import GoToTop from '../../GoToTop';
+
 
 const useStyles = makeStyles({
     mainContainer: {
@@ -92,36 +94,24 @@ const Property = () => {
                                 }
 
                                 {/* PROPERTY LOCATION */}
-                                <h1>PROPERTY LOCATION</h1>
+                                <h1>PROJECT LOCATION</h1>
                                 <PropertyLocation lat={propertyData.latitude} lng={propertyData.longitude} />
                             </Grid>
 
                             <Grid item xs={12} md={4} >
                                 <ContactForm
                                     price={propertyData.price}
+                                    propertyId={propertyData.property_id}
+                                    user={propertyData.user}
                                 />
                             </Grid>
 
                         </Grid>
                     </Container> : <SkeletonForPropertyDetail />
                 }
+                <GoToTop />
             </Layout>
         </>
     );
 }
-
 export default React.memo(Property);
-
-// import React from 'react';
-// import Layout from '../../components/Layout/Layout';
-
-// import SkeletonForPropertyDetail from '../../components/SkeletonForPropertyDetail.jsx';
-// const Property = () => {
-//     return (
-//         <Layout FooterDisplay={true}>
-//             <SkeletonForPropertyDetail />
-//         </Layout>
-//     );
-// }
-
-// export default Property;

@@ -73,11 +73,8 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const ContactForm = ({ price, propertyId, user }) => {
+const ContactForm = ({ price }) => {
     const classes = useStyles();
-    const HandleForm = () => {
-
-    }
 
     return (
         <Paper className={classes.paper}>
@@ -105,7 +102,6 @@ const ContactForm = ({ price, propertyId, user }) => {
                 InputType='text'
                 required={true}
                 name='name'
-                onChange={HandleForm}
                 outlined='outlined'
             />
 
@@ -115,7 +111,6 @@ const ContactForm = ({ price, propertyId, user }) => {
                 InputType='email'
                 required={true}
                 name='email'
-                onChange={HandleForm}
                 outlined='outlined'
             />
 
@@ -123,8 +118,6 @@ const ContactForm = ({ price, propertyId, user }) => {
             <TextField
                 variant="outlined"
                 multiline
-                name='message'
-                onChange={HandleForm}
                 fullWidth={true}
                 rows={5}
                 InputProps={{
@@ -137,7 +130,6 @@ const ContactForm = ({ price, propertyId, user }) => {
                 containerClass={classes.container}
                 inputClass={classes.input}
                 dropdownClass={classes.dropdown}
-                onChange={HandleForm}
             />
             <button className={classes.requestButton}>REQUEST INFO</button>
         </Paper>

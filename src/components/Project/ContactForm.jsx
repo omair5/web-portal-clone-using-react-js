@@ -14,6 +14,11 @@ const useStyles = makeStyles((theme) => ({
     paper: {
         padding: theme.spacing(2),
         color: theme.palette.text.secondary,
+        "& h4": {
+            textAlign: 'center',
+            padding: '10px 0px',
+            color: 'black'
+        }
     },
     inputStyles: {
         color: "rgb(59, 70, 86)",
@@ -73,15 +78,12 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const ContactForm = ({ price, propertyId, user }) => {
+const ContactForm = () => {
     const classes = useStyles();
-    const HandleForm = () => {
-
-    }
 
     return (
         <Paper className={classes.paper}>
-            <h2 className={classes.price}>PKR {price}</h2>
+            {/* <h2 className={classes.price}>PKR {price}</h2> */}
             {/* FOR WHATSAPP CHAT */}
             {/* <a
                 href="https://wa.me/2348100000000"
@@ -92,6 +94,7 @@ const ContactForm = ({ price, propertyId, user }) => {
             </a> */}
 
             {/* FOR CALL */}
+            <h4>MAKE AN ENQUIRY</h4>
             <a href="tel:+15555551212" className={classes.callButton}>
                 <div className={classes.callIconBox}>
                     <PhoneRoundedIcon style={{ fontSize: '20px', marginRight: '5px' }} />
@@ -105,7 +108,6 @@ const ContactForm = ({ price, propertyId, user }) => {
                 InputType='text'
                 required={true}
                 name='name'
-                onChange={HandleForm}
                 outlined='outlined'
             />
 
@@ -115,7 +117,6 @@ const ContactForm = ({ price, propertyId, user }) => {
                 InputType='email'
                 required={true}
                 name='email'
-                onChange={HandleForm}
                 outlined='outlined'
             />
 
@@ -123,8 +124,6 @@ const ContactForm = ({ price, propertyId, user }) => {
             <TextField
                 variant="outlined"
                 multiline
-                name='message'
-                onChange={HandleForm}
                 fullWidth={true}
                 rows={5}
                 InputProps={{
@@ -137,7 +136,6 @@ const ContactForm = ({ price, propertyId, user }) => {
                 containerClass={classes.container}
                 inputClass={classes.input}
                 dropdownClass={classes.dropdown}
-                onChange={HandleForm}
             />
             <button className={classes.requestButton}>REQUEST INFO</button>
         </Paper>

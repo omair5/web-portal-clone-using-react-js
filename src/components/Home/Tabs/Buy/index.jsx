@@ -107,9 +107,11 @@ const Buy = () => {
             max_area: maxArea,
             beds: SelectedBed.value
         }
+        dispatch({ type: 'set_explore_buy_tab_pagination', payload: search_data })
         axios.post('http://localhost:3200/addproperty/getpropertydata', search_data).then(response => {
-            if (response.data.length !== 0) {
-                const buy_properties_data = response.data.map((value) => {
+            console.log('this is from SEARCH', response)
+            if (response.data.items.length !== 0) {
+                const buy_properties_data = response.data.items.map((value) => {
                     return {
                         city: value.city.city_name,
                         building_name: value.property_title,
@@ -122,13 +124,11 @@ const Buy = () => {
                         cover_image: value.title_image,
                     }
                 })
-                console.log('now it is getting worse', buy_properties_data)
                 dispatch({ type: 'hide_buy_properties_skeleton' })
                 dispatch({ type: 'buy_listings_are_found_hide_message' })
-                dispatch({ type: 'explore_buy_properties', payload: buy_properties_data })
+                dispatch({ type: 'explore_buy_properties', payload: { property_data: buy_properties_data, meta: response.data.meta } })
             }
             else {
-                console.log('if it is else than it is worried')
                 dispatch({ type: 'hide_buy_properties_skeleton' })
                 dispatch({ type: 'no_buy_listings_are_found_show_message' })
             }

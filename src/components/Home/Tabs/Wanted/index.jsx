@@ -105,8 +105,8 @@ const Wanted = () => {
         }
         console.log(search_data)
         axios.post('http://localhost:3200/addproperty/getpropertydata', search_data).then(response => {
-            if (response.data.length !== 0) {
-                const wanted_properties_data = response.data.map((value) => {
+            if (response.data.items.length !== 0) {
+                const wanted_properties_data = response.data.items.map((value) => {
                     return {
                         city: value.city.city_name,
                         building_name: value.property_title,
@@ -121,7 +121,7 @@ const Wanted = () => {
                 })
                 dispatch({ type: 'hide_wanted_properties_skeleton' })
                 dispatch({ type: 'wanted_listings_are_found_hide_message' })
-                dispatch({ type: 'explore_wanted_properties', payload: wanted_properties_data })
+                dispatch({ type: 'explore_wanted_properties', payload: { property_data: wanted_properties_data, meta: response.data.meta } })
             }
             else {
                 dispatch({ type: 'hide_wanted_properties_skeleton' })

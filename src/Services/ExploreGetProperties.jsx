@@ -2,9 +2,11 @@ let apiURL = 'http://localhost:3200/addproperty/getpropertydata/'
 async function ExploreGetProperties(property_type) {
     apiURL = `http://localhost:3200/addproperty/getpropertydata/${property_type}`
     const response = await fetch(apiURL)
-    const { items, links, meta } = await response.json()
+    const { items, meta } = await response.json()
+    console.log('THIS IS INITIAL RESPONSE', items)
 
-    const buy_response = items.map(value => (
+
+    const property_data = items.map(value => (
         {
             city: value.city.city_name,
             building_name: value.property_title,
@@ -18,6 +20,6 @@ async function ExploreGetProperties(property_type) {
             propertyId: value.id,
         }
     ))
-    return { buy_response, links, meta }
+    return { property_data, meta }
 }
 export default ExploreGetProperties;

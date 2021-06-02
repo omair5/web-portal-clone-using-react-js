@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom'
 const WantedTab = () => {
     const classes = useStyles();
     const classesBase = useStylesBase();
-    const WantedPropertyList = useSelector(state => state.Explore_Wanted_Properties)
+    const { property_data: WantedPropertyList, meta } = useSelector(state => state.Explore_Wanted_Properties)
     const WantedPropertySkeleton = useSelector(state => state.Explore_Wanted_Skeleton)
     const ShowMessage = useSelector(state => state.Explore_Wanted_Not_Found_Message)
 

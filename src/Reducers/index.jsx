@@ -62,6 +62,7 @@ import PropertyDetails_EditorState from './AddProperty/PropertyDetails_EditorSta
 import Google_Maps_Latitude_Longitude from './AddProperty/Google_Maps_Latitude_Longitude'
 import FrequentlyUsed_PopUpMessage from './FrequentlyUsed_PopUpMessage'
 import FrequentlyUsed_Failure_PopUpMessage from './FrequentlyUsed_Failure_PopUpMessage'
+import Explore_Buy_Tab_Pagination from './Explore_Buy_Tab_pagination'
 
 export default combineReducers({
     SearchShow: ExploreSearch,
@@ -126,5 +127,6 @@ export default combineReducers({
     PropertyDetails_EditorState: PropertyDetails_EditorState,
     Google_Maps_Latitude_Longitude: Google_Maps_Latitude_Longitude,
     FrequentlyUsed_PopUpMessage: FrequentlyUsed_PopUpMessage,
-    FrequentlyUsed_Failure_PopUpMessage: FrequentlyUsed_Failure_PopUpMessage
+    FrequentlyUsed_Failure_PopUpMessage: FrequentlyUsed_Failure_PopUpMessage,
+    Explore_Buy_Tab_Pagination:Explore_Buy_Tab_Pagination
 })

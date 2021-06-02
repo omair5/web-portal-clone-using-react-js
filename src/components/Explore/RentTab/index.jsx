@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom'
 const RentTab = () => {
     const classes = useStyles();
     const classesBase = useStylesBase();
-    const RentPropertyList = useSelector(state => state.Explore_Rent_Properties)
+    const { property_data: RentPropertyList, meta } = useSelector(state => state.Explore_Rent_Properties)
     const RentPropertySkeleton = useSelector(state => state.Explore_Rent_Skeleton)
     const ShowMessage = useSelector(state => state.Explore_Rent_Not_Found_Message)
 

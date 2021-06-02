@@ -113,8 +113,9 @@ const Rent = () => {
         }
         console.log(search_data)
         axios.post('http://localhost:3200/addproperty/getpropertydata', search_data).then(response => {
-            if (response.data.length !== 0) {
-                const rent_properties_data = response.data.map((value) => {
+            console.log('rent search response', response)
+            if (response.data.items.length !== 0) {
+                const rent_properties_data = response.data.items.map((value) => {
                     return {
                         city: value.city.city_name,
                         building_name: value.property_title,
@@ -129,7 +130,7 @@ const Rent = () => {
                 })
                 dispatch({ type: 'hide_rent_properties_skeleton' })
                 dispatch({ type: 'rent_listings_are_found_hide_message' })
-                dispatch({ type: 'explore_rent_properties', payload: rent_properties_data })
+                dispatch({ type: 'explore_rent_properties', payload: { property_data: rent_properties_data, meta: response.data.meta } })
             }
             else {
                 dispatch({ type: 'hide_rent_properties_skeleton' })

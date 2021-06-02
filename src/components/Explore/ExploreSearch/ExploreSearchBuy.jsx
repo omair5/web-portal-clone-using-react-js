@@ -104,11 +104,12 @@ const ExploreSearchs = () => {
             max_area: maxArea,
             beds: SelectedBed.value
         }
-        console.log('checking explore search data', search_data)
+        console.log('this is search data', search_data)
+        dispatch({ type: 'set_explore_buy_tab_pagination', payload: search_data })
         axios.post('http://localhost:3200/addproperty/getpropertydata', search_data).then(response => {
-            console.log('checking explore response', response)
-            if (response.data.length !== 0) {
-                const buy_properties_data = response.data.map((value) => {
+            console.log('this is response', response)
+            if (response.data.items.length !== 0) {
+                const buy_properties_data = response.data.items.map((value) => {
                     return {
                         city: value.city.city_name,
                         building_name: value.property_title,
@@ -123,7 +124,7 @@ const ExploreSearchs = () => {
                 })
                 dispatch({ type: 'hide_buy_properties_skeleton' })
                 dispatch({ type: 'buy_listings_are_found_hide_message' })
-                dispatch({ type: 'explore_buy_properties', payload: buy_properties_data })
+                dispatch({ type: 'explore_buy_properties', payload: { property_data: buy_properties_data, meta: response.data.meta } })
             }
             else {
                 dispatch({ type: 'hide_buy_properties_skeleton' })

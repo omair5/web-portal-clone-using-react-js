@@ -6,6 +6,8 @@ import Button from '@material-ui/core/Button';
 import './style.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebookF, faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
+import FooterImage from './LoaderFooter.png'
+import { Link } from 'react-router-dom'
 
 
 const Footer = () => {
@@ -16,30 +18,30 @@ const Footer = () => {
                     <Grid item xs={6} md={3} >
                         <h4 className='yellow-color'>Get Started</h4>
                         <div className='footer-links'>
-                            <p>Add A Property</p>
-                            <p>Real Estate Agent</p>
-                            <p>Real Estate Developer</p>
-                            <p>Explore Properties</p>
+                            <p><Link to='/add-property' className='link'> Add A Property</Link></p>
+                            <p><Link to='/agents' className='link'> Real Estate Agent</Link></p>
+                            <p><Link to='/developers' className='link'> Real Estate Developer</Link></p>
+                            <p><Link to='/explore' className='link'> Explore Properties</Link></p>
                         </div>
                     </Grid>
 
                     <Grid item xs={6} md={3} >
                         <h4 className='yellow-color'>About</h4>
                         <div className='footer-links'>
-                            <p>Blogs</p>
-                            <p>Contact Us</p>
-                            <p>About Us</p>
-                            <p>Area Guide</p>
+                            <p><Link to='/blogs' className='link'> Blogs</Link></p>
+                            <p><Link to='/contact' className='link'> Contact Us</Link></p>
+                            <p><Link to='/about' className='link'> About Us</Link></p>
+                            <p><Link to='/partners' className='link'> Partners</Link></p>
                         </div>
                     </Grid>
 
                     <Grid item xs={12} md={3} className='wrap3'>
                         <h4 className='yellow-color'>Follow Us</h4>
                         <div className='footer-links'>
-                            <p> <FontAwesomeIcon icon={faFacebookF} style={{ paddingRight: '2px' }} /> Facebook</p>
-                            <p> <FontAwesomeIcon icon={faTwitter} style={{ paddingRight: '5px' }} />Twitter</p>
-                            <p><FontAwesomeIcon icon={faYoutube} style={{ paddingRight: '5px' }} />YouTube</p>
-                            <p> <FontAwesomeIcon icon={faInstagram} style={{ paddingRight: '5px' }} />Instagram</p>
+                            <p> <FontAwesomeIcon icon={faFacebookF} style={{ paddingRight: '2px' }} /><a className='link' href={'https://www.facebook.com/abaadeepk/'} target='_blank' rel="noreferrer"> Facebook</a></p>
+                            <p> <FontAwesomeIcon icon={faTwitter} style={{ paddingRight: '5px' }} /><a className='link' href={'https://www.youtube.com/channel/UCYwDTTwUG6FvTCO6gqCLUxQ/videos'} target='_blank' rel="noreferrer"> Youtube</a></p>
+                            <p><FontAwesomeIcon icon={faYoutube} style={{ paddingRight: '5px' }} /><a className='link' href={'https://twitter.com/abaadeepk?lang=en'} target='_blank' rel="noreferrer"> Twitter</a></p>
+                            <p> <FontAwesomeIcon icon={faInstagram} style={{ paddingRight: '5px' }} /><a className='link' href={'https://www.instagram.com/abaadeepk/?hl=en'} target='_blank' rel="noreferrer"> Instagram</a></p>
                         </div>
                     </Grid>
                     <Grid item xs={12} md={3} className='wrap4'>
@@ -50,22 +52,14 @@ const Footer = () => {
                         </div>
                     </Grid>
                 </Grid>
-                <hr className='footer-hr' />
-                <div className='footer-log-container'>
-                    <Grid container >
-                        <Grid item xs={12} md={6} >
-                            <div className='footer-log' >
-                                <h2>Abaadee.com</h2>
-                            </div>
-                        </Grid>
-                        <Grid item xs={12} md={6} >
-                            <div className='footer-copyRights'>
-                                <p>Copyright 2020 © All rights Reserved by Abaadee</p>
-                            </div>
-                        </Grid>
-                    </Grid>
-                </div>
+                {/* <hr className='footer-hr' /> */}
             </Container>
+            <div className='footer-image'>
+                <img src={FooterImage} alt="" style={{ width: '100%', height: '100%' }} />
+            </div>
+            <div className='footer-log-container'>
+                <p>Copyright 2021 © All rights Reserved by Abaadee.com</p>
+            </div>
         </div >
     );
 }

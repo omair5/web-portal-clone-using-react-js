@@ -40,7 +40,9 @@ async function GetPropertyData(Property_Id) {
             facing: value.feature.filter(value => value.Category_name === "facing").map(value => value.feature_name.replace('_', ' ')),
             business_and_communication: value.feature.filter(value => value.Category_name === "business_and_communication").map(value => value.feature_name.replace('_', ' ')),
             latitude: value.latitude,
-            longitude: value.longitude
+            longitude: value.longitude,
+            property_id: value.id,
+            user: value.userid
         }
     ))
 }
