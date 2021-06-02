@@ -17,6 +17,8 @@ import Facing from '../../components/Property/Facing';
 import BusinessAndCommunication from '../../components/Property/BusinessAndCommunication';
 import PropertyLocation from '../../components/Property/PropertyLocation';
 import SkeletonForPropertyDetail from '../../components/SkeletonForPropertyDetail.jsx';
+import PopUpMessage from '../../components/FrequentlyUsed/PopUpMessage';
+import FailurePopUpMessage from '../../components/FrequentlyUsed/FailurePopUpMessage';
 import GoToTop from '../../GoToTop';
 
 
@@ -108,6 +110,18 @@ const Property = () => {
                         </Grid>
                     </Container> : <SkeletonForPropertyDetail />
                 }
+                {/* SUCCESS MESSAGE */}
+                < PopUpMessage
+                    heading={'ThankYou For Contacting Us!'}
+                    color={'green'}
+                    message={'Dear User, A Representetive Of Team Abaadee Will Contact You As Soon As Possible'}
+                />
+                {/* FAILURE MESSAGE */}
+                <FailurePopUpMessage
+                    heading={'OOPS! SORRY SOMETHING WENT WRONG'}
+                    color={'red'}
+                    message={'Dear User, We Apoligize For The inconvenience! Servers Are Not Responding At This Moment Please Try Later'}
+                />
                 <GoToTop />
             </Layout>
         </>

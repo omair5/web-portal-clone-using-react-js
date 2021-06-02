@@ -7,6 +7,8 @@ import PhoneInput from 'react-phone-input-2'
 import PhoneRoundedIcon from '@material-ui/icons/PhoneRounded';
 import 'react-phone-input-2/lib/style.css'
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -77,6 +79,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ContactForm = ({ price, propertyId }) => {
     const classes = useStyles();
+    const dispatch = useDispatch()
     const [formFields, setformFields] = useState({ name: '', email: '', message: '' })
     const [phone, setphone] = useState('')
 
@@ -98,8 +101,17 @@ const ContactForm = ({ price, propertyId }) => {
             message: formFields.message
         }
         console.log(formData)
-        axios.post('localhost:3200/addproperty/property_contact', formData)
-            .then(res => console.log(res))
+        axios.post('http://localhost:3200/addproperty/property_contact', formData)
+            .then(res => {
+                if (res.status === 201) {
+                    setformFields({ name: '', email: '', message: '' })
+                    setphone('')
+                    dispatch({ type: 'open_FrequentlyUsed_PopUpMessage' })
+                }
+                else {
+                    dispatch({ type: 'open_FrequentlyUsed_Failure_PopUpMessage' })
+                }
+            })
             .catch(err => console.log(err))
     }
 
