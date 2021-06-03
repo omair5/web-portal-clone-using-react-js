@@ -5,17 +5,55 @@ import Pagination from '@material-ui/lab/Pagination';
 import { useStyles, useStylesBase } from '../../FrequentlyUsed/PaginationStyles'
 import { v4 as uuidv4 } from 'uuid';
 import SkeletonForCards from '../../SkeletonForCards';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import NoPropertyFound from '../../FrequentlyUsed/NoPropertyFound'
 import { Link } from 'react-router-dom'
+import axios from 'axios';
 
 
 const WantedTab = () => {
     const classes = useStyles();
+    const dispatch = useDispatch()
     const classesBase = useStylesBase();
     const { property_data: WantedPropertyList, meta } = useSelector(state => state.Explore_Wanted_Properties)
     const WantedPropertySkeleton = useSelector(state => state.Explore_Wanted_Skeleton)
     const ShowMessage = useSelector(state => state.Explore_Wanted_Not_Found_Message)
+    const RequestParams = useSelector(state => state.Explore_Wanted_Tab_Pagination)
+    console.log(RequestParams)
+    console.log(WantedPropertyList)
+    console.log(meta)
+
+    const HandlePageChange = (e, value) => {
+        console.log(value)
+        dispatch({ type: 'show_wanted_properties_skeleton' })
+        axios.post(`http://localhost:3200/addproperty/getpropertydata?page=${value}`, RequestParams)
+            .then(res => {
+                console.log('this is AFTER PAGE NUMBER IS CHANGED', res)
+                if (res.status === 201) {
+                    const property_data = res.data.items.map(value => (
+                        {
+                            city: value.city.city_name,
+                            building_name: value.property_title,
+                            location: value.Location.location_name,
+                            area_size: value.land_area,
+                            area_unit: value.area_unit.area_name,
+                            beds: `${value.general_info.length !== 0 ? value.general_info[0].bedrooms : 'donotshowbeds'}`,
+                            bathrooms: `${value.general_info.length !== 0 ? value.general_info[0].bathrooms : 'donotshowbaths'}`,
+                            price: value.price,
+                            cover_image: value.title_image,
+                            propertyId: value.id,
+                        }
+                    ))
+                    dispatch({ type: 'hide_wanted_properties_skeleton' })
+                    dispatch({ type: 'explore_rent_properties', payload: { property_data: property_data, meta: res.data.meta } })
+                }
+                else {
+                    console.log('something went wrong')
+                }
+
+            })
+            .catch(err => console.log(err))
+    }
 
     return (
         <>
@@ -31,7 +69,7 @@ const WantedTab = () => {
                     }
                 </Grid> :
                 <div className={classes.ResultCount}>
-                    <span>{WantedPropertyList.length} Results Found</span>
+                    <span>{meta.totalItems} Results Found</span>
                 </div>
             }
 
@@ -66,10 +104,11 @@ const WantedTab = () => {
             }
 
             {/* PAGINATION */}
-            <Pagination count={10}
+            <Pagination count={meta.totalPages}
                 className={classes.paginationContainer}
                 classes={classesBase}
                 size="large"
+                onChange={HandlePageChange}
             />
         </>
     );

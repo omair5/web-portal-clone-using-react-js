@@ -103,7 +103,7 @@ const Wanted = () => {
             max_area: maxArea,
             beds: SelectedBed.value
         }
-        console.log(search_data)
+        dispatch({ type: 'set_explore_wanted_tab_pagination', payload: search_data })
         axios.post('http://localhost:3200/addproperty/getpropertydata', search_data).then(response => {
             if (response.data.items.length !== 0) {
                 const wanted_properties_data = response.data.items.map((value) => {
@@ -113,8 +113,8 @@ const Wanted = () => {
                         location: value.Location.location_name,
                         area_size: value.land_area,
                         area_unit: value.area_unit.area_name,
-                        beds: `${value.general_info.length !== 0 ? value.general_info[0].bedrooms : 'donotshow'}`,
-                        bathrooms: `${value.general_info.length !== 0 ? value.general_info[0].bathrooms : 'donotshow'}`,
+                        beds: `${value.general_info.length !== 0 ? value.general_info[0].bedrooms : 'donotshowbeds'}`,
+                        bathrooms: `${value.general_info.length !== 0 ? value.general_info[0].bathrooms : 'donotshowbaths'}`,
                         price: value.price,
                         cover_image: value.title_image,
                     }

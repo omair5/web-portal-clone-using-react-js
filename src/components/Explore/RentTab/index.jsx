@@ -19,9 +19,6 @@ const RentTab = () => {
     const RentPropertySkeleton = useSelector(state => state.Explore_Rent_Skeleton)
     const ShowMessage = useSelector(state => state.Explore_Rent_Not_Found_Message)
     const RequestParams = useSelector(state => state.Explore_Rent_Tab_Pagination)
-    console.log(RequestParams)
-    console.log(RentPropertyList)
-    console.log(meta)
 
     const HandlePageChange = (e, value) => {
         console.log(value)
