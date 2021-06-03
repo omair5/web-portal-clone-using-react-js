@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const ContactForm = ({ price, propertyId }) => {
+const ContactForm = ({ price, propertyId, userData }) => {
     const classes = useStyles();
     const dispatch = useDispatch()
     const [formFields, setformFields] = useState({ name: '', email: '', message: '' })
@@ -96,8 +96,10 @@ const ContactForm = ({ price, propertyId }) => {
             name: formFields.name,
             p_number: phone,
             email: formFields.email,
-            message: formFields.message
+            message: formFields.message,
+            user_data: userData
         }
+        console.log(formData)
 
         axios.post('http://localhost:3200/auth/property_contact', formData)
             .then(res => {

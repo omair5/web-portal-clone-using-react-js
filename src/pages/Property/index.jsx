@@ -104,6 +104,7 @@ const Property = () => {
                                 <ContactForm
                                     price={propertyData.price}
                                     propertyId={propertyData.property_id}
+                                    userData={propertyData.user_data}
                                 />
                             </Grid>
 

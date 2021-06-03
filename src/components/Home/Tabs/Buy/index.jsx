@@ -118,8 +118,8 @@ const Buy = () => {
                         location: value.Location.location_name,
                         area_size: value.land_area,
                         area_unit: value.area_unit.area_name,
-                        beds: `${value.general_info.length !== 0 ? value.general_info[0].bedrooms : 'donotshow'}`,
-                        bathrooms: `${value.general_info.length !== 0 ? value.general_info[0].bathrooms : 'donotshow'}`,
+                        beds: `${value.general_info.length !== 0 ? value.general_info[0].bedrooms : 'donotshowbeds'}`,
+                        bathrooms: `${value.general_info.length !== 0 ? value.general_info[0].bathrooms : 'donotshowbaths'}`,
                         price: value.price,
                         cover_image: value.title_image,
                     }

@@ -107,7 +107,7 @@ const ExploreSearchs = () => {
         console.log('this is search data', search_data)
         dispatch({ type: 'set_explore_buy_tab_pagination', payload: search_data })
         axios.post('http://localhost:3200/addproperty/getpropertydata', search_data).then(response => {
-            console.log('this is response', response)
+            console.log('this is SEARCH response', response)
             if (response.data.items.length !== 0) {
                 const buy_properties_data = response.data.items.map((value) => {
                     return {
@@ -116,8 +116,8 @@ const ExploreSearchs = () => {
                         location: value.Location.location_name,
                         area_size: value.land_area,
                         area_unit: value.area_unit.area_name,
-                        beds: `${value.general_info.length !== 0 ? value.general_info[0].bedrooms : 'donotshow'}`,
-                        bathrooms: `${value.general_info.length !== 0 ? value.general_info[0].bathrooms : 'donotshow'}`,
+                        beds: `${value.general_info.length !== 0 ? value.general_info[0].bedrooms : 'donotshowbeds'}`,
+                        bathrooms: `${value.general_info.length !== 0 ? value.general_info[0].bathrooms : 'donotshowbaths'}`,
                         price: value.price,
                         cover_image: value.title_image,
                     }
