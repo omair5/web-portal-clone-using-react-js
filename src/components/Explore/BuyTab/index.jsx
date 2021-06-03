@@ -19,9 +19,9 @@ const BuyTab = () => {
     const BuyPropertySkeleton = useSelector(state => state.Explore_Buy_Skeleton)
     const ShowMessage = useSelector(state => state.Explore_Buy_Not_Found_Message)
     const RequestParams = useSelector(state => state.Explore_Buy_Tab_Pagination)
-    console.log(RequestParams)
-    console.log(BuyPropertyList)
-    console.log(meta)
+    // console.log(RequestParams)
+    // console.log(BuyPropertyList)
+    // console.log(meta)
 
     const HandlePageChange = (e, value) => {
         console.log(value)
@@ -74,7 +74,7 @@ const BuyTab = () => {
             }
 
             {/* SHOW BUY PROPERTY LIST */}
-            {console.log('checking this from explore buy tab', BuyPropertyList)}
+            {/* {console.log('checking this from explore buy tab', BuyPropertyList)} */}
             {BuyPropertyList.length !== 0 &&
                 <Grid container spacing={3}>
                     {

@@ -106,25 +106,25 @@ const ExploreSearchRent = () => {
             max_area: maxArea,
             beds: SelectedBed.value
         }
-        console.log(search_data)
+        dispatch({ type: 'set_explore_rent_tab_pagination', payload: search_data })
         axios.post('http://localhost:3200/addproperty/getpropertydata', search_data).then(response => {
-            if (response.data.length !== 0) {
-                const rent_properties_data = response.data.map((value) => {
+            if (response.data.items.length !== 0) {
+                const rent_properties_data = response.data.items.map((value) => {
                     return {
                         city: value.city.city_name,
                         building_name: value.property_title,
                         location: value.Location.location_name,
                         area_size: value.land_area,
                         area_unit: value.area_unit.area_name,
-                        beds: `${value.general_info.length !== 0 ? value.general_info[0].bedrooms : 'donotshow'}`,
-                        bathrooms: `${value.general_info.length !== 0 ? value.general_info[0].bathrooms : 'donotshow'}`,
+                        beds: `${value.general_info.length !== 0 ? value.general_info[0].bedrooms : 'donotshowbeds'}`,
+                        bathrooms: `${value.general_info.length !== 0 ? value.general_info[0].bathrooms : 'donotshowbaths'}`,
                         price: value.price,
                         cover_image: value.title_image,
                     }
                 })
                 dispatch({ type: 'hide_rent_properties_skeleton' })
                 dispatch({ type: 'rent_listings_are_found_hide_message' })
-                dispatch({ type: 'explore_rent_properties', payload: rent_properties_data })
+                dispatch({ type: 'explore_rent_properties', payload: { property_data: rent_properties_data, meta: response.data.meta } })
             }
             else {
                 dispatch({ type: 'hide_rent_properties_skeleton' })

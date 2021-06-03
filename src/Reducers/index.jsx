@@ -63,6 +63,7 @@ import Google_Maps_Latitude_Longitude from './AddProperty/Google_Maps_Latitude_L
 import FrequentlyUsed_PopUpMessage from './FrequentlyUsed_PopUpMessage'
 import FrequentlyUsed_Failure_PopUpMessage from './FrequentlyUsed_Failure_PopUpMessage'
 import Explore_Buy_Tab_Pagination from './Explore_Buy_Tab_pagination'
+import Explore_Rent_Tab_Pagination from './Explore_Rent_Tab_Pagination'
 
 export default combineReducers({
     SearchShow: ExploreSearch,
@@ -128,5 +129,6 @@ export default combineReducers({
     Google_Maps_Latitude_Longitude: Google_Maps_Latitude_Longitude,
     FrequentlyUsed_PopUpMessage: FrequentlyUsed_PopUpMessage,
     FrequentlyUsed_Failure_PopUpMessage: FrequentlyUsed_Failure_PopUpMessage,
-    Explore_Buy_Tab_Pagination:Explore_Buy_Tab_Pagination
+    Explore_Buy_Tab_Pagination: Explore_Buy_Tab_Pagination,
+    Explore_Rent_Tab_Pagination: Explore_Rent_Tab_Pagination
 })
