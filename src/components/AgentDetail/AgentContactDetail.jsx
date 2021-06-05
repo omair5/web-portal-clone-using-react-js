@@ -36,7 +36,7 @@ const useStyles = makeStyles({
     }
 });
 
-const ContactDetail = () => {
+const AgentContactDetail = () => {
     const classes = useStyles();
 
     return (
@@ -72,4 +72,4 @@ const ContactDetail = () => {
         </TableContainer >
     );
 }
-export default React.memo(ContactDetail)
+export default React.memo(AgentContactDetail)

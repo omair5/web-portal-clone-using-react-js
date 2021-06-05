@@ -126,4 +126,4 @@ const FindUsAt = () => {
     );
 }
 
-export default FindUsAt;
+export default React.memo(FindUsAt);

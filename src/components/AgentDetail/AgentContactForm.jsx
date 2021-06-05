@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const ContactForm = ({ price, propertyId, userData }) => {
+const AgentContactForm = ({ propertyId, userData }) => {
     const classes = useStyles();
     const dispatch = useDispatch()
     const [formFields, setformFields] = useState({ name: '', email: '', message: '' })
@@ -119,15 +119,6 @@ const ContactForm = ({ price, propertyId, userData }) => {
     return (
         <Paper className={classes.paper} >
             <form onSubmit={HandleSubmit}>
-                <h2 className={classes.price}>PKR {price}</h2>
-                {/* FOR WHATSAPP CHAT */}
-                {/* <a
-                href="https://wa.me/2348100000000"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                click me to chat on whatsapp
-            </a> */}
 
                 {/* FOR CALL */}
                 <a href="tel:+15555551212" className={classes.callButton}>
@@ -189,4 +180,4 @@ const ContactForm = ({ price, propertyId, userData }) => {
         </Paper>
     );
 }
-export default React.memo(ContactForm);
+export default React.memo(AgentContactForm);
