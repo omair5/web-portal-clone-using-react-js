@@ -14,6 +14,7 @@ const DeveloperSearch = () => {
     const [selectedCity, setselectedCity] = useState({ label: "Karachi", value: 'Karachi' })
     const [cityLocations, setcityLocations] = useState([])
     const [SelectedLocation, setSelectedLocation] = useState('')
+    const [searchData, setsearchData] = useState({ DeveloperName: '', propertytype: '' })
 
     const options = [
         { value: 'chocolate', label: 'Chocolate' },
@@ -55,6 +56,20 @@ const DeveloperSearch = () => {
         }
         GetLocationsFromHome().catch(err => console.log(err))
 
+    }
+
+    const HandleSearchData = (selectedOption, e) => {
+        setsearchData({ ...searchData, [e.name]: selectedOption.value })
+    }
+
+    const handleSubmit = () => {
+        const formData = {
+            city: selectedCity.value,
+            location: SelectedLocation,
+            developer_name: searchData.DeveloperName,
+            property_type: searchData.propertytype,
+        }
+        console.log(formData)
     }
 
     return (
@@ -101,12 +116,12 @@ const DeveloperSearch = () => {
             <div className={classes.childContainer}>
                 <p className={classes.paraStyle}>Developer Name</p>
                 <Select
-                    value={SelectedLocation}
-                    // onChange={HandleLocationSelect}
+                    value={searchData.DeveloperName}
+                    onChange={HandleSearchData}
                     isLoading={cityLocations.length === 0 && true}
                     isClearable={true}
                     isSearchable={true}
-                    name="Developer Name"
+                    name="DeveloperName"
                     options={options}
                     placeholder="Developer Name"
                     label='Developer Name'
@@ -121,11 +136,11 @@ const DeveloperSearch = () => {
             <div className={classes.childContainer}>
                 <p className={classes.paraStyle}>Property Type</p>
                 <Select
-                    // value={SelectedPropertyType}
-                    // onChange={HandlePropertyType}
+                    value={searchData.propertytype}
+                    onChange={HandleSearchData}
                     isLoading={false}
                     isSearchable={false}
-                    name="property type"
+                    name="propertytype"
                     placeholder="Select Property Type"
                     label='Property Type'
                     styles={colourStyles}
@@ -138,7 +153,7 @@ const DeveloperSearch = () => {
             </div>
 
             {/* SEARCH BUTTON  */}
-            <div className={classes.searchButtonBox} >
+            <div className={classes.searchButtonBox} onClick={handleSubmit}>
                 <div><SearchIcon style={{ fontSize: '25px' }} /></div>
                 <div className={classes.search}>SEARCH</div>
             </div>

@@ -11,7 +11,7 @@ const AgentSearch = () => {
     const cities_options_list = useSelector(state => state.Home_cities_Reducer)
     const [selectedCity, setselectedCity] = useState({ label: "Karachi", value: 'Karachi' })
     const [cityLocations, setcityLocations] = useState([])
-    const [SelectedLocation, setSelectedLocation] = useState('')
+    const [searchData, setsearchData] = useState({ location: '', agency: '' })
 
     const options = [
         { value: 'chocolate', label: 'Chocolate' },
@@ -41,7 +41,7 @@ const AgentSearch = () => {
     const HandleCitySelect = (selectedOption) => {
         setselectedCity(selectedOption)
         setcityLocations([])
-        setSelectedLocation('')
+        setsearchData({ ...searchData, agency: '' })
         const city_whose_location_to_be_fetched = selectedOption.value
         async function GetLocationsFromHome() {
             const locations_options = []
@@ -54,6 +54,20 @@ const AgentSearch = () => {
         GetLocationsFromHome().catch(err => console.log(err))
 
     }
+
+    const HandleSearchData = (selectedOption, e) => {
+        setsearchData({ ...searchData, [e.name]: selectedOption.value })
+    }
+
+    const HandleSubmit = () => {
+        const fromData = {
+            city: selectedCity.value,
+            location: searchData.location,
+            agency_name: searchData.agency,
+        }
+        console.log(fromData)
+    }
+
     return (
         <div className={classes.mainContainer}>
             {/*CITY  */}
@@ -78,8 +92,8 @@ const AgentSearch = () => {
             <div className={classes.childContainer}>
                 <p className={classes.paraStyle}>Location</p>
                 <Select
-                    value={SelectedLocation}
-                    // onChange={HandleLocationSelect}
+                    value={searchData.location}
+                    onChange={HandleSearchData}
                     isLoading={cityLocations.length === 0 && true}
                     isClearable={true}
                     isSearchable={true}
@@ -98,12 +112,12 @@ const AgentSearch = () => {
             <div className={classes.childContainer}>
                 <p className={classes.paraStyle}>Agency Name</p>
                 <Select
-                    value={SelectedLocation}
-                    // onChange={HandleLocationSelect}
+                    value={searchData.agency}
+                    onChange={HandleSearchData}
                     isLoading={cityLocations.length === 0 && true}
                     isClearable={true}
                     isSearchable={true}
-                    name="Agency Name"
+                    name="agency"
                     options={options}
                     placeholder="Agency Name"
                     label='Agency Name'
@@ -115,7 +129,7 @@ const AgentSearch = () => {
             </div>
 
             {/* SEARCH BUTTON  */}
-            <div className={classes.searchButtonBox} >
+            <div className={classes.searchButtonBox} onClick={HandleSubmit}>
                 <div><SearchIcon style={{ fontSize: '25px' }} /></div>
                 <div className={classes.search}>SEARCH</div>
             </div>
