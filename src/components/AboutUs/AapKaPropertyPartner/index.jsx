@@ -4,6 +4,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import PropertyPartner from './images/property_partner.jpg'
+import { Link } from 'react-router-dom'
 
 // STYLES
 const useStyles = makeStyles(theme => ({
@@ -76,7 +77,7 @@ const AapKaPropertyPartner = () => {
                         <Grid item xs={12} sm={12} md={6} className={classes.grid1} >
                             <div style={{ margin: '0px auto' }} >
                                 <h1> <span className={classes.abaadee}>ABAADEE</span> APKA PROPERTY PARTNER</h1>
-                                <Button >ADD PROPERTY</Button>
+                                <Link to='/add-property' style={{ textDecoration: 'none' }}> <Button>ADD PROPERTY</Button></Link>
                             </div>
                         </Grid>
 

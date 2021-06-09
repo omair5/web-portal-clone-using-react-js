@@ -155,9 +155,8 @@ const AbaadeeCards = (props) => {
                             <div className={classes.alignIconNinfo}>
                                 <SingleBedIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '4px' }} />
                                 {
-                                    beds === 'donotshowbeds' ? <h4>-</h4> : <h4>{beds} Bedroom</h4>
+                                    beds === 'donotshowbeds' ? <h4>-</h4> : <h5>{beds} Bedroom</h5>
                                 }
-
                             </div>
 
                         </div>
@@ -167,14 +166,14 @@ const AbaadeeCards = (props) => {
                         <div className={classes.contentDisplay}>
                             <div className={classes.alignIconNinfo} style={{ marginTop: '10px' }}>
                                 <LocalOfferOutlinedIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '4px' }} />
-                                <h3 style={{ fontWeight: 'bolder' }}><span style={{ fontSize: '14px' }}>PKR</span> {numDifferentiation(price)} </h3>
+                                <h4 style={{ fontWeight: 'bolder' }}><span style={{ fontSize: '14px' }}>PKR</span> {numDifferentiation(price)} </h4>
                             </div>
                             {/* <img src={cover_image} className={classes.dealer} alt={'dealer logo'} /> */}
 
                             <div className={classes.alignIconNinfo}>
                                 <BathtubOutlinedIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '4px' }} />
                                 {
-                                    (baths === 'donotshowbaths') || (baths === undefined) || (baths === 'null') ? <h4>-</h4> : <h4>{baths} Bathroom</h4>
+                                    (baths === 'donotshowbaths') || (baths === undefined) || (baths === 'null') ? <h4>-</h4> : <h5>{baths} Bathroom</h5>
                                 }
 
                             </div>

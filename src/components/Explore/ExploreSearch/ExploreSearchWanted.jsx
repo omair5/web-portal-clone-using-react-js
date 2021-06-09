@@ -112,13 +112,18 @@ const ExploreSearchWanted = () => {
                         bathrooms: `${value.general_info.length !== 0 ? value.general_info[0].bathrooms : 'donotshowbaths'}`,
                         price: value.price,
                         cover_image: value.title_image,
+                        propertyId: value.id,
                     }
                 })
+                dispatch({ type: 'searchToggle', payload: false })
+                dispatch({ type: 'cardToggle', payload: true })
                 dispatch({ type: 'hide_wanted_properties_skeleton' })
                 dispatch({ type: 'wanted_listings_are_found_hide_message' })
-                dispatch({ type: 'explore_wanted_properties', payload: { property_data: wanted_properties_data, meta: response.data.meta }})
+                dispatch({ type: 'explore_wanted_properties', payload: { property_data: wanted_properties_data, meta: response.data.meta } })
             }
             else {
+                dispatch({ type: 'searchToggle', payload: false })
+                dispatch({ type: 'cardToggle', payload: true })
                 dispatch({ type: 'hide_wanted_properties_skeleton' })
                 dispatch({ type: 'no_wanted_listings_are_found_show_message' })
             }
