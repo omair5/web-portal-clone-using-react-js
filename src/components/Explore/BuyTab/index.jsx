@@ -55,6 +55,10 @@ const BuyTab = () => {
             .catch(err => console.log(err))
     }
 
+    const GenerateSlugTitle = (value) => {
+        return value.toLowerCase().replace(/ /g, '-')
+    }
+
     return (
         <>
             {/* SHOW CARDS SKELETON AS LOADER */}
@@ -80,7 +84,7 @@ const BuyTab = () => {
                     {
                         BuyPropertyList.reverse().map(value => (
                             <Grid item xs={12} md={6} key={uuidv4()}>
-                                <Link to={`/property/${value.propertyId}`} className={classes.link}>
+                                <Link to={`/property/${GenerateSlugTitle(value.building_name)}/${value.propertyId}`} className={classes.link}>
                                     <AbaadeeCards
                                         buildingName={value.building_name}
                                         location={`${value.location}, ${value.city}`}

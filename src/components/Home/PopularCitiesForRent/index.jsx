@@ -15,7 +15,7 @@ const PopularCitiesForRent = () => {
                     <Box className={`${styles.city_links} ${styles.mt16}`}>
                         <p>Houses For Rent in Lahore</p>
                         <p>Houses For Rent in Islamabad</p>
-                        <p>Houses For Sale in Karachi</p>
+                        <p>Houses For Rent in Karachi</p>
                         <p>Houses For Rent in Rawalpindi</p>
                     </Box>
                 </Grid>

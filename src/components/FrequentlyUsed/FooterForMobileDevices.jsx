@@ -23,7 +23,8 @@ const useStyles = makeStyles((theme) => ({
             alignItems: 'center',
             justifyContent: 'center',
             fontWeight: 'bolder',
-            letterSpacing: '1.4px'
+            letterSpacing: '1.4px',
+            padding: '15px 0px'
         }
     }
 }));

@@ -29,6 +29,11 @@
     color: #fcb812;
 }
 
+.links {
+    text-decoration: none;
+    color: black
+}
+
 @media only screen and (max-width: 960px) {
     .wrapper {
         margin-top: 16px !important;

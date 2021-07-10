@@ -4,6 +4,8 @@ export const useStyles = makeStyles((theme) => ({
         maxWidth: '100%',
         margin: 'auto',
         marginTop: '30px',
+        marginBottom: '30px',
+
     },
     ResultCount: {
         textAlign: 'center',

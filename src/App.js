@@ -26,6 +26,7 @@ const ResetPasswordDialogBox = React.lazy(() => import('./components/FrequentlyU
 const Project = React.lazy(() => import('./pages/Project'));
 const AgentDetail = React.lazy(() => import('./pages/AgentDetails'));
 const DeveloperDetail = React.lazy(() => import('./pages/DeveloperDetail'));
+const HomeLinksSearchResult = React.lazy(() => import('./pages/HomeLinksSearchResult'))
 
 
 // const Listings = React.lazy(() => import('./pages/Listings'));
@@ -135,6 +136,7 @@ function App() {
         <Suspense fallback={<Loader />}>
           <Switch>
             <Route exact path='/' component={Home} />
+            <Route exact path='/popular-cities-to-buy-properties/:description' component={HomeLinksSearchResult} />
             <Route exact path='/explore' component={Explore} />
             <Route exact path='/developers' component={Developers} />
             <Route exact path='/agents' component={Agents} />
@@ -143,7 +145,7 @@ function App() {
             <Route exact path='/partners' component={Partners} />
             <Route exact path='/contact' component={ContactUs} />
             <Route exact path='/about' component={AboutUs} />
-            <Route exact path='/property/:propertyId' component={Property} />
+            <Route exact path='/property/:propertyTitle/:propertyId' component={Property} />
             {/* protected routes */}
             <Route exact path='/add-property'>
               <ProtectedRoutes Component={AddProperty} />

@@ -72,5 +72,4 @@ const SkeletonForPropertyDetail = () => {
         </>
     );
 }
-
 export default SkeletonForPropertyDetail;

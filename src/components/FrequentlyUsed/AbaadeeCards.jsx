@@ -13,6 +13,7 @@ import BathtubOutlinedIcon from '@material-ui/icons/BathtubOutlined';
 import AspectRatioIcon from '@material-ui/icons/AspectRatio';
 import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
 import Default from './default.jpg'
+
 const useStyles = makeStyles({
     root: {
         maxWidth: 370,
@@ -94,6 +95,7 @@ const useStyles = makeStyles({
         padding: '12px',
         textAlign: 'center',
         borderRadius: '5px',
+        cursor:'pointer',
         '&:hover': {
             color: 'white'
         }
@@ -120,6 +122,7 @@ const AbaadeeCards = (props) => {
         else if (val >= 1000) val = (val / 1000).toFixed(0) + ' Thousand';
         return val;
     }
+
     return (
         <>
             <Card className={classes.root} style={MainBox}>
@@ -137,7 +140,7 @@ const AbaadeeCards = (props) => {
                             </Tooltip> */}
                         </div>
                         <div className={classes.location}>
-                            <h4>TITLE : {buildingName}</h4>
+                            <h4>{buildingName}</h4>
                             <div className={classes.address}>
                                 <LocationOnIcon className={classes.locationIcon} />
                                 <h5 style={{ alignSelf: 'center' }}>{location}</h5>
