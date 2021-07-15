@@ -16,6 +16,11 @@
     margin-top: 1rem;
 }
 
+.links {
+    text-decoration: none;
+    color: black
+}
+
 .marginBottom {
     margin-bottom: 1rem;
     color: #fcb812;

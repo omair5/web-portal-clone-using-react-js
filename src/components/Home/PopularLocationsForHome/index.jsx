@@ -3,40 +3,72 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import styles from './locationsForHome.module.css'
+import { v4 as uuidv4 } from 'uuid';
+import { Link } from 'react-router-dom';
+
+const PopularLocationsForHome_col_1 = [
+    'Houses For Sale in DHA Defence',
+    'Houses For Sale in Bahria Town',
+    'Houses For Sale in Paragon City',
+    'Houses For Sale in Johar Town',
+]
+
+const PopularLocationsForHome_col_2 = [
+    'Houses For Sale in Bahria Town',
+    'Flat For Sale in Bahria Town',
+    'Houses For Sale in DHA Defence',
+    'Flat For Sale in DHA Defence',
+    'Flat For Sale in North Nazimabad',
+    'Flat For Sale in Clifton',
+    'Flat For Sale in Abid Town',
+]
+
+const PopularLocationsForHome_col_3 = [
+    'Houses For Sale in Bahria Town Rawalpindi',
+    'Houses For Sale in 9th Avenue',
+    'Houses For Sale in Club Road',
+    'Houses For Sale in Gulberg',
+    'Houses For Sale in Airport Housing Society',
+]
 
 const PopularLocationsForHome = () => {
+
+    const generateDescription = (value) => {
+        return value.replace(/ /g, '-')
+    }
+
     return (
         <Container maxWidth='lg' className={styles.mainBox}>
             <h2 className={styles.marginBottom}>Popular Locations For Homes</h2>
             <hr />
             <Grid container className={styles.marginTop}>
+                {/* COLUMN 1 */}
                 <Grid item xs={12} md={4} >
                     <h3>Lahore</h3>
                     <Box className={styles.city_links} mt={2}>
-                        <p>Houses For Sale in DHA Defence</p>
-                        <p>Houses For Sale in Bahria Town</p>
-                        <p>Houses For Sale in Paragon City</p>
-                        <p>Houses For Sale in Johar Town</p>
+                        {PopularLocationsForHome_col_1.map((value) => (
+                            <Link className={styles.links} to={`/popular-locations-for-home/${generateDescription(value)}`} key={uuidv4()}><p>{value}</p></Link>
+                        ))}
                     </Box>
                 </Grid>
+
+                {/* COLUMN 2 */}
                 <Grid item xs={12} md={4} className={styles.wrapper}>
                     <h3>Karachi</h3>
                     <Box className={styles.city_links} mt={2} >
-                        <p>Houses For Sale in Bahria Town</p>
-                        <p>Flat For Sale in Bahria Town</p>
-                        <p>Houses For Sale in DHA Defence</p>
-                        <p>Flats For Sale in DHA Defence</p>
-                        <p>Flats For Sale in Gulistan-e-Jauhar</p>
-                        <p>Flats For Sale in Gulshan-e-Iqbal</p>
+                        {PopularLocationsForHome_col_2.map((value) => (
+                            <Link className={styles.links} to={`/popular-locations-for-home/${generateDescription(value)}`} key={uuidv4()}><p>{value}</p></Link>
+                        ))}
                     </Box>
                 </Grid>
+
+                {/* COLUMN 3 */}
                 <Grid item xs={12} md={4} className={styles.wrapper}>
                     <h3>Islamabad & Rawalpindi</h3>
                     <Box className={styles.city_links} mt={2}>
-                        <p>Flats For Rent in Karachi</p>
-                        <p>Flats For Rent in Islamabad</p>
-                        <p>Flats For Rent in Lahore</p>
-                        <p>Flats For Rent in Rawalpindi</p>
+                        {PopularLocationsForHome_col_3.map((value) => (
+                            <Link className={styles.links} to={`/popular-locations-for-home/${generateDescription(value)}`} key={uuidv4()}><p>{value}</p></Link>
+                        ))}
                     </Box>
                 </Grid>
             </Grid>

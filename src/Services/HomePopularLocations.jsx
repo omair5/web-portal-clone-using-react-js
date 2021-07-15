@@ -1,6 +1,6 @@
-const apiURL = 'http://localhost:3200/addproperty/homelinks1'
+const apiURL = 'http://localhost:3200/addproperty/homelinks2'
 
-async function HomeGetHouseForSale(category, purpose, cityname) {
+async function HomePopularLocations(category, purpose, cityname) {
     const res = await fetch(`${apiURL}/${category}/${purpose}/${cityname}`)
     const { items, meta } = await res.json()
 
@@ -19,4 +19,5 @@ async function HomeGetHouseForSale(category, purpose, cityname) {
     ))
     return { property_data, meta }
 }
-export default HomeGetHouseForSale;
+
+export default HomePopularLocations;

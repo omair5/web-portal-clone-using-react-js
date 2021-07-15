@@ -54,7 +54,7 @@ const PopularCitiesToBuyProperties = () => {
                     <Box className={`${styles.city_links} ${styles.mt16}`} >
 
                         {popular_cities_to_buy_properties_col_1.map((value) => (
-                            <Link className={styles.links} to={`/popular-cities-to-buy-properties/${generateDescription(value)}`} key={uuidv4()}><p key={uuidv4()}>{value}</p></Link>
+                            <Link className={styles.links} to={`/popular-cities-to-buy-properties/${generateDescription(value)}`} key={uuidv4()}><p>{value}</p></Link>
                         ))}
 
                     </Box>

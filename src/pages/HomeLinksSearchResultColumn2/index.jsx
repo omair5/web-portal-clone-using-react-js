@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import AbaadeeHorizontalCard from '../../components/FrequentlyUsed/AbaadeeHorizontalCard';
 import Layout from '../../components/Layout/Layout';
-import HomeGetHouseForSale from '../../Services/HomeGetHouseForSale'
+import HomePopularLocations from '../../Services/HomePopularLocations'
 import Container from '@material-ui/core/Container';
 import Advertisement from '../../components/FrequentlyUsed/Advertisement';
 import Advertisement1 from './images/explore 1.jpg'
@@ -18,7 +18,7 @@ import axios from 'axios';
 import SkeletonForHomeLinks from '../../components/SkeletonForHomeLinks';
 
 
-const HomeLinksSearchResult = () => {
+const HomeLinksSearchResultColumn2 = () => {
     const classes = useStyles();
     const classesBase = useStylesBase();
 
@@ -27,6 +27,7 @@ const HomeLinksSearchResult = () => {
     const [skeleton, setskeleton] = useState(true)
     const { description } = useParams()
     const slug = (description.split('-'))
+    const getLocation = slug.slice(4)
 
     const HandleCapitalize = (value) => {
         const cpital_letter = value.charAt(0).toUpperCase()
@@ -35,25 +36,30 @@ const HomeLinksSearchResult = () => {
         return result
     }
 
+    const HandleLocation = (location) => {
+        let locationDescription = ''
+        for (let x of location) {
+            locationDescription += x + ' '
+        }
+        return locationDescription
+    }
+
     const category = HandleCapitalize(slug[0])
     const purpose = HandleCapitalize(slug[2])
-    const cityname = HandleCapitalize(slug[4])
-
-    console.log(category, purpose, cityname)
-
+    const cityname = HandleLocation(getLocation)
 
     useEffect(() => {
         let mounted = true
         window.scrollTo(0, 0)
-        async function GetHouseForSaleHome() {
+        async function GetHomePopularLocations() {
             if (mounted) {
-                const { property_data, meta } = await HomeGetHouseForSale(category, purpose, cityname)
+                const { property_data, meta } = await HomePopularLocations(category, purpose, cityname)
                 setskeleton(false)
                 setData(property_data)
                 setmetaForPage(meta)
             }
         }
-        GetHouseForSaleHome().catch(err => console.log(err))
+        GetHomePopularLocations().catch(err => console.log(err))
         // cancel subscription to useEffect
         return () => mounted = false;
     }, [category, purpose, cityname])
@@ -61,7 +67,7 @@ const HomeLinksSearchResult = () => {
 
     const HandlePageChange = (e, value) => {
         setskeleton(true)
-        axios.get(`http://localhost:3200/addproperty/homelinks1/${category}/${purpose}/${cityname}?page=${value}`)
+        axios.get(`http://localhost:3200/addproperty/homelinks2/${category}/${purpose}/${cityname}?page=${value}`)
             .then(res => {
                 console.log('this is AFTER PAGE NUMBER IS CHANGED', res)
                 setData(res.data.items.map(value => (
@@ -149,4 +155,4 @@ const HomeLinksSearchResult = () => {
         </>
     );
 }
-export default React.memo(HomeLinksSearchResult);
+export default React.memo(HomeLinksSearchResultColumn2);

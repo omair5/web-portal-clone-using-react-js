@@ -27,6 +27,9 @@ const Project = React.lazy(() => import('./pages/Project'));
 const AgentDetail = React.lazy(() => import('./pages/AgentDetails'));
 const DeveloperDetail = React.lazy(() => import('./pages/DeveloperDetail'));
 const HomeLinksSearchResult = React.lazy(() => import('./pages/HomeLinksSearchResult'))
+const HomeLinksSearchResultColumn2 = React.lazy(() => import('./pages/HomeLinksSearchResultColumn2'))
+
+
 
 
 // const Listings = React.lazy(() => import('./pages/Listings'));
@@ -137,6 +140,8 @@ function App() {
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/popular-cities-to-buy-properties/:description' component={HomeLinksSearchResult} />
+            <Route exact path='/popular-cities-for-rent/:description' component={HomeLinksSearchResult} />
+            <Route exact path='/popular-locations-for-home/:description' component={HomeLinksSearchResultColumn2} />
             <Route exact path='/explore' component={Explore} />
             <Route exact path='/developers' component={Developers} />
             <Route exact path='/agents' component={Agents} />
