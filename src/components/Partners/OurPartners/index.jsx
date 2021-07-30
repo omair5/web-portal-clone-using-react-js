@@ -6,16 +6,17 @@ import Capital from '../images/capital.webp';
 import Jeewa from '../images/jeewa.webp';
 import Rupali from '../images/rupali.webp';
 
-
-
 // STYLES
 const useStyles = makeStyles((theme) => ({
     MainContainer: {
         margin: '20px 0px',
         "& h1": {
-            margin: '20px 0px',
+            margin: '0px 0px 35px',
             textAlign: 'center',
-            color: '#fcb812'
+            color: 'rgb(59, 70, 86)',
+            '& span': {
+                borderBottom: '5px solid #fcb812'
+            }
         }
     },
     PartnersLogo: {
@@ -37,7 +38,7 @@ const OurPartners = () => {
     return (
         <>
             <div className={classes.MainContainer} >
-                <h1>OUR PARTNERS</h1>
+                <h1><span>MEET OUR PARTNERS</span></h1>
                 <Container maxWidth="lg">
                     <Grid container  >
                         <Grid item xs={6} sm={3} >

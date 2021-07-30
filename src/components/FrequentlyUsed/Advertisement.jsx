@@ -2,20 +2,26 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Slider from "react-slick";
+import Default from './default.jpg'
+import { v4 as uuidv4 } from 'uuid';
 
 // STYLES
 const useStyles = makeStyles((theme) => ({
     mainContainer: {
         margin: '20px auto',
-        height: '100px',
+        maxHeight: '100px',
         width: '60%',
         [theme.breakpoints.down('md')]: {
             width: '90%',
         },
-
+    },
+    links: {
+        textDecoration: 'none',
+        outline: 'none',
+        margin: 'none'
     }
 }));
-const Advertisement = ({ Ads: { Ad1, Ad2 }, alt: { alt1, alt2 } }) => {
+const Advertisement = ({ advertisements }) => {
     // LOGIC
     const classes = useStyles();
     // CAROUSEL SETTING
@@ -38,12 +44,18 @@ const Advertisement = ({ Ads: { Ad1, Ad2 }, alt: { alt1, alt2 } }) => {
         <>
             <Container maxWidth="md" className={classes.mainContainer}>
                 <Slider {...settings}>
-                    <img src={Ad1} alt={alt1} height={100} width={100} />
-                    <img src={Ad2} alt={alt2} height={100} width={100} />
+                    {advertisements.length === 0 ?
+                        <img src={Default} alt={'placeholder'} height={100} width={100} />
+                        :
+                        advertisements.map(value => (
+                            <a href={value.redirect_link} target='_blank' rel="noreferrer" className={classes.links} key={uuidv4}>
+                                <img src={value.advertisement_image} alt={value.alt_text} height={100} width={'100%'} className={classes.links} />
+                            </a>
+                        ))
+                    }
                 </Slider>
             </Container>
         </>
     );
 }
-
 export default React.memo(Advertisement);

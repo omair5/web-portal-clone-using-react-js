@@ -13,7 +13,10 @@ const useStyles = makeStyles({
     MainHeading: {
         textAlign: 'center',
         padding: '15px',
-        color: '#fcb812'
+        color: 'rgb(59, 70, 86)',
+        '& span': {
+            borderBottom: '5px solid #fcb812'
+        }
     },
     BlogContainer: {
         margin: '15px auto'
@@ -32,7 +35,7 @@ const BlogShow = () => {
 
     return (
         <>
-            <h1 className={classes.MainHeading}>REAL ESTATE BLOGS</h1>
+            <h1 className={classes.MainHeading}><span>REAL ESTATE BLOGS</span></h1>
             <Container maxWidth="lg" className={classes.BlogContainer} >
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={4} >

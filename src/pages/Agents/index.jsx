@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Advertisement from '../../components/FrequentlyUsed/Advertisement';
 import Layout from '../../components/Layout/Layout';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
-import Agent1 from './images/Agent1.jpg'
-import Agent2 from './images/Agent2.jpg'
 import AgentListings from '../../components/Agents/AgentListings';
 import AgentFilter from '../../components/Agents/AgentFilter';
 import FooterForMobileDevices from '../../components/FrequentlyUsed/FooterForMobileDevices';
+import getAdvertisements from '../../Services/GetAdvertisements'
+
 
 const useStyles = makeStyles((theme) => ({
     MainContainer: {
@@ -44,12 +44,18 @@ const Agents = () => {
     const classes = useStyles();
     const AgentSearchShow = useSelector(state => state.AgentSearchShow)
     const AgentCardShow = useSelector(state => state.AgentCardShow)
+    const [advertisement, setAdvertisement] = useState([])
+    useEffect(() => {
+        const AdvertisementGet = async () => {
+            setAdvertisement(await getAdvertisements('Agent'))
+        }
+        AdvertisementGet()
+    }, [])
 
     return (
         <Layout FooterDisplay={false}>
             <Advertisement
-                Ads={{ Ad1: Agent1, Ad2: Agent2 }}
-                alt={{ alt1: "pearl villas", alt2: "gohar residency" }}
+                advertisements={advertisement}
             />
 
             <Grid container className={classes.MainContainer} >

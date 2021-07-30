@@ -6,9 +6,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { useSelector } from 'react-redux';
 import Advertisement from '../../components/FrequentlyUsed/Advertisement';
-import Advertisement1 from './images/explore 1.jpg'
-import Advertisement2 from './images/explore 2.jpg'
 import FooterForMobileDevices from '../../components/FrequentlyUsed/FooterForMobileDevices';
+import { useEffect, useState } from 'react';
+import getAdvertisements from '../../Services/GetAdvertisements'
+
 
 // STYLES
 const useStyles = makeStyles((theme) => ({
@@ -40,13 +41,17 @@ const Explore = () => {
     const classes = useStyles();
     const SearchShow = useSelector(state => state.SearchShow)
     const CardShow = useSelector(state => state.CardShow)
+    const [advertisement, setAdvertisement] = useState([])
+    useEffect(() => {
+        const AdvertisementGet = async () => {
+            setAdvertisement(await getAdvertisements('Explore'))
+        }
+        AdvertisementGet()
+    }, [])
     return (
         <Layout FooterDisplay={false}>
             {/* ADVERTISEMENT COMPONENT FROM FREQUENTLY USED COMPONENTS */}
-            <Advertisement
-                Ads={{ Ad1: Advertisement1, Ad2: Advertisement2 }}
-                alt={{ alt1: "pearl villas", alt2: "gohar residency" }}
-            />
+            <Advertisement advertisements={advertisement} />
 
             <Grid container className={classes.MainContainer} >
                 {/* SEARCH FILTER */}

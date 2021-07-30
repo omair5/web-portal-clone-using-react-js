@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Advertisement from '../../components/FrequentlyUsed/Advertisement';
 import Layout from '../../components/Layout/Layout';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
-import Developer1 from './images/developer1.jpg'
-import Developer2 from './images/developer2.jpg'
 import DeveloperListings from '../../components/Developers/DeveloperListings';
 import DeveloperFilter from '../../components/Developers/DeveloperFilter';
 import FooterForMobileDevices from '../../components/FrequentlyUsed/FooterForMobileDevices';
+import getAdvertisements from '../../Services/GetAdvertisements'
+
 
 const useStyles = makeStyles((theme) => ({
     MainContainer: {
@@ -38,6 +38,13 @@ const Developers = () => {
     const classes = useStyles();
     const DeveloperSearchShow = useSelector(state => state.DeveloperSearchShow)
     const DeveloperCardShow = useSelector(state => state.DeveloperCardShow)
+    const [advertisement, setAdvertisement] = useState([])
+    useEffect(() => {
+        const AdvertisementGet = async () => {
+            setAdvertisement(await getAdvertisements('Devlopers'))
+        }
+        AdvertisementGet()
+    }, [])
 
     console.log('Developer Search Show', DeveloperSearchShow)
     console.log('Developer Card Show', DeveloperCardShow)
@@ -45,8 +52,7 @@ const Developers = () => {
     return (
         <Layout FooterDisplay={false}>
             <Advertisement
-                Ads={{ Ad1: Developer1, Ad2: Developer2 }}
-                alt={{ alt1: "pearl villas", alt2: "gohar residency" }}
+                advertisements={advertisement}
             />
 
             <Grid container className={classes.MainContainer} >

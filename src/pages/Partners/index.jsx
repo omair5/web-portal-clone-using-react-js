@@ -1,18 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Advertisement from '../../components/FrequentlyUsed/Advertisement';
 import Layout from '../../components/Layout/Layout';
 import OurPartners from '../../components/Partners/OurPartners';
-import Partner1 from './images/partner1.jpg'
-import Partner2 from './images/partner2.jpg'
+import PartnerHeader from '../../components/Partners/PartnerHeader';
 import GoToTop from '../../GoToTop'
+import getAdvertisements from '../../Services/GetAdvertisements'
+
 
 const Partners = () => {
+    const [advertisement, setAdvertisement] = useState([])
+    useEffect(() => {
+        const AdvertisementGet = async () => {
+            setAdvertisement(await getAdvertisements('Blogs'))
+        }
+        AdvertisementGet()
+    }, [])
     return (
         <Layout FooterDisplay={true}>
             <Advertisement
-                Ads={{ Ad1: Partner1, Ad2: Partner2 }}
-                alt={{ alt1: "pearl villas", alt2: "gohar residency" }}
+                advertisements={advertisement}
             />
+            <PartnerHeader />
             <OurPartners />
             <GoToTop />
         </Layout>);
