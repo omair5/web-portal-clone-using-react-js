@@ -8,11 +8,12 @@ import AgentListings from '../../components/Agents/AgentListings';
 import AgentFilter from '../../components/Agents/AgentFilter';
 import FooterForMobileDevices from '../../components/FrequentlyUsed/FooterForMobileDevices';
 import getAdvertisements from '../../Services/GetAdvertisements'
+import AgentDeveloperGetShortDetail from '../../Services/AgentDeveloperGetShortDetail';
 
 
 const useStyles = makeStyles((theme) => ({
     MainContainer: {
-        margin: '20px 0px',
+        margin: '15px 0px',
     },
     hideComponent: {
         display: 'block',
@@ -45,12 +46,23 @@ const Agents = () => {
     const AgentSearchShow = useSelector(state => state.AgentSearchShow)
     const AgentCardShow = useSelector(state => state.AgentCardShow)
     const [advertisement, setAdvertisement] = useState([])
+    const [listings, setListings] = useState([])
+    // FOR ADVERTISEMENTS
     useEffect(() => {
         const AdvertisementGet = async () => {
             setAdvertisement(await getAdvertisements('Agent'))
         }
         AdvertisementGet()
     }, [])
+
+    // FOR AGENT SHORT DETAILS
+    useEffect(() => {
+        const GetShortDetailAgentDeveloper = async () => {
+            setListings(await AgentDeveloperGetShortDetail('shortagent'))
+        }
+        GetShortDetailAgentDeveloper()
+    }, [])
+
 
     return (
         <Layout FooterDisplay={false}>
@@ -65,7 +77,7 @@ const Agents = () => {
                 </Grid>
                 {/* SEARCH RESULTS */}
                 <Grid item md={9} xs={12} style={{ display: AgentCardShow ? 'block' : 'none' }} >
-                    <AgentListings />
+                    <AgentListings listingsArray={listings} />
                 </Grid>
             </Grid>
             <div className={classes.FooterForMobileDevices} >

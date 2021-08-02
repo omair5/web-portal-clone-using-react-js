@@ -1,6 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import AgentCards from '../AgentCards';
+import AgentCards from '../../FrequentlyUsed/DeveloperAndAgentCard';
+import SkeletonForAgentCard from '../../SkeletonForAgentCard';
+import Grid from '@material-ui/core/Grid';
+import { v4 as uuidv4 } from 'uuid';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -15,31 +18,55 @@ const useStyles = makeStyles((theme) => ({
     ResultCount: {
         textAlign: 'center',
         marginTop: '10px',
+        color: 'rgb(59, 70, 86)',
         "& span": {
             fontSize: '20px',
-            fontWeight: 'bolder'
+            fontWeight: 'bolder',
+            letterSpacing: '1.1px',
         }
     },
     ForTopMargin: {
-        marginTop: '20px'
-    }
+        marginTop: '15px'
+    },
 }));
 
-const AgentListings = () => {
+const AgentListings = ({ listingsArray }) => {
     const classes = useStyles();
     return (
         <>
             {/* this custom-scroll class is used from app.css */}
             <div className={`${classes.MainContainer} custom-scroll`}>
-                <div className={classes.ResultCount}>
-                    <span>1 RESULT</span>
-                </div>
-                {/* CARDS */}
-                <div className={classes.ForTopMargin}>
-                    <AgentCards />
-                </div>
-            </div>
+                {
+                    listingsArray.length !== 0 &&
+                    <div className={classes.ResultCount}>
+                        <span>{listingsArray.length} RESULT FOUND</span>
+                    </div>
+                }
 
+                {/* CARDS */}
+                <Grid container spacing={3} className={classes.ForTopMargin}>
+                    {
+                        listingsArray.length === 0 ?
+                            Array(5).fill().map(() => (
+                                <Grid item xs={12} md={6} key={uuidv4()}>
+                                    <SkeletonForAgentCard />
+                                </Grid>
+                            ))
+                            :
+                            listingsArray.map((value) => (
+                                <Grid item xs={12} md={6} key={uuidv4()}>
+                                    < AgentCards
+                                        image={value.image}
+                                        name={value.name}
+                                        address={value.address}
+                                        PhoneNumber={value.number}
+                                    />
+                                </Grid>
+                            ))
+
+                    }
+                </Grid>
+            </div>
         </>
     );
 }

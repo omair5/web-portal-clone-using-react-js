@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 // import Tooltip from '@material-ui/core/Tooltip';
 // import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
@@ -12,16 +11,17 @@ import PhoneIcon from '@material-ui/icons/Phone';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        maxWidth: 370,
+        maxWidth: '95%',
         margin: 'auto',
-        border: '1px solid rgb(212, 212, 212)'
+        border: '1px solid rgb(212, 212, 212)',
     },
     media: {
         height: 230,
-        position: 'relative'
-    },
-    card: {
         position: 'relative',
+    },
+    coverImage: {
+        height: '100%',
+        width: '100%'
     },
     overlay: {
         position: 'absolute',
@@ -38,11 +38,12 @@ const useStyles = makeStyles((theme) => ({
     mainContainer: {
         margin: '10px 20px',
         display: 'flex',
-        justifyContent: 'space-between'
+        justifyContent: 'flex-end'
 
     },
     featured: {
         border: '2px solid #fcb812',
+        borderRadius: '5px',
         padding: '1rem',
         marginRight: '0.5rem',
         fontWeight: 'bolder',
@@ -67,6 +68,10 @@ const useStyles = makeStyles((theme) => ({
     address: {
         display: 'flex',
         marginTop: '5px'
+    },
+    developerName: {
+        marginLeft: '5px',
+        textTransform: 'uppercase'
     },
     contentDisplay: {
         display: 'flex',
@@ -102,24 +107,19 @@ const useStyles = makeStyles((theme) => ({
             }
         },
     },
-    //     developerName: {
-    // fontWeight:'bolder',
-    // fontSi
-    //     }
 }));
 
 const DeveloperCard = (props) => {
     const classes = useStyles();
-    const { bgImage, DeveloperLogo, DeveloperName, Address, PhoneNumber, MainBox } = props
+    const { image, name, address, PhoneNumber } = props
     return (
         <>
-            <Card className={classes.root} style={MainBox}>
+            <Card className={classes.root}>
                 <CardActionArea>
-                    <CardMedia
-                        className={classes.media}
-                        image={bgImage}
+                    <div className={classes.media}>
+                        <img src={image} alt="cover" className={classes.coverImage} />
+                    </div>
 
-                    />
                     <div className={classes.overlay}>
                         <div className={classes.mainContainer}>
                             <span className={classes.featured}>FEATURED</span>
@@ -131,14 +131,14 @@ const DeveloperCard = (props) => {
                         <div className={classes.CardFooter}>
                             {/* FOR DEVELOPER LOGO */}
                             <div style={{ marginRight: '5px' }}>
-                                <img src={DeveloperLogo} className={classes.Developer} alt={'Developer logo'} />
+                                <img src={image} className={classes.Developer} alt={'Developer logo'} />
                             </div>
                             {/* FOR DEVELOPER NAME AND ADDRESS */}
-                            <div>
-                                <h4 className={classes.developerName}>{DeveloperName}</h4>
+                            <div >
+                                <h4 className={classes.developerName}>{name}</h4>
                                 <div className={classes.address}>
                                     <LocationOnIcon className={classes.locationIcon} />
-                                    <h5 style={{ alignSelf: 'center', fontWeight: 'light' }}>{Address}</h5>
+                                    <h5 style={{ alignSelf: 'center', fontWeight: 'light' }}>{address}</h5>
                                 </div>
                             </div>
                         </div>
@@ -148,7 +148,7 @@ const DeveloperCard = (props) => {
                         <div className={classes.contentDisplay}>
                             <div className={classes.alignIconNinfo}>
                                 <ApartmentIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '6px' }} />
-                                <h5> {DeveloperName}</h5>
+                                <h5> {name}</h5>
                             </div>
                             <div className={classes.alignIconNinfo}>
                                 <PhoneIcon style={{ color: '#fcb812', fontSize: '25px', marginRight: '4px' }} />

@@ -9,6 +9,7 @@ function DropdownForUserFeatures() {
   // const history = useHistory()
   const dispatch = useDispatch()
   const AuthorizedUserName = useSelector(state => state.AuthorizedUserNameReducer)
+  console.log('jcjbodcfndjb', AuthorizedUserName)
 
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
@@ -29,6 +30,11 @@ function DropdownForUserFeatures() {
           <h5 className='dropdown-link'>{AuthorizedUserName}</h5>
           <Divider variant="middle" />
         </div>
+        <li className='dropdown-link' onClick={HandleLogout}> My Listings </li>
+        <li className='dropdown-link' onClick={HandleLogout}> Dashboard </li>
+        <li className='dropdown-link' onClick={HandleLogout}> Account Setting </li>
+        <li className='dropdown-link' onClick={HandleLogout}> Change Password </li>
+        <hr />
         <li className='dropdown-link' onClick={HandleLogout}> Logout </li>
       </ul>
     </>

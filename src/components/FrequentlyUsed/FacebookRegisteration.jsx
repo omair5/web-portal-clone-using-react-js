@@ -36,13 +36,20 @@ const SocialMediaSignInSignUp = () => {
     const history = useHistory()
 
     const responseFacebook = (res) => {
-        console.log(res)
-        const google_login_data = {
-            imageurl: res.picture.data.url,
-            username: res.name,
-            email: res.email,
+        console.log('this is response', res)
+        try {
+            var google_login_data = {
+                imageurl: res.picture.data.url,
+                username: res.name,
+                email: res.email,
+            }
+            console.log(google_login_data)
         }
-        console.log(google_login_data)
+        catch {
+            console.log('unknown behavior')
+        }
+
+
         axios.post('http://localhost:3200/auth/socialsignup', google_login_data).then((res) => {
             if (res.status === 201) {
                 localStorage.setItem('secretkey', res.data.user)
