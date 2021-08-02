@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
     },
     address: {
         display: 'flex',
-        marginTop: '5px'
+        marginTop: '5px',
     },
     developerName: {
         marginLeft: '5px',

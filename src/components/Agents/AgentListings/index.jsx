@@ -4,6 +4,8 @@ import AgentCards from '../../FrequentlyUsed/DeveloperAndAgentCard';
 import SkeletonForAgentCard from '../../SkeletonForAgentCard';
 import Grid from '@material-ui/core/Grid';
 import { v4 as uuidv4 } from 'uuid';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -28,10 +30,18 @@ const useStyles = makeStyles((theme) => ({
     ForTopMargin: {
         marginTop: '15px'
     },
+    removeDeco: {
+        textDecoration: 'none'
+    }
 }));
 
-const AgentListings = ({ listingsArray }) => {
+const AgentListings = () => {
     const classes = useStyles();
+    const listingsArray = useSelector(state => state.AgentList)
+    console.log('dsdksj', listingsArray)
+    const generateSlug = (value) => {
+        return value.toLowerCase().replace(/ /g, '-')
+    }
     return (
         <>
             {/* this custom-scroll class is used from app.css */}
@@ -55,12 +65,14 @@ const AgentListings = ({ listingsArray }) => {
                             :
                             listingsArray.map((value) => (
                                 <Grid item xs={12} md={6} key={uuidv4()}>
-                                    < AgentCards
-                                        image={value.image}
-                                        name={value.name}
-                                        address={value.address}
-                                        PhoneNumber={value.number}
-                                    />
+                                    <Link to={`/agent/${generateSlug(value.name)}/${value.id}`} className={classes.removeDeco}>
+                                        < AgentCards
+                                            image={value.image}
+                                            name={value.name}
+                                            address={value.address}
+                                            PhoneNumber={value.number}
+                                        />
+                                    </Link>
                                 </Grid>
                             ))
 

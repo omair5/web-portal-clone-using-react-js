@@ -65,6 +65,7 @@ import FrequentlyUsed_Failure_PopUpMessage from './FrequentlyUsed_Failure_PopUpM
 import Explore_Buy_Tab_Pagination from './Explore_Buy_Tab_pagination'
 import Explore_Rent_Tab_Pagination from './Explore_Rent_Tab_Pagination'
 import Explore_Wanted_Tab_Pagination from './Explore_Wanted_Tab_Pagination'
+import AgentList from './AgentList'
 
 export default combineReducers({
     SearchShow: ExploreSearch,
@@ -132,5 +133,6 @@ export default combineReducers({
     FrequentlyUsed_Failure_PopUpMessage: FrequentlyUsed_Failure_PopUpMessage,
     Explore_Buy_Tab_Pagination: Explore_Buy_Tab_Pagination,
     Explore_Rent_Tab_Pagination: Explore_Rent_Tab_Pagination,
-    Explore_Wanted_Tab_Pagination: Explore_Wanted_Tab_Pagination
+    Explore_Wanted_Tab_Pagination: Explore_Wanted_Tab_Pagination,
+    AgentList: AgentList
 })

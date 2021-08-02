@@ -158,7 +158,7 @@ function App() {
             {/* <Route exact path='/add-property' component={AddProperty} /> */}
             <Route exact path='/reset/password' component={ResetPasswordDialogBox} />
             <Route exact path='/project' component={Project} />
-            <Route exact path='/agent/detail' component={AgentDetail} />
+            <Route exact path='/agent/:agent_name/:id' component={AgentDetail} />
             <Route exact path='/developer/detail' component={DeveloperDetail} />
 
 

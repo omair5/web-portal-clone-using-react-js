@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Advertisement from '../../components/FrequentlyUsed/Advertisement';
 import Layout from '../../components/Layout/Layout';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import AgentListings from '../../components/Agents/AgentListings';
 import AgentFilter from '../../components/Agents/AgentFilter';
@@ -43,10 +43,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Agents = () => {
     const classes = useStyles();
+    const dispatch = useDispatch()
     const AgentSearchShow = useSelector(state => state.AgentSearchShow)
     const AgentCardShow = useSelector(state => state.AgentCardShow)
     const [advertisement, setAdvertisement] = useState([])
-    const [listings, setListings] = useState([])
     // FOR ADVERTISEMENTS
     useEffect(() => {
         const AdvertisementGet = async () => {
@@ -58,10 +58,10 @@ const Agents = () => {
     // FOR AGENT SHORT DETAILS
     useEffect(() => {
         const GetShortDetailAgentDeveloper = async () => {
-            setListings(await AgentDeveloperGetShortDetail('shortagent'))
+            dispatch({ type: 'set_agent_list', payload: await AgentDeveloperGetShortDetail('shortagent') })
         }
         GetShortDetailAgentDeveloper()
-    }, [])
+    }, [dispatch])
 
 
     return (
@@ -77,7 +77,7 @@ const Agents = () => {
                 </Grid>
                 {/* SEARCH RESULTS */}
                 <Grid item md={9} xs={12} style={{ display: AgentCardShow ? 'block' : 'none' }} >
-                    <AgentListings listingsArray={listings} />
+                    <AgentListings />
                 </Grid>
             </Grid>
             <div className={classes.FooterForMobileDevices} >

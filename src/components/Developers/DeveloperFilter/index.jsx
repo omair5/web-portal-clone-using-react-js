@@ -97,7 +97,7 @@ const DeveloperFilter = () => {
                     <DeveloperSearch />
                 </TabPanel> */}
 
-                <TabPanel>
+                <TabPanel value={0} index={0}>
                     <DeveloperSearch />
                 </TabPanel>
 

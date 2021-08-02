@@ -118,7 +118,7 @@ const SimpleTabs = () => {
                     }
                 </TabPanel> */}
 
-                <TabPanel >
+                <TabPanel value={0} index={0}>
                     {
                         (() => {
                             switch (changeExploreTab) {

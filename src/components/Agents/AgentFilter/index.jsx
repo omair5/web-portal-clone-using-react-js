@@ -96,7 +96,7 @@ const AgentFilter = () => {
                     <AgentSearch />
                 </TabPanel> */}
 
-                <TabPanel >
+                <TabPanel value={0} index={0}>
                     <AgentSearch />
                 </TabPanel>
 
