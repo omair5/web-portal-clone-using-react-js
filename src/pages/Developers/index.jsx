@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Advertisement from '../../components/FrequentlyUsed/Advertisement';
 import Layout from '../../components/Layout/Layout';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import DeveloperListings from '../../components/Developers/DeveloperListings';
 import DeveloperFilter from '../../components/Developers/DeveloperFilter';
 import FooterForMobileDevices from '../../components/FrequentlyUsed/FooterForMobileDevices';
 import getAdvertisements from '../../Services/GetAdvertisements'
+import AgentDeveloperGetShortDetail from '../../Services/AgentDeveloperGetShortDetail'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Developers = () => {
     const classes = useStyles();
+    const dispatch = useDispatch()
     const DeveloperSearchShow = useSelector(state => state.DeveloperSearchShow)
     const DeveloperCardShow = useSelector(state => state.DeveloperCardShow)
     const [advertisement, setAdvertisement] = useState([])
@@ -45,6 +47,19 @@ const Developers = () => {
         }
         AdvertisementGet()
     }, [])
+
+
+
+    // FOR DEVELOPER SHORT DETAILS
+    useEffect(() => {
+        const GetShortDetailAgentDeveloper = async () => {
+            dispatch({ type: 'set_developer_list', payload: await AgentDeveloperGetShortDetail('shortdeveloper') })
+        }
+        GetShortDetailAgentDeveloper()
+    }, [dispatch])
+
+
+
 
     console.log('Developer Search Show', DeveloperSearchShow)
     console.log('Developer Card Show', DeveloperCardShow)

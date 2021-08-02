@@ -159,7 +159,7 @@ function App() {
             <Route exact path='/reset/password' component={ResetPasswordDialogBox} />
             <Route exact path='/project' component={Project} />
             <Route exact path='/agent/:agent_name/:id' component={AgentDetail} />
-            <Route exact path='/developer/detail' component={DeveloperDetail} />
+            <Route exact path='/developer/:developer_name/:id' component={DeveloperDetail} />
 
 
             {/* dashboard */}

@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 const AgentListings = () => {
     const classes = useStyles();
     const listingsArray = useSelector(state => state.AgentList)
-    console.log('dsdksj', listingsArray)
+    
     const generateSlug = (value) => {
         return value.toLowerCase().replace(/ /g, '-')
     }
