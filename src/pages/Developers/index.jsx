@@ -59,8 +59,6 @@ const Developers = () => {
     }, [dispatch])
 
 
-
-
     console.log('Developer Search Show', DeveloperSearchShow)
     console.log('Developer Card Show', DeveloperCardShow)
 
@@ -91,8 +89,3 @@ const Developers = () => {
 }
 
 export default Developers;
-
-
-// style={{ display: SearchShow ? 'block' : 'none' }}
-
-// style={{ display: CardShow ? 'block' : 'none' }}

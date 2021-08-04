@@ -66,7 +66,7 @@ const DeveloperListings = () => {
                             :
                             listingsArray.map((value) => (
                                 <Grid item xs={12} md={6} key={uuidv4()}>
-                                    <Link to={`/agent/${generateSlug(value.name)}/${value.developer_id}`} className={classes.removeDeco}>
+                                    <Link to={`/developer/${generateSlug(value.name)}/${value.developer_id}`} className={classes.removeDeco}>
                                         < DeveloperCards
                                             image={value.image}
                                             name={value.name}
