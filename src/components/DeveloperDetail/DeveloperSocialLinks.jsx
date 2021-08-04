@@ -49,15 +49,30 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const DeveloperSocialLinks = () => {
+const DeveloperSocialLinks = ({ fb, twitter, youtube, instagram, web }) => {
     const classes = useStyles();
     return (
         <>
-            <a className='link' href={'https://www.facebook.com/abaadeepk/'} target='_blank' rel="noreferrer"> <span className={`${classes.SocialMediaIcons} ${classes.fb}`} ><FontAwesomeIcon icon={faFacebookF} /></span></a>
-            <a className='link' href={'https://twitter.com/abaadeepk?lang=en'} target='_blank' rel="noreferrer"> <span className={`${classes.SocialMediaIcons} ${classes.twitter}`} ><FontAwesomeIcon icon={faTwitter} /></span></a>
-            <a className='link' href={'https://www.youtube.com/channel/UCYwDTTwUG6FvTCO6gqCLUxQ/videos'} target='_blank' rel="noreferrer"> <span className={`${classes.SocialMediaIcons} ${classes.youtube}`} ><FontAwesomeIcon icon={faYoutube} /></span></a>
-            <a className='link' href={'https://www.instagram.com/abaadeepk/?hl=en'} target='_blank' rel="noreferrer"><span className={`${classes.SocialMediaIcons} ${classes.insta}`} ><FontAwesomeIcon icon={faInstagram} /></span></a>
-            <a className='link' href={'https://www.abaadee.com'} target='_blank' rel="noreferrer"><span className={`${classes.SocialMediaIcons} ${classes.web}`} ><FontAwesomeIcon icon={faGlobe} /></span></a>
+           {
+                fb && <a className='link' href={fb} target='_blank' rel="noreferrer"> <span className={`${classes.SocialMediaIcons} ${classes.fb}`} ><FontAwesomeIcon icon={faFacebookF} /></span></a>
+            }
+
+            {
+                twitter && <a className='link' href={twitter} target='_blank' rel="noreferrer"> <span className={`${classes.SocialMediaIcons} ${classes.twitter}`} ><FontAwesomeIcon icon={faTwitter} /></span></a>
+            }
+
+            {
+                youtube && <a className='link' href={youtube} target='_blank' rel="noreferrer"> <span className={`${classes.SocialMediaIcons} ${classes.youtube}`} ><FontAwesomeIcon icon={faYoutube} /></span></a>
+            }
+
+            {
+                instagram && <a className='link' href={instagram} target='_blank' rel="noreferrer"> <span className={`${classes.SocialMediaIcons} ${classes.insta}`} ><FontAwesomeIcon icon={faInstagram} /></span></a>
+            }
+
+            {
+                web && <a className='link' href={web} target='_blank' rel="noreferrer"> <span className={`${classes.SocialMediaIcons} ${classes.web}`} ><FontAwesomeIcon icon={faGlobe} /></span></a>
+            }
+
         </>
     );
 }

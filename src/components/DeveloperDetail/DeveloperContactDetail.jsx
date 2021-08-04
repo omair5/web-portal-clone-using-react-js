@@ -36,7 +36,7 @@ const useStyles = makeStyles({
     }
 });
 
-const DeveloperContactDetail = () => {
+const DeveloperContactDetail = ({ developerName, email, address, mobilePhone, officePhone }) => {
     const classes = useStyles();
 
     return (
@@ -45,27 +45,27 @@ const DeveloperContactDetail = () => {
                 <TableBody>
                     <StyledTableRow >
                         <StyledTableCell component="th" scope="row" className={classes.tableHeading} >Name </StyledTableCell>
-                        <StyledTableCell align="left">Grace Associates</StyledTableCell>
+                        <StyledTableCell align="left">{developerName}</StyledTableCell>
                     </StyledTableRow>
 
                     <StyledTableRow >
                         <StyledTableCell component="th" scope="row" className={classes.tableHeading}>Email </StyledTableCell>
-                        <StyledTableCell align="left">xyz@gmail.com</StyledTableCell>
+                        <StyledTableCell align="left">{email}</StyledTableCell>
                     </StyledTableRow>
 
                     <StyledTableRow >
                         <StyledTableCell component="th" scope="row" className={classes.tableHeading}>Address </StyledTableCell>
-                        <StyledTableCell align="left">Shahrah-e-Faisal Road, Karachi, Pakistan</StyledTableCell>
+                        <StyledTableCell align="left">{address}</StyledTableCell>
                     </StyledTableRow>
 
                     <StyledTableRow >
                         <StyledTableCell component="th" scope="row" className={classes.tableHeading}>Mobile No </StyledTableCell>
-                        <StyledTableCell align="left">0336-3765432</StyledTableCell>
+                        <StyledTableCell align="left">{mobilePhone}</StyledTableCell>
                     </StyledTableRow>
 
                     <StyledTableRow >
                         <StyledTableCell component="th" scope="row" className={classes.tableHeading}>Office No </StyledTableCell>
-                        <StyledTableCell align="left">021-111222333</StyledTableCell>
+                        <StyledTableCell align="left">{officePhone}</StyledTableCell>
                     </StyledTableRow>
                 </TableBody>
             </Table>

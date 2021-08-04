@@ -43,7 +43,7 @@ const AgentDetails = () => {
         DetailOfAgentAndDeveloper()
     }, [id])
 
-    console.log('looking forthis ', agentDetail)
+    // console.log('looking forthis ', agentDetail)
     return (
         <Layout FooterDisplay={true}>
             {agentDetail ?
@@ -67,10 +67,17 @@ const AgentDetails = () => {
                                     mobilePhone={agentDetail.number}
                                     officePhone={agentDetail.office_no}
                                 />
-                                <h1>DESCRIPTION</h1>
-                                <AgentDescription
-                                    description={agentDetail.description}
-                                />
+
+                                {
+                                    agentDetail.description &&
+                                    <div>
+                                        <h1>DESCRIPTION</h1>
+                                        <AgentDescription
+                                            description={agentDetail.description}
+                                        />
+                                    </div>
+                                }
+
                                 {
                                     (agentDetail.fb_link === '' && agentDetail.twitter_link === '' && agentDetail.youtube_link === '' && agentDetail.insta_link === '' && agentDetail.other_link === '') ? null :
                                         <div>

@@ -1,24 +1,20 @@
 .mainContainer {
     width: 100%;
-    min-height: 60vh;
-    background-image: url('./images/plot1083.jpg');
-    /* Create the parallax scrolling effect */
+    height: 45vh;
     background-attachment: fixed;
-    background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100% 100%;
     display: flex;
     align-items: flex-end;
+    position: relative;
 }
 
-@media only screen and (max-width: 750px) {
-    .mainContainer {
-        background-image: url('./images/plot750.jpg');
-    }
-}
-
-@media only screen and (max-width: 550px) {
-    .mainContainer {
-        background-image: url('./images/plot 400.jpg');
-    }
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0%;
+    left: 0%;
+    right: 0%;
+    background-color: black;
+    opacity: 0.5;
 }

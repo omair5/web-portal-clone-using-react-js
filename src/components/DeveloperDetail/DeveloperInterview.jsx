@@ -1,11 +1,11 @@
 import React from 'react';
-const AgentInterview = ({ agentInterview }) => {
+const DeveloperInterview = ({ developerInterview }) => {
     return (
         <div>
             <iframe
                 width="100%"
                 height="380"
-                src={agentInterview}
+                src={developerInterview}
                 title="YouTube video player"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -15,4 +15,4 @@ const AgentInterview = ({ agentInterview }) => {
     );
 }
 
-export default React.memo(AgentInterview);
+export default React.memo(DeveloperInterview);

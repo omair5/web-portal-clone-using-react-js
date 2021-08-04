@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
     paper: {
         padding: theme.spacing(2),
         color: theme.palette.text.secondary,
+        "& h2": {
+            textAlign: 'center',
+        }
     },
     inputStyles: {
         color: "rgb(59, 70, 86)",
@@ -118,6 +121,7 @@ const DeveloperContactForm = ({ propertyId, userData }) => {
 
     return (
         <Paper className={classes.paper} >
+            <h2>ENQUIRY FORM</h2>
             <form onSubmit={HandleSubmit}>
 
                 {/* FOR CALL */}

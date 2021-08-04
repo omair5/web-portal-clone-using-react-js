@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
         width: '100%',
         marginBottom: '5vh',
         alignItems: 'center',
-        zIndex:20
+        zIndex: 20
     },
     PlotForSaleContainer: {
         display: 'flex',
@@ -79,7 +79,7 @@ const Header = ({ coverImage, logo, agentName, agentRating, location }) => {
     return (
         <>
             <div className={styles.mainContainer} style={{ backgroundImage: `url(${coverImage})` }}>
-                <div className={styles.overlay}>sdssdsdsdsd</div>
+                <div className={styles.overlay}></div>
                 <Container className={classes.child}>
                     <Grid container spacing={3}>
                         {/* AGENT NAME */}

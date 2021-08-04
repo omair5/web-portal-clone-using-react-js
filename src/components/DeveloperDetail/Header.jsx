@@ -1,23 +1,37 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import styles from './header.module.css';
-import PlotIcon from './images/plotIcon.jpg'
-import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import Grid from '@material-ui/core/Grid';
+import NewUser from './Badges/new.png'
+import Verified from './Badges/verified.png'
+import TenTen from './Badges/tenbyten.png'
+import Premium from './Badges/premium.png'
+import Tooltip from '@material-ui/core/Tooltip';
+
+const LightTooltip = withStyles((theme) => ({
+    tooltip: {
+        backgroundColor: theme.palette.common.white,
+        color: 'rgba(0, 0, 0, 0.87)',
+        boxShadow: theme.shadows[1],
+        fontSize: 11,
+    },
+}))(Tooltip);
 
 const useStyles = makeStyles(theme => ({
     child: {
         width: '100%',
         marginBottom: '5vh',
-        alignItems: 'center'
+        alignItems: 'center',
+        zIndex: 20
     },
     PlotForSaleContainer: {
         display: 'flex',
         alignItems: 'center',
         "& h1": {
             marginLeft: '15px',
-            color: 'white'
+            color: 'white',
+            alignSelf: 'center'
         }
     },
     pricingContainer: {
@@ -36,23 +50,47 @@ const useStyles = makeStyles(theme => ({
         height: '100%',
         width: '100%',
         borderRadius: '50%'
+    },
+    badge: {
+        height: '60px',
+        width: '60px',
+        position: 'relative',
+        bottom: '10px'
     }
 }));
 
-const Header = () => {
+const Header = ({ coverImage, logo, developerName, developerRating, location }) => {
     const classes = useStyles();
+    const GenerateBadge = (value) => {
+        switch (value) {
+            case "newuser":
+                return NewUser
+            case "verified":
+                return Verified
+            case "tenten":
+                return TenTen
+            case "premium":
+                return Premium
+            default:
+                return Verified
+        }
+    }
     return (
         <>
-            <div className={styles.mainContainer}>
+            <div className={styles.mainContainer} style={{ backgroundImage: `url(${coverImage})` }}>
+                <div className={styles.overlay}></div>
                 <Container className={classes.child}>
                     <Grid container spacing={3}>
                         {/* AGENT NAME */}
                         <Grid item xs={12} md={8}>
                             <div className={classes.PlotForSaleContainer}>
                                 <div className={classes.RoundedContainer}>
-                                    <img src={PlotIcon} alt="icon" className={classes.RoundedImage} />
+                                    <img src={logo} alt="icon" className={classes.RoundedImage} />
                                 </div>
-                                <h1>Alrauf Group <VerifiedUserIcon style={{ color: '#4dc6ff', fontSize: '20px' }} /> </h1>
+                                <h1>{developerName}</h1>
+                                <LightTooltip title={`${developerRating} Agent`}>
+                                    <img src={GenerateBadge(developerRating)} alt={developerRating} className={classes.badge} />
+                                </LightTooltip>
                             </div>
                         </Grid>
                         {/* LOCATION */}
@@ -60,7 +98,7 @@ const Header = () => {
                             <div className={classes.pricingContainer} >
                                 <div>
                                     <p>Location</p>
-                                    <h4>Shahrah-e-Faisal Road, Karachi, Pakistan</h4>
+                                    <h4>{location}</h4>
                                 </div>
                             </div>
                         </Grid>
