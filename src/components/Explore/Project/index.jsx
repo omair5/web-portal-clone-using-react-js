@@ -1,27 +1,58 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
-import Pagination from '@material-ui/lab/Pagination';
-import { useStyles, useStylesBase } from '../../FrequentlyUsed/PaginationStyles'
 import AbaadeeCardForProject from '../../FrequentlyUsed/AbaadeeCardForProject';
+import AgentDeveloperGetShortDetail from '../../../Services/AgentDeveloperGetShortDetail'
+import { useSelector, useDispatch } from 'react-redux';
+import SkeletonForPropertyCard from '../../SkeletonForPropertyCard';
+import { v4 as uuidv4 } from 'uuid';
+import { Link } from 'react-router-dom'
+
 
 const ProjectTab = () => {
-    const classes = useStyles();
-    const classesBase = useStylesBase();
+    const dispatch = useDispatch()
+    const projectList = useSelector(state => state.ProjectList)
+
+    // FOR PROJECT SHORT DETAILS
+    useEffect(() => {
+        const GetShortDetailAgentDeveloperProject = async () => {
+            dispatch({ type: 'set_project_list', payload: await AgentDeveloperGetShortDetail('shortproject') })
+        }
+        GetShortDetailAgentDeveloperProject()
+    }, [])
+
+    // GENERATING SLUG 
+    const generateSlug = (value) => {
+        return value.toLowerCase().replace(/ /g, '-')
+    }
+
     return (
         <>
             <Grid container spacing={3}>
-                <Grid item xs={12} md={6}>
-                    <AbaadeeCardForProject />
-                </Grid>
+                {
+                    projectList.length === 0 ?
+                        Array(5).fill().map(() => (
+                            <Grid item xs={12} md={6} key={uuidv4()}>
+                                <SkeletonForPropertyCard />
+                            </Grid>
+                        ))
+                        :
+                        projectList.map((value) => (
+                            <Grid item xs={12} md={6} key={uuidv4()}>
+                                <Link to={`/project/${generateSlug(value.project_name)}/${value.project_id}`} style={{ textDecoration: 'none' }}>
+                                    <AbaadeeCardForProject
+                                        city={value.city.city_name}
+                                        location={value.location.location_name}
+                                        price={value.price}
+                                        cover_image={value.project_cover_image}
+                                        logo={value.project_logo_image}
+                                        projectName={value.project_name}
+                                    />
+                                </Link>
+                            </Grid>
+                        ))
+                }
             </Grid>
-
-            <Pagination count={10}
-                className={classes.paginationContainer}
-                classes={classesBase}
-                size="large"
-            />
         </>
     );
 }
-
 export default React.memo(ProjectTab);

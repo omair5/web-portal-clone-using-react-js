@@ -44,14 +44,14 @@ const Explore = () => {
     const [advertisement, setAdvertisement] = useState([])
     useEffect(() => {
         const AdvertisementGet = async () => {
-            setAdvertisement(await getAdvertisements('Explore'))
+            setAdvertisement(await getAdvertisements('Explore').catch(err=>console.log(err)))
         }
         AdvertisementGet()
     }, [])
     return (
         <Layout FooterDisplay={false}>
             {/* ADVERTISEMENT COMPONENT FROM FREQUENTLY USED COMPONENTS */}
-            <Advertisement advertisements={advertisement} />
+            {/* <Advertisement advertisements={advertisement} /> */}
 
             <Grid container className={classes.MainContainer} >
                 {/* SEARCH FILTER */}
@@ -71,5 +71,4 @@ const Explore = () => {
             </div>
         </Layout >);
 }
-
 export default React.memo(Explore);

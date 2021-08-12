@@ -43,6 +43,7 @@ const useStyles = makeStyles({
         padding: '1rem',
         marginRight: '0.5rem',
         fontWeight: 'bolder',
+        textTransform: 'capitalize'
     },
     location: {
         margin: '120px 20px',
@@ -79,23 +80,19 @@ const useStyles = makeStyles({
         fontWeight: 'bolder'
     },
     titleAndlocation: {
-        marginLeft: '10px'
+        marginLeft: '12px',
+        '& h4': {
+            textTransform: 'uppercase',
+            marginLeft: "5px"
+        }
     }
 });
 
-const AbaadeeCards = () => {
+const AbaadeeCards = ({ city, location, price, cover_image, logo, projectName }) => {
     const classes = useStyles();
-
-    // TO CONVERT PRICE IN TO PKR
-    // function numDifferentiation(val) {
-    //     if (val >= 10000000) {
-    //         val = (val / 10000000).toFixed(2) + ' Crore';
-    //     } else if (val >= 100000) {
-    //         val = (val / 100000).toFixed(2) + ' Lakh';
-    //     }
-    //     else if (val >= 1000) val = (val / 1000).toFixed(0) + ' Thousand';
-    //     return val;
-    // }
+    const split_array = price.split(' ')
+    const startingPrice = `${split_array[1]} ${split_array[2]}`
+    const lastPrice = `${split_array[4]} ${split_array[5]}`
 
     return (
         <>
@@ -103,24 +100,25 @@ const AbaadeeCards = () => {
                 <CardActionArea>
                     <CardMedia
                         className={classes.media}
-                        // image={cover_image ? cover_image : Default}
-                        image={Default}
+                        image={cover_image ? cover_image : Default}
+
                     />
                     <div className={classes.overlay}>
                         <div className={classes.mainContainer}>
-                            <span className={classes.featured}>PKR 6.36 Lakh</span>
+                            <span className={classes.featured}>PKR {startingPrice}</span>
                             <span className={classes.to}>TO</span>
-                            <span className={classes.featured}>PKR 49.95 Lakh</span>
+                            <span className={classes.featured}>PKR {lastPrice}</span>
+
                         </div>
                         <div className={classes.location}>
                             <div>
-                                <img src={Default} className={classes.dealer} alt={'dealer logo'} />
+                                <img src={logo} className={classes.dealer} alt={'dealer logo'} />
                             </div>
                             <div className={classes.titleAndlocation}>
-                                <h4>TITLE : Pearl Villas</h4>
+                                <h4>{projectName}</h4>
                                 <div className={classes.address}>
                                     <LocationOnIcon className={classes.locationIcon} />
-                                    <h5 style={{ alignSelf: 'center' }}>Surjani Town,Karachi</h5>
+                                    <h5 style={{ alignSelf: 'center' }}>{location} , {city}</h5>
                                 </div>
                             </div>
                         </div>

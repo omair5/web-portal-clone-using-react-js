@@ -67,6 +67,7 @@ import Explore_Rent_Tab_Pagination from './Explore_Rent_Tab_Pagination'
 import Explore_Wanted_Tab_Pagination from './Explore_Wanted_Tab_Pagination'
 import AgentList from './AgentList'
 import DeveloperList from './DeveloperList'
+import ProjectList from './ProjectList'
 
 export default combineReducers({
     SearchShow: ExploreSearch,
@@ -136,5 +137,6 @@ export default combineReducers({
     Explore_Rent_Tab_Pagination: Explore_Rent_Tab_Pagination,
     Explore_Wanted_Tab_Pagination: Explore_Wanted_Tab_Pagination,
     AgentList: AgentList,
-    DeveloperList: DeveloperList
+    DeveloperList: DeveloperList,
+    ProjectList:ProjectList
 })

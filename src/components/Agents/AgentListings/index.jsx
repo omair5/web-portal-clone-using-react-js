@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 
 
+
 const useStyles = makeStyles((theme) => ({
     MainContainer: {
         backgroundColor: 'rgb(245, 245, 245)',
@@ -75,7 +76,6 @@ const AgentListings = () => {
                                     </Link>
                                 </Grid>
                             ))
-
                     }
                 </Grid>
             </div>

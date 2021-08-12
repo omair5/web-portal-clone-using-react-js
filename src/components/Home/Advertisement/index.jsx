@@ -14,7 +14,7 @@ const Advertisement = () => {
 
     useEffect(() => {
         const AdvertisementGet = async () => {
-            setAdvertisement(await getAdvertisements('Home'))
+            setAdvertisement(await getAdvertisements('Home').catch(err => console.log(err)))
         }
         AdvertisementGet()
     }, [])

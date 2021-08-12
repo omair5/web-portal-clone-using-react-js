@@ -28,6 +28,10 @@ const AgentDetail = React.lazy(() => import('./pages/AgentDetails'));
 const DeveloperDetail = React.lazy(() => import('./pages/DeveloperDetail'));
 const HomeLinksSearchResult = React.lazy(() => import('./pages/HomeLinksSearchResult'))
 const HomeLinksSearchResultColumn2 = React.lazy(() => import('./pages/HomeLinksSearchResultColumn2'))
+const ChangePassword = React.lazy(() => import('./pages/ChangePassword'))
+const AccountSetting = React.lazy(() => import('./pages/AccountSetting'))
+const MyListings = React.lazy(() => import('./pages/MyListings'))
+
 
 
 
@@ -151,19 +155,38 @@ function App() {
             <Route exact path='/contact' component={ContactUs} />
             <Route exact path='/about' component={AboutUs} />
             <Route exact path='/property/:propertyTitle/:propertyId' component={Property} />
+
             {/* protected routes */}
             <Route exact path='/add-property'>
               <ProtectedRoutes Component={AddProperty} />
             </Route>
-            {/* <Route exact path='/add-property' component={AddProperty} /> */}
+
+            {/* RESET PASSWORD */}
             <Route exact path='/reset/password' component={ResetPasswordDialogBox} />
-            <Route exact path='/project' component={Project} />
+
+            {/* PROJECT DETAIL PAGE */}
+            <Route exact path='/project/:description/:id' component={Project} />
+            {/* AGENT DETAIL PAGE */}
             <Route exact path='/agent/:agent_name/:id' component={AgentDetail} />
+            {/* DEVELOPER DETAIL PAGE */}
             <Route exact path='/developer/:developer_name/:id' component={DeveloperDetail} />
 
 
-            {/* dashboard */}
-            <Route exact path='/my-account' component={UserLogin} />
+            {/* dashboard pages */}
+            <Route exact path='/my-listings'>
+              <ProtectedRoutes Component={MyListings} />
+            </Route>
+            <Route exact path='/dashboard'>
+              <ProtectedRoutes Component={UserLogin} />
+            </Route>
+            <Route exact path='/account-setting'>
+              <ProtectedRoutes Component={AccountSetting} />
+            </Route>
+            <Route exact path='/change-password'>
+              <ProtectedRoutes Component={ChangePassword} />
+            </Route>
+
+            {/* FALLBACK PAGE */}
             <Route path='*' exact={true} component={PageNotFound} />
 
 
@@ -171,6 +194,7 @@ function App() {
             {/* <Route exact path='/packages' component={Packages} /> */}
             {/* listing of property , this page will be made from API */}
             {/* <Route exact path='/listings' component={Listings} /> */}
+
           </Switch>
         </Suspense>
       </Router>

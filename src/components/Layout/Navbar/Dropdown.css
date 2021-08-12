@@ -41,6 +41,10 @@
     font-weight: bold;
 }
 
+.link {
+    text-decoration: none;
+}
+
 @media screen and (max-width: 1256px) {
     .dropdown-menu {
         top: 30px;

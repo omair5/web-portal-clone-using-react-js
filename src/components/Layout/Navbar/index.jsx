@@ -50,6 +50,10 @@ function Navbar() {
 
     }
 
+    const GetShortUserName = (value) => {
+        return (value.split(' ')[1])
+    }
+
     useEffect(() => {
         let mounted = true
         if (localStorage.getItem('secretkey')) {
@@ -131,7 +135,7 @@ function Navbar() {
                         <div className='userContainer' onClick={HandleClickUser}>
                             <AccountCircleIcon style={{ fontSize: '25px', marginRight: '5px', color: 'rgb(76, 84, 85)' }} />
                             <div className='usernameContainer'>
-                                <p>{AuthorizedUserName}</p>
+                                <p>{GetShortUserName(AuthorizedUserName)}</p>
                                 <ArrowDropDownIcon style={{ marginLeft: '2px', color: 'white' }} />
                             </div>
                             {dropdownUser && <DropdownForUserFeatures />}

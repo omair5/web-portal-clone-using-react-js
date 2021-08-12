@@ -14,7 +14,7 @@ const Home = () => {
         <Layout FooterDisplay={true}>
             <SimpleTabs />
             <CarouselSlider />
-            <Advertisement />
+            {/* <Advertisement /> */}
             <NewProjects />
             <PopularCitiesToBuyProperties />
             <PopularLocationsForHome />
