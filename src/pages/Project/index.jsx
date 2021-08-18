@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layout/Layout';
-// import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,141 +9,210 @@ import ContactForm from '../../components/Project/ContactForm';
 import DetailsColumn1 from '../../components/Project/DetailsColumn1';
 import DetailsColumn2 from '../../components/Project/DetailsColumn2';
 import PropertyDescription from '../../components/Project/PropertyDescription';
-import GeneralInformation from '../../components/Project/GeneralInformation';
-// import GetPropertyData from '../../Services/GetPropertyData'
-import MainFeatures from '../../components/Project/MainFeatures';
-import Utilities from '../../components/Project/Utilities';
-import Facing from '../../components/Project/Facing';
-import BusinessAndCommunication from '../../components/Project/BusinessAndCommunication';
+import GetProjecData from '../../Services/GetProjectData'
 import PropertyLocation from '../../components/Project/PropertyLocation';
-// import SkeletonForPropertyDetail from '../../components/SkeletonForPropertyDetail.jsx';
-import ProjectLogo from './doha.png'
+import SkeletonForPropertyDetail from '../../components/SkeletonForPropertyDetail.jsx';
 import FloorPlan from '../../components/Project/FloorPlan';
 import PaymentPlan from '../../components/Project/PaymentPlan';
 import GoToTop from '../../GoToTop';
+import DisplayAmenities from '../../components/Project/DisplayAmenities';
+import ShowApprovedLogo from '../../components/Project/ShowApprovedLogo';
 
 
 const useStyles = makeStyles({
     mainContainer: {
         margin: '20px auto',
         "& h1": {
-            color: 'rgb(76, 84, 85)',
-            margin: '30px 0px'
+            color: 'white',
+            margin: '30px 0px',
+            padding: '5px 5px',
+            backgroundColor: 'rgb(76, 84, 85)',
+            fontSize: '22px',
+            letterSpacing: '1px'
         }
     },
     projectLogoContainer: {
         display: 'flex',
         alignItems: 'center',
+        '& h2': {
+            textTransform: 'uppercase',
+            fontSize: '28px'
+        },
         '& h4': {
-            color: 'gray'
+            color: 'gray',
+            textTransform: 'capitalize'
         },
         '& h5': {
-            color: 'gray'
+            color: 'gray',
+            textTransform: 'capitalize'
         }
+    },
+    photoGallery: {
+        marginTop: '15px'
     },
     projectLogo: {
         height: '100px',
         width: '100px'
+    },
+    approved: {
+        margin: '10px 0px',
+        "& h5": {
+            textAlign: 'center',
+        }
+    },
+    approvelogos: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 });
 
 const Project = () => {
     const classes = useStyles();
     // getting property id from url
-    // const { propertyId } = useParams()
+    const { id } = useParams()
     // setting state to load property data
-    // const [propertyData, setpropertyData] = useState('')
-    // useEffect(() => {
-    //     async function PropertyDataGet() {
-    //         const [data] = await GetPropertyData(propertyId)
-    //         setpropertyData(data)
-    //     }
-    //     PropertyDataGet().catch(err => console.log(err))
-    // }, [propertyId])
+    const [projectData, setprojectData] = useState('')
+    // Generating Price
+    const generatePrice = (value) => {
+        const splitted_array = value.split(' ')
+        const starting_price = `${splitted_array[1]} ${splitted_array[2]}`
+        const ending_price = `${splitted_array[4]} ${splitted_array[5]}`
+        return `PKR ${starting_price.toUpperCase()} TO PKR ${ending_price.toUpperCase()}`
+    }
+
+    useEffect(() => {
+        (
+            async function () {
+                console.log('filtered data to show', await GetProjecData(parseInt(id)))
+                setprojectData(await GetProjecData(parseInt(id)))
+            }
+        )().catch(err => console.log(err))
+    }, [id])
 
     return (
         <>
             <Layout FooterDisplay={true}>
-                {/* {propertyData ? */}
-                <Container maxWidth="lg" className={classes.mainContainer}>
-                    <div className={classes.projectLogoContainer}>
-                        <img src={ProjectLogo} alt="project logo" className={classes.projectLogo} />
-                        <div>
-                            <h2>DOHA MALL & RESIDENCY</h2>
-                            <h5>Bahria Town Karachi , Karachi</h5>
-                            <h4>PKR 43.8 LAKH To 11.04 CRORE </h4>
-                        </div>
-                    </div>
-                    <Grid container spacing={3}>
-                        {/* MAIN LONG VERTICAL GRID 1 */}
-                        <Grid item xs={12} md={8}>
-                            <PropertyImageGallery
-                                images={['https://pixabay.com/photos/tree-sunset-clouds-sky-silhouette-736885/']}
-                            />
-                            <h1>ABOUT THIS PROJECT</h1>
-                            {/* DETAILS MAIN GRID */}
-                            <Grid container spacing={1}>
-                                <Grid item xs={12} md={6}>
-                                    <DetailsColumn1
-                                        locality={'Bahria Town Karachi'}
-                                        city={'Karachi'}
-                                        total_area={'343 square feet'}
-                                        project_type={'shops & residential'}
+                {projectData ?
+                    <Container maxWidth="lg" className={classes.mainContainer}>
+                        <Grid container spacing={3}>
+                            {/* MAIN LONG VERTICAL GRID 1 */}
+                            <Grid item xs={12} md={8}>
+
+                                <div className={classes.projectLogoContainer} >
+                                    <img src={projectData.project_logo} alt="project logo" className={classes.projectLogo} />
+                                    <div className={classes.projectDescription}>
+                                        <h2>{projectData.project_name}</h2>
+                                        <h5>{projectData.location}</h5>
+                                        <h4>{generatePrice(projectData.price)} </h4>
+                                    </div>
+                                </div>
+
+                                <div className={classes.photoGallery}>
+                                    <PropertyImageGallery
+                                        images={projectData.project_images}
                                     />
+                                </div>
+
+                                <h1>ABOUT THIS PROJECT</h1>
+                                {/* DETAILS MAIN GRID */}
+                                <Grid container spacing={1}>
+                                    <Grid item xs={12} md={6}>
+                                        <DetailsColumn1
+                                            locality={projectData.location}
+                                            city={'Karachi'}
+                                            total_area={projectData.project_area}
+                                            project_type={projectData.project_type}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} md={6} >
+                                        <DetailsColumn2
+                                            price={generatePrice(projectData.price)}
+                                            payment={projectData.payment_method}
+                                            developer={projectData.developer_name}
+                                            estimated_completion_year={projectData.completion_year}
+                                        />
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={12} md={6} >
-                                    <DetailsColumn2
-                                        price={'pkr 4.38 lakh TO 11.04 crore'}
-                                        payment={'5 years installment plan'}
-                                        developer={'jeewa group of companies'}
-                                        estimated_completion_year={'2025'}
+
+                                {/* DESCRIPTION */}
+                                {
+                                    (!!projectData.project_description) ?
+                                        <div>
+                                            <h1>DESCRIPTION</h1>
+                                            <PropertyDescription
+                                                description={projectData.project_description}
+                                            />
+                                        </div> : null
+                                }
+
+                                {/* AMENITIES */}
+                                <div>
+                                    <h1 style={{ marginBottom: '5px' }}>AMENITIES</h1>
+                                    <DisplayAmenities
+                                        amenity_heading='MAIN FEATURES'
+                                        amenities={projectData.main_features}
                                     />
-                                </Grid>
+                                    <DisplayAmenities
+                                        amenity_heading='UTILITIES'
+                                        amenities={projectData.utilities}
+                                    />
+                                    <DisplayAmenities
+                                        amenity_heading='COMMUNITY FEATURES'
+                                        amenities={projectData.community_features}
+                                    />
+                                    <DisplayAmenities
+                                        amenity_heading='NEARBY'
+                                        amenities={projectData.nearby_location}
+                                    />
+                                    <DisplayAmenities
+                                        amenity_heading='BUSINESS AND COMMUNICATION'
+                                        amenities={projectData.business_and_communication}
+                                    />
+                                    <DisplayAmenities
+                                        amenity_heading='FACING'
+                                        amenities={projectData.facing}
+                                    />
+                                </div>
+                                {/* } */}
+
+                                {/* PROPERTY LOCATION */}
+                                <h1>PROJECT LOCATION</h1>
+                                <PropertyLocation
+                                    lat={projectData.latitude}
+                                    lng={projectData.longitude}
+                                />
                             </Grid>
-                            {/* DESCRIPTION */}
-                            <h1>DESCRIPTION</h1>
-                            <PropertyDescription
-                                // description={propertyData.property_description}
-                                description={'hello world'}
 
-                            />
-                            {/* AMENITIES */}
-                            {/* {(propertyData.general_info.length === 0) && (propertyData.main_features.length === 0) && (propertyData.utilities.length === 0) && (propertyData.business_and_communication.length === 0) && (propertyData.facing.length === 0) ? null : */}
-                            <div>
-                                <h1 style={{ marginBottom: '5px' }}>AMENITIES</h1>
-                                <GeneralInformation generalInfo={['bed', 'bath']} />
-                                <MainFeatures mainFeatures={['dining room', 'hall', 'kitchen']} />
-                                <Utilities utilities={['water', 'gas']} />
-                                <BusinessAndCommunication business_and_communication={['cctv', 'camera']} />
-                                <Facing facing={['north', 'south']} />
-                            </div>
-                            {/* } */}
-
-                            {/* PROPERTY LOCATION */}
-                            <h1>PROPERTY LOCATION</h1>
-                            <PropertyLocation
-                                lat={34.454}
-                                lng={98.765}
-                            />
+                            {/* SIDE BAR SMALL GRID */}
+                            <Grid item xs={12} md={4} >
+                                <div className={classes.approved} >
+                                    <h5>This Project Is Approved By</h5>
+                                    <div className={classes.approvelogos}>
+                                        <ShowApprovedLogo
+                                            approval_list={projectData.approved_by.split(',')}
+                                        />
+                                    </div>
+                                </div>
+                                <ContactForm />
+                            </Grid>
                         </Grid>
 
-                        <Grid item xs={12} md={4} >
-                            <ContactForm />
-                        </Grid>
+                        {/* FLOOR PLAN */}
+                        <h1>FLOOR PLAN</h1>
+                        <FloorPlan
+                            photos={projectData.floor_plan_images}
+                        />
 
-                    </Grid>
+                        {/* PAYMENT PLAN */}
+                        <h1>PAYMENT PLAN</h1>
+                        <PaymentPlan
+                            photos={projectData.payment_plan_images}
+                        />
 
-                    {/* FLOOR PLAN */}
-                    <h1>FLOOR PLAN</h1>
-                    <FloorPlan />
-
-                    {/* PAYMENT PLAN */}
-                    <h1>PAYMENT PLAN</h1>
-                    <PaymentPlan />
-
-                </Container>
-                {/* : <SkeletonForPropertyDetail />
-                } */}
+                    </Container>
+                    : <SkeletonForPropertyDetail />
+                }
                 <GoToTop />
             </Layout>
         </>

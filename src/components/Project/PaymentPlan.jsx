@@ -1,41 +1,51 @@
 import React, { useState, useCallback } from "react";
-// import { render } from "react-dom";
 import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
-export const photos = [
-  {
-    src: "https://source.unsplash.com/2ShvY8Lf6l0/800x599",
-    width: 4,
-    height: 3
-  },
-  {
-    src: "https://source.unsplash.com/Dm-qxdynoEc/800x799",
-    width: 4,
-    height: 3
-  },
-  {
-    src: "https://source.unsplash.com/qDkso9nvCg0/600x799",
-    width: 4,
-    height: 3
-  },
-  {
-    src: "https://source.unsplash.com/iecJiKe_RNg/600x799",
-    width: 4,
-    height: 3
-  },
-  {
-    src: "https://source.unsplash.com/epcsn8Ed8kY/600x799",
-    width: 4,
-    height: 3
-  },
-  {
-    src: "https://source.unsplash.com/NQSWvyVRIJk/800x599",
-    width: 4,
-    height: 3
-  },
-];
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 
-const PaymentPlan = () => {
+// export const photos = [
+//   {
+//     src: "https://source.unsplash.com/2ShvY8Lf6l0/800x599",
+//     width: 4,
+//     height: 3
+//   },
+//   {
+//     src: "https://source.unsplash.com/Dm-qxdynoEc/800x799",
+//     width: 4,
+//     height: 3
+//   },
+//   {
+//     src: "https://source.unsplash.com/qDkso9nvCg0/600x799",
+//     width: 4,
+//     height: 3
+//   },
+//   {
+//     src: "https://source.unsplash.com/iecJiKe_RNg/600x799",
+//     width: 4,
+//     height: 3
+//   },
+//   {
+//     src: "https://source.unsplash.com/epcsn8Ed8kY/600x799",
+//     width: 4,
+//     height: 3
+//   },
+//   {
+//     src: "https://source.unsplash.com/NQSWvyVRIJk/800x599",
+//     width: 4,
+//     height: 3
+//   },
+// ];
+
+const PaymentPlan = ({ photos }) => {
+  // GENERATING IMAGES ARRAY
+  const payment_plan_images = photos.map(value => {
+    return {
+      src: `${value}`,
+      width: 4,
+      height: 3
+    }
+  })
+
   const [currentImage, setCurrentImage] = useState(0);
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
 
@@ -51,16 +61,19 @@ const PaymentPlan = () => {
 
   return (
     <div>
-      <Gallery photos={photos} onClick={openLightbox} />
+      <LazyLoadComponent>
+        <Gallery photos={payment_plan_images} onClick={openLightbox} />
+      </LazyLoadComponent>
+
       <ModalGateway>
         {viewerIsOpen ? (
           <Modal onClose={closeLightbox}>
             <Carousel
               currentIndex={currentImage}
-              views={photos.map(x => ({
+              views={payment_plan_images.map(x => ({
                 ...x,
-                srcset: x.srcSet,
-                caption: x.title
+                srcset: x,
+                // caption: x.title
               }))}
             />
           </Modal>

@@ -93,6 +93,7 @@ const AbaadeeCards = ({ city, location, price, cover_image, logo, projectName })
     const split_array = price.split(' ')
     const startingPrice = `${split_array[1]} ${split_array[2]}`
     const lastPrice = `${split_array[4]} ${split_array[5]}`
+    console.log(split_array)
 
     return (
         <>

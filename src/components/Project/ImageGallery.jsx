@@ -1,6 +1,7 @@
 import React from 'react';
 import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 
 // const images = [
 //     {
@@ -36,17 +37,19 @@ import "react-image-gallery/styles/css/image-gallery.css";
 const PropertyImageGallery = ({ images }) => {
     const galleryImages = images.map(value => {
         return {
-            original: value.imageurl,
-            thumbnail: value.imageurl
+            original: value,
+            thumbnail: value
         }
     })
     return (
         <>
-            <ImageGallery
-                items={galleryImages}
-                lazyLoad={true}
-                showIndex={true}
-            />
+            <LazyLoadComponent>
+                <ImageGallery
+                    items={galleryImages}
+                    lazyLoad={true}
+                    showIndex={true}
+                />
+            </LazyLoadComponent>
         </>
     );
 }

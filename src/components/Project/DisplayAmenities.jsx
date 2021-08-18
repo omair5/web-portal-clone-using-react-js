@@ -22,20 +22,21 @@ const useStyles = makeStyles({
         color: '#fcb812'
     },
     heading: {
-        padding: '20px 0px'
+        padding: '20px 0px',
+        textTransform: 'uppercase'
     }
 });
 
-const Facing = ({ facing }) => {
+const DisplayAmenities = ({ amenity_heading, amenities }) => {
     const classes = useStyles();
 
     return (
         <>
-            {facing.length === 0 ? null :
+            {amenities.length === 0 ? null :
                 <Container maxWidth="md" className={classes.mainContainer}>
-                    <h4 className={classes.heading}>FACING</h4>
+                    <h4 className={classes.heading}>{amenity_heading}</h4>
                     <Grid container spacing={3} >
-                        {facing.map(value => (
+                        {amenities.map(value => (
                             <Grid container item xs={12} sm={6} lg={4} key={uuidv4()} >
                                 <div className={classes.tickBox}>
                                     <CheckCircleOutlineRoundedIcon className={classes.tickColor} />
@@ -46,8 +47,7 @@ const Facing = ({ facing }) => {
                     </Grid>
                 </Container>
             }
-
         </>
     );
 }
-export default React.memo(Facing);
+export default React.memo(DisplayAmenities);

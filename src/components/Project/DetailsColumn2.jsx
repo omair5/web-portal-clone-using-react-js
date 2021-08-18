@@ -33,6 +33,9 @@ const useStyles = makeStyles({
     },
     tableHeading: {
         fontWeight: 'bolder'
+    },
+    tableValue: {
+        textTransform: 'capitalize'
     }
 });
 
@@ -45,22 +48,22 @@ const DetailsColumn2 = ({ price, payment, developer, estimated_completion_year }
                 <TableBody>
                     <StyledTableRow >
                         <StyledTableCell component="th" scope="row" className={classes.tableHeading} >Price </StyledTableCell>
-                        <StyledTableCell align="left">{price}</StyledTableCell>
+                        <StyledTableCell align="left" className={classes.tableValue}>{price}</StyledTableCell>
                     </StyledTableRow>
 
                     <StyledTableRow >
                         <StyledTableCell component="th" scope="row" className={classes.tableHeading}>Payment </StyledTableCell>
-                        <StyledTableCell align="left">{payment}</StyledTableCell>
+                        <StyledTableCell align="left" className={classes.tableValue}>{(!!payment) ? payment : '-'}</StyledTableCell>
                     </StyledTableRow>
 
                     <StyledTableRow >
                         <StyledTableCell component="th" scope="row" className={classes.tableHeading}>Developer </StyledTableCell>
-                        <StyledTableCell align="left">{developer}</StyledTableCell>
+                        <StyledTableCell align="left" className={classes.tableValue}>{developer}</StyledTableCell>
                     </StyledTableRow>
 
                     <StyledTableRow >
                         <StyledTableCell component="th" scope="row" className={classes.tableHeading}>Completion Year </StyledTableCell>
-                        <StyledTableCell align="left">{estimated_completion_year}</StyledTableCell>
+                        <StyledTableCell align="left" className={classes.tableValue}>{(!!estimated_completion_year) ? estimated_completion_year : '-'}</StyledTableCell>
                     </StyledTableRow>
                 </TableBody>
             </Table>

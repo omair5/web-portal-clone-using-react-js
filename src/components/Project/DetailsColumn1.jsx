@@ -33,6 +33,9 @@ const useStyles = makeStyles({
     },
     tableHeading: {
         fontWeight: 'bolder'
+    },
+    tableValue: {
+        textTransform: 'capitalize'
     }
 });
 
@@ -45,22 +48,22 @@ const DetailsColumn1 = ({ locality, city, total_area, project_type }) => {
                 <TableBody>
                     <StyledTableRow >
                         <StyledTableCell component="th" scope="row" className={classes.tableHeading} >Locality </StyledTableCell>
-                        <StyledTableCell align="left">{locality}</StyledTableCell>
+                        <StyledTableCell align="left" className={classes.tableValue}>{locality}</StyledTableCell>
                     </StyledTableRow>
 
                     <StyledTableRow >
                         <StyledTableCell component="th" scope="row" className={classes.tableHeading}>City </StyledTableCell>
-                        <StyledTableCell align="left">PKR {city}</StyledTableCell>
+                        <StyledTableCell align="left" className={classes.tableValue}>{city}</StyledTableCell>
                     </StyledTableRow>
 
                     <StyledTableRow >
                         <StyledTableCell component="th" scope="row" className={classes.tableHeading}>Total Area </StyledTableCell>
-                        <StyledTableCell align="left">{total_area}</StyledTableCell>
+                        <StyledTableCell align="left" className={classes.tableValue}>{(!!total_area) ? total_area : '-'}</StyledTableCell>
                     </StyledTableRow>
 
                     <StyledTableRow >
                         <StyledTableCell component="th" scope="row" className={classes.tableHeading}>project type </StyledTableCell>
-                        <StyledTableCell align="left">{project_type}</StyledTableCell>
+                        <StyledTableCell align="left" className={classes.tableValue}>{(!!project_type) ? project_type : '-'}</StyledTableCell>
                     </StyledTableRow>
                 </TableBody>
             </Table>
