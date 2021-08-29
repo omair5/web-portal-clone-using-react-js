@@ -12,6 +12,7 @@ import { useStylesBase } from '../../components/FrequentlyUsed/PaginationStyles'
 import { v4 as uuidv4 } from 'uuid';
 import { Link } from 'react-router-dom';
 import GetBlogShortDetail from '../../Services/GetBlogShortDetail';
+import SkeletonForBlog from '../../components/SkeletonForBlog';
 
 
 const useStyles = makeStyles({
@@ -72,6 +73,7 @@ const Blogs = () => {
     const HandlePageChange = (e, value) => {
         (
             async () => {
+                setBlogs([])
                 const { data } = await GetBlogShortDetail(value)
                 setBlogs(data)
 
@@ -87,7 +89,14 @@ const Blogs = () => {
             <h1 className={classes.MainHeading}><span>REAL ESTATE BLOGS</span></h1>
             <Container maxWidth="lg" className={classes.BlogContainer} >
                 <Grid container spacing={2}>
-                    {Blogs.length === 0 ? 'loadingggggg' :
+                    {Blogs.length === 0 ?
+
+                        Array(8).fill().map(() => (
+                            <Grid item xs={12} md={4} key={uuidv4()}>
+                                <SkeletonForBlog />
+                            </Grid>
+                        ))
+                        :
                         Blogs.map(value => (
 
                             <Grid item xs={12} md={4} key={uuidv4()}>
@@ -103,8 +112,8 @@ const Blogs = () => {
                             </Grid>
                         ))
                     }
-
                 </Grid>
+
 
                 <Pagination count={+totalPages}
                     className={classes.paginationContainer}
