@@ -53,7 +53,7 @@ const Developers = () => {
     // FOR DEVELOPER SHORT DETAILS
     useEffect(() => {
         const GetShortDetailAgentDeveloper = async () => {
-            dispatch({ type: 'set_developer_list', payload: await AgentDeveloperGetShortDetail('shortdeveloper') })
+            dispatch({ type: 'set_developer_list', payload: await AgentDeveloperGetShortDetail('developer','shortdeveloper') })
         }
         GetShortDetailAgentDeveloper()
     }, [dispatch])

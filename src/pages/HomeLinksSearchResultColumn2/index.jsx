@@ -7,8 +7,6 @@ import Layout from '../../components/Layout/Layout';
 import HomePopularLocations from '../../Services/HomePopularLocations'
 import Container from '@material-ui/core/Container';
 import Advertisement from '../../components/FrequentlyUsed/Advertisement';
-import Advertisement1 from './images/explore 1.jpg'
-import Advertisement2 from './images/explore 2.jpg'
 import Grid from '@material-ui/core/Grid';
 import VerticalAdvertisement from '../../components/FrequentlyUsed/VerticalAdvertisement';
 import { v4 as uuidv4 } from 'uuid';
@@ -16,15 +14,18 @@ import Pagination from '@material-ui/lab/Pagination';
 import { useStyles, useStylesBase } from '../../components/FrequentlyUsed/PaginationStyles'
 import axios from 'axios';
 import SkeletonForHomeLinks from '../../components/SkeletonForHomeLinks';
+import GetAdvertisementsForHomeLinks from '../../Services/GetAdvertisementSForHomeLinks'
 
 
 const HomeLinksSearchResultColumn2 = () => {
     const classes = useStyles();
     const classesBase = useStylesBase();
-
     const [data, setData] = useState([])
     const [metaForPage, setmetaForPage] = useState('')
     const [skeleton, setskeleton] = useState(true)
+    const [TopAdvertisement, setTopAdvertisement] = useState([])
+    const [SideAdvertisement, setSideAdvertisement] = useState([])
+
     const { description } = useParams()
     const slug = (description.split('-'))
     const getLocation = slug.slice(4)
@@ -41,13 +42,40 @@ const HomeLinksSearchResultColumn2 = () => {
         for (let x of location) {
             locationDescription += x + ' '
         }
-        return locationDescription
+        return locationDescription.trim().replace(/ /g, '%20')
     }
 
     const category = HandleCapitalize(slug[0])
     const purpose = HandleCapitalize(slug[2])
     const cityname = HandleLocation(getLocation)
 
+    // ---------------------------- FETCHING TOP BAR ADVERTISEMENT
+    useEffect(() => {
+        let mounted = true
+        if (mounted) {
+            (
+                async () => {
+                    setTopAdvertisement(await GetAdvertisementsForHomeLinks('Popular Locations For Homes', 'Top Bar'))
+                }
+            )().catch(err => console.log(err))
+        }
+        return () => mounted = false
+    }, [])
+
+    // ---------------------------- FETCHING SIDE BAR ADVERTISEMENT
+    useEffect(() => {
+        let mounted = true
+        if (mounted) {
+            (
+                async () => {
+                    setSideAdvertisement(await GetAdvertisementsForHomeLinks('Popular Locations For Homes', 'Side Bar'))
+                }
+            )().catch(err => console.log(err))
+        }
+        return () => mounted = false
+    }, [])
+
+    // ---------------------------- FETCHING SEARCH RESULT
     useEffect(() => {
         let mounted = true
         window.scrollTo(0, 0)
@@ -69,7 +97,6 @@ const HomeLinksSearchResultColumn2 = () => {
         setskeleton(true)
         axios.get(`http://localhost:3200/addproperty/homelinks2/${category}/${purpose}/${cityname}?page=${value}`)
             .then(res => {
-                console.log('this is AFTER PAGE NUMBER IS CHANGED', res)
                 setData(res.data.items.map(value => (
                     {
                         city: value.city.city_name,
@@ -85,6 +112,7 @@ const HomeLinksSearchResultColumn2 = () => {
                     }
                 )))
                 setskeleton(false)
+                window.scrollTo(0, 0)
             })
             .catch(err => console.log(err))
     }
@@ -96,8 +124,7 @@ const HomeLinksSearchResultColumn2 = () => {
                 <Container maxWidth="lg" >
 
                     <Advertisement
-                        Ads={{ Ad1: Advertisement1, Ad2: Advertisement2 }}
-                        alt={{ alt1: "pearl villas", alt2: "gohar residency" }}
+                        advertisements={TopAdvertisement}
                     />
                     <div style={{ textAlign: 'center', color: 'rgb(59, 70, 86)', margin: '15px auto' }}>
                         <h1>{description.replace(/-/g, ' ').toUpperCase()}</h1>
@@ -135,7 +162,7 @@ const HomeLinksSearchResultColumn2 = () => {
 
                         {/* SIDE ADVERTISEMENT */}
                         <Grid item xs={12} md={4} >
-                            <VerticalAdvertisement pic={Advertisement1} />
+                            <VerticalAdvertisement advertisements={SideAdvertisement} />
                         </Grid>
 
                     </Grid>

@@ -9,7 +9,7 @@ import DeveloperContactDetail from '../../components/DeveloperDetail/DeveloperCo
 import DeveloperDescription from '../../components/DeveloperDetail/DeveloperDescription'
 import { makeStyles } from '@material-ui/core/styles';
 import DeveloperSocialLinks from '../../components/DeveloperDetail/DeveloperSocialLinks';
-import DeveloperProperties from '../../components/DeveloperDetail/DeveloperProperties';
+// import DeveloperProperties from '../../components/DeveloperDetail/DeveloperProperties';
 import MemberOfInstitutions from '../../components/DeveloperDetail/MemberOfInstitutions';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -99,7 +99,7 @@ const DeveloperDetail = () => {
                                 {
                                     developerDetail.memberlist.length === 0 ? null :
                                         <div>
-                                            <h1>Member</h1>
+                                            <h1>MEMBER</h1>
                                             <MemberOfInstitutions
                                                 membersList={developerDetail.memberlist}
                                             />
@@ -110,7 +110,7 @@ const DeveloperDetail = () => {
                                 {
                                     developerDetail.vedio_link &&
                                     <div>
-                                        <h1>Developer INTERVIEW</h1>
+                                        <h1>DEVELOPER INTERVIEW</h1>
                                         <DeveloperInterview
                                             developerInterview={developerDetail.vedio_link}
                                         />
@@ -127,7 +127,7 @@ const DeveloperDetail = () => {
 
                         {/* AGENT PROPERTIES */}
                         <h1 className={classes.agentProperties}>DEVELOPER PROJECTS</h1>
-                        <DeveloperProperties />
+                        {/* <DeveloperProperties /> */}
                     </Container>
                     <GoToTop />
                 </div> :

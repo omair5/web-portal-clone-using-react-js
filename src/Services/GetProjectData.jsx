@@ -1,4 +1,4 @@
-let apiURL = 'http://localhost:3200/developer/project/'
+let apiURL = 'http://localhost:3200/project/project/'
 const GetProjectData = async (project_id) => {
     console.log(project_id)
     const response = await fetch(`${apiURL}${parseInt(project_id)}`)
@@ -10,7 +10,7 @@ const GetProjectData = async (project_id) => {
         project_description: data.description ? data.description : null,
         developer_name: data.developer.name,
         latitude: data.latitude,
-        location: data.location.location_name,
+        location: `${data.location.location_name} , ${data.city.city_name}`,
         longitude: data.longitude,
         payment_method: data.payment_option ? data.payment_option : null,
         price: data.price,
@@ -21,7 +21,6 @@ const GetProjectData = async (project_id) => {
         project_images: data.project_image.filter(value => value.image_type === 'pi_images').map(value => value.imageurl),
         floor_plan_images: data.project_image.filter(value => value.image_type === 'fp_images').map(value => value.imageurl),
         payment_plan_images: data.project_image.filter(value => value.image_type === 'pp_images').map(value => value.imageurl),
-
         main_features: data.project_aminities.filter(value => value.Category_name === 'Features').map(value => value.feature_name.replace(/_/g, ' ')),
         community_features: data.project_aminities.filter(value => value.Category_name === 'CommunityFeatures').map(value => value.feature_name.replace(/_/g, ' ')),
         utilities: data.project_aminities.filter(value => value.Category_name === 'Home_utilities').map(value => value.feature_name.replace(/_/g, ' ')),

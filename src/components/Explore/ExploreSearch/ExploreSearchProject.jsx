@@ -1,24 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 import Select from 'react-select';
-import AreaRangeBox from '../../FrequentlyUsed/AreaRangeBox';
-import FooterButtons from '../../Home/Tabs/FooterButtons';
-import { useSelector } from 'react-redux'
+// import AreaRangeBox from '../../FrequentlyUsed/AreaRangeBox';
+// import FooterButtons from '../../Home/Tabs/FooterButtons';
+import { useSelector, useDispatch } from 'react-redux'
 import UseStyles from './SearchStyles'
 // THIS WILL USED IN REACT-SELECT
 import { colourStyles } from '../../Home/Tabs/ColourStyles'
-import { PropertyTypeOptions, formatGroupLabel } from '../../Home/Tabs/SelectGroupStyles'
+// import { PropertyTypeOptions, formatGroupLabel } from '../../Home/Tabs/SelectGroupStyles'
+import HomeFetchDeveloperName from '../../../Services/HomeFetchDeveloperName';
+import HomeGetProjectName from '../../../Services/HomeGetProjectName';
+import axios from 'axios'
 
 const ExploreSearchProject = () => {
     const classes = UseStyles();
-    const areaUnit = useSelector(state => state.Home_AreaUnit)
-    const area_min_range = useSelector(state => state.Home_Area_min_range)
-    const area_max_range = useSelector(state => state.Home_Area_max_range)
-    const minArea = useSelector(state => state.FrequentlyUsed_Min_Area_Range)
-    const maxArea = useSelector(state => state.FrequentlyUsed_Max_Area_Range)
+    const dispatch = useDispatch()
+    // const areaUnit = useSelector(state => state.Home_AreaUnit)
+    // const area_min_range = useSelector(state => state.Home_Area_min_range)
+    // const area_max_range = useSelector(state => state.Home_Area_max_range)
+    // const minArea = useSelector(state => state.FrequentlyUsed_Min_Area_Range)
+    // const maxArea = useSelector(state => state.FrequentlyUsed_Max_Area_Range)
     const cities_options_list = useSelector(state => state.Home_cities_Reducer)
     const [selectedOption, setselectedOption] = useState({ label: "Karachi", value: 'Karachi' })
-    const [searchData, setsearchData] = useState({ ProjectTitle: '', PropertyType: '', DeveloperTitle: '' })
+    const [searchData, setsearchData] = useState({ ProjectTitle: '', DeveloperTitle: '' })
+    const [developerNameList, setdeveloperNameList] = useState([])
+    const [projectName, setprojectName] = useState([])
+
 
     // callback function to handle city change
     const handleSelect = (selectedOption) => {
@@ -29,56 +36,71 @@ const ExploreSearchProject = () => {
         setsearchData({ ...searchData, [name]: selectedValue })
     }
 
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' },
-    ];
+    // const options = [
+    //     { value: 'chocolate', label: 'Chocolate' },
+    //     { value: 'strawberry', label: 'Strawberry' },
+    //     { value: 'vanilla', label: 'Vanilla' },
+    // ];
+
+    // Fetching Developer Name
+    useEffect(() => {
+        (async () => {
+            setdeveloperNameList(await HomeFetchDeveloperName())
+        }
+        )()
+    }, [])
+
+    // Fetching Project Name
+    useEffect(() => {
+        (
+            async () => {
+                setprojectName(await HomeGetProjectName())
+            }
+        )()
+    }, [])
 
     const HandleSubmit = () => {
         // history.push('/explore')
         // dispatch({ type: 'set_current_tab_to_buy' })
         // dispatch({ type: '0' })
-        // dispatch({ type: 'clear_explore_buy_properties' })
-        // dispatch({ type: 'show_buy_properties_skeleton' })
+        dispatch({ type: 'clear_project_list' })
+        dispatch({ type: 'show_project_list_skeleton' })
         const search_data = {
             city: selectedOption.value,
             project_title: searchData.ProjectTitle.value,
-            property_type: searchData.PropertyType.value,
+            // property_type: '',
+            // property_type: searchData.PropertyType.value,
             developer_title: searchData.DeveloperTitle.value,
-            min_area: minArea,
-            max_area: maxArea,
+            // min_area: minArea,
+            // max_area: maxArea,
         }
-        console.log(search_data)
-        // dispatch({ type: 'set_explore_buy_tab_pagination', payload: search_data })
-        // axios.post('http://localhost:3200/addproperty/getpropertydata', search_data).then(response => {
-        //     console.log('this is from SEARCH', response)
-        //     if (response.data.items.length !== 0) {
-        //         const buy_properties_data = response.data.items.map((value) => {
-        //             return {
-        //                 city: value.city.city_name,
-        //                 building_name: value.property_title,
-        //                 location: value.Location.location_name,
-        //                 area_size: value.land_area,
-        //                 area_unit: value.area_unit.area_name,
-        //                 beds: `${value.general_info.length !== 0 ? value.general_info[0].bedrooms : 'donotshowbeds'}`,
-        //                 bathrooms: `${value.general_info.length !== 0 ? value.general_info[0].bathrooms : 'donotshowbaths'}`,
-        //                 price: value.price,
-        //                 cover_image: value.title_image,
-        //             }
-        //         })
-        //         dispatch({ type: 'hide_buy_properties_skeleton' })
-        //         dispatch({ type: 'buy_listings_are_found_hide_message' })
-        //         dispatch({ type: 'explore_buy_properties', payload: { property_data: buy_properties_data, meta: response.data.meta } })
-        //     }
-        //     else {
-        //         dispatch({ type: 'hide_buy_properties_skeleton' })
-        //         dispatch({ type: 'no_buy_listings_are_found_show_message' })
-        //     }
+        axios.post('http://localhost:3200/project/serchproject', search_data).then(response => {
+            console.log('this is from SEARCH', response)
+            if (response.data.length !== 0) {
+                const project_card_data = response.data.map((value) => {
+                    return {
+                        city: value.city,
+                        location: value.location,
+                        price: value.price,
+                        project_cover_image: value.project_cover_image,
+                        project_logo_image: value.project_logo_image,
+                        project_name: value.project_name,
+                        project_id: value.project_id
+                    }
+                })
+                dispatch({ type: 'hide_project_list_skeleton' })
+                dispatch({ type: 'project_listings_are_found_hide_message' })
+                dispatch({ type: 'set_project_list', payload: project_card_data })
 
-        // }).catch(err => {
-        //     console.log(err)
-        // })
+            }
+            else {
+                dispatch({ type: 'hide_project_list_skeleton' })
+                dispatch({ type: 'no_project_listings_are_found_show_message' })
+            }
+
+        }).catch(err => {
+            console.log(err)
+        })
     }
 
     return (
@@ -106,15 +128,15 @@ const ExploreSearchProject = () => {
 
             {/* Project Title */}
             <div className={classes.childContainer}>
-                <p className={classes.paraStyle}>Project Title</p>
+                <p className={classes.paraStyle}>Project Name</p>
                 <Select
                     value={searchData.ProjectTitle}
                     onChange={HandleChange}
-                    isLoading={true}
+                    isLoading={projectName.length === 0 && true}
                     isSearchable={false}
                     name="ProjectTitle"
-                    options={options}
-                    placeholder="Select Project Title"
+                    options={projectName}
+                    placeholder="Select Project Name"
                     label='Project Title'
                     styles={colourStyles}
                     components={{
@@ -124,7 +146,7 @@ const ExploreSearchProject = () => {
             </div>
 
             {/*PROPERTY TYPE */}
-            <div className={classes.childContainer}>
+            {/* <div className={classes.childContainer}>
                 <p className={classes.paraStyle}>Property Type</p>
                 <Select
                     value={searchData.PropertyType}
@@ -141,19 +163,19 @@ const ExploreSearchProject = () => {
                     options={PropertyTypeOptions}
                     formatGroupLabel={formatGroupLabel}
                 />
-            </div>
+            </div> */}
 
             {/* Developer Title */}
             <div className={classes.childContainer}>
-                <p className={classes.paraStyle}>Developer Title</p>
+                <p className={classes.paraStyle}>Developer Name</p>
                 <Select
                     value={searchData.DeveloperTitle}
                     onChange={HandleChange}
-                    isLoading={false}
+                    isLoading={developerNameList.length === 0 && true}
                     isSearchable={false}
-                    name="Developer Title"
-                    options={options}
-                    placeholder="Select Developer Title"
+                    name="DeveloperTitle"
+                    options={developerNameList}
+                    placeholder="Select Developer Name"
                     label='Developer Title'
                     styles={colourStyles}
                     components={{
@@ -163,12 +185,12 @@ const ExploreSearchProject = () => {
             </div>
 
             {/* AREA UNIT */}
-            <AreaRangeBox
+            {/* <AreaRangeBox
                 RangeMin={area_min_range}
                 RangeMax={area_max_range}
                 heading='Area'
                 unit={areaUnit}
-            />
+            /> */}
 
             {/*  SEARCH BUTTON   */}
             <div className={classes.searchButtonBox} onClick={HandleSubmit}>
@@ -177,7 +199,7 @@ const ExploreSearchProject = () => {
             </div>
 
             {/* change area unit and reset buttons */}
-            <FooterButtons />
+            {/* <FooterButtons /> */}
         </div >
     );
 }

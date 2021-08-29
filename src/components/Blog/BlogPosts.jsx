@@ -1,6 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import ClassIcon from '@material-ui/icons/Class';
+import Default from '../../components/FrequentlyUsed/default.jpg'
+import parser from 'html-react-parser';
+
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -39,10 +43,11 @@ const useStyles = makeStyles((theme) => ({
         color: 'black',
         "& h5": {
             padding: '5px 0',
-            fontSize: '15px'
+            fontSize: '15px',
+            textTransform: 'capitalize'
         },
-        "& p": {
-            textAlign: 'center'
+        "& div": {
+            textAlign: 'center',
         }
     },
     overlay: {
@@ -62,7 +67,9 @@ const useStyles = makeStyles((theme) => ({
                 display: 'inline-block',
                 border: '1px solid white',
                 padding: '5px',
-                margin: '7px'
+                margin: '7px',
+                textTransform: 'uppercase',
+                zIndex: 50
             }
         }
     },
@@ -80,6 +87,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        textTransform: 'capitalize',
         color: 'black',
         [theme.breakpoints.down('md')]: {
             fontSize: '13px'
@@ -105,24 +113,26 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const BlogPosts = ({ BlogImage, BlogIcon, BlogType, BlogDate }) => {
+const BlogPosts = ({ BlogImage, BlogType, BlogDate, BlogTitle, BlogShortDescription }) => {
     const classes = useStyles();
 
     return (
         <>
             <Paper className={classes.paper}>
                 <div className={classes.blogImageBox}>
-                    <img src={BlogImage} alt="blogimage" className={classes.blogImage} width='100%' height='100%' />
+                    <img src={BlogImage ? BlogImage : Default} alt="blog cover" className={classes.blogImage} width='100%' height='100%' />
                     <div className={classes.overlay}>
                         <h5 ><span>{BlogDate}</span></h5>
                     </div>
                 </div>
                 <div className={classes.content}>
-                    <h5>The Most Impressive Buildings In Karachi</h5>
-                    <p>Top Locations for the Property Investors in Karachi View post to know where to invest in Karachi the hub of Pakistan Real Estate Trends </p>
+                    <h5>{BlogTitle}</h5>
+                    <div>
+                        {!!BlogShortDescription && parser(BlogShortDescription)}
+                    </div>
                 </div>
                 <div className={classes.blogFooter}>
-                    <p className={classes.categoryIcon}> <BlogIcon style={{ fontSize: '25px', color: 'rgb(252, 184, 22)' }} />{BlogType}</p>
+                    <p className={classes.categoryIcon}> <ClassIcon style={{ fontSize: '25px', color: 'rgb(252, 184, 22)' }} />{BlogType}</p>
                     <button className={classes.ReadMore}>READ MORE</button>
                 </div>
             </Paper>

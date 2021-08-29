@@ -88,7 +88,7 @@ const useStyles = makeStyles({
     }
 });
 
-const AbaadeeCards = ({ city, location, price, cover_image, logo, projectName }) => {
+const AbaadeeCardForProject = ({ city, location, price, cover_image, logo, projectName }) => {
     const classes = useStyles();
     const split_array = price.split(' ')
     const startingPrice = `${split_array[1]} ${split_array[2]}`
@@ -133,4 +133,4 @@ const AbaadeeCards = ({ city, location, price, cover_image, logo, projectName })
         </>
     )
 }
-export default React.memo(AbaadeeCards);
+export default React.memo(AbaadeeCardForProject);

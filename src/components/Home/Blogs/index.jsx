@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import { Container } from '@material-ui/core';
 import ClassIcon from '@material-ui/icons/Class';
 import property from './images/property.jpeg'
-import BlogPost from '../../FrequentlyUsed/BlogPosts';
+import BlogPost from '../../Blog/BlogPosts';
 
 const Blogs = () => {
     return (

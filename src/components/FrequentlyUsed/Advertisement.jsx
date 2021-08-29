@@ -48,8 +48,8 @@ const Advertisement = ({ advertisements }) => {
                         <img src={Default} alt={'placeholder'} height={100} width={100} />
                         :
                         advertisements.map(value => (
-                            <a href={value.redirect_link} target='_blank' rel="noreferrer" className={classes.links} key={uuidv4}>
-                                <img src={value.advertisement_image} alt={value.alt_text} height={100} width={'100%'} className={classes.links} />
+                            <a href={value.redirect_link || value.company_link} target='_blank' rel="noreferrer" className={classes.links} key={uuidv4}>
+                                <img src={value.advertisement_image || value.advertisement_img} alt={value.alt_text} height={100} width={'100%'} className={classes.links} />
                             </a>
                         ))
                     }

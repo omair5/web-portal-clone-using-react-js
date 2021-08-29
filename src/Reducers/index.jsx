@@ -68,6 +68,8 @@ import Explore_Wanted_Tab_Pagination from './Explore_Wanted_Tab_Pagination'
 import AgentList from './AgentList'
 import DeveloperList from './DeveloperList'
 import ProjectList from './ProjectList'
+import Explore_Project_list_Skeleton from './Explore_Project_list_Skeleton'
+import Explore_Project_Not_Found_Message from './Explore_Project_Not_Found_Message'
 
 export default combineReducers({
     SearchShow: ExploreSearch,
@@ -138,5 +140,7 @@ export default combineReducers({
     Explore_Wanted_Tab_Pagination: Explore_Wanted_Tab_Pagination,
     AgentList: AgentList,
     DeveloperList: DeveloperList,
-    ProjectList:ProjectList
+    ProjectList: ProjectList,
+    Explore_Project_list_Skeleton: Explore_Project_list_Skeleton,
+    Explore_Project_Not_Found_Message: Explore_Project_Not_Found_Message,
 })

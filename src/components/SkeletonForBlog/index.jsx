@@ -1,7 +1,7 @@
 import React from 'react';
 import Skeleton from '@material-ui/lab/Skeleton';
 import { makeStyles } from '@material-ui/core/styles';
-
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles((theme) => ({
     mainContainer: {
@@ -17,9 +17,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const SkeletonForCards = () => {
+const SkeletonForBlog = () => {
     const classes = useStyles();
     return (
+
         <div className={classes.mainContainer}>
             <Skeleton variant="rect" width={'100%'} height={230} />
             <div className={classes.Row}>
@@ -39,4 +40,4 @@ const SkeletonForCards = () => {
     );
 }
 
-export default SkeletonForCards;
+export default SkeletonForBlog;

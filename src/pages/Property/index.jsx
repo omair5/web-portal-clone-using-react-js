@@ -96,7 +96,7 @@ const Property = () => {
                                 }
 
                                 {/* PROPERTY LOCATION */}
-                                <h1>PROJECT LOCATION</h1>
+                                <h1>PROPERTY LOCATION</h1>
                                 <PropertyLocation lat={propertyData.latitude} lng={propertyData.longitude} />
                             </Grid>
 

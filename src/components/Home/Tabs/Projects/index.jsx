@@ -1,24 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Select from 'react-select';
+// import AreaRangeBox from '../../FrequentlyUsed/AreaRangeBox';
+// import FooterButtons from '../../Home/Tabs/FooterButtons';
+import { useSelector, useDispatch } from 'react-redux'
+// import UseStyles from './SearchStyles'
 import Grid from '@material-ui/core/Grid';
 import SearchIcon from '@material-ui/icons/Search';
 import styles from '../Buy/buy.module.css'
-import Select from 'react-select';
-import AreaRangeBox from '../../../FrequentlyUsed/AreaRangeBox';
-import FooterButtons from '../FooterButtons';
-import { useSelector } from 'react-redux'
 // THIS WILL USED IN REACT-SELECT
 import { colourStyles } from '../ColourStyles'
-import { PropertyTypeOptions, formatGroupLabel } from '../SelectGroupStyles'
+// import { PropertyTypeOptions, formatGroupLabel } from '../../Home/Tabs/SelectGroupStyles'
+import HomeFetchDeveloperName from '../../../../Services/HomeFetchDeveloperName';
+import HomeGetProjectName from '../../../../Services/HomeGetProjectName';
+import axios from 'axios'
+import { useHistory } from 'react-router-dom'
+
 
 const Projects = () => {
-    const areaUnit = useSelector(state => state.Home_AreaUnit)
-    const area_min_range = useSelector(state => state.Home_Area_min_range)
-    const area_max_range = useSelector(state => state.Home_Area_max_range)
+    // const classes = UseStyles();
+    const dispatch = useDispatch()
+    const history = useHistory()
+    // const areaUnit = useSelector(state => state.Home_AreaUnit)
+    // const area_min_range = useSelector(state => state.Home_Area_min_range)
+    // const area_max_range = useSelector(state => state.Home_Area_max_range)
+    // const minArea = useSelector(state => state.FrequentlyUsed_Min_Area_Range)
+    // const maxArea = useSelector(state => state.FrequentlyUsed_Max_Area_Range)
     const cities_options_list = useSelector(state => state.Home_cities_Reducer)
-    const minArea = useSelector(state => state.FrequentlyUsed_Min_Area_Range)
-    const maxArea = useSelector(state => state.FrequentlyUsed_Max_Area_Range)
     const [selectedOption, setselectedOption] = useState({ label: "Karachi", value: 'Karachi' })
-    const [searchData, setsearchData] = useState({ ProjectTitle: '', PropertyType: '', DeveloperTitle: '' })
+    const [searchData, setsearchData] = useState({ ProjectTitle: '', DeveloperTitle: '' })
+    const [developerNameList, setdeveloperNameList] = useState([])
+    const [projectName, setprojectName] = useState([])
 
     // callback function to handle city change
     const handleSelect = (selectedOption) => {
@@ -29,56 +40,72 @@ const Projects = () => {
         setsearchData({ ...searchData, [name]: selectedValue })
     }
 
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' },
-    ];
+    // const options = [
+    //     { value: 'chocolate', label: 'Chocolate' },
+    //     { value: 'strawberry', label: 'Strawberry' },
+    //     { value: 'vanilla', label: 'Vanilla' },
+    // ];
+
+    // Fetching Developer Name
+    useEffect(() => {
+        (async () => {
+            setdeveloperNameList(await HomeFetchDeveloperName())
+        }
+        )()
+    }, [])
+
+    // Fetching Project Name
+    useEffect(() => {
+        (
+            async () => {
+                setprojectName(await HomeGetProjectName())
+            }
+        )()
+    }, [])
 
     const HandleSubmit = () => {
-        // history.push('/explore')
-        // dispatch({ type: 'set_current_tab_to_buy' })
-        // dispatch({ type: '0' })
-        // dispatch({ type: 'clear_explore_buy_properties' })
-        // dispatch({ type: 'show_buy_properties_skeleton' })
+        history.push('/explore')
+        dispatch({ type: 'set_current_tab_to_project' })
+        dispatch({ type: '3' })
+        dispatch({ type: 'clear_project_list' })
+        dispatch({ type: 'show_project_list_skeleton' })
         const search_data = {
             city: selectedOption.value,
             project_title: searchData.ProjectTitle.value,
-            property_type: searchData.PropertyType.value,
+            // property_type: '',
+            // property_type: searchData.PropertyType.value,
             developer_title: searchData.DeveloperTitle.value,
-            min_area: minArea,
-            max_area: maxArea,
+            // min_area: minArea,
+            // max_area: maxArea,
         }
-        console.log(search_data)
-        // dispatch({ type: 'set_explore_buy_tab_pagination', payload: search_data })
-        // axios.post('http://localhost:3200/addproperty/getpropertydata', search_data).then(response => {
-        //     console.log('this is from SEARCH', response)
-        //     if (response.data.items.length !== 0) {
-        //         const buy_properties_data = response.data.items.map((value) => {
-        //             return {
-        //                 city: value.city.city_name,
-        //                 building_name: value.property_title,
-        //                 location: value.Location.location_name,
-        //                 area_size: value.land_area,
-        //                 area_unit: value.area_unit.area_name,
-        //                 beds: `${value.general_info.length !== 0 ? value.general_info[0].bedrooms : 'donotshowbeds'}`,
-        //                 bathrooms: `${value.general_info.length !== 0 ? value.general_info[0].bathrooms : 'donotshowbaths'}`,
-        //                 price: value.price,
-        //                 cover_image: value.title_image,
-        //             }
-        //         })
-        //         dispatch({ type: 'hide_buy_properties_skeleton' })
-        //         dispatch({ type: 'buy_listings_are_found_hide_message' })
-        //         dispatch({ type: 'explore_buy_properties', payload: { property_data: buy_properties_data, meta: response.data.meta } })
-        //     }
-        //     else {
-        //         dispatch({ type: 'hide_buy_properties_skeleton' })
-        //         dispatch({ type: 'no_buy_listings_are_found_show_message' })
-        //     }
+        axios.post('http://localhost:3200/project/serchproject', search_data).then(response => {
+            console.log('this is from SEARCH', response)
+            if (response.data.length !== 0) {
+                const project_card_data = response.data.map((value) => {
+                    return {
+                        city: value.city,
+                        location: value.location,
+                        price: value.price,
+                        project_cover_image: value.project_cover_image,
+                        project_logo_image: value.project_logo_image,
+                        project_name: value.project_name,
+                        project_id: value.project_id
 
-        // }).catch(err => {
-        //     console.log(err)
-        // })
+                    }
+                })
+                dispatch({ type: 'hide_project_list_skeleton' })
+                dispatch({ type: 'project_listings_are_found_hide_message' })
+                dispatch({ type: 'set_project_list', payload: project_card_data })
+
+            }
+            else {
+                dispatch({ type: 'hide_project_list_skeleton' })
+                dispatch({ type: 'no_project_listings_are_found_show_message' })
+            }
+
+        }).catch(err => {
+            console.log(err)
+        })
     }
 
     return (
@@ -86,7 +113,7 @@ const Projects = () => {
             {/* THIS IS ROW 1 */}
             <Grid container >
                 {/* CITY */}
-                <Grid item xs={12} md={4} className={`${styles.childContainer} ${styles.marginBottomMobile}`} >
+                <Grid item xs={12} md={6} className={`${styles.childContainer} ${styles.marginBottomMobile}`} >
                     <p>City</p>
                     <Select
                         value={selectedOption}
@@ -105,16 +132,16 @@ const Projects = () => {
                 </Grid>
 
                 {/* Project Title */}
-                <Grid item xs={12} md={4} className={`${styles.locationSelect} ${styles.childContainer} ${styles.marginBottomMobile}`} >
-                    <p>Project Title</p>
+                <Grid item xs={12} md={6} className={`${styles.locationSelect} ${styles.childContainer} ${styles.marginBottomMobile}`} >
+                    <p>Project Name</p>
                     <Select
                         value={searchData.ProjectTitle}
                         onChange={HandleChange}
-                        isLoading={true}
+                        isLoading={projectName.length === 0 && true}
                         isSearchable={false}
                         name="ProjectTitle"
-                        options={options}
-                        placeholder="Select Project Title"
+                        options={projectName}
+                        placeholder="Select Project Name"
                         label='Project Title'
                         styles={colourStyles}
                         components={{
@@ -124,7 +151,7 @@ const Projects = () => {
                 </Grid>
 
                 {/*PROPERTY TYPE */}
-                <Grid item xs={12} md={4} className={`${styles.childContainer} ${styles.marginBottomMobile}`}>
+                {/* <Grid item xs={12} md={4} className={`${styles.childContainer} ${styles.marginBottomMobile}`}>
                     <p>Property Type</p>
                     <Select
                         value={searchData.PropertyType}
@@ -141,22 +168,22 @@ const Projects = () => {
                         options={PropertyTypeOptions}
                         formatGroupLabel={formatGroupLabel}
                     />
-                </Grid>
+                </Grid> */}
             </Grid>
 
             {/* THIS IS ROW 2 */}
             <Grid container className={`${styles.secondGrid} ${styles.marginBottomMobile}`} >
                 {/* Developer Title */}
-                <Grid item xs={12} md={4} className={`${styles.childContainer} ${styles.marginBottomMobile}`} style={{ marginTop: 'auto', marginBottom: '4px' }}>
-                    <p>Developer Title</p>
+                <Grid item xs={12} md={6} className={`${styles.childContainer} ${styles.marginBottomMobile}`} style={{ marginTop: 'auto', marginBottom: '4px' }}>
+                    <p>Developer Name</p>
                     <Select
                         value={searchData.DeveloperTitle}
                         onChange={HandleChange}
-                        isLoading={false}
+                        isLoading={developerNameList.length === 0 && true}
                         isSearchable={false}
                         name="DeveloperTitle"
-                        options={options}
-                        placeholder="Select Developer Title"
+                        options={developerNameList}
+                        placeholder="Select Developer Name"
                         label='Developer Title'
                         styles={colourStyles}
                         components={{
@@ -166,18 +193,18 @@ const Projects = () => {
                 </Grid>
 
                 {/* AREA UNIT */}
-                <Grid item xs={12} md={4} className={`${styles.gridtwoPadding} ${styles.locationSelect} ${styles.marginBottomMobile}`}  >
+                {/* <Grid item xs={12} md={4} className={`${styles.gridtwoPadding} ${styles.locationSelect} ${styles.marginBottomMobile}`}  >
                     <AreaRangeBox
                         RangeMin={area_min_range}
                         RangeMax={area_max_range}
                         heading='Area'
                         unit={areaUnit}
                     />
-                </Grid >
+                </Grid > */}
 
                 {/*  SEARCH BUTTON   */}
-                <Grid item xs={12} md={4} className={styles.buttonContainer} >
-                    <div className={styles.searchButtonBox} onClick={HandleSubmit}>
+                <Grid item xs={12} md={6} className={styles.buttonContainer} >
+                    <div className={styles.searchButtonBox} style={{ width: '70%' }} onClick={HandleSubmit}>
                         <div><SearchIcon style={{ fontSize: '25px' }} /></div>
                         <div className={styles.search}>SEARCH</div>
                     </div>
@@ -185,7 +212,7 @@ const Projects = () => {
             </Grid >
 
             {/* change area unit and reset buttons */}
-            <FooterButtons />
+            {/* <FooterButtons /> */}
         </div >
     );
 }

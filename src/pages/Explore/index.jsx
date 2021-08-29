@@ -40,18 +40,23 @@ const Explore = () => {
     // LOGIC
     const classes = useStyles();
     const SearchShow = useSelector(state => state.SearchShow)
+    console.log('this is search bar state', SearchShow)
+
     const CardShow = useSelector(state => state.CardShow)
+
+    console.log('this is card state', CardShow)
+
     const [advertisement, setAdvertisement] = useState([])
     useEffect(() => {
         const AdvertisementGet = async () => {
-            setAdvertisement(await getAdvertisements('Explore').catch(err=>console.log(err)))
+            setAdvertisement(await getAdvertisements('Explore').catch(err => console.log(err)))
         }
         AdvertisementGet()
     }, [])
     return (
         <Layout FooterDisplay={false}>
             {/* ADVERTISEMENT COMPONENT FROM FREQUENTLY USED COMPONENTS */}
-            {/* <Advertisement advertisements={advertisement} /> */}
+            <Advertisement advertisements={advertisement} />
 
             <Grid container className={classes.MainContainer} >
                 {/* SEARCH FILTER */}

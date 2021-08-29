@@ -7,17 +7,17 @@ import { v4 as uuidv4 } from 'uuid';
 import { Link } from 'react-router-dom';
 
 const PopularCitiesForRent_col_1 = [
-    'Houses For Rent in Lahore',
-    'Houses For Rent in Islamabad',
-    'Houses For Rent in Karachi',
-    'Houses For Rent in Rawalpindi'
+    'House For Rent in Lahore',
+    'House For Rent in Islamabad',
+    'House For Rent in Karachi',
+    'House For Rent in Rawalpindi'
 ]
 
 const PopularCitiesForRent_col_2 = [
-    'Houses For Rent in Peshawar',
-    'Houses For Rent in Sialkot',
-    'Houses For Rent in Abbottabad',
-    'Houses For Rent in Faisalabad'
+    'House For Rent in Peshawar',
+    'House For Rent in Sialkot',
+    'House For Rent in Abbottabad',
+    'House For Rent in Faisalabad'
 ]
 
 const PopularCitiesForRent_col_3 = [

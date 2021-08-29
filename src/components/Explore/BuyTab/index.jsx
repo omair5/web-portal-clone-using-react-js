@@ -78,7 +78,6 @@ const BuyTab = () => {
             }
 
             {/* SHOW BUY PROPERTY LIST */}
-            {/* {console.log('checking this from explore buy tab', BuyPropertyList)} */}
             {BuyPropertyList.length !== 0 &&
                 <Grid container spacing={3}>
                     {

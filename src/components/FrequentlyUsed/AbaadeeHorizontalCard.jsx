@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
         cursor: 'pointer'
     },
     image: {
-        height: '100%',
+        height: '250px',
         width: '100%',
         margin: '0px',
         marginTop: '0px'

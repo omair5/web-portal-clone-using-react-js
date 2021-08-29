@@ -58,7 +58,7 @@ const Agents = () => {
     // FOR AGENT SHORT DETAILS
     useEffect(() => {
         const GetShortDetailAgentDeveloper = async () => {
-            dispatch({ type: 'set_agent_list', payload: await AgentDeveloperGetShortDetail('shortagent') })
+            dispatch({ type: 'set_agent_list', payload: await AgentDeveloperGetShortDetail('agent','shortagent') })
         }
         GetShortDetailAgentDeveloper()
     }, [dispatch])

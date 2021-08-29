@@ -8,6 +8,7 @@ import Loader from './Loader/Loader';
 import ProtectedRoutes from './PotectedRoutes';
 import HomeGetCities from './Services/HomeGetCities';
 import ExploreGetProperties from './Services/ExploreGetProperties';
+import AgentDeveloperGetShortDetail from './Services/AgentDeveloperGetShortDetail'
 
 const Home = React.lazy(() => import('./pages/Home'));
 const Explore = React.lazy(() => import('./pages/Explore'));
@@ -26,15 +27,12 @@ const ResetPasswordDialogBox = React.lazy(() => import('./components/FrequentlyU
 const Project = React.lazy(() => import('./pages/Project'));
 const AgentDetail = React.lazy(() => import('./pages/AgentDetails'));
 const DeveloperDetail = React.lazy(() => import('./pages/DeveloperDetail'));
+const BlogDetail = React.lazy(() => import('./pages/BlogDetail'));
 const HomeLinksSearchResult = React.lazy(() => import('./pages/HomeLinksSearchResult'))
 const HomeLinksSearchResultColumn2 = React.lazy(() => import('./pages/HomeLinksSearchResultColumn2'))
 const ChangePassword = React.lazy(() => import('./pages/ChangePassword'))
 const AccountSetting = React.lazy(() => import('./pages/AccountSetting'))
 const MyListings = React.lazy(() => import('./pages/MyListings'))
-
-
-
-
 
 // const Listings = React.lazy(() => import('./pages/Listings'));
 // const Packages = React.lazy(() => import('./pages/packages'));
@@ -134,6 +132,29 @@ function App() {
     return () => mounted = false;
   }, [dispatch])
 
+  // EXPLORE-----FETCHING PROJECT LIST
+  useEffect(() => {
+    let mounted = true
+    const GetShortDetailAgentDeveloperProject = async () => {
+      if (mounted) {
+        const projectResponse = await AgentDeveloperGetShortDetail('project', 'shortproject')
+        if (projectResponse.length !== 0) {
+          dispatch({ type: 'set_project_list', payload: projectResponse })
+          dispatch({ type: 'hide_project_list_skeleton' })
+          dispatch({ type: 'project_listings_are_found_hide_message' })
+        }
+        else {
+          dispatch({ type: 'hide_project_list_skeleton' })
+          dispatch({ type: 'set_project_list', payload: projectResponse })
+          dispatch({ type: 'no_project_listings_are_found_show_message' })
+        }
+      }
+    }
+    GetShortDetailAgentDeveloperProject().catch(err => console.log(err))
+    // cancel subscription to useEffect
+    return () => mounted = false;
+  }, [dispatch])
+
 
 
   return (
@@ -170,7 +191,8 @@ function App() {
             <Route exact path='/agent/:agent_name/:id' component={AgentDetail} />
             {/* DEVELOPER DETAIL PAGE */}
             <Route exact path='/developer/:developer_name/:id' component={DeveloperDetail} />
-
+            {/* BLOG DETAIL PAGE */}
+            <Route exact path='/blog/:category/:blog_title/:id' component={BlogDetail} />
 
             {/* dashboard pages */}
             <Route exact path='/my-listings'>

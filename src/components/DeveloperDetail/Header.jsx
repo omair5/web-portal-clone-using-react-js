@@ -31,7 +31,8 @@ const useStyles = makeStyles(theme => ({
         "& h1": {
             marginLeft: '15px',
             color: 'white',
-            alignSelf: 'center'
+            alignSelf: 'center',
+            textTransform: 'uppercase'
         }
     },
     pricingContainer: {
@@ -52,10 +53,11 @@ const useStyles = makeStyles(theme => ({
         borderRadius: '50%'
     },
     badge: {
-        height: '60px',
-        width: '60px',
+        height: '45px',
+        width: '45px',
         position: 'relative',
-        bottom: '10px'
+        bottom: '10px',
+        left: '10px'
     }
 }));
 
@@ -77,7 +79,7 @@ const Header = ({ coverImage, logo, developerName, developerRating, location }) 
     }
     return (
         <>
-            <div className={styles.mainContainer} style={{ backgroundImage: `url(${coverImage})` }}>
+            <div className={`${styles.mainContainer} ${styles.chapter}`} style={{ backgroundImage: `url(${coverImage})` }}>
                 <div className={styles.overlay}></div>
                 <Container className={classes.child}>
                     <Grid container spacing={3}>

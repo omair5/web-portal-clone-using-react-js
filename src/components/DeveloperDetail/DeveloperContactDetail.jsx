@@ -14,7 +14,6 @@ const StyledTableCell = withStyles((theme) => ({
     },
     body: {
         fontSize: 14,
-        textTransform: 'capitalize'
     },
 }))(TableCell);
 

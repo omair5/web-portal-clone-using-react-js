@@ -1,7 +1,7 @@
-const apiURL = 'http://localhost:3200/developer/'
+const apiURL = 'http://localhost:3200/'
 
-const AgentDeveloperGetShortDetail = async (value) => {
-    const reponse = await fetch(`${apiURL}${value}`)
+const AgentDeveloperGetShortDetail = async (item,value) => {
+    const reponse = await fetch(`${apiURL}${item}/${value}`)
     const data = await reponse.json()
     return data
 }

@@ -7,16 +7,16 @@ import { v4 as uuidv4 } from 'uuid';
 import { Link } from 'react-router-dom';
 
 const PopularLocationsForHome_col_1 = [
-    'Houses For Sale in DHA Defence',
-    'Houses For Sale in Bahria Town',
-    'Houses For Sale in Paragon City',
-    'Houses For Sale in Johar Town',
+    'House For Sale in DHA Defence',
+    'House For Sale in Bahria Town',
+    'House For Sale in Paragon City',
+    'House For Sale in Johar Town',
 ]
 
 const PopularLocationsForHome_col_2 = [
-    'Houses For Sale in Bahria Town',
+    'House For Sale in Bahria Town',
     'Flat For Sale in Bahria Town',
-    'Houses For Sale in DHA Defence',
+    'House For Sale in DHA Defence',
     'Flat For Sale in DHA Defence',
     'Flat For Sale in North Nazimabad',
     'Flat For Sale in Clifton',
@@ -24,11 +24,11 @@ const PopularLocationsForHome_col_2 = [
 ]
 
 const PopularLocationsForHome_col_3 = [
-    'Houses For Sale in Bahria Town Rawalpindi',
-    'Houses For Sale in 9th Avenue',
-    'Houses For Sale in Club Road',
-    'Houses For Sale in Gulberg',
-    'Houses For Sale in Airport Housing Society',
+    'House For Sale in Bahria Town Rawalpindi',
+    'House For Sale in 9th Avenue',
+    'House For Sale in Club Road',
+    'House For Sale in Gulberg',
+    'House For Sale in Airport Housing Society',
 ]
 
 const PopularLocationsForHome = () => {
@@ -44,7 +44,7 @@ const PopularLocationsForHome = () => {
             <Grid container className={styles.marginTop}>
                 {/* COLUMN 1 */}
                 <Grid item xs={12} md={4} >
-                    <h3>Lahore</h3>
+                    {/* <h3>Lahore</h3> */}
                     <Box className={styles.city_links} mt={2}>
                         {PopularLocationsForHome_col_1.map((value) => (
                             <Link className={styles.links} to={`/popular-locations-for-home/${generateDescription(value)}`} key={uuidv4()}><p>{value}</p></Link>
@@ -54,7 +54,7 @@ const PopularLocationsForHome = () => {
 
                 {/* COLUMN 2 */}
                 <Grid item xs={12} md={4} className={styles.wrapper}>
-                    <h3>Karachi</h3>
+                    {/* <h3>Karachi</h3> */}
                     <Box className={styles.city_links} mt={2} >
                         {PopularLocationsForHome_col_2.map((value) => (
                             <Link className={styles.links} to={`/popular-locations-for-home/${generateDescription(value)}`} key={uuidv4()}><p>{value}</p></Link>
@@ -64,7 +64,7 @@ const PopularLocationsForHome = () => {
 
                 {/* COLUMN 3 */}
                 <Grid item xs={12} md={4} className={styles.wrapper}>
-                    <h3>Islamabad & Rawalpindi</h3>
+                    {/* <h3>Islamabad & Rawalpindi</h3> */}
                     <Box className={styles.city_links} mt={2}>
                         {PopularLocationsForHome_col_3.map((value) => (
                             <Link className={styles.links} to={`/popular-locations-for-home/${generateDescription(value)}`} key={uuidv4()}><p>{value}</p></Link>
