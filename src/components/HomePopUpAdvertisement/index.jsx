@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import Slide from '@material-ui/core/Slide';
 import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
-import PopUp from './popup.jpg'
+import HomeGetPopUp from '../../Services/HomeGetPopUp';
+import Skeleton from '@material-ui/lab/Skeleton';
+
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -37,11 +39,21 @@ const useStyles = makeStyles({
 
 export default function AlertDialogSlide() {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = useState(true);
+    const [popup, setpopup] = useState('')
 
     const handleClose = () => {
         setOpen(false);
     };
+
+    // FETCHING POP UP DATA
+    useEffect(() => {
+        (
+            async () => {
+                setpopup(await HomeGetPopUp())
+            }
+        )()
+    }, [])
 
     return (
         <div>
@@ -55,7 +67,14 @@ export default function AlertDialogSlide() {
             >
                 <CloseIcon className={classes.icon} onClick={handleClose} />
                 <div className={classes.content}>
-                    <img src={PopUp} alt="Pop Up" height={'100%'} width={'100%'} />
+                    {
+                        popup ?
+                            <img src={popup.homepopup_image} alt="Pop Up" height={'100%'} width={'100%'} />
+                            :
+                            <Skeleton variant="rect" height={'100%'} width={'100%'} />
+                    }
+
+
                 </div>
             </Dialog>
         </div>
