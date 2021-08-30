@@ -2,9 +2,13 @@ import React from 'react';
 import Slider from "react-slick";
 import Container from '@material-ui/core/Container';
 import styles from './carouselSlider.module.css'
-import carousel2 from './images/carousel2.jpg'
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import { useState, useEffect } from 'react';
+import HomeGetFeatureAgencies from '../../../Services/HomeGetFeatureAgencies';
+import { v4 as uuidv4 } from 'uuid';
+import SkeletonForFeaturedAgency from '../../SkeletonForFeaturedAgency';
+
 
 function SampleNextArrow(props) {
     const { onClick } = props;
@@ -26,6 +30,16 @@ function SamplePrevArrow(props) {
 
 
 const CarouselSlider = () => {
+    const [agencyList, setagencyList] = useState([])
+    // FETCHING FEATURED AGENCY DATA
+    useEffect(() => {
+        (
+            async () => {
+                setagencyList(await HomeGetFeatureAgencies())
+            }
+        )()
+    }, [])
+
     var settings = {
         dots: true,
         infinite: true,
@@ -67,32 +81,21 @@ const CarouselSlider = () => {
             <Container maxWidth="md" >
                 <h1 className='text-center'> FEATURED AGENCIES </h1>
                 <Slider {...settings} className={styles.slider}>
-                    <div >
-                        <img src={carousel2} height={150} width={150} alt='' className={styles.imgCenter} />
-                    </div>
-                    <div>
-                        <img src={carousel2} height={150} width={150} alt='' className={styles.imgCenter} />
-                    </div>
-                    <div>
-                        <img src={carousel2} height={150} width={150} alt='' className={styles.imgCenter} />
-                    </div>
-                    <div>
-                        <img src={carousel2} height={150} width={150} alt='' className={styles.imgCenter} />
-                    </div>
-                    <div>
-                        <img src={carousel2} height={150} width={150} alt='' className={styles.imgCenter} />
-                    </div>
-                    <div>
-                        <img src={carousel2} height={150} width={150} alt='' className={styles.imgCenter} />
-                    </div>
-                    <div>
-                        <img src={carousel2} height={150} width={150} alt='' className={styles.imgCenter} />
-                    </div>
+                    {
+                        agencyList.length === 0 ?
+                            Array(9).fill().map(() => (
+                                <SkeletonForFeaturedAgency key={uuidv4()} />
+                            ))
+                            :
+                            agencyList.map((value) => (
+                                <div key={uuidv4()}>
+                                    <img src={value.f_image} height={150} width={150} alt='' className={styles.imgCenter} />
+                                </div>
+                            ))
+                    }
                 </Slider>
             </Container>
         </div>
     );
-
 }
-
 export default React.memo(CarouselSlider);
