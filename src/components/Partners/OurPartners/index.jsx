@@ -2,9 +2,9 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Capital from '../images/capital.webp';
-import Jeewa from '../images/jeewa.webp';
-import Rupali from '../images/rupali.webp';
+import SkeletonForPartnerLogo from '../../SkeletonForPartnerLogo';
+import { v4 as uuidv4 } from 'uuid';
+
 
 // STYLES
 const useStyles = makeStyles((theme) => ({
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const OurPartners = () => {
+const OurPartners = ({ partners_list }) => {
     const classes = useStyles();
 
     return (
@@ -41,60 +41,24 @@ const OurPartners = () => {
                 <h1><span>MEET OUR PARTNERS</span></h1>
                 <Container maxWidth="lg">
                     <Grid container  >
-                        <Grid item xs={6} sm={3} >
-                            <picture >
-                                <img src={Capital} alt="capital" className={classes.PartnersLogo} />
-                            </picture>
-                        </Grid>
-
-                        <Grid item xs={6} sm={3} >
-                            <picture>
-                                <img src={Jeewa} alt="sc" className={classes.PartnersLogo} />
-                            </picture>
-                        </Grid>
-
-                        <Grid item xs={6} sm={3} >
-                            <picture>
-                                <img src={Rupali} alt="sc" className={classes.PartnersLogo} />
-                            </picture>
-                        </Grid>
-
-                        <Grid item xs={6} sm={3} >
-                            <picture>
-                                <img src={Jeewa} alt="sc" className={classes.PartnersLogo} />
-                            </picture>
-
-                        </Grid>
-
-                        <Grid item xs={6} sm={3} >
-                            <picture>
-                                <img src={Rupali} alt="sc" className={classes.PartnersLogo} />
-                            </picture>
-                        </Grid>
-
-                        <Grid item xs={6} sm={3} >
-                            <picture >
-                                <img src={Capital} alt="capital" className={classes.PartnersLogo} />
-                            </picture>
-                        </Grid>
-
-                        <Grid item xs={6} sm={3} >
-                            <picture>
-                                <img src={Rupali} alt="sc" className={classes.PartnersLogo} />
-                            </picture>
-                        </Grid>
-
-                        <Grid item xs={6} sm={3} >
-                            <picture >
-                                <img src={Capital} alt="capital" className={classes.PartnersLogo} />
-                            </picture>
-                        </Grid>
-
+                        {
+                            partners_list.length === 0 ?
+                                Array(8).fill().map(() => (
+                                    <SkeletonForPartnerLogo key={uuidv4()} />
+                                ))
+                                :
+                                partners_list.map(value => (
+                                    <Grid item xs={6} sm={3} key={uuidv4()}>
+                                        <a href={value.p_link} target='_blank' rel="noreferrer" >
+                                            <img src={value.p_image} alt="capital" className={classes.PartnersLogo} />
+                                        </a>
+                                    </Grid>
+                                ))
+                        }
                     </Grid>
                 </Container>
             </div>
         </>
     );
 }
-
-export default OurPartners;
+export default React.memo(OurPartners);

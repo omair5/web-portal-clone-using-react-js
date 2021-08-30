@@ -33,7 +33,7 @@ const BlogDetail = () => {
                 setblogData(await GetBlogData(id))
             }
         )()
-    }, [])
+    }, [id])
 
     return (
         <Layout FooterDisplay={true}>

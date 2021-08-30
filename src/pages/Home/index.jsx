@@ -16,7 +16,7 @@ const Home = () => {
             <AlertDialogSlide />
             <SimpleTabs />
             <CarouselSlider />
-            {/* <Advertisement /> */}
+            <Advertisement />
             <NewProjects />
             <PopularCitiesToBuyProperties />
             <PopularLocationsForHome />
