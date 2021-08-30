@@ -49,7 +49,7 @@ const ProjectTab = () => {
                     ))
                 }
                 {projectList.length !== 0 &&
-                    projectList.map((value) => (
+                    projectList.reverse().map((value) => (
                         <Grid item xs={12} md={6} key={uuidv4()}>
                             <Link to={`/project/${generateSlug(value.project_name)}/${value.project_id}`} style={{ textDecoration: 'none' }}>
                                 <AbaadeeCardForProject

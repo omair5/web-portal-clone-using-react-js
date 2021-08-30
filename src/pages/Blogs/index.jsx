@@ -97,7 +97,7 @@ const Blogs = () => {
                             </Grid>
                         ))
                         :
-                        Blogs.map(value => (
+                        Blogs.reverse().map(value => (
 
                             <Grid item xs={12} md={4} key={uuidv4()}>
                                 <Link to={`/blog/${GenerateSlug('Real Estate Blog')}/${GenerateSlug(value.BlogTitle)}/${value.BlogId}`} className={classes.link}>

@@ -64,7 +64,7 @@ const DeveloperListings = () => {
                                 </Grid>
                             ))
                             :
-                            listingsArray.map((value) => (
+                            listingsArray.reverse().map((value) => (
                                 <Grid item xs={12} md={6} key={uuidv4()}>
                                     <Link to={`/developer/${generateSlug(value.name)}/${value.developer_id}`} className={classes.removeDeco}>
                                         < DeveloperCards

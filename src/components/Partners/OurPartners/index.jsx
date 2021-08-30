@@ -47,7 +47,7 @@ const OurPartners = ({ partners_list }) => {
                                     <SkeletonForPartnerLogo key={uuidv4()} />
                                 ))
                                 :
-                                partners_list.map(value => (
+                                partners_list.reverse().map(value => (
                                     <Grid item xs={6} sm={3} key={uuidv4()}>
                                         <a href={value.p_link} target='_blank' rel="noreferrer" >
                                             <img src={value.p_image} alt="capital" className={classes.PartnersLogo} />

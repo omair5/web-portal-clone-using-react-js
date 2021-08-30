@@ -1,4 +1,3 @@
-import React from 'react';
 import Skeleton from '@material-ui/lab/Skeleton';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -22,8 +21,8 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         flexDirection: 'column'
     },
-    footer:{
-        width:'80%',
+    footer: {
+        width: '80%',
         margin: '7px auto',
         display: 'flex',
         justifyContent: 'space-between',
@@ -50,4 +49,4 @@ const SkeletonForBlog = () => {
         </Paper >
     );
 }
-export default React.memo(SkeletonForBlog);
+export default SkeletonForBlog;

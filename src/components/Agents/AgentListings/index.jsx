@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 const AgentListings = () => {
     const classes = useStyles();
     const listingsArray = useSelector(state => state.AgentList)
-    
+
     const generateSlug = (value) => {
         return value.toLowerCase().replace(/ /g, '-')
     }
@@ -64,7 +64,7 @@ const AgentListings = () => {
                                 </Grid>
                             ))
                             :
-                            listingsArray.map((value) => (
+                            listingsArray.reverse().map((value) => (
                                 <Grid item xs={12} md={6} key={uuidv4()}>
                                     <Link to={`/agent/${generateSlug(value.name)}/${value.id}`} className={classes.removeDeco}>
                                         < AgentCards
