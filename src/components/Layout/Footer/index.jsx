@@ -1,13 +1,15 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+// import TextField from '@material-ui/core/TextField';
+// import Button from '@material-ui/core/Button';
 import './style.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebookF, faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
 import FooterImage from './LoaderFooter.png'
 import { Link } from 'react-router-dom'
+import AppleIcon from '@material-ui/icons/Apple';
+import PlayStoreIcon from './playstore.png'
 
 
 const Footer = () => {
@@ -46,9 +48,18 @@ const Footer = () => {
                     </Grid>
                     <Grid item xs={12} md={3} className='wrap4'>
                         <div >
-                            <h4 className='yellow-color'>SUBSCRIBE TO OUR NEWSLETTER</h4>
-                            <TextField placeholder='ENTER YOUR EMAIL' style={{ outline: '1px solid white', width: '100%', padding: '8px', marginTop: '10px' }} InputProps={{ style: { fontSize: '1.3rem', color: 'white' }, disableUnderline: true }} />
-                            <Button variant="contained" style={{ width: '100%', marginTop: '10px', padding: '8px', backgroundColor: 'rgb(252, 184, 22)', color: 'white', fontSize: '1.8rem' }}>SUBSCRIBE</Button>
+                            <h4 className='get-app'>Get The Abaadee's App</h4>
+                            {/* <TextField placeholder='ENTER YOUR EMAIL' style={{ outline: '1px solid white', width: '100%', padding: '8px', marginTop: '10px' }} InputProps={{ style: { fontSize: '1.3rem', color: 'white' }, disableUnderline: true }} /> */}
+                            <a className='app-btn' href={'https://play.google.com/store/apps/details?id=com.abaadee.app'} target='_blank' rel="noreferrer">
+                                <div ><img src={PlayStoreIcon} alt="playstore" height={25} width={25} style={{ marginRight: '5px' }} /> </div>
+                                <div><span className='storeHeading'>GET IT ON</span> <br /> <span className='storeName'>Google Play</span> </div>
+                            </a>
+
+                            <a className='app-btn' href={'https://apps.apple.com/sa/app/abaadee/id1531668953'} target='_blank' rel="noreferrer">
+                                <div ><AppleIcon style={{ fontSize: '30px', marginRight: '7px' }} /></div>
+                                <div><span className='storeHeading'>Download on the</span> <br /> <span className='storeName'>App Store</span> </div>
+                            </a>
+
                         </div>
                     </Grid>
                 </Grid>

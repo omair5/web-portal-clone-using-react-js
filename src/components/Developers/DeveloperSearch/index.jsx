@@ -59,7 +59,7 @@ const DeveloperSearch = () => {
     }
 
     const HandleSearchData = (selectedOption, e) => {
-        setsearchData({ ...searchData, [e.name]: selectedOption.value })
+        setsearchData({ ...searchData, [e.name]: selectedOption })
     }
 
     const handleSubmit = () => {

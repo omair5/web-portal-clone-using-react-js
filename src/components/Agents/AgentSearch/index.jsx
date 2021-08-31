@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import HomeGetLocations from '../../../Services/HomeGetLocations';
 import Select from 'react-select';
 import { colourStyles } from '../../Home/Tabs/ColourStyles'
+import GetAgentName from '../../../Services/GetAgentNames';
 
 const AgentSearch = () => {
     const classes = UseStyles();
@@ -12,12 +13,21 @@ const AgentSearch = () => {
     const [selectedCity, setselectedCity] = useState({ label: "Karachi", value: 'Karachi' })
     const [cityLocations, setcityLocations] = useState([])
     const [searchData, setsearchData] = useState({ location: '', agency: '' })
+    const [agentName, setagentName] = useState([])
 
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' },
-    ];
+    // const options = [
+    //     { value: 'chocolate', label: 'Chocolate' },
+    //     { value: 'strawberry', label: 'Strawberry' },
+    //     { value: 'vanilla', label: 'Vanilla' },
+    // ];
+
+    // Fetching Agents Name
+    useEffect(() => {
+        (async () => {
+            setagentName(await GetAgentName())
+        }
+        )()
+    }, [])
 
     // FETCHING KARACHI LOCATION API
     useEffect(() => {
@@ -56,7 +66,7 @@ const AgentSearch = () => {
     }
 
     const HandleSearchData = (selectedOption, e) => {
-        setsearchData({ ...searchData, [e.name]: selectedOption.value })
+        setsearchData({ ...searchData, [e.name]: selectedOption })
     }
 
     const HandleSubmit = () => {
@@ -88,6 +98,7 @@ const AgentSearch = () => {
                     }}
                 />
             </div>
+
             {/* LOCATION */}
             <div className={classes.childContainer}>
                 <p className={classes.paraStyle}>Location</p>
@@ -114,13 +125,13 @@ const AgentSearch = () => {
                 <Select
                     value={searchData.agency}
                     onChange={HandleSearchData}
-                    isLoading={cityLocations.length === 0 && true}
+                    isLoading={agentName.length === 0 && true}
                     isClearable={true}
                     isSearchable={true}
                     name="agency"
-                    options={options}
+                    options={agentName}
                     placeholder="Agency Name"
-                    label='Agency Name'
+                    label='Agent Name'
                     styles={colourStyles}
                     components={{
                         IndicatorSeparator: () => null
