@@ -9,15 +9,27 @@ import SimpleTabs from "../../components/Home/Tabs"
 import AlertDialogSlide from "../../components/HomePopUpAdvertisement";
 import Layout from "../../components/Layout/Layout";
 import GoToTop from "../../GoToTop";
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
+
 
 const Home = () => {
     return (
         <Layout FooterDisplay={true}>
             <AlertDialogSlide />
             <SimpleTabs />
-            <CarouselSlider />
-            <Advertisement />
-            <NewProjects />
+
+            <LazyLoadComponent>
+                <CarouselSlider />
+            </LazyLoadComponent>
+
+            <LazyLoadComponent>
+                <Advertisement />
+            </LazyLoadComponent>
+
+            <LazyLoadComponent>
+                <NewProjects />
+            </LazyLoadComponent>
+
             <PopularCitiesToBuyProperties />
             <PopularLocationsForHome />
             <PopularCitiesForRent />

@@ -155,6 +155,11 @@ function App() {
     return () => mounted = false;
   }, [dispatch])
 
+  // CLEARING LOCAL STORAGE DATA
+  window.onunload = () => {
+    // Clear the local storage
+    window.localStorage.clear()
+  }
 
 
   return (

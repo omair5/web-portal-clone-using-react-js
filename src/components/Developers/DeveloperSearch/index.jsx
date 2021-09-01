@@ -5,7 +5,8 @@ import { useSelector } from 'react-redux'
 import HomeGetLocations from '../../../Services/HomeGetLocations';
 import Select from 'react-select';
 import { colourStyles } from '../../Home/Tabs/ColourStyles'
-import { PropertyTypeOptions, formatGroupLabel } from '../../Home/Tabs/SelectGroupStyles'
+// import { PropertyTypeOptions, formatGroupLabel } from '../../Home/Tabs/SelectGroupStyles'
+import HomeFetchDeveloperName from '../../../Services/HomeFetchDeveloperName'
 
 
 const DeveloperSearch = () => {
@@ -13,14 +14,23 @@ const DeveloperSearch = () => {
     const cities_options_list = useSelector(state => state.Home_cities_Reducer)
     const [selectedCity, setselectedCity] = useState({ label: "Karachi", value: 'Karachi' })
     const [cityLocations, setcityLocations] = useState([])
-    const [SelectedLocation, setSelectedLocation] = useState('')
-    const [searchData, setsearchData] = useState({ DeveloperName: '', propertytype: '' })
+    // const [SelectedLocation, setSelectedLocation] = useState('')
+    const [searchData, setsearchData] = useState({ DeveloperName: '', location: '' })
+    const [developerNameList, setdeveloperNameList] = useState([])
 
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' },
-    ];
+    // const options = [
+    //     { value: 'chocolate', label: 'Chocolate' },
+    //     { value: 'strawberry', label: 'Strawberry' },
+    //     { value: 'vanilla', label: 'Vanilla' },
+    // ];
+
+    // Fetching Developer Name
+    useEffect(() => {
+        (async () => {
+            setdeveloperNameList(await HomeFetchDeveloperName())
+        }
+        )()
+    }, [])
 
     // FETCHING KARACHI LOCATION API
     useEffect(() => {
@@ -44,7 +54,7 @@ const DeveloperSearch = () => {
     const HandleCitySelect = (selectedOption) => {
         setselectedCity(selectedOption)
         setcityLocations([])
-        setSelectedLocation('')
+        setsearchData({ ...searchData, location: '' })
         const city_whose_location_to_be_fetched = selectedOption.value
         async function GetLocationsFromHome() {
             const locations_options = []
@@ -65,9 +75,8 @@ const DeveloperSearch = () => {
     const handleSubmit = () => {
         const formData = {
             city: selectedCity.value,
-            location: SelectedLocation,
+            // location: SelectedLocation,
             developer_name: searchData.DeveloperName,
-            property_type: searchData.propertytype,
         }
         console.log(formData)
     }
@@ -96,8 +105,8 @@ const DeveloperSearch = () => {
             <div className={classes.childContainer}>
                 <p className={classes.paraStyle}>Location</p>
                 <Select
-                    value={SelectedLocation}
-                    // onChange={HandleLocationSelect}
+                    value={searchData.location}
+                    onChange={HandleSearchData}
                     isLoading={cityLocations.length === 0 && true}
                     isClearable={true}
                     isSearchable={true}
@@ -118,11 +127,11 @@ const DeveloperSearch = () => {
                 <Select
                     value={searchData.DeveloperName}
                     onChange={HandleSearchData}
-                    isLoading={cityLocations.length === 0 && true}
+                    isLoading={developerNameList.length === 0 && true}
                     isClearable={true}
                     isSearchable={true}
                     name="DeveloperName"
-                    options={options}
+                    options={developerNameList}
                     placeholder="Developer Name"
                     label='Developer Name'
                     styles={colourStyles}
@@ -133,7 +142,7 @@ const DeveloperSearch = () => {
             </div>
 
             {/* Property Types */}
-            <div className={classes.childContainer}>
+            {/* <div className={classes.childContainer}>
                 <p className={classes.paraStyle}>Property Type</p>
                 <Select
                     value={searchData.propertytype}
@@ -150,7 +159,7 @@ const DeveloperSearch = () => {
                     options={PropertyTypeOptions}
                     formatGroupLabel={formatGroupLabel}
                 />
-            </div>
+            </div> */}
 
             {/* SEARCH BUTTON  */}
             <div className={classes.searchButtonBox} onClick={handleSubmit}>

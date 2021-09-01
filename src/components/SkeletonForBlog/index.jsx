@@ -6,7 +6,9 @@ const useStyles = makeStyles((theme) => ({
     mainContainer: {
         height: '420px',
         maxWidth: '385px',
-        border: '2px solid rgb(229, 229, 229)'
+        border: '2px solid rgb(229, 229, 229)',
+        margin: 'auto'
+
     },
     title: {
         margin: '15px 0px 5px',
