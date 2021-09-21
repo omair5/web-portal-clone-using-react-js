@@ -10,9 +10,14 @@ import AlertDialogSlide from "../../components/HomePopUpAdvertisement";
 import Layout from "../../components/Layout/Layout";
 import GoToTop from "../../GoToTop";
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import { useEffect } from "react";
 
 
 const Home = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
     return (
         <Layout FooterDisplay={true}>
             <AlertDialogSlide />
@@ -33,7 +38,11 @@ const Home = () => {
             <PopularCitiesToBuyProperties />
             <PopularLocationsForHome />
             <PopularCitiesForRent />
-            <Blogs />
+
+            <LazyLoadComponent>
+                <Blogs />
+            </LazyLoadComponent>
+
             <GoToTop />
         </Layout >
     );

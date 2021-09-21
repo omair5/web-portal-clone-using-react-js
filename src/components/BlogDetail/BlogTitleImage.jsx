@@ -6,9 +6,14 @@ const useStyles = makeStyles((theme) => ({
     mainContainer: {
         width: '100%',
         height: '520px',
-        [theme.breakpoints.down('md')]: {
-            paddingTop: '66.66%',
-            height: '0px'
+
+        [theme.breakpoints.only('md')]: {
+            height: '420px',
+
+        },
+        [theme.breakpoints.down('sm')]: {
+            height: '320px',
+
         },
     }
 }));

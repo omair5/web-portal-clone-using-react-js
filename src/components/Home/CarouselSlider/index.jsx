@@ -35,7 +35,14 @@ const CarouselSlider = () => {
     useEffect(() => {
         (
             async () => {
-                setagencyList(await HomeGetFeatureAgencies())
+                if (localStorage.getItem("home_get_featured_agencies")) {
+                    setagencyList(JSON.parse(localStorage.getItem("home_get_featured_agencies")))
+                }
+                else {
+                    const response = await HomeGetFeatureAgencies()
+                    setagencyList(response)
+                    localStorage.setItem("home_get_featured_agencies", JSON.stringify(response));
+                }
             }
         )()
     }, [])

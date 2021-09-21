@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
+import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import UseStyles from '../../Explore/ExploreSearch/SearchStyles'
 import { useSelector } from 'react-redux'
 import HomeGetLocations from '../../../Services/HomeGetLocations';
 import Select from 'react-select';
 import { colourStyles } from '../../Home/Tabs/ColourStyles'
 import GetAgentName from '../../../Services/GetAgentNames';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
 
 const AgentSearch = () => {
     const classes = UseStyles();
+    const dispatch = useDispatch()
     const cities_options_list = useSelector(state => state.Home_cities_Reducer)
-    const [selectedCity, setselectedCity] = useState({ label: "Karachi", value: 'Karachi' })
+    const [selectedCity, setselectedCity] = useState('')
     const [cityLocations, setcityLocations] = useState([])
     const [searchData, setsearchData] = useState({ location: '', agency: '' })
     const [agentName, setagentName] = useState([])
@@ -69,13 +73,40 @@ const AgentSearch = () => {
         setsearchData({ ...searchData, [e.name]: selectedOption })
     }
 
-    const HandleSubmit = () => {
-        const fromData = {
+    const handleResetFilter = () => {
+        setselectedCity('')
+        setsearchData({ location: '', agency: '' })
+    }
+
+    const handleSearchSubmit = () => {
+        const formData = {
             city: selectedCity.value,
-            location: searchData.location,
-            agency_name: searchData.agency,
+            location: searchData.location.value,
+            agency_name: searchData.agency.value,
         }
-        console.log(fromData)
+        console.log('this is form data', formData)
+        axios.post('http://localhost:3200/agent/serch_agent', formData).then(
+            response => {
+                console.log('this is search response of agents', response)
+                if (response.status === 201) {
+                    if ((response.data.length === 0) || response.data === '') {
+                        dispatch({ type: 'AgentSearchToggle', payload: false })
+                        dispatch({ type: 'AgentCardToggle', payload: true })
+                        dispatch({ type: 'clear_agent_list' })
+                        dispatch({ type: 'set_agent_list', payload: JSON.parse(localStorage.getItem("agent_card_data")) })
+                    }
+                    else {
+                        dispatch({ type: 'AgentSearchToggle', payload: false })
+                        dispatch({ type: 'AgentCardToggle', payload: true })
+                        dispatch({ type: 'clear_agent_list' })
+                        dispatch({ type: 'set_agent_list', payload: response.data })
+                    }
+                }
+                else {
+                    console.log('sorry something went wrong')
+                }
+            }
+        ).catch(err => console.log(err))
     }
 
     return (
@@ -106,7 +137,7 @@ const AgentSearch = () => {
                     value={searchData.location}
                     onChange={HandleSearchData}
                     isLoading={cityLocations.length === 0 && true}
-                    isClearable={true}
+                    // isClearable={true}
                     isSearchable={true}
                     name="location"
                     options={cityLocations}
@@ -126,7 +157,7 @@ const AgentSearch = () => {
                     value={searchData.agency}
                     onChange={HandleSearchData}
                     isLoading={agentName.length === 0 && true}
-                    isClearable={true}
+                    // isClearable={true}
                     isSearchable={true}
                     name="agency"
                     options={agentName}
@@ -140,12 +171,15 @@ const AgentSearch = () => {
             </div>
 
             {/* SEARCH BUTTON  */}
-            <div className={classes.searchButtonBox} onClick={HandleSubmit}>
+            <div className={classes.searchButtonBox} onClick={handleSearchSubmit}>
                 <div><SearchIcon style={{ fontSize: '25px' }} /></div>
                 <div className={classes.search}>SEARCH</div>
+            </div>
+            <div className={classes.searchButtonBox} onClick={handleResetFilter}>
+                <div><RotateLeftIcon style={{ fontSize: '25px' }} /></div>
+                <div className={classes.search}>RESET FILTER</div>
             </div>
         </div >
     );
 }
-
 export default React.memo(AgentSearch)

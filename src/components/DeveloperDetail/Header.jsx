@@ -79,7 +79,7 @@ const Header = ({ coverImage, logo, developerName, developerRating, location }) 
     }
     return (
         <>
-            <div className={`${styles.mainContainer} ${styles.chapter}`} style={{ backgroundImage: `url(${coverImage})` }}>
+            <div className={`${styles.mainContainer}`} style={{ backgroundImage: `url(${coverImage})` }}>
                 <div className={styles.overlay}></div>
                 <Container className={classes.child}>
                     <Grid container spacing={3}>
@@ -90,7 +90,7 @@ const Header = ({ coverImage, logo, developerName, developerRating, location }) 
                                     <img src={logo} alt="icon" className={classes.RoundedImage} />
                                 </div>
                                 <h1>{developerName}</h1>
-                                <LightTooltip title={`${developerRating} Agent`}>
+                                <LightTooltip title={`${developerRating} Developer`}>
                                     <img src={GenerateBadge(developerRating)} alt={developerRating} className={classes.badge} />
                                 </LightTooltip>
                             </div>

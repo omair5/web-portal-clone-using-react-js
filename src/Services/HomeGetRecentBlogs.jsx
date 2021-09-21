@@ -2,10 +2,10 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
 ];
 
-const GetBlogShortDetail = async (pageNumber) => {
-    const apiURL = `http://localhost:3200/developer/shortBlog?page=${pageNumber}`
+const HomeGetRecentBlogs = async () => {
+    const apiURL = `http://localhost:3200/developer/shortBlog?limit=3`
     const response = await fetch(apiURL)
-    const { items, meta } = await response.json()
+    const { items } = await response.json()
     return {
         data: items.map(value => (
             {
@@ -13,13 +13,10 @@ const GetBlogShortDetail = async (pageNumber) => {
                 BlogId: value.blog_id,
                 BlogImage: value.blogimage[0].blog_image,
                 BlogTitle: value.title,
-                BlogShortDescription: value.short_description,
-                BlogCategory: value.blog_type
+                BlogShortDescription: value.short_description
             }
         )),
-        totalPages: meta.totalPages
     }
 
 }
-
-export default GetBlogShortDetail;
+export default HomeGetRecentBlogs;

@@ -7,7 +7,9 @@ import PhoneInput from 'react-phone-input-2'
 import PhoneRoundedIcon from '@material-ui/icons/PhoneRounded';
 import 'react-phone-input-2/lib/style.css'
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import PopUpMessage from '../FrequentlyUsed/PopUpMessage'
+import FailurePopUpMessage from '../FrequentlyUsed/FailurePopUpMessage'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -78,11 +80,12 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const DeveloperContactForm = ({ propertyId, userData }) => {
+const DeveloperContactForm = ({ developer_id, developerName, mobilePhone }) => {
     const classes = useStyles();
     const dispatch = useDispatch()
     const [formFields, setformFields] = useState({ name: '', email: '', message: '' })
     const [phone, setphone] = useState('')
+    const AuthorizedUser = useSelector(state => state.AuthorizedUserReducer)
 
     const HandleForm = (e) => {
         setformFields({ ...formFields, [e.target.name]: e.target.value })
@@ -95,27 +98,34 @@ const DeveloperContactForm = ({ propertyId, userData }) => {
     const HandleSubmit = (e) => {
         e.preventDefault()
         const formData = {
-            p_id: propertyId,
+            accesstoken: localStorage.getItem('secretkey'),
+            message: `${formFields.message}.
+            This Enquiry Form is Submitted From Developer Deatil page
+            For The Developer ${developerName} Having Developer Id ${developer_id} `,
             name: formFields.name,
             p_number: phone,
-            email: formFields.email,
-            message: formFields.message,
-            user_data: userData
+            d_id: developer_id
         }
-        console.log(formData)
+        if (localStorage.getItem('secretkey')) {
+            console.log('form submitted successfully', formData)
+            axios.post('http://localhost:3200/auth/developer_contact', formData)
+                .then(res => {
+                    console.log(res)
+                    if (res.status === 201) {
+                        setformFields({ name: '', email: '', message: '' })
+                        setphone('')
+                        dispatch({ type: 'open_FrequentlyUsed_PopUpMessage' })
+                    }
+                    else {
+                        dispatch({ type: 'open_FrequentlyUsed_Failure_PopUpMessage' })
+                    }
+                })
+                .catch(err => console.log(err))
 
-        axios.post('http://localhost:3200/auth/property_contact', formData)
-            .then(res => {
-                if (res.status === 201) {
-                    setformFields({ name: '', email: '', message: '' })
-                    setphone('')
-                    dispatch({ type: 'open_FrequentlyUsed_PopUpMessage' })
-                }
-                else {
-                    dispatch({ type: 'open_FrequentlyUsed_Failure_PopUpMessage' })
-                }
-            })
-            .catch(err => console.log(err))
+        }
+        else {
+            dispatch({ type: 'OpenSignInDialog' })
+        }
     }
 
 
@@ -125,7 +135,7 @@ const DeveloperContactForm = ({ propertyId, userData }) => {
             <form onSubmit={HandleSubmit}>
 
                 {/* FOR CALL */}
-                <a href="tel:+15555551212" className={classes.callButton}>
+                <a href={`tel:${mobilePhone}`} className={classes.callButton}>
                     <div className={classes.callIconBox}>
                         <PhoneRoundedIcon style={{ fontSize: '20px', marginRight: '5px' }} />
                         <p>CALL</p>
@@ -147,11 +157,11 @@ const DeveloperContactForm = ({ propertyId, userData }) => {
                 <InputTextField
                     TextFieldId='2'
                     InputType='email'
-                    required={true}
-                    value={formFields.email}
+                    value={AuthorizedUser ? localStorage.getItem('user_email') : formFields.email}
                     name='email'
                     callBack={HandleForm}
                     outlined='outlined'
+                    disabled={AuthorizedUser}
                 />
 
                 <h5 style={{ marginBottom: '7px' }}>Message* </h5>
@@ -181,7 +191,21 @@ const DeveloperContactForm = ({ propertyId, userData }) => {
                 />
                 <button className={classes.requestButton} type='submit'>REQUEST INFO</button>
             </form>
+
+            {/* SUCCESS MESSAGE */}
+            < PopUpMessage
+                heading={'ThankYou For Your Trust On Abaadee.com!'}
+                color={'green'}
+                message={'Dear User, A Representative Of Team Abaadee Will Contact You Shortly'}
+            />
+            {/* FAILURE MESSAGE */}
+            <FailurePopUpMessage
+                heading={'OOPS! SORRY SOMETHING WENT WRONG'}
+                color={'red'}
+                message={'Dear User, We Apoligize For The inconvenience! Servers Are Not Responding At This Moment Please Try Later'}
+            />
         </Paper>
+
     );
 }
 export default React.memo(DeveloperContactForm);

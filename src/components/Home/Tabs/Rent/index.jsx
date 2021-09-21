@@ -96,6 +96,7 @@ const Rent = () => {
 
     const HandleSubmit = () => {
         history.push('/explore')
+        dispatch({ type: 'do_not_run_useeffect_on_mount_for_rent_tab' })
         dispatch({ type: 'set_current_tab_to_rent' })
         dispatch({ type: '1' })
         dispatch({ type: 'clear_explore_Rent_properties' })
@@ -114,7 +115,19 @@ const Rent = () => {
         dispatch({ type: 'set_explore_rent_tab_pagination', payload: search_data })
         axios.post('http://localhost:3200/addproperty/getpropertydata', search_data).then(response => {
             console.log('rent search response', response)
-            if (response.data.items.length !== 0) {
+           
+            if (response.data === '') {
+               
+                dispatch({ type: 'hide_rent_properties_skeleton' })
+                dispatch({ type: 'no_rent_listings_are_found_show_message' })
+                dispatch({ type: 'run_useeffect_on_mount_for_rent_tab'})
+            }
+            else if (response.data.items.length === 0) {
+                dispatch({ type: 'hide_rent_properties_skeleton' })
+                dispatch({ type: 'no_rent_listings_are_found_show_message' })
+                dispatch({ type: 'run_useeffect_on_mount_for_rent_tab'})
+            }
+            else {
                 const rent_properties_data = response.data.items.map((value) => {
                     return {
                         city: value.city.city_name,
@@ -126,15 +139,14 @@ const Rent = () => {
                         bathrooms: `${value.general_info.length !== 0 ? value.general_info[0].bathrooms : 'donotshowbaths'}`,
                         price: value.price,
                         cover_image: value.title_image,
+                        property_sub_type: value.property_category.property_category_name,
+                        propertyId: value.id,
                     }
                 })
+               
                 dispatch({ type: 'hide_rent_properties_skeleton' })
                 dispatch({ type: 'rent_listings_are_found_hide_message' })
                 dispatch({ type: 'explore_rent_properties', payload: { property_data: rent_properties_data, meta: response.data.meta } })
-            }
-            else {
-                dispatch({ type: 'hide_rent_properties_skeleton' })
-                dispatch({ type: 'no_rent_listings_are_found_show_message' })
             }
 
         }).catch(err => {
@@ -171,7 +183,7 @@ const Rent = () => {
                         value={SelectedLocation}
                         onChange={HandleLocationSelect}
                         isLoading={cityLocations.length === 0 && true}
-                        isClearable={true}
+                        // isClearable={true}
                         isSearchable={true}
                         options={cityLocations}
                         placeholder="Select Location"

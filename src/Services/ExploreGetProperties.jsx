@@ -3,8 +3,6 @@ async function ExploreGetProperties(property_type) {
     apiURL = `http://localhost:3200/addproperty/getpropertydata/${property_type}`
     const response = await fetch(apiURL)
     const { items, meta } = await response.json()
-    console.log('THIS IS INITIAL RESPONSE', items)
-
 
     const property_data = items.map(value => (
         {
@@ -18,6 +16,7 @@ async function ExploreGetProperties(property_type) {
             price: value.price,
             cover_image: value.title_image,
             propertyId: value.id,
+            property_sub_type: value.property_category.property_category_name
         }
     ))
     return { property_data, meta }

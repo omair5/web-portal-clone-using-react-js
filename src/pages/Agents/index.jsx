@@ -50,7 +50,14 @@ const Agents = () => {
     // FOR ADVERTISEMENTS
     useEffect(() => {
         const AdvertisementGet = async () => {
-            setAdvertisement(await getAdvertisements('Agent'))
+            if (localStorage.getItem("agent_page_advertisement")) {
+                setAdvertisement(JSON.parse(localStorage.getItem("agent_page_advertisement")))
+            }
+            else {
+                const response = await getAdvertisements('Agent')
+                setAdvertisement(response)
+                localStorage.setItem("agent_page_advertisement", JSON.stringify(response));
+            }
         }
         AdvertisementGet()
     }, [])
@@ -58,7 +65,14 @@ const Agents = () => {
     // FOR AGENT SHORT DETAILS
     useEffect(() => {
         const GetShortDetailAgentDeveloper = async () => {
-            dispatch({ type: 'set_agent_list', payload: await AgentDeveloperGetShortDetail('agent','shortagent') })
+            if (localStorage.getItem("agent_card_data")) {
+                dispatch({ type: 'set_agent_list', payload: JSON.parse(localStorage.getItem("agent_card_data")) })
+            }
+            else {
+                const response = await AgentDeveloperGetShortDetail('agent', 'shortagent')
+                dispatch({ type: 'set_agent_list', payload: response })
+                localStorage.setItem("agent_card_data", JSON.stringify(response));
+            }
         }
         GetShortDetailAgentDeveloper()
     }, [dispatch])

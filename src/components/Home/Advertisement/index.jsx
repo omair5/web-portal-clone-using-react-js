@@ -14,7 +14,14 @@ const Advertisement = () => {
 
     useEffect(() => {
         const AdvertisementGet = async () => {
-            setAdvertisement(await getAdvertisements('Home').catch(err => console.log(err)))
+            if (localStorage.getItem("home_advertisement")) {
+                setAdvertisement(JSON.parse(localStorage.getItem("home_advertisement")))
+            }
+            else {
+                const response = await getAdvertisements('Home').catch(err => console.log(err))
+                setAdvertisement(response)
+                localStorage.setItem("home_advertisement", JSON.stringify(response));
+            }
         }
         AdvertisementGet()
     }, [])

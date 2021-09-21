@@ -12,6 +12,7 @@ import SingleBedIcon from '@material-ui/icons/SingleBed';
 import BathtubOutlinedIcon from '@material-ui/icons/BathtubOutlined';
 import AspectRatioIcon from '@material-ui/icons/AspectRatio';
 import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import Default from './default.jpg'
 
 const useStyles = makeStyles({
@@ -65,7 +66,13 @@ const useStyles = makeStyles({
         }
     },
     location: {
-        margin: '120px 20px',
+        margin: '90px 20px',
+        textTransform: 'capitalize',
+        "& h4": {
+            marginLeft: '5px',
+            textTransform: 'capitalize'
+        }
+
     },
     locationIcon: {
         fontSize: '25px',
@@ -73,7 +80,8 @@ const useStyles = makeStyles({
         marginRight: '4px',
     },
     address: {
-        display: 'flex'
+        display: 'flex',
+        margin: '5px 0px'
     },
     contentDisplay: {
         display: 'flex',
@@ -95,7 +103,7 @@ const useStyles = makeStyles({
         padding: '12px',
         textAlign: 'center',
         borderRadius: '5px',
-        cursor:'pointer',
+        cursor: 'pointer',
         '&:hover': {
             color: 'white'
         }
@@ -109,9 +117,8 @@ const useStyles = makeStyles({
 
 const AbaadeeCards = (props) => {
     const classes = useStyles();
-    const { buildingName, location, areaSize, areaUnit, beds, baths, price, cover_image, MainBox } = props
-    console.log('props of card', buildingName, location, areaSize, areaUnit, beds, baths, price, cover_image, MainBox)
-
+    const { buildingName, location, areaSize, areaUnit, beds, baths, price, cover_image, property_sub_type, MainBox } = props
+   
     // TO CONVERT PRICE IN TO PKR
     function numDifferentiation(val) {
         if (val >= 10000000) {
@@ -144,6 +151,10 @@ const AbaadeeCards = (props) => {
                             <div className={classes.address}>
                                 <LocationOnIcon className={classes.locationIcon} />
                                 <h5 style={{ alignSelf: 'center' }}>{location}</h5>
+                            </div>
+                            <div className={classes.address}>
+                                <AccountBalanceIcon className={classes.locationIcon} />
+                                <h5 style={{ alignSelf: 'center' }}>{property_sub_type}</h5>
                             </div>
                         </div>
                     </div>

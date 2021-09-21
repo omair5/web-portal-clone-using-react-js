@@ -92,6 +92,7 @@ const Buy = () => {
 
     const HandleSubmit = () => {
         history.push('/explore')
+        dispatch({ type: 'do_not_run_useeffect_on_mount_for_buy_tab' })
         dispatch({ type: 'set_current_tab_to_buy' })
         dispatch({ type: '0' })
         dispatch({ type: 'clear_explore_buy_properties' })
@@ -110,7 +111,22 @@ const Buy = () => {
         dispatch({ type: 'set_explore_buy_tab_pagination', payload: search_data })
         axios.post('http://localhost:3200/addproperty/getpropertydata', search_data).then(response => {
             console.log('this is from SEARCH', response)
-            if (response.data.items.length !== 0) {
+
+            if (response.data === '') {
+                console.log('EMPTY STRING')
+                dispatch({ type: 'hide_buy_properties_skeleton' })
+                dispatch({ type: 'no_buy_listings_are_found_show_message' })
+                dispatch({ type: 'run_useeffect_on_mount_for_buy_tab' })
+
+            }
+            else if (response.data.items.length === 0) {
+                console.log('EMPTY ARRAY')
+                dispatch({ type: 'hide_buy_properties_skeleton' })
+                dispatch({ type: 'no_buy_listings_are_found_show_message' })
+                dispatch({ type: 'run_useeffect_on_mount_for_buy_tab' })
+            }
+            else {
+                console.log('ARRAY HAS SOME VALUES')
                 const buy_properties_data = response.data.items.map((value) => {
                     return {
                         city: value.city.city_name,
@@ -122,15 +138,13 @@ const Buy = () => {
                         bathrooms: `${value.general_info.length !== 0 ? value.general_info[0].bathrooms : 'donotshowbaths'}`,
                         price: value.price,
                         cover_image: value.title_image,
+                        property_sub_type: value.property_category.property_category_name,
+                        propertyId: value.id,
                     }
                 })
                 dispatch({ type: 'hide_buy_properties_skeleton' })
                 dispatch({ type: 'buy_listings_are_found_hide_message' })
                 dispatch({ type: 'explore_buy_properties', payload: { property_data: buy_properties_data, meta: response.data.meta } })
-            }
-            else {
-                dispatch({ type: 'hide_buy_properties_skeleton' })
-                dispatch({ type: 'no_buy_listings_are_found_show_message' })
             }
 
         }).catch(err => {
@@ -168,7 +182,7 @@ const Buy = () => {
                         value={SelectedLocation}
                         onChange={HandleLocationSelect}
                         isLoading={cityLocations.length === 0 && true}
-                        isClearable={true}
+                        // isClearable={true}
                         isSearchable={true}
                         name="location"
                         options={cityLocations}

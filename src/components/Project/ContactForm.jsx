@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Paper from '@material-ui/core/Paper';
 import InputTextField from '../../components/FrequentlyUsed/InputTextField'
 import { makeStyles } from '@material-ui/core/styles';
@@ -6,6 +6,10 @@ import TextField from '@material-ui/core/TextField';
 import PhoneInput from 'react-phone-input-2'
 import PhoneRoundedIcon from '@material-ui/icons/PhoneRounded';
 import 'react-phone-input-2/lib/style.css'
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import PopUpMessage from '../FrequentlyUsed/PopUpMessage'
+import FailurePopUpMessage from '../FrequentlyUsed/FailurePopUpMessage'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -79,8 +83,54 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const ContactForm = () => {
+const ContactForm = ({ project_id, project_name, phone_number }) => {
     const classes = useStyles();
+    const dispatch = useDispatch()
+    const [formFields, setformFields] = useState({ name: '', email: '', message: '' })
+    const [phone, setphone] = useState('')
+    const AuthorizedUser = useSelector(state => state.AuthorizedUserReducer)
+
+
+    const HandleForm = (e) => {
+        setformFields({ ...formFields, [e.target.name]: e.target.value })
+    }
+
+    const HandlePhone = (value) => {
+        setphone(value)
+    }
+
+    const HandleSubmit = (e) => {
+        e.preventDefault()
+        const formData = {
+            accesstoken: localStorage.getItem('secretkey'),
+            message: `${formFields.message}.
+            This Enquiry Form is Submitted From Project Deatil page
+            For The Project ${project_name} Having Project Id ${project_id} `,
+            name: formFields.name,
+            p_number: phone,
+            p_id: project_id
+        }
+        if (localStorage.getItem('secretkey')) {
+            console.log('form submitted successfully', formData)
+            axios.post('http://localhost:3200/auth/project_contact', formData)
+                .then(res => {
+                    console.log(res)
+                    if (res.status === 201) {
+                        setformFields({ name: '', email: '', message: '' })
+                        setphone('')
+                        dispatch({ type: 'open_FrequentlyUsed_PopUpMessage' })
+                    }
+                    else {
+                        dispatch({ type: 'open_FrequentlyUsed_Failure_PopUpMessage' })
+                    }
+                })
+                .catch(err => console.log(err))
+
+        }
+        else {
+            dispatch({ type: 'OpenSignInDialog' })
+        }
+    }
 
     return (
         <Paper className={classes.paper}>
@@ -96,49 +146,77 @@ const ContactForm = () => {
 
             {/* FOR CALL */}
             <h4>MAKE AN ENQUIRY</h4>
-            <a href="tel:+15555551212" className={classes.callButton}>
-                <div className={classes.callIconBox}>
-                    <PhoneRoundedIcon style={{ fontSize: '20px', marginRight: '5px' }} />
-                    <p>CALL</p>
-                </div>
-            </a>
+            <form onSubmit={HandleSubmit}>
 
-            <h5>Name*</h5>
-            <InputTextField
-                TextFieldId='1'
-                InputType='text'
-                required={true}
-                name='name'
-                outlined='outlined'
+                <a href={`tel:${phone_number}`} className={classes.callButton}>
+                    <div className={classes.callIconBox}>
+                        <PhoneRoundedIcon style={{ fontSize: '20px', marginRight: '5px' }} />
+                        <p>CALL</p>
+                    </div>
+                </a>
+
+                <h5>Name*</h5>
+                <InputTextField
+                    TextFieldId='1'
+                    InputType='text'
+                    required={true}
+                    value={formFields.name}
+                    name='name'
+                    callBack={HandleForm}
+                    outlined='outlined'
+                />
+
+                <h5>Email*</h5>
+                <InputTextField
+                    TextFieldId='2'
+                    InputType='email'
+                    value={AuthorizedUser ? localStorage.getItem('user_email') : formFields.email}
+                    name='email'
+                    callBack={HandleForm}
+                    outlined='outlined'
+                    disabled={AuthorizedUser}
+                />
+                <h5 style={{ marginBottom: '7px' }}>Message* </h5>
+                <TextField
+                    variant="outlined"
+                    multiline
+                    value={formFields.message}
+                    name='message'
+                    onChange={HandleForm}
+                    fullWidth={true}
+                    rows={5}
+                    InputProps={{
+                        className: classes.inputStyles,
+                    }}
+                />
+
+                <PhoneInput
+                    country={'pk'}
+                    containerClass={classes.container}
+                    inputClass={classes.input}
+                    dropdownClass={classes.dropdown}
+                    value={phone}
+                    onChange={HandlePhone}
+                    inputProps={{
+                        required: true,
+                    }}
+                />
+                <button className={classes.requestButton} type='submit'>REQUEST INFO</button>
+            </form>
+
+            {/* SUCCESS MESSAGE */}
+            < PopUpMessage
+                heading={'ThankYou For Your Trust On Abaadee.com!'}
+                color={'green'}
+                message={'Dear User, A Representative Of Team Abaadee Will Contact You Shortly'}
+            />
+            {/* FAILURE MESSAGE */}
+            <FailurePopUpMessage
+                heading={'OOPS! SORRY SOMETHING WENT WRONG'}
+                color={'red'}
+                message={'Dear User, We Apoligize For The inconvenience! Servers Are Not Responding At This Moment Please Try Later'}
             />
 
-            <h5>Email*</h5>
-            <InputTextField
-                TextFieldId='2'
-                InputType='email'
-                required={true}
-                name='email'
-                outlined='outlined'
-            />
-
-            <h5 style={{ marginBottom: '7px' }}>Message* </h5>
-            <TextField
-                variant="outlined"
-                multiline
-                fullWidth={true}
-                rows={5}
-                InputProps={{
-                    className: classes.inputStyles,
-                }}
-            />
-
-            <PhoneInput
-                country={'pk'}
-                containerClass={classes.container}
-                inputClass={classes.input}
-                dropdownClass={classes.dropdown}
-            />
-            <button className={classes.requestButton}>REQUEST INFO</button>
         </Paper>
     );
 }

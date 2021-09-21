@@ -74,6 +74,7 @@ const AddProperty = () => {
     let formdata = new FormData()
     const [error, setError] = useState(false)
     const [loader, setloader] = useState(false)
+    const [modal, setModal] = useState('failure')
     // property type & location
     const property_purpose_type = useSelector(state => state.PropertyDetails)
     const sub_property_type = useSelector(state => state.SubPropertyType)
@@ -362,20 +363,29 @@ const AddProperty = () => {
                 {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('secretkey')}`,
-                        'content-type': 'multipart/form-data'
+                        // 'content-type': 'multipart/form-data'
+                        'Content-Type': 'application/json',
                     }
                 }).then(res => {
                     console.log('this is response', res)
                     if (res.data.status === 200) {
                         dispatch({ type: 'open_FrequentlyUsed_PopUpMessage' })
+                        ClearFormFields()
+                    }
+                    else if (res.data.status === 409) {
+                        setModal('limit exceed')
+                        dispatch({ type: 'open_FrequentlyUsed_Failure_PopUpMessage' })
                     }
                     else {
                         dispatch({ type: 'open_FrequentlyUsed_Failure_PopUpMessage' })
                     }
-                    // CLEARING FORM FIELDS
-                    ClearFormFields()
                     setloader(false)
-                }).catch(err => console.log(err))
+                }).catch(err => {
+                    console.log(err)
+                    dispatch({ type: 'open_FrequentlyUsed_Failure_PopUpMessage' })
+                    setloader(false)
+                }
+                )
         }
         else {
             setError(true)
@@ -435,9 +445,17 @@ const AddProperty = () => {
             />
             {/* FAILURE MESSAGE */}
             <FailurePopUpMessage
-                heading={'OOPS! SORRY SOMETHING WENT WRONG'}
+                heading={modal === 'failure' ?
+                    'OOPS! SORRY SOMETHING WENT WRONG'
+                    :
+                    "DEAR USER ! YOUR FREE TIER HAS EXPIRED"
+                }
                 color={'red'}
-                message={'Dear User, We Apoligize For The inconvenience! Servers Are Not Responding At This Moment Please Try Later'}
+                message={modal === 'failure' ?
+                    'Dear User, We Apoligize For The inconvenience! Servers Are Not Responding At This Moment Please Try Later'
+                    :
+                    "Free Property Upload Limit Has Been Reached! Abaadee Free Tier Allows You To Upload 3 Properties For Free. If You Want To Add More Properties Please Buy One Of Our Packages"
+                }
             />
             {/* GOTO TOP BUTTON */}
             <GoToTop />

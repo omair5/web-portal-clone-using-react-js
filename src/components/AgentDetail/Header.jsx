@@ -3,10 +3,10 @@ import Container from '@material-ui/core/Container';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import styles from './header.module.css';
 import Grid from '@material-ui/core/Grid';
-import NewUser from './Badges/new.png'
-import Verified from './Badges/verified.png'
-import TenTen from './Badges/tenbyten.png'
-import Premium from './Badges/premium.png'
+import NewUser from '../DeveloperDetail/Badges/new.png'
+import Verified from '../DeveloperDetail/Badges/verified.png'
+import TenTen from '../DeveloperDetail/Badges/tenbyten.png'
+import Premium from '../DeveloperDetail/Badges/premium.png'
 import Tooltip from '@material-ui/core/Tooltip';
 
 
@@ -32,7 +32,8 @@ const useStyles = makeStyles(theme => ({
         "& h1": {
             marginLeft: '15px',
             color: 'white',
-            alignSelf: 'center'
+            alignSelf: 'center',
+            textTransform: 'uppercase'
         }
     },
     pricingContainer: {
@@ -53,10 +54,11 @@ const useStyles = makeStyles(theme => ({
         borderRadius: '50%'
     },
     badge: {
-        height: '60px',
-        width: '60px',
+        height: '45px',
+        width: '45px',
         position: 'relative',
-        bottom: '10px'
+        bottom: '10px',
+        left: '10px'
     }
 }));
 
@@ -78,7 +80,7 @@ const Header = ({ coverImage, logo, agentName, agentRating, location }) => {
     }
     return (
         <>
-            <div className={styles.mainContainer} style={{ backgroundImage: `url(${coverImage})` }}>
+            <div className={`${styles.mainContainer}`} style={{ backgroundImage: `url(${coverImage})` }}>
                 <div className={styles.overlay}></div>
                 <Container className={classes.child}>
                     <Grid container spacing={3}>

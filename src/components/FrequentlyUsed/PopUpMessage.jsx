@@ -31,8 +31,6 @@ const useStyles = makeStyles({
 function PopUpMessage({ heading, color, message }) {
     const classes = useStyles();
     const open = useSelector(state => state.FrequentlyUsed_PopUpMessage)
-    console.log('this is pop up open state', open)
-    console.log(color)
     const dispatch = useDispatch()
 
     // TO CLOSE DIALOG BOX

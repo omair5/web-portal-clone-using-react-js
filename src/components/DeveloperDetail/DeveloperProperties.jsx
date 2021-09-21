@@ -1,52 +1,40 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import AbaadeeCardForProject from '../FrequentlyUsed/AbaadeeCardForProject'
-import { makeStyles } from '@material-ui/core/styles';
+import { v4 as uuidv4 } from 'uuid';
+import { Link } from 'react-router-dom'
 
-const useStyles = makeStyles((theme) => ({
-    buttonContainer: {
-        minWidth: '15%',
-        display: 'block',
-        margin: '30px auto',
-        padding: '20px',
-        outline: 'none',
-        border: 'none',
-        fontSize: '15px',
-        fontWeight: 'bold',
-        borderRadius: '7px',
-        backgroundColor: '#fcb812',
-        cursor: 'pointer',
-        color: 'rgb(59, 70, 86)',
-        transition: 'all 0.5s ease',
-        "&:hover": {
-            color: 'white',
-            transform: 'scale(1.03)'
-        }
-    },
 
-}));
 
-const DeveloperProperties = () => {
-    const classes = useStyles();
+const DeveloperProperties = ({ DeveloperProjects }) => {
+
+    // GENERATING SLUG 
+    const generateSlug = (value) => {
+        return value.trim().toLowerCase().replace(/ /g, '-')
+    }
+
     return (
         <>
             <Grid container spacing={3}>
-                <Grid item xs={12} md={6} lg={4}>
-                    <AbaadeeCardForProject />
-                </Grid>
-                <Grid item xs={12} md={6} lg={4}>
-                    <AbaadeeCardForProject />
-                </Grid>
-                <Grid item xs={12} md={6} lg={4}>
-                    <AbaadeeCardForProject />
-                </Grid>
-            </Grid>
-            <button className={classes.buttonContainer}>
-                View All
-            </button>
+                {
+                    DeveloperProjects.map((value) => (
+                        <Grid item xs={12} md={6} lg={4} key={uuidv4()}>
+                            <Link to={`/project/${generateSlug(value.project_name)}/${value.project_id}`} style={{ textDecoration: 'none' }}>
+                                <AbaadeeCardForProject
+                                    city={value.city.city_name}
+                                    location={value.location.location_name}
+                                    price={value.price}
+                                    cover_image={value.project_cover_image}
+                                    logo={value.project_logo_image}
+                                    projectName={value.project_name}
+                                />
+                            </Link>
+                        </Grid>
+                    ))
+                }
 
+            </Grid>
         </>
     );
 }
-
 export default React.memo(DeveloperProperties);

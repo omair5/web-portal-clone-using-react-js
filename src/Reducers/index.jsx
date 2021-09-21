@@ -70,6 +70,10 @@ import DeveloperList from './DeveloperList'
 import ProjectList from './ProjectList'
 import Explore_Project_list_Skeleton from './Explore_Project_list_Skeleton'
 import Explore_Project_Not_Found_Message from './Explore_Project_Not_Found_Message'
+import Explore_RunThisEffectOnMount_ForBuy from './Explore_RunThisEffectOnMount_ForBuy'
+import Explore_RunThisEffectOnMount_ForProject from './Explore_RunThisEffectOnMount_ForProject'
+import Explore_RunThisEffectOnMount_ForRent from './Explore_RunThisEffectOnMount_ForRent'
+import Explore_RunThisEffectOnMount_ForWanted from './Explore_RunThisEffectOnMount_ForWanted'
 
 export default combineReducers({
     SearchShow: ExploreSearch,
@@ -143,4 +147,8 @@ export default combineReducers({
     ProjectList: ProjectList,
     Explore_Project_list_Skeleton: Explore_Project_list_Skeleton,
     Explore_Project_Not_Found_Message: Explore_Project_Not_Found_Message,
+    Explore_RunThisEffectOnMount_ForBuy: Explore_RunThisEffectOnMount_ForBuy,
+    Explore_RunThisEffectOnMount_ForProject: Explore_RunThisEffectOnMount_ForProject,
+    Explore_RunThisEffectOnMount_ForRent: Explore_RunThisEffectOnMount_ForRent,
+    Explore_RunThisEffectOnMount_ForWanted: Explore_RunThisEffectOnMount_ForWanted
 })

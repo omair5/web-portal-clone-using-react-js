@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '../../components/Layout/Layout';
 import { makeStyles } from '@material-ui/core/styles';
-import SadFace from './sadface.png'
+import SadFace from './notfound.svg'
 import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
         borderBottom: '2px solid #fcb812',
         cursor: 'ponter',
         textDecoration: 'none'
+    },
+    marginTop: {
+        marginTop: '20px'
     }
 }));
 
@@ -42,8 +45,9 @@ const PageNotFound = () => {
         <Layout FooterDisplay={true}>
             <div className={classes.mainContainer}>
                 <Link to='/' className={classes.BackToHomepage} ><h4 >BACK TO HAMEPAGE</h4> </Link>
-                <img src={SadFace} alt="sad face" />
-                <h1>404</h1>
+
+                <img src={SadFace} alt="sad face" height={'150px'} width={'150px'} className={classes.marginTop} />
+                {/* <h1>404</h1> */}
                 <h3>Page Not Found!</h3>
                 <p>The Page You Are Looking For Doesn't Exist Or An Other Error Occured</p>
             </div>

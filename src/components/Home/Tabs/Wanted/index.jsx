@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import SearchIcon from '@material-ui/icons/Search';
 import styles from '../Buy/buy.module.css'
-import RangeBox from '../../../FrequentlyUsed/RangeBox';
+import AreaRangeBox from '../../../FrequentlyUsed/AreaRangeBox';
 import Select from 'react-select';
 import FooterButtons from '../FooterButtons';
 import { beds } from '../SelectDropDownValues';
@@ -90,6 +90,7 @@ const Wanted = () => {
 
     const HandleSubmit = () => {
         history.push('/explore')
+        dispatch({ type: 'do_not_run_useeffect_on_mount_for_wanted_tab' })
         dispatch({ type: 'set_current_tab_to_wanted' })
         dispatch({ type: '2' })
         dispatch({ type: 'clear_explore_wanted_properties' })
@@ -105,7 +106,25 @@ const Wanted = () => {
         }
         dispatch({ type: 'set_explore_wanted_tab_pagination', payload: search_data })
         axios.post('http://localhost:3200/addproperty/getpropertydata', search_data).then(response => {
-            if (response.data.items.length !== 0) {
+
+            if (response.data === '') {
+                console.log('EMPTY STRING RESPONSE')
+                console.log('getting values from local storage')
+                dispatch({ type: 'hide_wanted_properties_skeleton' })
+                dispatch({ type: 'no_wanted_listings_are_found_show_message' })
+                dispatch({ type: 'run_useeffect_on_mount_for_wanted_tab' })
+
+            }
+            else if (response.data.items.length === 0) {
+                console.log('EMPTY ARRAY')
+                console.log('getting values from local storage')
+                dispatch({ type: 'hide_wanted_properties_skeleton' })
+                dispatch({ type: 'no_wanted_listings_are_found_show_message' })
+                dispatch({ type: 'run_useeffect_on_mount_for_wanted_tab' })
+
+            }
+            else {
+                console.log('RESPONSE ARRAY HAS SOME VALUES ,,, SO POPULATING DISPATCH WITH IT ')
                 const wanted_properties_data = response.data.items.map((value) => {
                     return {
                         city: value.city.city_name,
@@ -117,15 +136,13 @@ const Wanted = () => {
                         bathrooms: `${value.general_info.length !== 0 ? value.general_info[0].bathrooms : 'donotshowbaths'}`,
                         price: value.price,
                         cover_image: value.title_image,
+                        property_sub_type: value.property_category.property_category_name,
+                        propertyId: value.id,
                     }
                 })
                 dispatch({ type: 'hide_wanted_properties_skeleton' })
                 dispatch({ type: 'wanted_listings_are_found_hide_message' })
                 dispatch({ type: 'explore_wanted_properties', payload: { property_data: wanted_properties_data, meta: response.data.meta } })
-            }
-            else {
-                dispatch({ type: 'hide_wanted_properties_skeleton' })
-                dispatch({ type: 'no_wanted_listings_are_found_show_message' })
             }
 
         }).catch(err => {
@@ -162,7 +179,7 @@ const Wanted = () => {
                         value={SelectedLocation}
                         onChange={HandleLocationSelect}
                         isLoading={cityLocations.length === 0 && true}
-                        isClearable={true}
+                        // isClearable={true}
                         isSearchable={true}
                         options={cityLocations}
                         placeholder="Select Location"
@@ -179,7 +196,7 @@ const Wanted = () => {
             <Grid container className={styles.secondGrid} spacing={1}>
                 {/* AREA UNIT */}
                 <Grid item xs={12} md={3} className={`${styles.gridtwoPadding} ${styles.locationSelect} ${styles.marginBottomMobile}`}  >
-                    <RangeBox
+                    <AreaRangeBox
                         RangeMin={area_min_range}
                         RangeMax={area_max_range}
                         heading='Area'

@@ -140,3 +140,12 @@ p {
 .red {
   color: red !important
 }
+
+.margin-similar-search {
+  margin: 20px 0px;
+  font-weight: bold;
+}
+
+.gridMargin {
+  padding: 10px 0px;
+}

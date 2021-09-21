@@ -32,7 +32,7 @@ const UseStyles = makeStyles((theme) => ({
     search: {
         fontSize: '16px',
         fontWeight: 'bolder',
-    }
+    },
 }));
 
 export default UseStyles;

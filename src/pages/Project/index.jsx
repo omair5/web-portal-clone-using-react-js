@@ -88,6 +88,7 @@ const Project = () => {
                 setprojectData(await GetProjecData(parseInt(id)))
             }
         )().catch(err => console.log(err))
+        window.scrollTo(0, 0)
     }, [id])
 
     return (
@@ -194,7 +195,11 @@ const Project = () => {
                                         />
                                     </div>
                                 </div>
-                                <ContactForm />
+                                <ContactForm
+                                    project_id={id}
+                                    project_name={projectData.project_name}
+                                    phone_number={projectData.phone_number}
+                                />
                             </Grid>
                         </Grid>
 

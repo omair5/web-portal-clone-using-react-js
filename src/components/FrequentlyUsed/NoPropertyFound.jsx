@@ -1,21 +1,21 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import SadFace from '../../pages/PageNotFound/sadface.png'
+import NotFound from '../../pages/PageNotFound/notfound.svg'
 
 // STYLES
 const useStyles = makeStyles((theme) => ({
     mainContainer: {
         width: '100%',
-        height: '60vh',
-        display:'flex',
-        flexDirection:'column',
+        height: '20vh',
+        display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'start',
         alignItems: 'center',
         "& img": {
-            width: '200px',
-            height: '200px'
+            width: '100px',
+            height: '120px'
         },
-        "& h3": {
+        "& h4": {
             color: 'gray'
         }
 
@@ -26,8 +26,8 @@ const NoPropertyFound = () => {
     const classes = useStyles();
     return (
         <div className={classes.mainContainer}>
-            <img src={SadFace} alt="sad face" />
-            <h3>SORRY ! NO PROPERTY MATCH FOUND</h3>
+            <img src={NotFound} alt="no match found" />
+            <h4>SORRY ! NO MATCH FOUND</h4>
         </div>
     );
 }

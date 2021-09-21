@@ -58,9 +58,17 @@ const Blogs = () => {
     useEffect(() => {
         (
             async () => {
-                const { data, totalPages } = await GetBlogShortDetail(1)
-                setBlogs(data)
-                setTotalPages(totalPages)
+                if (localStorage.getItem("blog_page_1")) {
+                    const local_response = JSON.parse(localStorage.getItem("blog_page_1"))
+                    setBlogs(local_response.data)
+                    setTotalPages(local_response.totalPages)
+                }
+                else {
+                    const response = await GetBlogShortDetail(1)
+                    setBlogs(response.data)
+                    setTotalPages(response.totalPages)
+                    localStorage.setItem("blog_page_1", JSON.stringify(response));
+                }
             }
         )()
     }, [])
@@ -74,12 +82,19 @@ const Blogs = () => {
         (
             async () => {
                 setBlogs([])
-                const { data } = await GetBlogShortDetail(value)
-                setBlogs(data)
-
+                if (localStorage.getItem(`blog_page_${value}`)) {
+                    const local_response = JSON.parse(localStorage.getItem(`blog_page_${value}`))
+                    setBlogs(local_response.data)
+                    setTotalPages(local_response.totalPages)
+                }
+                else {
+                    const response = await GetBlogShortDetail(value)
+                    setBlogs(response.data)
+                    setTotalPages(response.totalPages)
+                    localStorage.setItem(`blog_page_${value}`, JSON.stringify(response));
+                }
             }
         )()
-
     }
 
     return (
@@ -100,10 +115,10 @@ const Blogs = () => {
                         Blogs.reverse().map(value => (
 
                             <Grid item xs={12} md={4} key={uuidv4()}>
-                                <Link to={`/blog/${GenerateSlug('Real Estate Blog')}/${GenerateSlug(value.BlogTitle)}/${value.BlogId}`} className={classes.link}>
+                                <Link to={`/blog/${GenerateSlug(value.BlogCategory)}/${GenerateSlug(value.BlogTitle)}/${value.BlogId}`} className={classes.link}>
                                     <BlogPost
                                         BlogImage={value.BlogImage}
-                                        BlogType='Real Estate Trends'
+                                        BlogType={value.BlogCategory}
                                         BlogDate={value.BlogDate}
                                         BlogTitle={value.BlogTitle}
                                         BlogShortDescription={value.BlogShortDescription}

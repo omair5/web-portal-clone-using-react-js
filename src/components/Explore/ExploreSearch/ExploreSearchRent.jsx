@@ -12,6 +12,7 @@ import UseStyles from './SearchStyles'
 import { colourStyles } from '../../Home/Tabs/ColourStyles'
 import { PropertyTypeOptions, formatGroupLabel } from '../../Home/Tabs/SelectGroupStyles'
 import axios from 'axios';
+import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 
 
 
@@ -95,6 +96,7 @@ const ExploreSearchRent = () => {
     const HandleSubmit = () => {
         dispatch({ type: 'clear_explore_Rent_properties' })
         dispatch({ type: 'show_rent_properties_skeleton' })
+        dispatch({ type: 'do_not_run_useeffect_on_mount_for_rent_tab' })
         const search_data = {
             purpose: 'Rent',
             city_name: selectedCity.value,
@@ -108,7 +110,25 @@ const ExploreSearchRent = () => {
         }
         dispatch({ type: 'set_explore_rent_tab_pagination', payload: search_data })
         axios.post('http://localhost:3200/addproperty/getpropertydata', search_data).then(response => {
-            if (response.data.items.length !== 0) {
+            console.log('LOOKING AT YOU BABY', response)
+
+            if (response.data === '') {
+                dispatch({ type: 'searchToggle', payload: false })
+                dispatch({ type: 'cardToggle', payload: true })
+                dispatch({ type: 'hide_rent_properties_skeleton' })
+                dispatch({ type: 'no_rent_listings_are_found_show_message' })
+                dispatch({ type: 'run_useeffect_on_mount_for_rent_tab' })
+
+            }
+            else if (response.data.items.length === 0) {
+                dispatch({ type: 'searchToggle', payload: false })
+                dispatch({ type: 'cardToggle', payload: true })
+                dispatch({ type: 'hide_rent_properties_skeleton' })
+                dispatch({ type: 'no_rent_listings_are_found_show_message' })
+                dispatch({ type: 'run_useeffect_on_mount_for_rent_tab' })
+
+            }
+            else {
                 const rent_properties_data = response.data.items.map((value) => {
                     return {
                         city: value.city.city_name,
@@ -120,26 +140,33 @@ const ExploreSearchRent = () => {
                         bathrooms: `${value.general_info.length !== 0 ? value.general_info[0].bathrooms : 'donotshowbaths'}`,
                         price: value.price,
                         cover_image: value.title_image,
+                        property_sub_type: value.property_category.property_category_name,
                         propertyId: value.id,
                     }
                 })
+                dispatch({ type: 'do_not_run_useeffect_on_mount_for_rent_tab' })
                 dispatch({ type: 'searchToggle', payload: false })
                 dispatch({ type: 'cardToggle', payload: true })
                 dispatch({ type: 'hide_rent_properties_skeleton' })
                 dispatch({ type: 'rent_listings_are_found_hide_message' })
                 dispatch({ type: 'explore_rent_properties', payload: { property_data: rent_properties_data, meta: response.data.meta } })
             }
-            else {
-                dispatch({ type: 'searchToggle', payload: false })
-                dispatch({ type: 'cardToggle', payload: true })
-                dispatch({ type: 'hide_rent_properties_skeleton' })
-                dispatch({ type: 'no_rent_listings_are_found_show_message' })
-            }
-
         }).catch(err => {
             console.log(err)
         })
     }
+
+    const handleResetFilter = () => {
+        setselectedCity({ label: "Karachi", value: 'Karachi' })
+        setSelectedLocation('')
+        setSelectedPropertyType('')
+        setSelectedBed('')
+        dispatch({ type: 'clear_max_value_of_area' })
+        dispatch({ type: 'clear_max_value_of_price' })
+        dispatch({ type: 'clear_min_value_of_area' })
+        dispatch({ type: 'clear_min_value_of_price' })
+    }
+
 
     return (
         <>
@@ -169,7 +196,7 @@ const ExploreSearchRent = () => {
                         value={SelectedLocation}
                         onChange={HandleLocationSelect}
                         isLoading={cityLocations.length === 0 && true}
-                        isClearable={true}
+                        // isClearable={true}
                         isSearchable={true}
                         options={cityLocations}
                         placeholder="Select Location"
@@ -243,6 +270,10 @@ const ExploreSearchRent = () => {
                 <div className={classes.searchButtonBox} onClick={HandleSubmit} >
                     <div><SearchIcon style={{ fontSize: '25px' }} /></div>
                     <div className={classes.search}>SEARCH</div>
+                </div>
+                <div className={classes.searchButtonBox} onClick={handleResetFilter}>
+                    <div><RotateLeftIcon style={{ fontSize: '25px' }} /></div>
+                    <div className={classes.search}>RESET FILTER</div>
                 </div>
 
                 {/* change area unit and reset buttons */}

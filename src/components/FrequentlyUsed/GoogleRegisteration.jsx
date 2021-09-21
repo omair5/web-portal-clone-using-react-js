@@ -43,11 +43,12 @@ const GoogleRegisteration = () => {
             username: res.profileObj.name,
             email: res.profileObj.email,
         }
-        console.log(google_login_data)
+        // console.log(google_login_data)
         axios.post('http://localhost:3200/auth/socialsignup', google_login_data).then((res) => {
             if (res.status === 201) {
                 localStorage.setItem('secretkey', res.data.user)
                 localStorage.setItem('username', res.data.name)
+                localStorage.setItem('user_email', JSON.parse(res.config.data).email)
                 // to close sigin dialog box
                 dispatch({ type: 'CloseSignInDialog' })
                 // telling our code that we have a authorized user logged in
@@ -55,7 +56,7 @@ const GoogleRegisteration = () => {
                 // getting username to show on navbar
                 dispatch({ type: 'authorized_user_name', payload: res.data.name })
                 // to redirect to add property page
-                history.push('/add-property')
+                history.push(history.location)
             }
             else {
                 dispatch({ type: 'open_FrequentlyUsed_Failure_PopUpMessage' })
@@ -78,7 +79,7 @@ const GoogleRegisteration = () => {
                     render={renderProps => (
                         <div onClick={renderProps.onClick} disabled={renderProps.disabled} className={classes.googleButton}>
                             <FontAwesomeIcon icon={faGoogle} style={{ marginRight: '7px' }} />
-                             Login With Google
+                            Login With Google
                         </div>
                     )}
                 />

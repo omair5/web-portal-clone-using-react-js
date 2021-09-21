@@ -168,6 +168,7 @@ const PropertyDetails = () => {
                         classes={classesBase}
                         inputProps={{
                             className: classes.inputStyles,
+                            maxLength:75
                         }}
                     />
                 </div>
@@ -183,13 +184,19 @@ const PropertyDetails = () => {
                         editorClassName={`${classes.editorClassName} custom-scroll`}
                         placeholder='Write Your Property Description Here ...'
                         toolbar={{
-                            options: ['inline', 'list'],
+                            options: ['inline', 'list', 'fontSize', 'fontFamily'],
                             inline: {
                                 options: ['bold', 'underline'],
                             },
                             list: {
                                 options: ['unordered', 'ordered'],
                             },
+                            fontSize: {
+                                options: [8, 9, 10, 11, 12, 14, 16, 18, 24, 30, 36, 48, 60, 72, 96],
+                              },
+                              fontFamily: {
+                                options: ['Arial', 'Georgia', 'Impact', 'Tahoma', 'Times New Roman', 'Verdana'],
+                              },
                         }}
                     />
                 </div>

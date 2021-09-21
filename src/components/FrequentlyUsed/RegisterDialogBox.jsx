@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     mainContainer: {
         backgroundColor: "white",
         minHeight: '750px',
-        minWidth: '400px',
+        minWidth: '500px',
         overflow: "hidden",
         [theme.breakpoints.down('md')]: {
             minWidth: '285px',
@@ -43,8 +43,9 @@ const useStyles = makeStyles((theme) => ({
         margin: '10px auto'
     },
     icon: {
-        color: 'rgb(83, 90, 89)',
-        fontSize: '35px'
+        // color: 'rgb(83, 90, 89)',
+        fontSize: '35px',
+        color: '#fcb812'
     },
     createAccount: {
         marginLeft: '5px',
@@ -212,7 +213,7 @@ const RegisterDialogBox = () => {
                                 pattern="[a-zA-Z]+"
                                 title="This Field Accepts Only Letters"
                                 autoComplete={"off"}
-                                labelText="FIRST NAME"
+                                // labelText="FIRST NAME"
                                 helperText="Only Letters Are Allowed"
                                 autofocus={true}
                                 callBack={HandleChange}
@@ -230,7 +231,7 @@ const RegisterDialogBox = () => {
                                 pattern="[a-zA-Z]+"
                                 title="This Field Accepts Only Letters"
                                 autoComplete={"off"}
-                                labelText="LAST NAME"
+                                // labelText="LAST NAME"
                                 helperText="Only Letters Are Allowed"
                                 autofocus={false}
                                 callBack={HandleChange}
@@ -246,7 +247,7 @@ const RegisterDialogBox = () => {
                                 InputType='email'
                                 required={true}
                                 autoComplete={"off"}
-                                labelText="EMAIL"
+                                // labelText="EMAIL"
                                 autofocus={false}
                                 callBack={HandleChange}
                                 value={formFields.email}
@@ -256,7 +257,8 @@ const RegisterDialogBox = () => {
                             {/* FOR COUNTRY */}
                             <AutoCompleteTextField
                                 id='country'
-                                label="COUNTRY"
+                                // label="COUNTRY"
+                                placeholder='Select Country'
                                 style={{ margin: '10px 0px' }}
                                 value={formDropDownField.country}
                                 onChange={HandleDropDownValue}
@@ -268,7 +270,8 @@ const RegisterDialogBox = () => {
                             {showCity ?
                                 <AutoCompleteTextField
                                     id='city'
-                                    label="CITY"
+                                    // label="CITY"
+                                    placeholder='Select City'
                                     style={{ margin: '10px 0px' }}
                                     value={formDropDownField.city}
                                     onChange={HandleDropDownValue}
@@ -282,7 +285,7 @@ const RegisterDialogBox = () => {
                                 TextFieldPlaceHolder='Password'
                                 InputType='password'
                                 required={true}
-                                labelText="PASSWORD"
+                                // labelText="PASSWORD"
                                 autofocus={false}
                                 callBack={HandleChange}
                                 value={formFields.password}
@@ -298,7 +301,7 @@ const RegisterDialogBox = () => {
                                 TextFieldPlaceHolder='Confirm Password'
                                 InputType='password'
                                 required={true}
-                                labelText="CONFIRM PASSWORD"
+                                // labelText="CONFIRM PASSWORD"
                                 autofocus={false}
                                 callBack={HandleChange}
                                 value={formFields.cpassword}
@@ -312,14 +315,14 @@ const RegisterDialogBox = () => {
                             {/* FOR PHONE NUMBER */}
                             <InputTextField
                                 TextFieldId='6'
-                                TextFieldPlaceHolder='xxxx-xxxxxxx'
+                                TextFieldPlaceHolder='Phone Number'
                                 InputType='tel'
                                 required={true}
                                 autoComplete={"off"}
-                                title="e.g : 0331-1234567"
-                                pattern="[0-9]{4}-[0-9]{7}"
-                                labelText="PHONE NUMBER"
-                                helperText="Only Numbers Are Allowed In Requested Format"
+                                title="e.g : 0336 1234567"
+                                pattern="[0-9]{4} [0-9]{7}"
+                                // labelText="PHONE NUMBER"
+                                helperText="Only Numbers Are Allowed In Requested Format i.e:- 0336 1234567"
                                 autofocus={false}
                                 callBack={HandleChange}
                                 value={formFields.number}

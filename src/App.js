@@ -7,8 +7,6 @@ import { useDispatch } from 'react-redux';
 import Loader from './Loader/Loader';
 import ProtectedRoutes from './PotectedRoutes';
 import HomeGetCities from './Services/HomeGetCities';
-import ExploreGetProperties from './Services/ExploreGetProperties';
-import AgentDeveloperGetShortDetail from './Services/AgentDeveloperGetShortDetail'
 
 const Home = React.lazy(() => import('./pages/Home'));
 const Explore = React.lazy(() => import('./pages/Explore'));
@@ -61,104 +59,32 @@ function App() {
   }, [dispatch])
 
 
-  // EXPLORE-----FETCHING BUY PROPERTIES LIST
-  useEffect(() => {
-    let mounted = true
-    async function GetPropertiesExplore() {
-      if (mounted) {
-        const buy_response = await ExploreGetProperties('Sale')
-        if (buy_response.length !== 0) {
-          dispatch({ type: 'hide_buy_properties_skeleton' })
-          dispatch({ type: 'explore_buy_properties', payload: buy_response })
 
-        }
-        else {
-          dispatch({ type: 'hide_buy_properties_skeleton' })
-          dispatch({ type: 'explore_buy_properties', payload: buy_response })
-          dispatch({ type: 'no_buy_listings_are_found_show_message' })
-        }
-      }
-    }
-    GetPropertiesExplore().catch(err => console.log(err))
-    // cancel subscription to useEffect
-    return () => mounted = false;
-  }, [dispatch])
-
-
-  // EXPLORE-----FETCHING RENT PROPERTIES LIST
-  useEffect(() => {
-    let mounted = true
-    async function GetPropertiesExplore() {
-      if (mounted) {
-        const rent_response = await ExploreGetProperties('Rent')
-        if (rent_response.length !== 0) {
-          dispatch({ type: 'hide_rent_properties_skeleton' })
-          dispatch({ type: 'explore_rent_properties', payload: rent_response })
-
-        }
-        else {
-          dispatch({ type: 'hide_rent_properties_skeleton' })
-          dispatch({ type: 'explore_rent_properties', payload: rent_response })
-          dispatch({ type: 'no_rent_listings_are_found_show_message' })
-        }
-      }
-    }
-    GetPropertiesExplore().catch(err => console.log(err))
-    // cancel subscription to useEffect
-    return () => mounted = false;
-  }, [dispatch])
-
-
-  // EXPLORE-----FETCHING WANTED PROPERTIES LIST
-  useEffect(() => {
-    let mounted = true
-    async function GetPropertiesExplore() {
-      if (mounted) {
-        const wanted_response = await ExploreGetProperties('Wanted')
-        if (wanted_response.length !== 0) {
-          dispatch({ type: 'hide_wanted_properties_skeleton' })
-          dispatch({ type: 'explore_wanted_properties', payload: wanted_response })
-
-        }
-        else {
-          dispatch({ type: 'hide_wanted_properties_skeleton' })
-          dispatch({ type: 'explore_wanted_properties', payload: wanted_response })
-          dispatch({ type: 'no_wanted_listings_are_found_show_message' })
-        }
-      }
-    }
-    GetPropertiesExplore().catch(err => console.log(err))
-    // cancel subscription to useEffect
-    return () => mounted = false;
-  }, [dispatch])
-
-  // EXPLORE-----FETCHING PROJECT LIST
-  useEffect(() => {
-    let mounted = true
-    const GetShortDetailAgentDeveloperProject = async () => {
-      if (mounted) {
-        const projectResponse = await AgentDeveloperGetShortDetail('project', 'shortproject')
-        if (projectResponse.length !== 0) {
-          dispatch({ type: 'set_project_list', payload: projectResponse })
-          dispatch({ type: 'hide_project_list_skeleton' })
-          dispatch({ type: 'project_listings_are_found_hide_message' })
-        }
-        else {
-          dispatch({ type: 'hide_project_list_skeleton' })
-          dispatch({ type: 'set_project_list', payload: projectResponse })
-          dispatch({ type: 'no_project_listings_are_found_show_message' })
-        }
-      }
-    }
-    GetShortDetailAgentDeveloperProject().catch(err => console.log(err))
-    // cancel subscription to useEffect
-    return () => mounted = false;
-  }, [dispatch])
+  // CLEARING SESSION AFTER 30 MINUTES (AUTOMATIC LOGOUT AFTER 30 MINUTES)
+  setTimeout(() => {
+    localStorage.clear()
+    window.location.href = "/";
+    dispatch({ type: 'remove_authorized_user_name' })
+    dispatch({ type: 'clear_authorized_user' })
+  }, 1800000)
 
   // CLEARING LOCAL STORAGE DATA
-  window.onunload = () => {
-    // Clear the local storage
-    window.localStorage.clear()
+  window.onbeforeunload = () => {
+    if (localStorage.getItem('secretkey')) {
+      const getting_secret_key = localStorage.getItem('secretkey')
+      const getting_user_name = localStorage.getItem('username')
+      const getting_user_email = localStorage.getItem('user_email')
+      // Clear the local storage but keep the secret key
+      localStorage.clear()
+      localStorage.setItem('secretkey', getting_secret_key)
+      localStorage.setItem('username', getting_user_name)
+      localStorage.setItem('user_email', getting_user_email)
+
+    }
+    else {
+      // Clear the local storage but keep the secret key
+      localStorage.clear()
+    }
   }
 
 

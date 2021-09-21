@@ -41,6 +41,7 @@ const AgentDetails = () => {
             setagentDetail(await GetAgentDeveloperDetail('agent', id))
         }
         DetailOfAgentAndDeveloper()
+        window.scrollTo(0, 0)
     }, [id])
 
     // console.log('looking forthis ', agentDetail)
@@ -105,7 +106,11 @@ const AgentDetails = () => {
 
                             {/* CONTACT FORM GRID */}
                             <Grid item xs={12} md={4} >
-                                <AgentContactForm />
+                                <AgentContactForm
+                                    agent_id={id}
+                                    agent_name={agentDetail.name}
+                                    mobile_phone={agentDetail.number}
+                                />
                             </Grid>
                         </Grid>
 
@@ -115,7 +120,9 @@ const AgentDetails = () => {
                     </Container>
                     <GoToTop />
                 </div> :
-                <SkeletonForAgentAndDeveloperDetail />
+                <SkeletonForAgentAndDeveloperDetail
+                    page_name='AGENT'
+                    project_or_properties='AGENT PROPERTIES' />
             }
         </Layout>
     );

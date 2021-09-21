@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import DialogContent from '@material-ui/core/DialogContent';
 import Dialog from '@material-ui/core/Dialog';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import { makeStyles } from '@material-ui/core/styles';
 import SignInAndRegisterButton from '../FrequentlyUsed/SignInAndRegisterButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -14,6 +16,8 @@ import axios from 'axios';
 import ForgetPasswordDialogBox from './ForgetPasswordDialogBox';
 import GoogleRegisteration from './GoogleRegisteration'
 import FacebookRegisteration from './FacebookRegisteration'
+import Typography from '@material-ui/core/Typography';
+
 
 
 // const useStylesCheckBox = makeStyles(theme => ({
@@ -32,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     mainContainer: {
         backgroundColor: "white",
         minHeight: 'auto',
-        minWidth: '380px',
+        minWidth: '410px',
         overflow: "auto",
         [theme.breakpoints.down('md')]: {
             minWidth: '285px',
@@ -67,6 +71,9 @@ const useStyles = makeStyles((theme) => ({
     checkBox: {
         color: "#fcb812",
         fontSize: '20px'
+    },
+    check: {
+        color: '#fcb812'
     }
 }));
 
@@ -82,6 +89,7 @@ const SignInDialogBox = () => {
     const [showError, setshowError] = useState(false)
     const [errorMessage, seterrorMessage] = useState('')
     const [loader, setloader] = useState(false)
+    const [agent, setAgent] = useState(false)
 
 
     // THIS STATE IS TO CLOSE DIALOG BOX
@@ -117,6 +125,7 @@ const SignInDialogBox = () => {
                 if (response.data.accessToken) {
                     localStorage.setItem('secretkey', response.data.accessToken)
                     localStorage.setItem('username', response.data.findname)
+                    localStorage.setItem('user_email', JSON.parse(response.config.data).email)
                     // to close sigin dialog box
                     dispatch({ type: 'CloseSignInDialog' })
                     //    telling our code that we have a authorized user logged in
@@ -124,7 +133,7 @@ const SignInDialogBox = () => {
                     // getting username to show on navbar
                     dispatch({ type: 'authorized_user_name', payload: response.data.findname })
                     // to redirect to add property page
-                    history.push('/add-property')
+                    history.push(history.location)
 
                 }
                 else {
@@ -137,6 +146,10 @@ const SignInDialogBox = () => {
     const HandleForgetPassword = () => {
         dispatch({ type: 'open_forget_pasword_dialog' })
         dispatch({ type: 'CloseSignInDialog' })
+    }
+
+    const handleCheck = (e) => {
+        setAgent(e.target.checked)
     }
 
 
@@ -161,6 +174,7 @@ const SignInDialogBox = () => {
                                 name='email'
                                 value={signinData.email}
                                 outlined="outlined"
+                                autofocus={true}
                             />
 
                             {/* FOR PASSWORD */}
@@ -172,6 +186,13 @@ const SignInDialogBox = () => {
                                 name='password'
                                 value={signinData.password}
                                 outlined="outlined"
+                                passwordVisibility={true}
+                            />
+
+                            {/* CHECKING FOR AN AGENT */}
+                            <FormControlLabel
+                                control={<Checkbox checked={agent} onChange={handleCheck} name='Gas' disableRipple={true} icon={<CheckBoxOutlineBlankIcon fontSize="large" />} checkedIcon={<CheckBoxIcon fontSize="large" className={classes.check} />} />}
+                                label={<Typography variant="h6" style={{ color: 'rgb(76, 84, 85)', fontWeight: 'bold' }}>Are You A Real Estate Agent?</Typography>}
                             />
 
                             {showError && <p className={classes.error}>{errorMessage}</p>}

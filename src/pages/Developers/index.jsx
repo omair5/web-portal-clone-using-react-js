@@ -41,9 +41,18 @@ const Developers = () => {
     const DeveloperSearchShow = useSelector(state => state.DeveloperSearchShow)
     const DeveloperCardShow = useSelector(state => state.DeveloperCardShow)
     const [advertisement, setAdvertisement] = useState([])
+
+    // FOR ADVERTISEMENT
     useEffect(() => {
         const AdvertisementGet = async () => {
-            setAdvertisement(await getAdvertisements('Devlopers'))
+            if (localStorage.getItem("developer_page_advertisement")) {
+                setAdvertisement(JSON.parse(localStorage.getItem("developer_page_advertisement")))
+            }
+            else {
+                const response = await getAdvertisements('Devlopers')
+                setAdvertisement(response)
+                localStorage.setItem("developer_page_advertisement", JSON.stringify(response));
+            }
         }
         AdvertisementGet()
     }, [])
@@ -53,7 +62,14 @@ const Developers = () => {
     // FOR DEVELOPER SHORT DETAILS
     useEffect(() => {
         const GetShortDetailAgentDeveloper = async () => {
-            dispatch({ type: 'set_developer_list', payload: await AgentDeveloperGetShortDetail('developer','shortdeveloper') })
+            if (localStorage.getItem("developers_card_data")) {
+                dispatch({ type: 'set_developer_list', payload: JSON.parse(localStorage.getItem("developers_card_data")) })
+            }
+            else {
+                const response = await AgentDeveloperGetShortDetail('developer', 'shortdeveloper')
+                dispatch({ type: 'set_developer_list', payload: response })
+                localStorage.setItem("developers_card_data", JSON.stringify(response));
+            }
         }
         GetShortDetailAgentDeveloper()
     }, [dispatch])
@@ -87,5 +103,4 @@ const Developers = () => {
 
         </Layout>);
 }
-
 export default Developers;

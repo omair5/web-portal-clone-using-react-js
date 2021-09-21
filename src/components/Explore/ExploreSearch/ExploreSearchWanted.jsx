@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
-import RangeBox from '../../FrequentlyUsed/RangeBox';
+import AreaRangeBox from '../../FrequentlyUsed/AreaRangeBox';
 import Select from 'react-select';
 import FooterButtons from '../../Home/Tabs/FooterButtons';
 import { beds } from '../../Home/Tabs/SelectDropDownValues'
@@ -11,6 +11,8 @@ import { colourStyles } from '../../Home/Tabs/ColourStyles'
 import { PropertyTypeOptions, formatGroupLabel } from '../../Home/Tabs/SelectGroupStyles'
 import HomeGetLocations from '../../../Services/HomeGetLocations';
 import axios from 'axios';
+import RotateLeftIcon from '@material-ui/icons/RotateLeft';
+
 
 
 const ExploreSearchWanted = () => {
@@ -89,6 +91,7 @@ const ExploreSearchWanted = () => {
     const HandleSubmit = () => {
         dispatch({ type: 'clear_explore_wanted_properties' })
         dispatch({ type: 'show_wanted_properties_skeleton' })
+        dispatch({ type: 'do_not_run_useeffect_on_mount_for_wanted_tab' })
         const search_data = {
             purpose: 'Wanted',
             city_name: selectedCity.value,
@@ -100,7 +103,29 @@ const ExploreSearchWanted = () => {
         }
         dispatch({ type: 'set_explore_wanted_tab_pagination', payload: search_data })
         axios.post('http://localhost:3200/addproperty/getpropertydata', search_data).then(response => {
-            if (response.data.items.length !== 0) {
+
+            if (response.data === '') {
+                console.log('EMPTY STRING RESPONSE')
+                console.log('getting values from local storage')
+                dispatch({ type: 'searchToggle', payload: false })
+                dispatch({ type: 'cardToggle', payload: true })
+                dispatch({ type: 'hide_wanted_properties_skeleton' })
+                dispatch({ type: 'no_wanted_listings_are_found_show_message' })
+                dispatch({ type: 'run_useeffect_on_mount_for_wanted_tab' })
+
+            }
+            else if (response.data.items.length === 0) {
+                console.log('EMPTY ARRAY')
+                console.log('getting values from local storage')
+                dispatch({ type: 'searchToggle', payload: false })
+                dispatch({ type: 'cardToggle', payload: true })
+                dispatch({ type: 'hide_wanted_properties_skeleton' })
+                dispatch({ type: 'no_wanted_listings_are_found_show_message' })
+                dispatch({ type: 'run_useeffect_on_mount_for_wanted_tab' })
+
+            }
+            else {
+                console.log('RESPONSE ARRAY HAS SOME VALUES ,,, SO POPULATING DISPATCH WITH IT ')
                 const wanted_properties_data = response.data.items.map((value) => {
                     return {
                         city: value.city.city_name,
@@ -112,26 +137,33 @@ const ExploreSearchWanted = () => {
                         bathrooms: `${value.general_info.length !== 0 ? value.general_info[0].bathrooms : 'donotshowbaths'}`,
                         price: value.price,
                         cover_image: value.title_image,
+                        property_sub_type: value.property_category.property_category_name,
                         propertyId: value.id,
                     }
                 })
+                dispatch({ type: 'do_not_run_useeffect_on_mount_for_wanted_tab' })
                 dispatch({ type: 'searchToggle', payload: false })
                 dispatch({ type: 'cardToggle', payload: true })
                 dispatch({ type: 'hide_wanted_properties_skeleton' })
                 dispatch({ type: 'wanted_listings_are_found_hide_message' })
                 dispatch({ type: 'explore_wanted_properties', payload: { property_data: wanted_properties_data, meta: response.data.meta } })
             }
-            else {
-                dispatch({ type: 'searchToggle', payload: false })
-                dispatch({ type: 'cardToggle', payload: true })
-                dispatch({ type: 'hide_wanted_properties_skeleton' })
-                dispatch({ type: 'no_wanted_listings_are_found_show_message' })
-            }
 
         }).catch(err => {
             console.log(err)
         })
     }
+
+
+    const handleResetFilter = () => {
+        setselectedCity({ label: "Karachi", value: 'Karachi' })
+        setSelectedLocation('')
+        setSelectedPropertyType('')
+        setSelectedBed('')
+        dispatch({ type: 'clear_max_value_of_area' })
+        dispatch({ type: 'clear_min_value_of_area' })
+    }
+
 
     return (
         <div className={classes.mainContainer}>
@@ -160,7 +192,7 @@ const ExploreSearchWanted = () => {
                     value={SelectedLocation}
                     onChange={HandleLocationSelect}
                     isLoading={cityLocations.length === 0 && true}
-                    isClearable={true}
+                    // isClearable={true}
                     isSearchable={true}
                     options={cityLocations}
                     placeholder="Select Location"
@@ -174,7 +206,7 @@ const ExploreSearchWanted = () => {
 
             {/* AREA UNIT */}
             <div className={classes.childContainer}>
-                <RangeBox
+                <AreaRangeBox
                     RangeMin={area_min_range}
                     RangeMax={area_max_range}
                     heading='Area'
@@ -226,6 +258,10 @@ const ExploreSearchWanted = () => {
             <div className={classes.searchButtonBox} onClick={HandleSubmit} >
                 <div><SearchIcon style={{ fontSize: '25px' }} /></div>
                 <div className={classes.search}>SEARCH</div>
+            </div>
+            <div className={classes.searchButtonBox} onClick={handleResetFilter}>
+                <div><RotateLeftIcon style={{ fontSize: '25px' }} /></div>
+                <div className={classes.search}>RESET FILTER</div>
             </div>
 
 

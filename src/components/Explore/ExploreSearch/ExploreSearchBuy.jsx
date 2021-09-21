@@ -12,6 +12,8 @@ import UseStyles from './SearchStyles'
 import { colourStyles } from '../../Home/Tabs/ColourStyles'
 import { PropertyTypeOptions, formatGroupLabel } from '../../Home/Tabs/SelectGroupStyles'
 import axios from 'axios';
+import RotateLeftIcon from '@material-ui/icons/RotateLeft';
+
 
 
 const ExploreSearchs = () => {
@@ -93,6 +95,7 @@ const ExploreSearchs = () => {
     const HandleSubmit = () => {
         dispatch({ type: 'clear_explore_buy_properties' })
         dispatch({ type: 'show_buy_properties_skeleton' })
+        dispatch({ type: 'do_not_run_useeffect_on_mount_for_buy_tab' })
         const search_data = {
             purpose: 'Sale',
             city_name: selectedCity.value,
@@ -107,8 +110,30 @@ const ExploreSearchs = () => {
         console.log('this is search data', search_data)
         dispatch({ type: 'set_explore_buy_tab_pagination', payload: search_data })
         axios.post('http://localhost:3200/addproperty/getpropertydata', search_data).then(response => {
-            console.log('this is SEARCH response', response)
-            if (response.data.items.length !== 0) {
+            console.log('data response of search result----------------------', response)
+
+            if (response.data === '') {
+                console.log('EMPTY STRING RESPONSE')
+                console.log('getting values from local storage')
+                dispatch({ type: 'searchToggle', payload: false })
+                dispatch({ type: 'cardToggle', payload: true })
+                dispatch({ type: 'hide_buy_properties_skeleton' })
+                dispatch({ type: 'no_buy_listings_are_found_show_message' })
+                dispatch({ type: 'run_useeffect_on_mount_for_buy_tab' })
+
+            }
+            else if (response.data.items.length === 0) {
+                console.log('EMPTY ARRAY')
+                console.log('getting values from local storage')
+                dispatch({ type: 'searchToggle', payload: false })
+                dispatch({ type: 'cardToggle', payload: true })
+                dispatch({ type: 'hide_buy_properties_skeleton' })
+                dispatch({ type: 'no_buy_listings_are_found_show_message' })
+                dispatch({ type: 'run_useeffect_on_mount_for_buy_tab' })
+
+            }
+            else {
+                console.log('RESPONSE ARRAY HAS SOME VALUES ,,, SO POPULATING DISPATCH WITH IT ')
                 const buy_properties_data = response.data.items.map((value) => {
                     return {
                         city: value.city.city_name,
@@ -120,25 +145,32 @@ const ExploreSearchs = () => {
                         bathrooms: `${value.general_info.length !== 0 ? value.general_info[0].bathrooms : 'donotshowbaths'}`,
                         price: value.price,
                         cover_image: value.title_image,
+                        property_sub_type: value.property_category.property_category_name,
                         propertyId: value.id,
                     }
                 })
+                dispatch({ type: 'do_not_run_useeffect_on_mount_for_buy_tab' })
                 dispatch({ type: 'searchToggle', payload: false })
                 dispatch({ type: 'cardToggle', payload: true })
                 dispatch({ type: 'hide_buy_properties_skeleton' })
                 dispatch({ type: 'buy_listings_are_found_hide_message' })
                 dispatch({ type: 'explore_buy_properties', payload: { property_data: buy_properties_data, meta: response.data.meta } })
             }
-            else {
-                dispatch({ type: 'searchToggle', payload: false })
-                dispatch({ type: 'cardToggle', payload: true })
-                dispatch({ type: 'hide_buy_properties_skeleton' })
-                dispatch({ type: 'no_buy_listings_are_found_show_message' })
-            }
 
         }).catch(err => {
             console.log(err)
         })
+    }
+
+    const handleResetFilter = () => {
+        setselectedCity({ label: "Karachi", value: 'Karachi' })
+        setSelectedLocation('')
+        setSelectedPropertyType('')
+        setSelectedBed('')
+        dispatch({ type: 'clear_max_value_of_area' })
+        dispatch({ type: 'clear_max_value_of_price' })
+        dispatch({ type: 'clear_min_value_of_area' })
+        dispatch({ type: 'clear_min_value_of_price' })
     }
 
     return (
@@ -169,7 +201,7 @@ const ExploreSearchs = () => {
                     value={SelectedLocation}
                     onChange={HandleLocationSelect}
                     isLoading={cityLocations.length === 0 && true}
-                    isClearable={true}
+                    // isClearable={true}
                     isSearchable={true}
                     name="location"
                     options={cityLocations}
@@ -245,6 +277,10 @@ const ExploreSearchs = () => {
             <div className={classes.searchButtonBox} onClick={HandleSubmit} >
                 <div><SearchIcon style={{ fontSize: '25px' }} /></div>
                 <div className={classes.search}>SEARCH</div>
+            </div>
+            <div className={classes.searchButtonBox} onClick={handleResetFilter}>
+                <div><RotateLeftIcon style={{ fontSize: '25px' }} /></div>
+                <div className={classes.search}>RESET FILTER</div>
             </div>
 
             {/* change area unit and reset buttons */}

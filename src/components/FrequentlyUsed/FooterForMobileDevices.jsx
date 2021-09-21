@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
     mainContainer: {
         backgroundColor: 'rgb(54, 54, 54)',
         display: 'flex',
-        height: '35px',
+        height: '45px',
         position: 'fixed',
         bottom: 0,
         left: 0,
@@ -48,7 +48,7 @@ const FooterForMobileDevices = ({ toSearchText, id }) => {
 
     }
     const HandleCard = (e) => {
-        if (e.target.innerHTML === 'PROPERTY LIST') {
+        if (e.target.innerHTML === 'LISTINGS') {
             dispatch({ type: 'searchToggle', payload: false })
             dispatch({ type: 'cardToggle', payload: true })
         }

@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const AutoCompleteTextField = ({ id, label, style, onChange, value, options, disable, required }) => {
+const AutoCompleteTextField = ({ id, label, style, onChange, value, options, disable, required, placeholder }) => {
     const classes = useStyles();
     const classesBase = useStylesBase();
     return (
@@ -39,6 +39,8 @@ const AutoCompleteTextField = ({ id, label, style, onChange, value, options, dis
                 renderInput={(params) => <TextField {...params}
                     label={label}
                     required={required}
+                    variant='outlined'
+                    placeholder={placeholder}
                     className={classes.forTextField}
                     // FOR UNDERLINE STYLE
                     classes={classesBase}

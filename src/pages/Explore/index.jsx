@@ -40,11 +40,8 @@ const Explore = () => {
     // LOGIC
     const classes = useStyles();
     const SearchShow = useSelector(state => state.SearchShow)
-    console.log('this is search bar state', SearchShow)
 
     const CardShow = useSelector(state => state.CardShow)
-
-    console.log('this is card state', CardShow)
 
     const [advertisement, setAdvertisement] = useState([])
     useEffect(() => {
@@ -60,17 +57,17 @@ const Explore = () => {
 
             <Grid container className={classes.MainContainer} >
                 {/* SEARCH FILTER */}
-                <Grid item md={3} xs={12} className={classes.hideComponent} style={{ display: SearchShow ? 'block' : 'none' }}  >
+                <Grid item xs={12} md={4} lg={3} className={classes.hideComponent} style={{ display: SearchShow ? 'block' : 'none' }}  >
                     <Filter />
                 </Grid>
                 {/* SEARCH RESULTS */}
-                <Grid item md={9} xs={12} style={{ display: CardShow ? 'block' : 'none' }} >
+                <Grid item xs={12} md={8} lg={9} style={{ display: CardShow ? 'block' : 'none' }} >
                     <ExploreTabs />
                 </Grid>
             </Grid>
             <div className={classes.FooterForMobileDevices} >
                 <FooterForMobileDevices
-                    toSearchText='PROPERTY LIST'
+                    toSearchText='LISTINGS'
                     id='search-1'
                 />
             </div>

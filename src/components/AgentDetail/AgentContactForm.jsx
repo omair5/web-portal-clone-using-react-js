@@ -7,7 +7,9 @@ import PhoneInput from 'react-phone-input-2'
 import PhoneRoundedIcon from '@material-ui/icons/PhoneRounded';
 import 'react-phone-input-2/lib/style.css'
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import PopUpMessage from '../FrequentlyUsed/PopUpMessage'
+import FailurePopUpMessage from '../FrequentlyUsed/FailurePopUpMessage'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -78,11 +80,12 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const AgentContactForm = ({ propertyId, userData }) => {
+const AgentContactForm = ({ agent_id, agent_name, mobile_phone }) => {
     const classes = useStyles();
     const dispatch = useDispatch()
     const [formFields, setformFields] = useState({ name: '', email: '', message: '' })
     const [phone, setphone] = useState('')
+    const AuthorizedUser = useSelector(state => state.AuthorizedUserReducer)
 
     const HandleForm = (e) => {
         setformFields({ ...formFields, [e.target.name]: e.target.value })
@@ -95,29 +98,35 @@ const AgentContactForm = ({ propertyId, userData }) => {
     const HandleSubmit = (e) => {
         e.preventDefault()
         const formData = {
-            p_id: propertyId,
+            accesstoken: localStorage.getItem('secretkey'),
+            message: `${formFields.message}.
+            This Enquiry Form is Submitted From Agent Deatil page
+            For The Agent ${agent_name} Having Agent Id ${agent_id} `,
             name: formFields.name,
             p_number: phone,
-            email: formFields.email,
-            message: formFields.message,
-            user_data: userData
+            a_id: agent_id
         }
-        console.log(formData)
+        if (localStorage.getItem('secretkey')) {
+            console.log('form submitted successfully', formData)
+            axios.post('http://localhost:3200/auth/agent_contact', formData)
+                .then(res => {
+                    console.log(res)
+                    if (res.status === 201) {
+                        setformFields({ name: '', email: '', message: '' })
+                        setphone('')
+                        dispatch({ type: 'open_FrequentlyUsed_PopUpMessage' })
+                    }
+                    else {
+                        dispatch({ type: 'open_FrequentlyUsed_Failure_PopUpMessage' })
+                    }
+                })
+                .catch(err => console.log(err))
 
-        axios.post('http://localhost:3200/auth/property_contact', formData)
-            .then(res => {
-                if (res.status === 201) {
-                    setformFields({ name: '', email: '', message: '' })
-                    setphone('')
-                    dispatch({ type: 'open_FrequentlyUsed_PopUpMessage' })
-                }
-                else {
-                    dispatch({ type: 'open_FrequentlyUsed_Failure_PopUpMessage' })
-                }
-            })
-            .catch(err => console.log(err))
+        }
+        else {
+            dispatch({ type: 'OpenSignInDialog' })
+        }
     }
-
 
     return (
         <Paper className={classes.paper} >
@@ -125,7 +134,7 @@ const AgentContactForm = ({ propertyId, userData }) => {
             <form onSubmit={HandleSubmit}>
 
                 {/* FOR CALL */}
-                <a href="tel:+15555551212" className={classes.callButton}>
+                <a href={`tel:${mobile_phone}`} className={classes.callButton}>
                     <div className={classes.callIconBox}>
                         <PhoneRoundedIcon style={{ fontSize: '20px', marginRight: '5px' }} />
                         <p>CALL</p>
@@ -148,10 +157,10 @@ const AgentContactForm = ({ propertyId, userData }) => {
                     TextFieldId='2'
                     InputType='email'
                     required={true}
-                    value={formFields.email}
-                    name='email'
+                    value={AuthorizedUser ? localStorage.getItem('user_email') : formFields.email} name='email'
                     callBack={HandleForm}
                     outlined='outlined'
+                    disabled={AuthorizedUser}
                 />
 
                 <h5 style={{ marginBottom: '7px' }}>Message* </h5>
@@ -181,6 +190,19 @@ const AgentContactForm = ({ propertyId, userData }) => {
                 />
                 <button className={classes.requestButton} type='submit'>REQUEST INFO</button>
             </form>
+
+            {/* SUCCESS MESSAGE */}
+            < PopUpMessage
+                heading={'ThankYou For Your Trust On Abaadee.com!'}
+                color={'green'}
+                message={'Dear User, A Representative Of Team Abaadee Will Contact You Shortly'}
+            />
+            {/* FAILURE MESSAGE */}
+            <FailurePopUpMessage
+                heading={'OOPS! SORRY SOMETHING WENT WRONG'}
+                color={'red'}
+                message={'Dear User, We Apoligize For The inconvenience! Servers Are Not Responding At This Moment Please Try Later'}
+            />
         </Paper>
     );
 }

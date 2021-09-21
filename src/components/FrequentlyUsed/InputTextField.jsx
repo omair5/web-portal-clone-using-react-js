@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 
 
-const useStylesBase = makeStyles(theme => ({
+const CssTextField = withStyles({
     root: {
-        "& .MuiInput-underline:after": {
-            borderBottomColor: "orange",
-        }
+        '& .MuiOutlinedInput-root': {
+            '&.Mui-focused fieldset': {
+                borderColor: '#fcb812',
+            },
+        },
     },
-}));
+})(TextField);
 
 const useStyles = makeStyles({
     inputfield: {
@@ -22,13 +24,14 @@ const useStyles = makeStyles({
         fontSize: '15px',
     },
     helperText: {
-        fontSize: '10px'
+        fontSize: '10px',
+        color: 'rgb(59, 70, 86)',
+        fontWeight: 'bold'
     }
 });
 
-const InputTextField = ({ TextFieldId, TextFieldPlaceHolder, InputType, required, pattern, title, autoComplete, labelText, helperText, autofocus, value, callBack, name, passwordVisibility, error, outlined, maxlength }) => {
+const InputTextField = ({ TextFieldId, TextFieldPlaceHolder, InputType, required, pattern, title, autoComplete, labelText, helperText, autofocus, value, callBack, name, passwordVisibility, error, outlined, maxlength, disabled }) => {
     const classes = useStyles();
-    const classesBase = useStylesBase();
     const [show, setShow] = useState(false)
 
     const HandleVisibleClick = () => {
@@ -38,21 +41,21 @@ const InputTextField = ({ TextFieldId, TextFieldPlaceHolder, InputType, required
     return (
         <>
             <div>
-                <TextField
+                <CssTextField
                     id={TextFieldId}
                     placeholder={TextFieldPlaceHolder}
                     type={show ? 'text' : InputType}
                     required={required}
                     label={labelText}
                     helperText={helperText}
-                    classes={classesBase}
                     className={classes.inputfield}
                     autoFocus={autofocus}
                     value={value}
                     onChange={callBack}
                     name={name}
                     error={error}
-                    variant={outlined}
+                    variant="outlined"
+                    disabled={disabled}
                     // FOR INPUT STYLING
                     // inputProps are used to pass attributes native to the underlying 
                     // HTML input element, e.g. name, id, style.

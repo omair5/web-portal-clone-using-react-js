@@ -14,6 +14,7 @@ const GetProjectData = async (project_id) => {
         longitude: data.longitude,
         payment_method: data.payment_option ? data.payment_option : null,
         price: data.price,
+        phone_number: data.phone_no,
         project_logo: data.project_logo_image,
         project_name: data.project_name,
         project_type: data.project_type ? data.project_type : null,

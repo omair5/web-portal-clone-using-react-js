@@ -49,7 +49,14 @@ const Projects = () => {
     // Fetching Developer Name
     useEffect(() => {
         (async () => {
-            setdeveloperNameList(await HomeFetchDeveloperName())
+            if (localStorage.getItem("developer_names")) {
+                setdeveloperNameList(JSON.parse(localStorage.getItem("developer_names")))
+            }
+            else {
+                const response = await HomeFetchDeveloperName()
+                setdeveloperNameList(response)
+                localStorage.setItem("developer_names", JSON.stringify(response));
+            }
         }
         )()
     }, [])
@@ -58,13 +65,21 @@ const Projects = () => {
     useEffect(() => {
         (
             async () => {
-                setprojectName(await HomeGetProjectName())
+                if (localStorage.getItem("project_names")) {
+                    setprojectName(JSON.parse(localStorage.getItem("project_names")))
+                }
+                else {
+                    const response = await HomeGetProjectName()
+                    setprojectName(response)
+                    localStorage.setItem("project_names", JSON.stringify(response));
+                }
             }
         )()
     }, [])
 
     const HandleSubmit = () => {
         history.push('/explore')
+        dispatch({ type: 'do_not_run_useeffect_on_mount_for_project_tab' })
         dispatch({ type: 'set_current_tab_to_project' })
         dispatch({ type: '3' })
         dispatch({ type: 'clear_project_list' })
@@ -80,28 +95,35 @@ const Projects = () => {
         }
         axios.post('http://localhost:3200/project/serchproject', search_data).then(response => {
             console.log('this is from SEARCH', response)
-            if (response.data.length !== 0) {
-                const project_card_data = response.data.map((value) => {
-                    return {
-                        city: value.city,
-                        location: value.location,
-                        price: value.price,
-                        project_cover_image: value.project_cover_image,
-                        project_logo_image: value.project_logo_image,
-                        project_name: value.project_name,
-                        project_id: value.project_id
 
-                    }
-                })
-                dispatch({ type: 'hide_project_list_skeleton' })
-                dispatch({ type: 'project_listings_are_found_hide_message' })
-                dispatch({ type: 'set_project_list', payload: project_card_data })
+            if (response.status === 201) {
+                if ((response.data.length === 0) || response.data === '') {
+                    dispatch({ type: 'hide_project_list_skeleton' })
+                    dispatch({ type: 'no_project_listings_are_found_show_message' })
+                    dispatch({ type: 'run_useeffect_on_mount_for_project_tab' })
 
+                }
+                else {
+                    const project_card_data = response.data.map((value) => {
+                        return {
+                            city: value.city,
+                            location: value.location,
+                            price: value.price,
+                            project_cover_image: value.project_cover_image,
+                            project_logo_image: value.project_logo_image,
+                            project_name: value.project_name,
+                            project_id: value.project_id
+                        }
+                    })
+                    dispatch({ type: 'hide_project_list_skeleton' })
+                    dispatch({ type: 'project_listings_are_found_hide_message' })
+                    dispatch({ type: 'set_project_list', payload: project_card_data })
+                }
             }
             else {
-                dispatch({ type: 'hide_project_list_skeleton' })
-                dispatch({ type: 'no_project_listings_are_found_show_message' })
+                console.log('sorry something went wrong')
             }
+
 
         }).catch(err => {
             console.log(err)

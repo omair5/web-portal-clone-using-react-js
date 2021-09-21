@@ -9,7 +9,7 @@ import DeveloperContactDetail from '../../components/DeveloperDetail/DeveloperCo
 import DeveloperDescription from '../../components/DeveloperDetail/DeveloperDescription'
 import { makeStyles } from '@material-ui/core/styles';
 import DeveloperSocialLinks from '../../components/DeveloperDetail/DeveloperSocialLinks';
-// import DeveloperProperties from '../../components/DeveloperDetail/DeveloperProperties';
+import DeveloperProperties from '../../components/DeveloperDetail/DeveloperProperties';
 import MemberOfInstitutions from '../../components/DeveloperDetail/MemberOfInstitutions';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -42,6 +42,7 @@ const DeveloperDetail = () => {
             setdeveloperDetail(await GetAgentDeveloperDetail('developer', id))
         }
         DetailOfAgentAndDeveloper()
+        window.scrollTo(0, 0)
     }, [id])
 
     // console.log('looking forthis ', developerDetail)
@@ -85,7 +86,7 @@ const DeveloperDetail = () => {
                                 {
                                     (developerDetail.facebook_link === '' && developerDetail.twitter_link === '' && developerDetail.youtube_link === '' && developerDetail.insta_ink === '' && developerDetail.other_link === '') ? null :
                                         <div>
-                                            <h1>SOCIAL PLATFORMS</h1>
+                                            <h1>SOCIAL PRESENCE</h1>
                                             <DeveloperSocialLinks
                                                 fb={developerDetail.facebook_link}
                                                 twitter={developerDetail.twitter_link}
@@ -121,17 +122,33 @@ const DeveloperDetail = () => {
 
                             {/* CONTACT FORM GRID */}
                             <Grid item xs={12} md={4} >
-                                <DeveloperContactForm />
+                                <DeveloperContactForm
+                                    developer_id={id}
+                                    developerName={developerDetail.name}
+                                    mobilePhone={developerDetail.p_number}
+                                />
                             </Grid>
                         </Grid>
 
-                        {/* AGENT PROPERTIES */}
-                        <h1 className={classes.agentProperties}>DEVELOPER PROJECTS</h1>
-                        {/* <DeveloperProperties /> */}
+                        {/* DEVELOPER PROJECTS */}
+                        {
+                            developerDetail.project.length !== 0 &&
+
+                            <div>
+                                <h1 className={classes.agentProperties}>DEVELOPER PROJECTS</h1>
+                                <DeveloperProperties
+                                    DeveloperProjects={developerDetail.project}
+                                />
+                            </div>
+                        }
+
                     </Container>
                     <GoToTop />
                 </div> :
-                <SkeletonForAgentAndDeveloperDetail />
+                <SkeletonForAgentAndDeveloperDetail
+                    page_name='DEVELOPER'
+                    project_or_properties='DEVELOPER PROJECTS'
+                />
             }
         </Layout>
     );

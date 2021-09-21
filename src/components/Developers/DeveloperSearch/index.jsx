@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
+import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import UseStyles from '../../Explore/ExploreSearch/SearchStyles'
 import { useSelector } from 'react-redux'
 import HomeGetLocations from '../../../Services/HomeGetLocations';
@@ -7,12 +8,15 @@ import Select from 'react-select';
 import { colourStyles } from '../../Home/Tabs/ColourStyles'
 // import { PropertyTypeOptions, formatGroupLabel } from '../../Home/Tabs/SelectGroupStyles'
 import HomeFetchDeveloperName from '../../../Services/HomeFetchDeveloperName'
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
 
 
 const DeveloperSearch = () => {
     const classes = UseStyles();
+    const dispatch = useDispatch()
     const cities_options_list = useSelector(state => state.Home_cities_Reducer)
-    const [selectedCity, setselectedCity] = useState({ label: "Karachi", value: 'Karachi' })
+    const [selectedCity, setselectedCity] = useState('')
     const [cityLocations, setcityLocations] = useState([])
     // const [SelectedLocation, setSelectedLocation] = useState('')
     const [searchData, setsearchData] = useState({ DeveloperName: '', location: '' })
@@ -27,7 +31,14 @@ const DeveloperSearch = () => {
     // Fetching Developer Name
     useEffect(() => {
         (async () => {
-            setdeveloperNameList(await HomeFetchDeveloperName())
+            if (localStorage.getItem("developer_names")) {
+                setdeveloperNameList(JSON.parse(localStorage.getItem("developer_names")))
+            }
+            else {
+                const response = await HomeFetchDeveloperName()
+                setdeveloperNameList(response)
+                localStorage.setItem("developer_names", JSON.stringify(response));
+            }
         }
         )()
     }, [])
@@ -69,16 +80,44 @@ const DeveloperSearch = () => {
     }
 
     const HandleSearchData = (selectedOption, e) => {
+        console.log(selectedOption)
         setsearchData({ ...searchData, [e.name]: selectedOption })
     }
 
-    const handleSubmit = () => {
+    const handleResetFilter = () => {
+        setselectedCity('')
+        setsearchData({ DeveloperName: '', location: '' })
+    }
+
+    const handleSearchSubmit = () => {
         const formData = {
             city: selectedCity.value,
-            // location: SelectedLocation,
-            developer_name: searchData.DeveloperName,
+            location: searchData.location.value,
+            developer_name: searchData.DeveloperName.value,
         }
-        console.log(formData)
+        console.log('this is form data', formData)
+        axios.post('http://localhost:3200/developer/serch_developer', formData).then(
+            response => {
+                console.log('this is search response of developers', response)
+                if (response.status === 201) {
+                    if ((response.data.length === 0) || response.data === '') {
+                        dispatch({ type: 'DeveloperSearchToggle', payload: false })
+                        dispatch({ type: 'DeveloperCardToggle', payload: true })
+                        dispatch({ type: 'clear_developer_list' })
+                        dispatch({ type: 'set_developer_list', payload: JSON.parse(localStorage.getItem("developers_card_data")) })
+                    }
+                    else {
+                        dispatch({ type: 'DeveloperSearchToggle', payload: false })
+                        dispatch({ type: 'DeveloperCardToggle', payload: true })
+                        dispatch({ type: 'clear_developer_list' })
+                        dispatch({ type: 'set_developer_list', payload: response.data })
+                    }
+                }
+                else {
+                    console.log('sorry something went wrong')
+                }
+            }
+        ).catch(err => console.log(err))
     }
 
     return (
@@ -108,7 +147,7 @@ const DeveloperSearch = () => {
                     value={searchData.location}
                     onChange={HandleSearchData}
                     isLoading={cityLocations.length === 0 && true}
-                    isClearable={true}
+                    // isClearable={true}
                     isSearchable={true}
                     name="location"
                     options={cityLocations}
@@ -128,7 +167,7 @@ const DeveloperSearch = () => {
                     value={searchData.DeveloperName}
                     onChange={HandleSearchData}
                     isLoading={developerNameList.length === 0 && true}
-                    isClearable={true}
+                    // isClearable={true}
                     isSearchable={true}
                     name="DeveloperName"
                     options={developerNameList}
@@ -162,12 +201,16 @@ const DeveloperSearch = () => {
             </div> */}
 
             {/* SEARCH BUTTON  */}
-            <div className={classes.searchButtonBox} onClick={handleSubmit}>
+            <div className={classes.searchButtonBox} onClick={handleSearchSubmit}>
                 <div><SearchIcon style={{ fontSize: '25px' }} /></div>
                 <div className={classes.search}>SEARCH</div>
+            </div>
+
+            <div className={classes.searchButtonBox} onClick={handleResetFilter}>
+                <div><RotateLeftIcon style={{ fontSize: '25px' }} /></div>
+                <div className={classes.search}>RESET FILTER</div>
             </div>
         </div >
     );
 }
-
 export default React.memo(DeveloperSearch)
